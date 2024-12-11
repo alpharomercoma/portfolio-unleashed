@@ -45,7 +45,7 @@ const navLinks: NavLink[] = [
         icon: <FaChalkboardTeacher className="h-6 w-6" />,
     },
     {
-        name: "Award & Honors",
+        name: "Awards",
         href: "#awards",
         icon: <TbWorld className="h-6 w-6" />,
     },

@@ -23,7 +23,7 @@ export default function PortfolioHero() {
       </div>
 
       {/* Main Content */}
-      <div className="relative mx-auto max-w-7xl px-4 pt-80 pb-12 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 pt-40 lg:pt-80 pb-12 sm:px-6 lg:px-8">
         <div className="relative pb-8">
           {/* Profile Section */}
           <div className="flex flex-col items-center text-center lg:flex-row lg:items-start lg:text-left">
