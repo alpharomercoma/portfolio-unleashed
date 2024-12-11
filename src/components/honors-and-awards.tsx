@@ -100,7 +100,7 @@ const awards: Award[] = [
     },
 ];
 
-export default function HonorsAndAwardsGrid() {
+export default function HonorsAndAwards() {
     const [currentPage, setCurrentPage] = useState(0);
     const [activeTab, setActiveTab] = useState<'technical' | 'language'>('technical');
     const [isMobile, setIsMobile] = useState(false);

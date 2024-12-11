@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
 
 interface Project {
     title: string;
@@ -145,14 +144,13 @@ const projects: Record<string, Project[]> = {
     ],
 };
 
-export function ProjectsSection() {
-    const [activeTab, setActiveTab] = useState("Software Engineering");
+export function Projects() {
 
     return (
         <section id="projects" className="py-12">
             <div className="container mx-auto px-4">
                 <h2 className="text-3xl font-bold mb-10 text-center">Projects</h2>
-                <Tabs defaultValue="Software Engineering" className="w-full" onValueChange={setActiveTab}>
+                <Tabs defaultValue="Software Engineering" className="w-full">
                     <TabsList className="flex items-stretch w-full justify-around flex-wrap h-auto space-y-1 mb-6 sm:mb-8 rounded-lg p-1">
                         {Object.keys(projects).map((category) => (
                             <TabsTrigger key={category} value={category} className={`px-4 py-2 rounded-lg font-bold cursor-pointer}`}>

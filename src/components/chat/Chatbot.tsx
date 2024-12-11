@@ -7,9 +7,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChat } from 'ai/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { ChatInput } from './ChatInput';
+import { ChatInput } from "./ChatInput";
 import { ChatMessage } from './ChatMessage';
-import { SkeletonLoader } from './SkeletonLoader';
+import { SkeletonLoader } from "./SkeletonLoader";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
