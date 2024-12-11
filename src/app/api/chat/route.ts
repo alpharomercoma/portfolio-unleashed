@@ -1,51 +1,53 @@
-import { StreamingTextResponse, LangChainStream, Message } from 'ai'
-import { ChatGoogleGenerativeAI } from '@langchain/google-genai'
-import { PineconeClient } from '@pinecone-database/pinecone'
-import { VectorDBQAChain } from 'langchain/chains'
-import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai'
-import { PineconeStore } from 'langchain/vectorstores/pinecone'
+import { google } from '@ai-sdk/google';
+import { convertToCoreMessages, streamText } from "ai";
+import fs from 'fs/promises';
+import { NextRequest } from 'next/server';
+import path from 'path';
+let portfolioCache: string | null = null
 
-export const runtime = 'edge'
+export const maxDuration = 30;
+async function getPortfolioData() {
+  if (portfolioCache) return portfolioCache
 
-const genAI = new ChatGoogleGenerativeAI({
-  modelName: 'gemini-pro',
-  apiKey: process.env.GOOGLE_API_KEY!,
-  streaming: true,
-})
-
-const pinecone = new PineconeClient()
-
-export async function POST(req: Request) {
-  const { messages } = await req.json()
-  const { stream, handlers } = LangChainStream()
-
-  await pinecone.init({
-    apiKey: process.env.PINECONE_API_KEY!,
-    environment: process.env.PINECONE_ENVIRONMENT!,
-  })
-
-  const vectorStore = await PineconeStore.fromExistingIndex(
-    new GoogleGenerativeAIEmbeddings(),
-    { pineconeIndex: pinecone.Index(process.env.PINECONE_INDEX_NAME!) }
-  )
-
-  const chain = VectorDBQAChain.fromLLM(genAI, vectorStore)
-
-  const prompt = `You are Zea, an AI assistant for Alpha's software engineering portfolio. Your role is to provide information about Alpha's projects, skills, and experience. Use the following chat history and the user's question to provide a helpful response. If you don't have specific information, you can provide general advice or ask for clarification.
-
-Chat history:
-${messages.map((m: Message) => `${m.role}: ${m.content}`).join('\n')}
-
-
-`
-
-  const response = await chain.call({
-    query: messages[messages.length -1].content,
-    chat_history: messages.map((m: Message) => `${m.role}: ${m.content}`).join('\n')
-  })
-
-  const streamResponse = await genAI.call(prompt + response.text)
-
-  return new StreamingTextResponse(streamResponse)
+  const filePath = path.join(process.cwd(), 'data', 'portfolio.txt');
+  portfolioCache = await fs.readFile(filePath, 'utf-8');
+  return portfolioCache;
 }
 
+export async function POST(req: NextRequest) {
+  const { messages } = await req.json()
+  const portfolioInfo = await getPortfolioData()
+
+  const result = streamText(
+    {
+      model: google('gemini-1.5-pro-latest'),
+      system: `
+<Role>
+You are Zea, a friendly and knowledgeable AI assistant for a portfolio website. Your purpose is to help visitors learn about the portfolio owner and their work.
+</Role>
+
+<Instruction>
+Respond to the user's query based on the provided portfolio information. Be concise, friendly, and informative.
+</Instruction>
+
+<Context>
+Portfolio Information:
+${portfolioInfo}
+</Context>
+
+<Constraint>
+- Only provide information that is directly related to the portfolio or can be inferred from it.
+- If you don't have specific information, politely say so and offer to help with something else.
+- Keep your responses concise and to the point.
+</Constraint>
+
+<Example>
+User: What projects has the portfolio owner worked on?
+Zea: Based on the portfolio information, the owner has worked on several exciting projects! These include a real-time chat application using WebSockets, an e-commerce platform with a recommendation system, and a data visualization dashboard for financial analytics. Each project showcases different skills in web development and data analysis. Would you like more details about any specific project?
+</Example>
+      `,
+      messages: convertToCoreMessages(messages)
+    }
+  );
+  return result.toDataStreamResponse();
+}

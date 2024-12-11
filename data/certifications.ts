@@ -51,7 +51,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "7",
-    name: "Frontend Developer(React) ",
+    name: "Frontend Developer(React)",
     company: "HackerRank",
     companyLogo: "/certificates/logo/hackerrank.png",
     receivedDate: "2023-11-23",
@@ -75,7 +75,7 @@ export const certifications: Certification[] = [
   },
   {
     id: "10",
-    name: "MongoDB Node.js Developer ",
+    name: "MongoDB Node.js Developer",
     company: "MongoDB",
     companyLogo: "/certificates/logo/mongodb.png",
     receivedDate: "2024-01-22",

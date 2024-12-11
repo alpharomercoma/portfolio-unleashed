@@ -1,5 +1,4 @@
 import Image from 'next/image';
-
 const affiliations = [
     { name: 'FEU Tech', logo: '/affiliations/fit.png' },
     { name: 'FEU Tech ACM', logo: '/affiliations/fit_acm.png' },

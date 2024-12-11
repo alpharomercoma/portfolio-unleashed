@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@ai-sdk/google':
+        specifier: ^1.0.9
+        version: 1.0.9(zod@3.24.1)
+      '@google/generative-ai':
+        specifier: ^0.21.0
+        version: 0.21.0
+      '@langchain/core':
+        specifier: ^0.3.23
+        version: 0.3.23(openai@4.76.1(encoding@0.1.13)(zod@3.24.1))
       '@langchain/google-genai':
         specifier: ^0.1.5
         version: 0.1.5(@langchain/core@0.3.23(openai@4.76.1(encoding@0.1.13)(zod@3.24.1)))(zod@3.24.1)
@@ -68,6 +77,9 @@ importers:
       react-icons:
         specifier: ^5.4.0
         version: 5.4.0(react@19.0.0)
+      server:
+        specifier: link:@google/generative-ai/server
+        version: link:@google/generative-ai/server
       tailwind-merge:
         specifier: ^2.5.5
         version: 2.5.5
@@ -104,6 +116,12 @@ importers:
         version: 5.7.2
 
 packages:
+
+  '@ai-sdk/google@1.0.9':
+    resolution: {integrity: sha512-fIwKAhMiYCrWDQG3SMUkld3RPKq1yr1yrjFAtjf8Vzp0nKq+DdVtfmnUFFSOawn+rzJLGfhPc42H8ShFX89djQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
 
   '@ai-sdk/provider-utils@2.0.4':
     resolution: {integrity: sha512-GMhcQCZbwM6RoZCri0MWeEWXRt/T+uCxsmHEsTwNvEH3GDjNzchfX25C8ftry2MeEOOn6KfqCLSKomcgK6RoOg==}
@@ -2559,6 +2577,12 @@ packages:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
 snapshots:
+
+  '@ai-sdk/google@1.0.9(zod@3.24.1)':
+    dependencies:
+      '@ai-sdk/provider': 1.0.2
+      '@ai-sdk/provider-utils': 2.0.4(zod@3.24.1)
+      zod: 3.24.1
 
   '@ai-sdk/provider-utils@2.0.4(zod@3.24.1)':
     dependencies:
