@@ -1,9 +1,9 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface Award {
     title: string;
@@ -156,7 +156,7 @@ function HonorsAndAwards() {
                         disabled={currentPage === 0}
                         className="flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground disabled:opacity-50 transition-colors duration-200"
                     >
-                        <ChevronLeft size={20} className="mr-2" />
+                        <FaChevronLeft size={20} className="mr-2" />
                         <span className="hidden sm:inline">Previous</span>
                     </button>
                     <span className="text-sm font-medium">
@@ -168,7 +168,7 @@ function HonorsAndAwards() {
                         className="flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground disabled:opacity-50 transition-colors duration-200"
                     >
                         <span className="hidden sm:inline">Next</span>
-                        <ChevronRight size={20} className="ml-2" />
+                        <FaChevronRight size={20} className="ml-2" />
                     </button>
                 </div>
             </div>

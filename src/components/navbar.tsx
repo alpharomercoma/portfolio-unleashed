@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import {
-    FaBlog,
-    FaChalkboardTeacher,
+    FaAward,
+    FaBuilding,
+    FaCertificate,
     FaHome,
-    FaImages,
     FaRocket,
+    FaStar
 } from "react-icons/fa";
-import { TbWorld } from "react-icons/tb";
 import { socials } from "./Socials";
 interface NavLink {
     name: string;
@@ -32,22 +32,22 @@ const navLinks: NavLink[] = [
     {
         name: "Certifications",
         href: "#certifications",
-        icon: <FaBlog className="h-6 w-6" />,
+        icon: <FaCertificate className="h-6 w-6" />,
     },
     {
         name: "Affiliations",
         href: "#affiliations",
-        icon: <FaImages className="h-6 w-6" />,
+        icon: <FaBuilding className="h-6 w-6" />,
     },
     {
         name: "Recommendations",
         href: "#recommendations",
-        icon: <FaChalkboardTeacher className="h-6 w-6" />,
+        icon: <FaStar className="h-6 w-6" />,
     },
     {
         name: "Awards",
         href: "#awards",
-        icon: <TbWorld className="h-6 w-6" />,
+        icon: <FaAward className="h-6 w-6" />,
     },
 ];
 

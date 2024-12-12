@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Cloud, Code, ExternalLink, HeartHandshake, Mail, MapPin, School2, Zap } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
-import { FaGithub, FaGlobe, FaGooglePlay, FaLinkedin, FaMicrosoft } from "react-icons/fa";
+import { FaCloud, FaCode, FaEnvelope, FaExternalLinkAlt, FaGithub, FaGlobe, FaGooglePlay, FaHeart, FaLinkedin, FaMapPin, FaMicrosoft, FaUniversity, } from "react-icons/fa";
+import { FaBoltLightning } from "react-icons/fa6";
 function Hero() {
   return (
     <div className="relative w-full">
@@ -38,6 +38,7 @@ function Hero() {
                 priority
               />
             </div>
+            {/* <School2 className="h-5 w-5 text-muted-foreground" /> */}
 
             {/* Name, Title, Description, and Buttons Section */}
             <div className="flex-1 lg:flex lg:justify-between lg:gap-8">
@@ -52,19 +53,19 @@ function Hero() {
                     Multilingual
                   </Badge>
                   <Badge variant="secondary" className="flex items-center gap-1">
-                    <Zap className="h-3 w-3" />
+                    <FaBoltLightning className="h-3 w-3" />
                     ML Expert
                   </Badge>
                   <Badge variant="secondary" className="flex items-center gap-1">
-                    <Code className="h-3 w-3" />
+                    <FaCode className="h-3 w-3" />
                     Full Stack Dev
                   </Badge>
                   <Badge variant="secondary" className="flex items-center gap-1">
-                    <Cloud className="h-3 w-3" />
+                    <FaCloud className="h-3 w-3" />
                     Cloud Architect
                   </Badge>
                   <Badge variant="secondary" className="flex items-center gap-1">
-                    <HeartHandshake className="h-3 w-3" />
+                    <FaHeart className="h-3 w-3" />
                     Open Source Contributor
                   </Badge>
                 </div>
@@ -81,13 +82,13 @@ function Hero() {
               <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row lg:flex-col justify-center gap-3 lg:justify-start">
                 <Button asChild>
                   <Link href="mailto:alpharomercoma@proton.me">
-                    <Mail className="mr-2 h-4 w-4" />
+                    <FaEnvelope className="mr-2 h-4 w-4" />
                     Contact Me
                   </Link>
                 </Button>
                 <Button variant="outline" asChild>
                   <Link href="https://flowcv.com/resume/p5r0itrtfm" target="_blank">
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <FaExternalLinkAlt className="mr-2 h-4 w-4" />
                     View Resume
                   </Link>
                 </Button>
@@ -98,7 +99,7 @@ function Hero() {
           {/* Details Grid */}
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="flex items-center gap-4 p-4">
-              <MapPin className="h-5 w-5 text-muted-foreground" />
+              <FaMapPin className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="font-medium">Location</p>
                 <p className="text-sm text-muted-foreground">Seattle, Washington, United States</p>
@@ -114,7 +115,7 @@ function Hero() {
             </Card>
 
             <Card className="flex items-center gap-4 p-4">
-              <School2 className="h-5 w-5 text-muted-foreground" />
+              <FaUniversity className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="font-medium">FEU Institute of Technology</p>
                 <p className="text-sm text-muted-foreground">Computer Science</p>

@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChat } from 'ai/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { FaMessage, FaX } from "react-icons/fa6";
 import { ChatInput } from './ChatInput';
 import { ChatMessage } from './ChatMessage';
 import { SkeletonLoader } from './SkeletonLoader';
@@ -122,7 +123,7 @@ export default function Chatbot() {
                   </div>
                 </div>
                 <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                  <FaX size={24} />
                 </Button>
               </CardHeader>
               <CardContent className="flex-grow p-4 overflow-hidden">
@@ -157,8 +158,8 @@ export default function Chatbot() {
             <Button
               onClick={() => setIsOpen(true)}
               className="rounded-full w-14 h-14 flex items-center justify-center shadow-lg bg-primary hover:bg-primary/90"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" /></svg>
+              >
+                <FaMessage size={24} />
             </Button>
           </motion.div>
         )}

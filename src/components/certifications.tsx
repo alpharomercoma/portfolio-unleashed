@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 import { useEffect, useMemo, useState } from 'react';
 import { certifications } from '../../data/certifications';
 import { CertificationCard } from './certification-card';
@@ -83,7 +83,7 @@ function Certifications() {
                         disabled={currentPage === 0}
                         className="flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground disabled:opacity-50 transition-colors duration-200"
                     >
-                        <ChevronLeft size={20} className="mr-2" />
+                        <FaChevronLeft size={20} className="mr-2" />
                         <span className="hidden sm:inline">Previous</span>
                     </button>
                     <span className="text-sm font-medium">
@@ -95,7 +95,7 @@ function Certifications() {
                         className="flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground disabled:opacity-50 transition-colors duration-200"
                     >
                         <span className="hidden sm:inline">Next</span>
-                        <ChevronRight size={20} className="ml-2" />
+                        <FaChevronRight size={20} className="ml-2" />
                     </button>
                 </div>
             </div>
