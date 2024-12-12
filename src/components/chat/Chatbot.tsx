@@ -14,7 +14,7 @@ import { SkeletonLoader } from './SkeletonLoader';
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [showSamplePrompts, setShowSamplePrompts] = useState(true);
-  const { messages, input, handleInputChange, handleSubmit, isLoading, setInput, append } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, append } = useChat({
     api: '/api/chat',
     initialMessages: [
       {
@@ -33,6 +33,7 @@ export default function Chatbot() {
   }, [messages]);
 
   useEffect(() => {
+    if (window.innerWidth < 640) return;
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, 2000);
