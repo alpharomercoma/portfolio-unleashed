@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Cloud, Code, ExternalLink, Github, Globe2, HeartHandshake, Linkedin, Mail, MapPin, Play, School2, Store, Zap } from 'lucide-react';
+import { Cloud, Code, ExternalLink, HeartHandshake, Mail, MapPin, School2, Zap } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
-
+import { FaGithub, FaGlobe, FaGooglePlay, FaLinkedin, FaMicrosoft } from "react-icons/fa";
 function Hero() {
   return (
     <div className="relative w-full">
@@ -23,7 +23,7 @@ function Hero() {
       </div>
 
       {/* Main Content */}
-      <div className="relative mx-auto max-w-7xl px-4 pt-40 lg:pt-80 pb-12 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 pt-28 lg:pt-80 pb-12 sm:px-6 lg:px-8">
         <div className="relative pb-8">
           {/* Profile Section */}
           <div className="flex flex-col items-center text-center lg:flex-row lg:items-start lg:text-left">
@@ -43,12 +43,12 @@ function Hero() {
             <div className="flex-1 lg:flex lg:justify-between lg:gap-8">
               <div className="lg:flex-1">
                 <h1 className="text-3xl font-bold sm:text-4xl">Alpha Romer Coma</h1>
-                <p className="mt-2 text-xl text-muted-foreground text-balance">Software Engineer | Machine Learning Engineer</p>
+                <p className="mt-2 text-xl text-muted-foreground text-balance">Software Engineer && Machine Learning Engineer</p>
 
                 {/* Badges */}
                 <div className="mt-4 flex flex-wrap justify-center gap-2 lg:justify-start">
                   <Badge variant="secondary" className="flex items-center gap-1">
-                    <Globe2 className="h-3 w-3" />
+                    <FaGlobe className="h-3 w-3" />
                     Multilingual
                   </Badge>
                   <Badge variant="secondary" className="flex items-center gap-1">
@@ -78,7 +78,7 @@ function Hero() {
               </div>
 
               {/* Action Buttons - Responsive Position */}
-              <div className="mt-6 flex flex-col sm:flex-row lg:flex-col justify-center gap-3 lg:justify-start">
+              <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row lg:flex-col justify-center gap-3 lg:justify-start">
                 <Button asChild>
                   <Link href="mailto:alpharomercoma@proton.me">
                     <Mail className="mr-2 h-4 w-4" />
@@ -106,7 +106,7 @@ function Hero() {
             </Card>
 
             <Card className="flex items-center gap-4 p-4">
-              <Github className="h-5 w-5 text-muted-foreground" />
+              <FaGithub className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="font-medium">GitHub Campus Expert</p>
                 <p className="text-sm text-muted-foreground">5x GitHub, 1x Oracle, Salesforce, & Microsoft</p>
@@ -125,25 +125,25 @@ function Hero() {
           {/* Social Links */}
           <div className="mt-8 grid gap-4 grid-cols-2 lg:grid-cols-4">
             <SocialCard
-              icon={<Github className="h-5 w-5" />}
+              icon={<FaGithub className="h-5 w-5" />}
               name="GitHub"
               stats="1000+ Contributions"
               url="https://github.com/alpharomercoma"
             />
             <SocialCard
-              icon={<Linkedin className="h-5 w-5" />}
+              icon={<FaLinkedin className="h-5 w-5" />}
               name="LinkedIn"
               stats="2400+ Followers"
               url="https://linkedin.com/in/alpharomercoma"
             />
             <SocialCard
-              icon={<Play className="h-5 w-5" />}
+              icon={<FaGooglePlay className="h-5 w-5" />}
               name="Google Play Store"
               stats="400+ Downloads"
               url="https://play.google.com/store/apps/dev?id=8475868964031287315"
             />
             <SocialCard
-              icon={<Store className="h-5 w-5" />}
+              icon={<FaMicrosoft className="h-5 w-5" />}
               name="Microsoft Store"
               stats="100+ Downloads"
               url="https://apps.microsoft.com/search/publisher?name=Alpha+Romer+Coma"
@@ -162,7 +162,7 @@ function SocialCard({ icon, name, stats, url }: { icon: React.ReactNode; name: s
         {icon}
         <div>
           <p className="font-medium">{name}</p>
-          <p className="text-sm text-muted-foreground">{stats}</p>
+          <p className="text-xs text-muted-foreground">{stats}</p>
         </div>
       </Card>
     </Link>
