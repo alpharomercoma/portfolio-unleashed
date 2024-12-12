@@ -344,18 +344,18 @@ export const certifications: Certification[] = [
   },
   {
     id: "43",
-    name: "GCP Fundamentals: Core Infrastructure",
-    company: "Trainocate",
-    companyLogo: "/certificates/logo/trainocate.png",
-    receivedDate: "2024-10-13",
-    link: "https://trainocatephilippines.simplecert.net/api/get-certificate?r=6774810&t=a7da4ddf0d29981ba5131e8b32011022671dcc3ca84ddc97549d3a0f4155f9dc",
-  },
-  {
-    id: "44",
     name: "AI Associate",
     company: "Salesforce",
     companyLogo: "/certificates/logo/salesforce.png",
-    receivedDate: "2024-10-06",
-    link: "/https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=1q75ORYKJY/5EcgRkX17sio5ciSo5CK2gt5/YcKKiahFYjzhs1RSE2VFNV79c3di",
+    receivedDate: "2024-11-06",
+    link: "https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=1q75ORYKJY/5EcgRkX17sio5ciSo5CK2gt5/YcKKiahFYjzhs1RSE2VFNV79c3di"
+  },
+  {
+    id: "44",
+    name: "GCP Fundamentals: Core Infrastructure",
+    company: "Trainocate",
+    companyLogo: "/certificates/logo/trainocate.png",
+    receivedDate: "2024-11-13",
+    link: "https://trainocatephilippines.simplecert.net/api/get-certificate?r=6774810&t=a7da4ddf0d29981ba5131e8b32011022671dcc3ca84ddc97549d3a0f4155f9dc",
   },
 ].toReversed();

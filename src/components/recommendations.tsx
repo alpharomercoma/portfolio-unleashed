@@ -91,7 +91,7 @@ const recommendations = [
         receivedOn: "February 2023",
     },
     {
-        name: 'Kritoffer Ian Sioson',
+        name: 'Kristoffer Ian Sioson',
         position: 'CS Undergraduate',
         company: 'FEU Tech',
         image: '/recommendations/ian.jpg',
