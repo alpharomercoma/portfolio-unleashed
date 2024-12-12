@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaCloud, FaCode, FaEnvelope, FaExternalLinkAlt, FaGithub, FaGlobe, FaGooglePlay, FaHeart, FaLinkedin, FaMapPin, FaMicrosoft, FaUniversity, } from "react-icons/fa";
 import { FaBoltLightning } from "react-icons/fa6";
+import { socials } from "./Socials";
 function Hero() {
   return (
     <div className="relative w-full">
@@ -38,7 +39,6 @@ function Hero() {
                 priority
               />
             </div>
-            {/* <School2 className="h-5 w-5 text-muted-foreground" /> */}
 
             {/* Name, Title, Description, and Buttons Section */}
             <div className="flex-1 lg:flex lg:justify-between lg:gap-8">
@@ -109,7 +109,7 @@ function Hero() {
             <Card className="flex items-center gap-4 p-4">
               <FaGithub className="h-5 w-5 text-muted-foreground" />
               <div>
-                <p className="font-medium">GitHub Campus Expert</p>
+                <p className="font-medium">GitHub Campus Expert Philippines</p>
                 <p className="text-sm text-muted-foreground">5x GitHub, 1x Oracle, Salesforce, & Microsoft</p>
               </div>
             </Card>
@@ -118,37 +118,24 @@ function Hero() {
               <FaUniversity className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="font-medium">FEU Institute of Technology</p>
-                <p className="text-sm text-muted-foreground">Computer Science</p>
+                <p className="text-sm text-muted-foreground">Computer Science, Software Engineering</p>
               </div>
             </Card>
           </div>
 
           {/* Social Links */}
           <div className="mt-8 grid gap-4 grid-cols-2 lg:grid-cols-4">
-            <SocialCard
-              icon={<FaGithub className="h-5 w-5" />}
-              name="GitHub"
-              stats="1000+ Contributions"
-              url="https://github.com/alpharomercoma"
-            />
-            <SocialCard
-              icon={<FaLinkedin className="h-5 w-5" />}
-              name="LinkedIn"
-              stats="2400+ Followers"
-              url="https://linkedin.com/in/alpharomercoma"
-            />
-            <SocialCard
-              icon={<FaGooglePlay className="h-5 w-5" />}
-              name="Google Play Store"
-              stats="400+ Downloads"
-              url="https://play.google.com/store/apps/dev?id=8475868964031287315"
-            />
-            <SocialCard
-              icon={<FaMicrosoft className="h-5 w-5" />}
-              name="Microsoft Store"
-              stats="100+ Downloads"
-              url="https://apps.microsoft.com/search/publisher?name=Alpha+Romer+Coma"
-            />
+            {
+              socials.map((social) => (
+                <SocialCard
+                  key={social.name}
+                  icon={social.icon}
+                  name={social.name}
+                  stats={social.description}
+                  url={social.link}
+                />
+              ))
+            }
           </div>
         </div>
       </div>
