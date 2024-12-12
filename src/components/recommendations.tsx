@@ -108,7 +108,7 @@ const recommendations = [
     // },
 ];
 
-export default function Recommendations() {
+function Recommendations() {
     return (
         <section className="py-12" id="recommendations">
             <div className="container mx-auto px-4">
@@ -142,3 +142,6 @@ export default function Recommendations() {
         </section>
     );
 }
+
+
+export default Recommendations;

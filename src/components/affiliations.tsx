@@ -20,7 +20,7 @@ const affiliations = [
     { name: 'Microsoft Store', logo: '/affiliations/ms_store.png' },
 ];
 
-export function Affiliations() {
+function Affiliations() {
     return (
         <section className="py-12 bg-gray-50" id="affiliations">
             <div className="container mx-auto px-4">
@@ -49,3 +49,5 @@ export function Affiliations() {
         </section>
     );
 }
+
+export default Affiliations;

@@ -7,7 +7,7 @@ import { certifications } from '../../data/certifications';
 import { CertificationCard } from './certification-card';
 import { SearchBar } from './search-bar';
 
-export function Certifications() {
+function Certifications() {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(9);
@@ -102,3 +102,5 @@ export function Certifications() {
         </section>
     );
 }
+
+export default Certifications;

@@ -51,7 +51,7 @@ const navLinks: NavLink[] = [
     },
 ];
 
-const NavBar: React.FC = () => {
+function NavBar() {
     return (
         <header className="fixed flex justify-center top-0 left-0 z-50 w-full shadow-dark backdrop-blur">
             <div className="container flex h-16 items-center justify-between px-4 md:px-6">

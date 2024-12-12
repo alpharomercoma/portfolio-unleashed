@@ -144,7 +144,7 @@ const projects: Record<string, Project[]> = {
     ],
 };
 
-export function Projects() {
+function Projects() {
 
     return (
         <section id="projects" className="py-12">
@@ -215,3 +215,6 @@ export function Projects() {
         </section>
     );
 }
+
+
+export default Projects;

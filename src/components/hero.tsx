@@ -5,7 +5,7 @@ import { Cloud, Code, ExternalLink, Github, Globe2, HeartHandshake, Linkedin, Ma
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PortfolioHero() {
+function Hero() {
   return (
     <div className="relative w-full">
       {/* Background Image Section */}
@@ -168,3 +168,6 @@ function SocialCard({ icon, name, stats, url }: { icon: React.ReactNode; name: s
     </Link>
   );
 }
+
+
+export default Hero;
