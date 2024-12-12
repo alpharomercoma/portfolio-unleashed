@@ -4,82 +4,26 @@ Alpha Romer Coma
 
 <Contact>
 alpharomercoma@proton.me
-linkedin.com/in/alpharomercoma
-github.com/alpharomercoma
+https://linkedin.com/in/alpharomercoma - 2400+ followers
+https://github.com/alpharomercoma  - 1000+ contributions
+https://play.google.com/store/apps/dev?id=8475868964031287315
+https://apps.microsoft.com/search/publisher?name=Alpha+Romer+Coma
 </Contact>
 
 <Roles>
-Software Engineer
-Machine Learning Engineer
-Cybersecurity Analyst
+- Software Engineer
+- Machine Learning Engineer
+- Cloud Engineer
 </Roles>
 
-<Affiliations>
-1. FEU Tech
-2. FEU Tech ACM
-3. GitHub
-4. GitHub Campus Expert
-5. Google Cloud Platform
-6. FEU Tech GDSC
-7. Google Cloud Manila
-8. Amazon Security User Group
-9. AI Republic
-10. ULAP.org
-11. Skilio
-12. IEEE
-13. IEEE Computer Society
-14. Google Play Store
-15. Xiaomi App Store
-16. Huawei App Gallery
-</Affiliations>
-
-<Certifications>
-JavaScript Algorithms and Data Structures
-Back End Development and APIs
-Foundations of Git Certification
-Foundational C# with Microsoft
-Software Engineer Certificate
-Software Engineer Intern
-Frontend Developer(React)
-CS50x: Introduction to Computer Science
-CS50 Verified Certificate
-MongoDB Node.js Developer
-GitHub Foundations
-DICT- ICT013 - Intermediate Level of Software Engineering
-DICT- ICT018 Basic Level of Software Engineering
-DICT- ICT017 Advanced Level of Software Engineering
-DICT-ICT006 Introduction to Data Privacy
-Front End Development Libraries
-DICT- ICT014: Basic Level of Cloud Computing
-DICT- ICT015 Intermediate Level of Cloud Computing
-DICT- ICT016 Advanced Level of Cloud Computing
-DICT-ICT007 Data Privacy - Good Governance
-Postman API Fundamentals Student Expert
-Information Technology Specialist in Python
-Artificial Intelligence Fundamentals
-Career Essentials in GitHub Professional
-JavaScript Foundations Professional Certificate by Mozilla
-Career Essentials in Generative AI by Microsoft and LinkedIn
-Career Essentials in Software Development by Microsoft and LinkedIn
-Career Essentials in Cybersecurity by Microsoft and LinkedIn
-Docker Foundations Professional
-Oracle Cloud Infrastructure 2024 Generative AI Professional
-Transform to Open Science
-GitHub Administration
-GitHub Advanced Security
-Github Actions
-Certified AppSec Practitioner (CAP)
-Generative AI Fundamentals
-Kubernetes Fundamentals
-Data Literacy
-AI Fundamentals
-Cisco CCNA: Introduction to Networks
-Microsoft Certified: Azure Fundamentals
-GitHub Copilot
-GCP Fundamentals: Core Infrastructure
-AI Associate
-</Certifications>
-
-<IMPORTANT NOTE>
-THIS IS ALL HARD CODED! I WILL UPDATE THIS FILE SOON!
-</IMPORTANT NOTE>
+<Overview>
+- 6 Software Engineering projects
+- 4 Machine Learning projects
+- 6 Major Project management projects
+- 2 novel and award winning research projects
+- 44 Certifications from various big tech Companies
+- 16 academic and industry leading affiliations
+- 16 Recommendations from peers, professors, mentors, and professionals
+- 8 technical honors and awards
+- 4 language awards
+<Overview>

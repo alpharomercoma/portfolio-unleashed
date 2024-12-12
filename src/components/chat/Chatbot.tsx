@@ -20,7 +20,7 @@ export default function Chatbot() {
       {
         id: 'welcome',
         role: 'assistant',
-        content: "Hi! I'm Yuka, Alpha's AI assistant. Ask me anything about his projects, skills, or experience—I'm here to help!"
+        content: "Hi! I'm Yuka, Mr. Coma's AI assistant. Ask me anything about his projects, skills, or experience—I'm here to help!"
       }
     ]
   });

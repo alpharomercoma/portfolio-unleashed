@@ -8,8 +8,8 @@ interface SamplePromptsProps {
 
 export const SamplePrompts: React.FC<SamplePromptsProps> = ({ onPromptClick, visible }) => {
     const prompts = [
-        "What do you love most about Alpha?",
-        "What do you personally think is Alpha's best project?",
+        "What do you love most about Mr. Coma?",
+        "Where can I contact Mr. Coma?",
     ];
 
     if (!visible) return null;
