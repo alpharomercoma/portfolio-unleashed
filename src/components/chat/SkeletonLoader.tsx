@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 export const SkeletonLoader = () => {
   return (
@@ -14,6 +14,5 @@ export const SkeletonLoader = () => {
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
       />
     </div>
-  )
+  );
 }
-

@@ -7,19 +7,20 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChat } from 'ai/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { ChatInput } from "./ChatInput";
+import { ChatInput } from './ChatInput';
 import { ChatMessage } from './ChatMessage';
-import { SkeletonLoader } from "./SkeletonLoader";
+import { SkeletonLoader } from './SkeletonLoader';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+  const [showSamplePrompts, setShowSamplePrompts] = useState(true);
+  const { messages, input, handleInputChange, handleSubmit, isLoading, setInput, append } = useChat({
     api: '/api/chat',
     initialMessages: [
       {
         id: 'welcome',
         role: 'assistant',
-        content: "Hello! I'm Zea, Alpha's personal AI assistant. I'm here to help you learn more about his portfolio and experience. Feel free to ask me anything about his projects, skills, or background!"
+        content: "Hi! I'm Yuka, Alpha's AI assistant. Ask me anything about his projects, skills, or experience—I'm here to help!"
       }
     ]
   });
@@ -38,6 +39,20 @@ export default function Chatbot() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (messages.length > 1) {
+      setShowSamplePrompts(false);
+    }
+  }, [messages]);
+
+  const handleSamplePromptClick = async (prompt: string) => {
+    setShowSamplePrompts(false);
+    await append({
+      content: prompt,
+      role: 'user',
+    });
+  };
 
   const chatVariants = {
     hidden: { opacity: 0, scale: 0.8, y: 20 },
@@ -97,11 +112,11 @@ export default function Chatbot() {
               <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 border-b">
                 <div className="flex items-center space-x-2">
                   <Avatar>
-                    <AvatarImage src="/zea-avatar.png" alt="Zea" />
+                    <AvatarImage src="/chat/yuka.png" alt="Yuka" />
                     <AvatarFallback>Z</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h2 className="text-lg font-semibold">Zea</h2>
+                    <h2 className="text-lg font-semibold">Yuka</h2>
                     <p className="text-sm text-muted-foreground">AI Assistant</p>
                   </div>
                 </div>
@@ -124,6 +139,8 @@ export default function Chatbot() {
                   handleInputChange={handleInputChange}
                   handleSubmit={handleSubmit}
                   isLoading={isLoading}
+                  onSamplePromptClick={handleSamplePromptClick}
+                  showSamplePrompts={showSamplePrompts}
                 />
               </CardFooter>
             </Card>

@@ -17,7 +17,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ content, role }) => {
     >
       {role === 'assistant' && (
         <Avatar className="mr-2 mb-1">
-          <AvatarImage src="/zea-avatar.png" alt="Zea" />
+          <AvatarImage src="/chat/yuka.png" alt="Zea" />
           <AvatarFallback>Z</AvatarFallback>
         </Avatar>
       )}
@@ -31,7 +31,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ content, role }) => {
       </div>
       {role === 'user' && (
         <Avatar className="ml-2 mb-1">
-          <AvatarImage src="/user-avatar.png" alt="User" />
+          <AvatarImage src="/chat/user.png" alt="User" />
           <AvatarFallback>U</AvatarFallback>
         </Avatar>
       )}
