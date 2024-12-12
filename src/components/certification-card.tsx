@@ -1,6 +1,6 @@
-import { motion } from "framer-motion"
-import Image from "next/image"
-import { Certification } from "../../types/certification"
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Certification } from "../../types/certification";
 
 export function CertificationCard({ certification }: { certification: Certification }) {
   return (
@@ -33,4 +33,3 @@ export function CertificationCard({ certification }: { certification: Certificat
     </motion.div>
   )
 }
-
