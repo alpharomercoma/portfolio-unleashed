@@ -39,3 +39,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# PWA files
+**/public/workbox-*.js
+**/public/sw.js
+**/public/service-worker.js
+**/public/fallback-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
+
+# partytown
+**/public/~partytown/*
+
+# rest client
+.rest
+
+#unlighthouse
+.unlighthouse
+
+# sitemap
+**/public/sitemap-*.xml
+**/public/sitemap.xml
