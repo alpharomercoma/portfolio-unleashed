@@ -73,7 +73,7 @@ function Hero() {
                 {/* Bio Section */}
                 <div className="mt-6 max-w-2xl mx-auto lg:mx-0">
                   <p className="text-muted-foreground">
-                    Building the Change of Tomorrow | Passionate about technology, innovation, and community. My goal is for the transcendence of AI towards sentience.
+                    Building the Change of Tomorrow | Passionate about technology, innovation, and community. My goal is to transcend AI towards sentience.
                   </p>
                 </div>
               </div>

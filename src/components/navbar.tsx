@@ -11,6 +11,7 @@ import {
     FaRocket,
     FaStar
 } from "react-icons/fa";
+import Logo from "./logo/logo";
 import { socials } from "./Socials";
 interface NavLink {
     name: string;
@@ -56,8 +57,9 @@ function NavBar() {
         <header className="fixed flex justify-center top-0 left-0 z-50 w-full shadow-dark backdrop-blur">
             <div className="container flex h-16 items-center justify-between px-4 lg:px-6">
                 <Link className="flex items-center gap-2" href="#">
-                    <MountainIcon className="h-6 w-6" />
-                    <span className="text-lg font-semibold">Alpha Romer Coma</span>
+                    <Logo props={{ width: 32, height: 32 }} />
+                    <span className="text-lg font-bold">Alpha Romer Coma</span>
+
                 </Link>
                 <div className="flex items-center gap-4 md:gap-2">
                     <div className="flex items-center gap-2 md:gap-4">

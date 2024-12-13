@@ -14,8 +14,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Alpha Romer Coma",
-  description: ""
+  title: "Alpha Romer Coma | Portfolio",
+  description: "",
+  appleWebApp: {
+    title: "Alpha",
+  }
 };
 
 export default function RootLayout({
