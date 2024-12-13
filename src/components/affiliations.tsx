@@ -33,7 +33,7 @@ function Affiliations() {
 				<h2 className="text-3xl font-bold mb-10 text-center">
 					Professional Affiliations
 				</h2>
-				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+				<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8">
 					{affiliations.map((affiliation) => (
 						<div
 							key={affiliation.name}

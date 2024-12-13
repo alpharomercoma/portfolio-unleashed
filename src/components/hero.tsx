@@ -11,7 +11,7 @@ import {
 	FaGithub,
 	FaGlobe,
 	FaHeart,
-	FaMapPin,
+	FaLanguage,
 	FaUniversity,
 } from "react-icons/fa";
 import { FaBoltLightning } from "react-icons/fa6";
@@ -131,13 +131,13 @@ function Hero() {
 					</div>
 
 					{/* Details Grid */}
-					<div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					<div className="mt-6 grid gap-4 grid-cols-1 md:grid-cols-3">
 						<Card className="flex items-center gap-4 p-4">
-							<FaMapPin className="h-5 w-5 text-muted-foreground" />
+							<FaLanguage className="h-5 w-5 text-muted-foreground" />
 							<div>
-								<p className="font-medium">Location</p>
+								<p className="font-medium">Language I Speak!</p>
 								<p className="text-sm text-muted-foreground">
-									Seattle, Washington, United States
+									English | Filipino | 日本語 | 中文 | 한국어
 								</p>
 							</div>
 						</Card>
@@ -147,7 +147,7 @@ function Hero() {
 							<div>
 								<p className="font-medium">GitHub Campus Expert Philippines</p>
 								<p className="text-sm text-muted-foreground">
-									5x GitHub, 1x Oracle, Salesforce, & Microsoft
+									5x GitHub | 1x Oracle, Salesforce, & Microsoft
 								</p>
 							</div>
 						</Card>
