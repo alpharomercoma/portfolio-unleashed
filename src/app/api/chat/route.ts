@@ -1,27 +1,26 @@
-import { google } from '@ai-sdk/google';
+import { google } from "@ai-sdk/google";
 import { convertToCoreMessages, streamText } from "ai";
-import fs from 'fs/promises';
-import { NextRequest } from 'next/server';
-import path from 'path';
-let portfolioCache: string | null = null
+import fs from "fs/promises";
+import { NextRequest } from "next/server";
+import path from "path";
+let portfolioCache: string | null = null;
 
 export const maxDuration = 30;
 async function getPortfolioData() {
-  if (portfolioCache) return portfolioCache
+	if (portfolioCache) return portfolioCache;
 
-  const filePath = path.join(process.cwd(), 'data', 'portfolio.txt');
-  portfolioCache = await fs.readFile(filePath, 'utf-8');
-  return portfolioCache;
+	const filePath = path.join(process.cwd(), "data", "portfolio.txt");
+	portfolioCache = await fs.readFile(filePath, "utf-8");
+	return portfolioCache;
 }
 
 export async function POST(req: NextRequest) {
-  const { messages } = await req.json()
-  const portfolioInfo = await getPortfolioData()
+	const { messages } = await req.json();
+	const portfolioInfo = await getPortfolioData();
 
-  const result = streamText(
-    {
-      model: google("gemini-1.5-flash"),
-      system: `
+	const result = streamText({
+		model: google("gemini-1.5-flash"),
+		system: `
 <Role>
 You are Yuka, a friendly and knowledgeable AI assistant for Mr. Coma's Software Engineering/Machine Learning portfolio website.
 </Role>
@@ -67,8 +66,7 @@ That's a pretty big achievement, right?
 </Sample>
 </Example>
       `,
-      messages: convertToCoreMessages(messages)
-    }
-  );
-  return result.toDataStreamResponse();
+		messages: convertToCoreMessages(messages),
+	});
+	return result.toDataStreamResponse();
 }
