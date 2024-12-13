@@ -38,7 +38,7 @@ const projects: Record<string, Project[]> = {
 				"Para Po! is an award-winning project recognized as a finalist and recipient of the GlobalCo Special Award at the Philippine Junior Data Science Challenge in November 2024.",
 			image: "/projects/swe/para-po.png",
 			codeUrl: "https://github.com/alpharomercoma/para-po",
-			demoUrl: "https://para-po-beta.vercel.app",
+			demoUrl: "https://parapo-beta.vercel.app",
 		},
 		{
 			title: "Project NATURE of NASA '24",
@@ -134,14 +134,15 @@ const projects: Record<string, Project[]> = {
 				"Founded the multi-year 100+ member ACM Beyond Campus Initiative to propel the community to become globally competitive",
 			image: "/projects/pm/aws.jpg",
 			projectUrl:
-				"https://www.linkedin.com/posts/jugph_java-java-devconmanila-ugcPost-7216060061024931840-fJKQ",
+				"https://www.canva.com/design/DAGGwYteaPc/tH8OSRbMBz-H8-1BcQKPXA/edit",
 		},
 		{
 			title: "Project ACMX",
 			description:
 				"Founded and led project ACMX, FEU Tech ACM's premier development team in building software solutions for the organization.",
 			image: "/projects/pm/acmx.png",
-			projectUrl: "",
+			projectUrl:
+				"https://www.canva.com/design/DAGR9zUI8Mo/4YemyaJ9JWQ2GLT2IcLBaA/edit",
 		},
 		{
 			title: "Google Philippines CTO Connect",
@@ -149,14 +150,15 @@ const projects: Record<string, Project[]> = {
 				"Headed the FEU Tech ACM's 20-member participation in the CTO Connect program at Google Philippines Headquarters, which included a series of workshops and mentorship sessions",
 			image: "/projects/pm/google.jpg",
 			projectUrl:
-				"https://www.linkedin.com/posts/alpharomercoma_feutechacm-acmbeyondcampus-initiative-activity-7213069145796489216-9FhR?utm_source=share&utm_medium=member_desktop",
+				"https://www.linkedin.com/posts/alpharomercoma_feutechacm-acmbeyondcampus-initiative-activity-7213069145796489216-9FhR",
 		},
 		{
 			title: "Microsoft Learn with the MVPs",
 			description:
 				"Led the FEU Tech ACM's 14-member participation at Microsoft Philippines Office for the Learn with the MVPs and rendezvous with ULAP.org mentors and scholars",
 			image: "/projects/pm/microsoft.jpg",
-			projectUrl: "",
+			projectUrl:
+				"https://www.linkedin.com/posts/ulap-org_ulaporg-volunteers-scholars-attended-the-activity-7253279213271543809-wpEN",
 		},
 	],
 	Research: [
