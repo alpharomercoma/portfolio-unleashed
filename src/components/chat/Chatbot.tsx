@@ -110,9 +110,9 @@ export default function Chatbot() {
 			},
 		},
 	};
-
 	return (
 		<div className="fixed bottom-4 right-4 z-50">
+			{}
 			<AnimatePresence mode="wait">
 				{isOpen ? (
 					<motion.div
@@ -121,7 +121,7 @@ export default function Chatbot() {
 						initial="hidden"
 						animate="visible"
 						exit="exit"
-						className="w-full sm:w-96 h-[500px] max-h-[80vh]"
+						className="w-[90vw] sm:w-96 h-[500px] max-h-[80vh]"
 					>
 						<Card className="flex flex-col h-full shadow-lg border-2 border-primary/20">
 							<CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 border-b">

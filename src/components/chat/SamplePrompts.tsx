@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 
 interface SamplePromptsProps {
@@ -11,8 +10,8 @@ export const SamplePrompts: React.FC<SamplePromptsProps> = ({
 	visible,
 }) => {
 	const prompts = [
-		"What do you love most about Mr. Coma?",
-		"Where can I contact Mr. Coma?",
+		"What do you love most about Alpha?",
+		"How can I contact Alpha?",
 	];
 
 	if (!visible) return null;
