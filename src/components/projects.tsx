@@ -93,7 +93,7 @@ const projects: Record<string, Project[]> = {
     "Project Management": [
         {
             title: "ACM x GCP",
-            description: "Secured a ₱10.2 million deal with Google Cloud Platform for upskilling of 500 members for 12 months",
+            description: "Double handedly secured a ₱10.2 million deal with Google Cloud Platform for upskilling of 500 members for 12 months at FEU Tech ACM",
             image: "/projects/pm/acm-gcp.png",
             projectUrl: "https://cloud.google.com/consulting/portfolio/google-cloud-skills-boost-for-organizations"
         },
@@ -104,34 +104,34 @@ const projects: Record<string, Project[]> = {
             projectUrl: "https://www.linkedin.com/posts/alpharomercoma_nasa-tops-openscience-activity-7259239998749573120-AqbM"
         },
         {
+            title: "ACM Beyond Campus Initiative",
+            description: "Founded the multi-year 100+ member ACM Beyond Campus Initiative to propel the community to become globally competitive",
+            image: "/projects/pm/aws.jpg",
+            projectUrl: "https://www.linkedin.com/posts/jugph_java-java-devconmanila-ugcPost-7216060061024931840-fJKQ"
+        },
+        {
             title: "Project ACMX",
-            description: "Led a 10-man team of the organization's software development team",
+            description: "Founded and led project ACMX, FEU Tech ACM's premier development team in building software solutions for the organization.",
             image: "/projects/pm/acmx.png",
             projectUrl: ""
         },
         {
             title: "Google Philippines CTO Connect",
-            description: "Managed the successful launch of a SaaS product from inception to market",
+            description: "Headed the FEU Tech ACM's 20-member participation in the CTO Connect program at Google Philippines Headquarters, which included a series of workshops and mentorship sessions",
             image: "/projects/pm/google.jpg",
             projectUrl: "https://www.linkedin.com/posts/alpharomercoma_feutechacm-acmbeyondcampus-initiative-activity-7213069145796489216-9FhR?utm_source=share&utm_medium=member_desktop"
         },
         {
             title: "Microsoft Learn with the MVPs",
-            description: "Scaled development team from 10 to 50 members while maintaining productivity",
+            description: "Led the FEU Tech ACM's 14-member participation at Microsoft Philippines Office for the Learn with the MVPs and rendezvous with ULAP.org mentors and scholars",
             image: "/projects/pm/microsoft.jpg",
-            projectUrl: "https://www.linkedin.com/posts/ziggyzulueta_techlearning-networking-professionaldevelopment-ugcPost-7252980251926937600-UflV"
-        },
-        {
-            title: "AWS Modern Java Development",
-            description: "Led the agile transformation for a team of 50+ developers",
-            image: "/projects/pm/aws.jpg",
-            projectUrl: "https://www.linkedin.com/posts/jugph_java-java-devconmanila-ugcPost-7216060061024931840-fJKQ"
+            projectUrl: ""
         },
     ],
     "Research": [
         {
             title: "Augmenting Multimodal Deep Learning with Attention Layers for Recognizing Addictive Neurodegenerative Content",
-            description: "A novel thesis on the modern phenomenon called brain rot and the development of a multimodal deep learning model specialized in recognizing addictive neurodegenerative content",
+            description: "A novel thesis on the modern phenomenon called brain rot and the development of a multimodal deep learning model specialized in recognizing addictive short-form neurodegenerative content",
             image: "/projects/research/skibidi.png",
             projectUrl: "https://docs.google.com/document/d/1T0g-GNV7Zt2lRcN037KzcMlSd-tspfq3/edit#heading=h.nzicxuemjomp"
         },

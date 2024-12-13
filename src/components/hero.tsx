@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { FaCloud, FaCode, FaEnvelope, FaExternalLinkAlt, FaGithub, FaGlobe, FaGooglePlay, FaHeart, FaLinkedin, FaMapPin, FaMicrosoft, FaUniversity, } from "react-icons/fa";
+import { FaCloud, FaCode, FaEnvelope, FaExternalLinkAlt, FaGithub, FaGlobe, FaHeart, FaMapPin, FaUniversity } from "react-icons/fa";
 import { FaBoltLightning } from "react-icons/fa6";
 import { socials } from "./Socials";
 function Hero() {
@@ -145,7 +145,7 @@ function Hero() {
 
 function SocialCard({ icon, name, stats, url }: { icon: React.ReactNode; name: string; stats: string; url: string; }) {
   return (
-    <Link href={url}>
+    <a href={url} target="_blank">
       <Card className="flex items-center gap-4 p-4">
         {icon}
         <div>
@@ -153,7 +153,7 @@ function SocialCard({ icon, name, stats, url }: { icon: React.ReactNode; name: s
           <p className="text-xs text-muted-foreground">{stats}</p>
         </div>
       </Card>
-    </Link>
+    </a>
   );
 }
 
