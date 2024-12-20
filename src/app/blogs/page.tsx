@@ -1,9 +1,8 @@
 import Container from "../_components/container";
 import { HeroPost } from "../_components/hero-post";
-import { Intro } from "@/app/_components/intro";
 import { MoreStories } from "../_components/more-stories";
 import { getAllPosts } from "@/lib/api";
-
+import NavBar from "@/components/navbar";
 export default function Index() {
 	const allPosts = getAllPosts();
 
@@ -13,8 +12,8 @@ export default function Index() {
 
 	return (
 		<main>
+			<NavBar />
 			<Container>
-				<Intro />
 				<HeroPost
 					title={heroPost.title}
 					coverImage={heroPost.coverImage}
