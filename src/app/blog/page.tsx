@@ -1,8 +1,8 @@
+import NavBar from "@/components/navbar";
+import { getAllPosts } from "@/lib/api";
 import Container from "../_components/container";
 import { HeroPost } from "../_components/hero-post";
 import { MoreStories } from "../_components/more-stories";
-import { getAllPosts } from "@/lib/api";
-import NavBar from "@/components/navbar";
 export default function Index() {
 	const allPosts = getAllPosts();
 
