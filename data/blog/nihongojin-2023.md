@@ -2,7 +2,7 @@
 title: "Nihongojin Across The Philippines 2023 Luzon Winning Submission"
 excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
 coverImage: "/assets/blog/nihongojin.png"
-date: "2023-12-23T05:35:07.322Z"
+date: "2023-12-23"
 author:
   name: Alpha Romer Coma
   picture: "/hero/alpha.jpg"
