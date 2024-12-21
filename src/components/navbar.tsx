@@ -50,6 +50,11 @@ const navLinks: NavLink[] = [
 		href: "#awards",
 		icon: <FaAward className="h-6 w-6" />,
 	},
+	{
+		name: "Contact",
+		href: "#contact",
+		icon: <FaAward className="h-6 w-6" />,
+	},
 ];
 
 function NavBar() {
