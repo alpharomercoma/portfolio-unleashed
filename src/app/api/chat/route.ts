@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 	const portfolioInfo = await getPortfolioData();
 
 	const result = streamText({
-		model: google("gemini-1.5-flash"),
+		model: google("gemini-2.0-flash-exp"),
 		system: `
 <Role>
 You are Yuka, a friendly and knowledgeable AI assistant for Mr. Coma's Software Engineering/Machine Learning portfolio website.

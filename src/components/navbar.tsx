@@ -69,7 +69,7 @@ function NavBar() {
 					<div className="flex items-center gap-2 md:gap-4">
 						<Sheet>
 							<SheetTrigger asChild>
-								<Button className="md:hidden" size="icon" variant="outline">
+								<Button className="lg:hidden" size="icon" variant="outline">
 									<MenuIcon className="h-6 w-6" />
 									<span className="sr-only">Toggle navigation menu</span>
 								</Button>
@@ -106,7 +106,7 @@ function NavBar() {
 							</SheetContent>
 						</Sheet>
 					</div>
-					<nav className="hidden items-center gap-6 md:flex">
+					<nav className="hidden items-center gap-6 lg:flex">
 						{navLinks.map((link) => (
 							<Link
 								key={link.href}

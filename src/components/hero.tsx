@@ -112,7 +112,7 @@ function Hero() {
 							{/* Action Buttons - Responsive Position */}
 							<div className="mt-6 lg:mt-0 flex flex-col sm:flex-row lg:flex-col justify-center gap-3 lg:justify-start">
 								<Button asChild>
-									<Link href="mailto:alpharomercoma@proton.me">
+									<Link href="#contact">
 										<FaEnvelope className="mr-2 h-4 w-4" />
 										Contact Me
 									</Link>
@@ -132,8 +132,8 @@ function Hero() {
 
 					{/* Details Grid */}
 					<div className="mt-6 grid gap-4 grid-cols-1 md:grid-cols-3">
-						<Card className="flex items-center gap-4 p-4">
-							<FaLanguage className="h-5 w-5 text-muted-foreground" />
+						<Card className="flex md:flex-col lg:flex-row items-center gap-4 p-4">
+							<FaLanguage className="h-8 w-8 text-muted-foreground" />
 							<div>
 								<p className="font-medium">Language I Speak!</p>
 								<p className="text-sm text-muted-foreground">
@@ -142,8 +142,8 @@ function Hero() {
 							</div>
 						</Card>
 
-						<Card className="flex items-center gap-4 p-4">
-							<FaGithub className="h-5 w-5 text-muted-foreground" />
+						<Card className="flex md:flex-col lg:flex-row items-center gap-4 p-4">
+							<FaGithub className="h-8 w-8 text-muted-foreground" />
 							<div>
 								<p className="font-medium">GitHub Campus Expert Philippines</p>
 								<p className="text-sm text-muted-foreground">
@@ -152,8 +152,8 @@ function Hero() {
 							</div>
 						</Card>
 
-						<Card className="flex items-center gap-4 p-4">
-							<FaUniversity className="h-5 w-5 text-muted-foreground" />
+						<Card className="flex md:flex-col lg:flex-row items-center gap-4 p-4">
+							<FaUniversity className="h-8 w-8 text-muted-foreground" />
 							<div>
 								<p className="font-medium">FEU Institute of Technology</p>
 								<p className="text-sm text-muted-foreground">
