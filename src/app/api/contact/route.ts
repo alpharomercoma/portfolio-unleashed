@@ -1,10 +1,11 @@
 import { ContactForm } from "@/components/contact";
+import { env } from "@/env";
 import sendMail from "@/utils/mailer";
 import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest) => {
 	const body = (await req.json()) as ContactForm;
 	await sendMail(
-		process.env.TARGET_EMAIL!,
+		env.TARGET_EMAIL,
 		`Alpha's Portfolio Form: ${body.name} - ${body.purpose}`,
 		`
 <!DOCTYPE html>
