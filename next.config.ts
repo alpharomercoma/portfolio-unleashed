@@ -1,6 +1,6 @@
 import { WithPWA } from "next-pwa";
 import nextPWA from "next-pwa";
-
+import { NextConfig } from "next";
 const withPWA: WithPWA = nextPWA({
 	dest: "public",
 	disable: process.env.NODE_ENV === "development",
@@ -16,6 +16,15 @@ const config = {
 	experimental: {
 		optimizePackageImports: ["react-icons", "lucide-react"],
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "cdn.sanity.io",
+			},
+		],
+	},
+
 	// https://nextjs.org/docs/app/building-your-application/configuring/progressive-web-apps#8-securing-your-application
 	async headers() {
 		return [
@@ -51,6 +60,6 @@ const config = {
 			},
 		];
 	},
-};
+} satisfies NextConfig;
 
 export default withPWA(config);
