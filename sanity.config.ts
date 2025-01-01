@@ -24,7 +24,7 @@ import { resolveHref } from "@/sanity/lib/utils";
 
 const homeLocation = {
 	title: "Home",
-	href: "/",
+	href: "/posts",
 } satisfies DocumentLocation;
 
 export default defineConfig({
@@ -43,11 +43,18 @@ export default defineConfig({
 	},
 	plugins: [
 		presentationTool({
+			previewUrl: {
+				origin: process.env.SANITY_STUDIO_PREVIEW_ORIGIN,
+				preview: "/posts",
+				previewMode: {
+					enable: "/api/draft-mode/enable",
+				},
+			},
 			resolve: {
 				mainDocuments: defineDocuments([
 					{
 						route: "/posts/:slug",
-						filter: `_type == "post" && slug.current == $slug`,
+						filter: '_type == "post" && _id == $id',
 					},
 				]),
 				locations: {
@@ -65,7 +72,7 @@ export default defineConfig({
 							locations: [
 								{
 									title: doc?.title || "Untitled",
-									href: resolveHref("post", doc?.slug)!,
+									href: resolveHref("post", doc?.slug) ?? "/posts",
 								},
 								homeLocation,
 							],
@@ -73,7 +80,6 @@ export default defineConfig({
 					}),
 				},
 			},
-			previewUrl: { previewMode: { enable: "/api/draft-mode/enable" } },
 		}),
 		structureTool({ structure: pageStructure([settings]) }),
 		// Configures the global "new document" button, and document actions, to suit the Settings document singleton

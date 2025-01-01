@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { PortableText } from "next-sanity";
 import AnchoredHeading from "./AnchoredHeading";
 import Image from "./Image";

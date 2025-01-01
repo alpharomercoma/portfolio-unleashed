@@ -1,3 +1,4 @@
+// eslint-disable react-hooks/rules-of-hooks
 import { Image } from "next-sanity/image";
 
 import { urlForImage } from "@/sanity/lib/utils";

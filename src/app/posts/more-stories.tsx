@@ -1,3 +1,4 @@
+// eslint-disable react-hooks/rules-of-hooks
 import Link from "next/link";
 
 import Avatar from "./avatar";

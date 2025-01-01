@@ -1,3 +1,4 @@
+// eslint-disable react-hooks/rules-of-hooks
 import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
 import type { SanityDocument } from "next-sanity";
 

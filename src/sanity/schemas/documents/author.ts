@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import { UserIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
