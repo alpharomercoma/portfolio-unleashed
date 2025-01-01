@@ -8,10 +8,11 @@ import Hero from "@/components/hero";
 import NavBar from "@/components/navbar";
 import Projects from "@/components/projects";
 import Recommendations from "@/components/recommendations";
+import { homeNavLinks } from "@/components/homeNav";
 export default function Home() {
 	return (
 		<>
-			<NavBar />
+			<NavBar navLinks={homeNavLinks} />
 			<Chatbot />
 			<Hero />
 			<Projects />

@@ -1,7 +1,6 @@
 import { defineQuery } from "next-sanity";
 import type { Metadata, ResolvingMetadata } from "next";
 import { type PortableTextBlock } from "next-sanity";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -11,9 +10,8 @@ import DateComponent from "../date";
 import MoreStories from "../more-stories";
 import PortableText from "../portable-text";
 
-import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { postQuery, settingsQuery } from "@/sanity/lib/queries";
+import { postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 type Props = {
@@ -55,10 +53,7 @@ export async function generateMetadata(
 }
 
 export default async function PostPage({ params }: Props) {
-	const [post, settings] = await Promise.all([
-		sanityFetch({ query: postQuery, params }),
-		sanityFetch({ query: settingsQuery }),
-	]);
+	const post = await sanityFetch({ query: postQuery, params });
 
 	if (!post?._id) {
 		return notFound();
@@ -66,13 +61,8 @@ export default async function PostPage({ params }: Props) {
 
 	return (
 		<div className="container mx-auto px-5">
-			<h2 className="mb-16 mt-10 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
-				<Link href="/" className="hover:underline">
-					{settings?.title || demo.title}
-				</Link>
-			</h2>
 			<article>
-				<h1 className="text-balance mb-12 text-6xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
+				<h1 className="mt-24 text-balance mb-12 text-6xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
 					{post.title}
 				</h1>
 				<div className="hidden md:mb-12 md:block">
