@@ -13,7 +13,6 @@ import {
 } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
 import { blockContentType } from "@/sanity/schemas/blockContentType";
-import { env } from "@/env";
 import { studioUrl } from "@/sanity/lib/api";
 import { pageStructure, singletonPlugin } from "@/sanity/plugins/settings";
 import { assistWithPresets } from "@/sanity/plugins/assist";
@@ -21,7 +20,7 @@ import author from "@/sanity/schemas/documents/author";
 import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
 import { resolveHref } from "@/sanity/lib/utils";
-
+import { env } from "@/env";
 const homeLocation = {
 	title: "Home",
 	href: "/posts",
@@ -44,7 +43,7 @@ export default defineConfig({
 	plugins: [
 		presentationTool({
 			previewUrl: {
-				origin: process.env.SANITY_STUDIO_PREVIEW_ORIGIN,
+				origin: env.SANITY_STUDIO_PREVIEW_ORIGIN,
 				preview: "/posts",
 				previewMode: {
 					enable: "/api/draft-mode/enable",
