@@ -34,7 +34,7 @@ export default function CustomHTML({
 
 	// if includes <script> tag, ensure script is re-run on each render
 
-	// eslint-disable react-hooks/rules-of-hooks
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {
 		if (firstRender) {
 			setFirstRender(false);

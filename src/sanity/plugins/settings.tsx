@@ -11,6 +11,7 @@ export const singletonPlugin = definePlugin((types: string[]) => {
 		document: {
 			// Hide 'Singletons (such as Settings)' from new document options
 			// https://user-images.githubusercontent.com/81981/195728798-e0c6cf7e-d442-4e58-af3a-8cd99d7fcc28.png
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			newDocumentOptions: (prev, { creationContext, ...rest }) => {
 				if (creationContext.type === "global") {
 					return prev.filter(

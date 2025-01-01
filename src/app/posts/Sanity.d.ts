@@ -1,4 +1,3 @@
-// eslint-disable react-hooks/rules-of-hooks
 import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
 import type { SanityDocument } from "next-sanity";
 
@@ -14,6 +13,7 @@ declare global {
 			headerMenu?: Navigation;
 			footerMenu?: Navigation;
 			social?: Navigation;
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			copyright?: any;
 			ogimage?: string;
 		}
@@ -24,6 +24,7 @@ declare global {
 		}
 
 		interface Announcement extends SanityDocument {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			content: any;
 			cta?: Link;
 			start?: string;
@@ -44,6 +45,7 @@ declare global {
 
 		interface BlogPost extends PageBase {
 			readonly _type: "blog.post";
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			body: any;
 			readTime: number;
 			headings?: { style: string; text: string }[];
@@ -84,6 +86,7 @@ declare global {
 				suffix?: string;
 			};
 			ctas?: CTA[];
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			content?: any;
 		}
 
@@ -97,6 +100,7 @@ declare global {
 		}
 
 		interface Testimonial extends SanityDocument {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			content: any;
 			author?: {
 				name: string;

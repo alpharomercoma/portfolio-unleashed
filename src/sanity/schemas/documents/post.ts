@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { DocumentTextIcon } from "@sanity/icons";
 import { format, parseISO } from "date-fns";
 import { defineField, defineType } from "sanity";
@@ -70,6 +69,7 @@ export default defineType({
 					description: "Important for SEO and accessiblity.",
 					validation: (rule) => {
 						return rule.custom((alt, context) => {
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
 								return "Required";
 							}

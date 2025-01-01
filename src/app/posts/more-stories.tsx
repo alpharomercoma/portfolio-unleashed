@@ -1,4 +1,3 @@
-// eslint-disable react-hooks/rules-of-hooks
 import Link from "next/link";
 
 import Avatar from "./avatar";
@@ -17,6 +16,7 @@ export default async function MoreStories(params: {
 	return (
 		<>
 			<div className="mb-32 grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32">
+				{/* eslint-disable @typescript-eslint/no-explicit-any */}
 				{data?.map((post: any) => {
 					const { _id, title, slug, coverImage, excerpt, author } = post;
 					return (

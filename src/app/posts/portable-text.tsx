@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { PortableText } from "next-sanity";
 import AnchoredHeading from "./AnchoredHeading";
 import Image from "./Image";
@@ -10,6 +9,7 @@ export default function Content({
 	value,
 	className,
 	children,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: { value: any } & React.ComponentProps<"div">) {
 	return (
 		<div

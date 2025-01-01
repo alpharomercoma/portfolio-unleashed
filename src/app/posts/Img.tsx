@@ -26,7 +26,7 @@ export default function Img({
 } & React.ImgHTMLAttributes<HTMLImageElement>) {
 	if (!image?.asset) return null;
 
-	// eslint-disable react-hooks/rules-of-hooks
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { src, width, height } = useNextSanityImage(
 		client,
 		image,
@@ -65,7 +65,7 @@ export function Source({
 	media?: string;
 }) {
 	if (!image?.asset) return null;
-
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { src, width, height } = useNextSanityImage(
 		client,
 		image,

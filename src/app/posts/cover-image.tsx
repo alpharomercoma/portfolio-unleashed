@@ -1,9 +1,9 @@
-// eslint-disable react-hooks/rules-of-hooks
 import { Image } from "next-sanity/image";
 
 import { urlForImage } from "@/sanity/lib/utils";
 
 interface CoverImageProps {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	image: any;
 	priority?: boolean;
 }

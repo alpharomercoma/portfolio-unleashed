@@ -1,4 +1,3 @@
-// eslint-disable @typescript-eslint/no-explicit-any
 import { CogIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
@@ -98,6 +97,7 @@ export default defineType({
 					type: "string",
 					validation: (rule) => {
 						return rule.custom((alt, context) => {
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							if ((context.document?.ogImage as any)?.asset?._ref && !alt) {
 								return "Required";
 							}
