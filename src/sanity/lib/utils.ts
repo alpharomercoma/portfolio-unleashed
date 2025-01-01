@@ -1,10 +1,10 @@
 import createImageUrlBuilder from "@sanity/image-url";
-
-import { dataset, projectId } from "@/sanity/lib/api";
+import { env } from "@/env";
+// import { dataset, projectId } from "@/sanity/lib/api";
 
 const imageBuilder = createImageUrlBuilder({
-	projectId: projectId || "",
-	dataset: dataset || "",
+	projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+	dataset: env.NEXT_PUBLIC_SANITY_DATASET,
 });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const urlForImage = (source: any) => {
