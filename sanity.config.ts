@@ -13,8 +13,8 @@ import {
 } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
 import { blockContentType } from "@/sanity/schemas/blockContentType";
-
-import { apiVersion, dataset, projectId, studioUrl } from "@/sanity/lib/api";
+import { env } from "@/env";
+import { studioUrl } from "@/sanity/lib/api";
 import { pageStructure, singletonPlugin } from "@/sanity/plugins/settings";
 import { assistWithPresets } from "@/sanity/plugins/assist";
 import author from "@/sanity/schemas/documents/author";
@@ -29,8 +29,8 @@ const homeLocation = {
 
 export default defineConfig({
 	basePath: studioUrl,
-	projectId,
-	dataset,
+	projectId: env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+	dataset: env.NEXT_PUBLIC_SANITY_DATASET,
 	schema: {
 		types: [
 			// Singletons
@@ -92,6 +92,6 @@ export default defineConfig({
 		// Vision lets you query your content with GROQ in the studio
 		// https://www.sanity.io/docs/the-vision-plugin
 		process.env.NODE_ENV === "development" &&
-			visionTool({ defaultApiVersion: apiVersion }),
+			visionTool({ defaultApiVersion: env.NEXT_PUBLIC_SANITY_API_VERSION }),
 	].filter(Boolean) as PluginOptions[],
 });
