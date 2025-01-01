@@ -43,7 +43,7 @@ export default defineConfig({
 	plugins: [
 		presentationTool({
 			previewUrl: {
-				origin: env.SANITY_STUDIO_PREVIEW_ORIGIN,
+				origin: env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,
 				preview: "/posts",
 				previewMode: {
 					enable: "/api/draft-mode/enable",
