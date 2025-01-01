@@ -613,7 +613,7 @@ export type PostQueryResult = {
 	} | null;
 } | null;
 
-// Source: ./src/app/posts/[slug]/page.tsx
+// Source: ./src/app/blog/[slug]/page.tsx
 // Variable: postSlugs
 // Query: *[_type == "post" && defined(slug.current)]{"slug": slug.current}
 export type PostSlugsResult = Array<{

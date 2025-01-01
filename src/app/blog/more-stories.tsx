@@ -21,11 +21,11 @@ export default async function MoreStories(params: {
 					const { _id, title, slug, coverImage, excerpt, author } = post;
 					return (
 						<article key={_id}>
-							<Link href={`/posts/${slug}`} className="group mb-5 block">
+							<Link href={`/blog/${slug}`} className="group mb-5 block">
 								<CoverImage image={coverImage} priority={false} />
 							</Link>
 							<h3 className="text-balance mb-3 text-3xl leading-snug">
-								<Link href={`/posts/${slug}`} className="hover:underline">
+								<Link href={`/blog/${slug}`} className="hover:underline">
 									{title}
 								</Link>
 							</h3>

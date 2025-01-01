@@ -23,7 +23,7 @@ import { resolveHref } from "@/sanity/lib/utils";
 import { env } from "@/env";
 const homeLocation = {
 	title: "Home",
-	href: "/posts",
+	href: "/blog",
 } satisfies DocumentLocation;
 
 export default defineConfig({
@@ -44,7 +44,7 @@ export default defineConfig({
 		presentationTool({
 			previewUrl: {
 				origin: env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,
-				preview: "/posts",
+				preview: "/blog",
 				previewMode: {
 					enable: "/api/draft-mode/enable",
 				},
@@ -52,7 +52,7 @@ export default defineConfig({
 			resolve: {
 				mainDocuments: defineDocuments([
 					{
-						route: "/posts/:slug",
+						route: "/blog/:slug",
 						filter: '_type == "post" && _id == $id',
 					},
 				]),
@@ -71,7 +71,7 @@ export default defineConfig({
 							locations: [
 								{
 									title: doc?.title || "Untitled",
-									href: resolveHref("post", doc?.slug) ?? "/posts",
+									href: resolveHref("post", doc?.slug) ?? "/blog",
 								},
 								homeLocation,
 							],

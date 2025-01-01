@@ -14,7 +14,7 @@ export const postNavLinks: NavLink[] = [
 	},
 	{
 		name: "Blog",
-		href: "/posts",
+		href: "/blog",
 		icon: <FaBlog className="h-6 w-6" />,
 	},
 ];
