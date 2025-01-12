@@ -4,6 +4,7 @@ import Image from "./Image";
 import Code from "./Code";
 import CustomHTML from "./CustomHTML";
 import { cn } from "@/lib/utils";
+import styles from "../../app/_components/markdown-styles.module.css";
 
 export default function Content({
 	value,
@@ -16,6 +17,7 @@ export default function Content({
 			className={cn(
 				"richtext mx-auto w-full space-y-[1em] [&>:first-child]:!mt-0",
 				className,
+				styles.richtext,
 			)}
 		>
 			<PortableText
@@ -31,6 +33,14 @@ export default function Content({
 							<blockquote className="border-l-2 pl-4">
 								<p>{children}</p>
 							</blockquote>
+						),
+					},
+					list: {
+						bullet: ({ children }) => (
+							<ul className="list-disc pl-4">{children}</ul>
+						),
+						number: ({ children }) => (
+							<ol className="list-decimal pl-4">{children}</ol>
 						),
 					},
 					types: {
