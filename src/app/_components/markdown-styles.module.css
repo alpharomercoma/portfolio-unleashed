@@ -1,5 +1,5 @@
 .richtext {
-	@apply leading-relaxed;
+	@apply text-lg leading-relaxed;
 }
 
 .richtext p,
@@ -19,4 +19,8 @@
 
 .richtext h4 {
 	@apply text-xl mt-6 mb-4 leading-snug;
+}
+
+.richtext a {
+	@apply underline;
 }
