@@ -147,7 +147,7 @@ function Hero() {
 							<div>
 								<p className="font-medium">GitHub Campus Expert Philippines</p>
 								<p className="text-sm text-muted-foreground">
-									5x GitHub | 1x Oracle, Salesforce, & Microsoft
+									5x GitHub, 4x Microsoft, 1x Oracle, Google
 								</p>
 							</div>
 						</Card>
