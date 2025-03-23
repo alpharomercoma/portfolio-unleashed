@@ -1,7 +1,7 @@
 import Affiliations from "@/components/affiliations";
 import HonorsAndAwards from "@/components/awards";
 import Certifications from "@/components/certifications";
-import Chatbot from "@/components/chat/Chatbot";
+// import Chatbot from "@/components/chat/Chatbot";
 import ContactForm from "@/components/contact";
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
@@ -13,7 +13,7 @@ export default function Home() {
 	return (
 		<>
 			<NavBar navLinks={homeNavLinks} />
-			<Chatbot />
+			{/* <Chatbot /> */}
 			<Hero />
 			<Projects />
 			<Certifications />
