@@ -1,50 +1,41 @@
-import { google } from "googleapis";
-import { createTransport } from "nodemailer";
-const OAuth2 = google.auth.OAuth2;
 import { env } from "@/env";
+import { createTransport } from "nodemailer";
+
+const mailerOptions = {
+	host: env.EMAIL_SERVER_HOST,
+	port: +env.EMAIL_SERVER_PORT,
+	service: "gmail",
+	auth: {
+		user: env.EMAIL_SERVER_USER,
+		pass: env.EMAIL_SERVER_PASSWORD,
+	},
+};
 
 const createTransporter = async () => {
-	const oauth2Client = new OAuth2(
-		env.OAUTH_CLIENT_ID,
-		env.OAUTH_CLIENT_SECRET,
-		"https://developers.google.com/oauthplayground",
-	);
-
-	oauth2Client.setCredentials({
-		refresh_token: env.OAUTH_REFRESH_TOKEN,
-	});
-
-	const accessToken = await new Promise((resolve, reject) => {
-		oauth2Client.getAccessToken((err, token) => {
-			if (err) {
-				console.log("*ERR: ", err);
-				reject();
-			}
-			resolve(token);
-		});
-	});
-
 	const transporter = createTransport({
-		service: "gmail",
-		auth: {
-			type: "OAuth2",
-			user: env.USER_EMAIL,
-			accessToken: accessToken as string,
-			clientId: env.OAUTH_CLIENT_ID,
-			clientSecret: env.OAUTH_CLIENT_SECRET,
-			refreshToken: env.OAUTH_REFRESH_TOKEN,
-		},
+		...mailerOptions,
+		pool: true,
+		from: `Alpha's Website Form: <${env.EMAIL_SERVER_USER}>`,
+		opportunisticTLS: true,
+		priority: "high",
+		connectionTimeout: 10 * 60 * 1000, // 10 minutes
+		greetingTimeout: 5 * 60 * 1000, // 5 minutes
 	});
 	return transporter;
 };
+
 async function sendMail(to: string, subject: string, html: string) {
-	const mailOptions = {
-		to,
-		subject,
-		html,
-	};
-	const emailTransporter = await createTransporter();
-	await emailTransporter.sendMail(mailOptions);
+	try {
+		const emailTransporter = await createTransporter();
+		await emailTransporter.sendMail({
+			to,
+			subject,
+			html,
+		});
+	} catch (error) {
+		console.error("Error sending email:", error);
+		throw new Error("Failed to send email");
+	}
 }
 
 export default sendMail;

@@ -4,11 +4,11 @@ import { z } from "zod";
 export const env = createEnv({
 	server: {
 		GOOGLE_GENERATIVE_AI_API_KEY: z.string().min(1),
-		TARGET_EMAIL: z.string().email().min(1),
-		OAUTH_CLIENT_ID: z.string().min(1),
-		OAUTH_CLIENT_SECRET: z.string().min(1),
-		OAUTH_REFRESH_TOKEN: z.string().min(1),
-		USER_EMAIL: z.string().email().min(1),
+		EMAIL_SERVER_HOST: z.string().min(1),
+		EMAIL_SERVER_PORT: z.string().min(1),
+		EMAIL_SERVER_USER: z.string().email().min(1),
+		EMAIL_SERVER_PASSWORD: z.string().min(1),
+		EMAIL_TARGET: z.string().email().min(1),
 		SANITY_API_READ_TOKEN: z.string().min(1),
 	},
 	client: {
@@ -20,13 +20,13 @@ export const env = createEnv({
 	},
 	// If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
 	runtimeEnv: {
-		GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-		TARGET_EMAIL: process.env.TARGET_EMAIL,
-		OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
-		OAUTH_CLIENT_SECRET: process.env.OAUTH_CLIENT_SECRET,
-		OAUTH_REFRESH_TOKEN: process.env.OAUTH_REFRESH_TOKEN,
 		NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-		USER_EMAIL: process.env.USER_EMAIL,
+		GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+		EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
+		EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
+		EMAIL_SERVER_USER: process.env.EMAIL_SERVER_USER,
+		EMAIL_SERVER_PASSWORD: process.env.EMAIL_SERVER_PASSWORD,
+		EMAIL_TARGET: process.env.EMAIL_TARGET,
 		SANITY_API_READ_TOKEN: process.env.SANITY_API_READ_TOKEN,
 		NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN:
 			process.env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,

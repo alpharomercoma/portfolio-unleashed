@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest) => {
 	const body = (await req.json()) as ContactForm;
 	await sendMail(
-		env.TARGET_EMAIL,
+		env.EMAIL_TARGET,
 		`Alpha's Portfolio Form: ${body.name} - ${body.purpose}`,
 		`
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ export const POST = async (req: NextRequest) => {
 	return NextResponse.json(
 		{
 			message:
-				"Email sent successfully! Please look forward and I will get back to you as soon as possible ;>",
+				"Email sent successfully! Please look forward and I'll get back to you as soon as possible ;>",
 		},
 		{ status: 201 },
 	);

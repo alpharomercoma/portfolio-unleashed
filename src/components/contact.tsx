@@ -2,6 +2,7 @@
 
 import axios from "@/utils/axios";
 import { useState } from "react";
+import Spinner from "./ui/spinner";
 
 export interface ContactForm {
 	name: string;
@@ -12,6 +13,7 @@ export interface ContactForm {
 	message: string;
 }
 export default function ContactForm() {
+	const [isLoading, setIsLoading] = useState(false);
 	const [formData, setFormData] = useState<ContactForm>({
 		name: "",
 		email: "",
@@ -33,26 +35,29 @@ export default function ContactForm() {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
+			setIsLoading(true);
 			const res = await axios.post("/contact", formData);
 			if (res.status === 201) alert(res.data.message);
+			setFormData({
+				name: "",
+				email: "",
+				company: "",
+				title: "",
+				purpose: "",
+				message: "",
+			});
 		} catch (error) {
 			console.error(error);
 			alert(
-				"An error occurred while submitting the form. Please try again later.",
+				"An error occurred while submitting the form. Please contact me directly on LinkedIn: https://www.linkedin.com/in/alpharomercoma",
 			);
 		}
-		setFormData({
-			name: "",
-			email: "",
-			company: "",
-			title: "",
-			purpose: "",
-			message: "",
-		});
+		setIsLoading(false);
 	};
 
 	return (
 		<section id="contact" className="py-12 bg-gray-50">
+			{isLoading && <Spinner />}
 			<div className="container mx-auto px-4 max-w-3xl">
 				<h2 className="text-3xl font-bold mb-10 text-center">
 					Let&apos;s Discuss!
