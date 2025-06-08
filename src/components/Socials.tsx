@@ -22,7 +22,7 @@ export const socials: Social[] = [
 		name: "LinkedIn",
 		link: "https://www.linkedin.com/in/alpharomercoma/",
 		icon: <FaLinkedin className="h-6 w-6" />,
-		description: "2400+ Followers",
+		description: "2700+ Followers",
 	},
 	{
 		name: "Google Play Store",

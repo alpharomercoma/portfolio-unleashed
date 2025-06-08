@@ -7,7 +7,12 @@ const affiliations = [
 		name: "GitHub Campus Expert",
 		logo: "/affiliations/github_campus_expert.png",
 	},
+	{
+		name: "GitHub Campus Expert Philippines",
+		logo: "/affiliations/github_campus_expert_philippines.png",
+	},
 	{ name: "Google Cloud Platform", logo: "/affiliations/google_cloud.png" },
+	{ name: "TPU Research Cloud", logo: "/affiliations/trc.png" },
 	{ name: "FEU Tech GDSC", logo: "/affiliations/fit_gdsc.png" },
 	{
 		name: "Google Cloud Manila",
@@ -16,14 +21,13 @@ const affiliations = [
 	{ name: "Amazon Security User Group", logo: "/affiliations/awssug.jpg" },
 	{ name: "AI Republic", logo: "/affiliations/airepublic.png" },
 	{ name: "ULAP.org", logo: "/affiliations/ulap.png" },
-	{ name: "Skilio", logo: "/affiliations/skilio.png" },
 	{ name: "Logrocket", logo: "/affiliations/logrocket.png" },
 	{ name: "IEEE", logo: "/affiliations/ieee.png" },
 	{ name: "IEEE Computer Society", logo: "/affiliations/ieee_cs.png" },
-	{ name: "Google Play Store", logo: "/affiliations/google_play.png" },
-	{ name: "Xiaomi App Store", logo: "/affiliations/xiaomi.png" },
-	{ name: "Huawei App Gallery", logo: "/affiliations/huawei.png" },
-	{ name: "Microsoft Store", logo: "/affiliations/ms_store.png" },
+	{
+		name: "Analytics & Artificial Intelligence Association of the Philippines",
+		logo: "/affiliations/aap.png",
+	},
 ];
 
 function Affiliations() {

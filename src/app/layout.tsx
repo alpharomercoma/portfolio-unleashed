@@ -16,8 +16,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
 	title: "Alpha Romer Coma | Portfolio",
 	applicationName: "Alpha",
-	description:
-		"Building the change of tomorrow | I am Alpha, striving to transcend AI to sentience. Welcome to my portfolio.",
+	description: "",
 	authors: { name: "Alpha Romer Coma", url: "https://alpharomer.vercel.app" },
 	category: "Technology",
 	classification: "Technology",

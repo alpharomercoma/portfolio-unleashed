@@ -73,7 +73,7 @@ const projects: Record<string, Project[]> = {
 			demoUrl: "https://mymnhs.vercel.app",
 		},
 	],
-	"Machine Learning": [
+	"AI/Machine Learning": [
 		{
 			title: "AceRouter",
 			description:
@@ -111,7 +111,7 @@ const projects: Record<string, Project[]> = {
 				"https://huggingface.co/alpharomercoma/gemma-2b-instruct-ft-coding-interview",
 		},
 	],
-	"Project Management": [
+	Leadership: [
 		{
 			title: "ACM x GCP",
 			description:
@@ -168,8 +168,7 @@ const projects: Record<string, Project[]> = {
 			description:
 				"A novel thesis on the modern phenomenon called brain rot and the development of a multimodal deep learning model specialized in recognizing addictive short-form neurodegenerative content",
 			image: "/projects/research/skibidi.png",
-			projectUrl:
-				"https://docs.google.com/document/d/1T0g-GNV7Zt2lRcN037KzcMlSd-tspfq3/edit#heading=h.nzicxuemjomp",
+			projectUrl: "https://sludge-detector.vercel.app",
 		},
 		{
 			title:

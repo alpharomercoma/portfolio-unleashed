@@ -5,6 +5,8 @@ import {
 	FaHome,
 	FaRocket,
 	FaStar,
+	FaEnvelope,
+	FaBlog,
 } from "react-icons/fa";
 
 interface NavLink {
@@ -47,6 +49,11 @@ export const homeNavLinks: NavLink[] = [
 	{
 		name: "Contact",
 		href: "#contact",
-		icon: <FaAward className="h-6 w-6" />,
+		icon: <FaEnvelope className="h-6 w-6" />,
+	},
+	{
+		name: "Blog",
+		href: "/blog",
+		icon: <FaBlog className="h-6 w-6" />,
 	},
 ];

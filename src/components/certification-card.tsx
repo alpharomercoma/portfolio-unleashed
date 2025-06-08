@@ -22,7 +22,7 @@ export function CertificationCard({
 				<div className="flex flex-col h-full">
 					<div className="flex items-center space-x-4 mb-4">
 						<Image
-							src={certification.companyLogo}
+							src={"/certificates/logo/" + certification.companyLogo}
 							alt={`${certification.company} logo`}
 							width={40}
 							height={40}

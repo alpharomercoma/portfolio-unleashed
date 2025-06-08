@@ -57,7 +57,7 @@ function Hero() {
 									Alpha Romer Coma
 								</h1>
 								<p className="mt-2 text-xl text-muted-foreground text-balance">
-									Software Engineer && Machine Learning Engineer
+									Software Engineer & AI/ML Engineer
 								</p>
 
 								{/* Badges */}
@@ -102,9 +102,10 @@ function Hero() {
 								{/* Bio Section */}
 								<div className="mt-6 max-w-2xl mx-auto lg:mx-0">
 									<p className="text-muted-foreground">
-										Building the Change of Tomorrow | Passionate about
-										technology, innovation, and community. My goal is to
-										transcend AI towards sentience.
+										My goal is to advance multimodal AI research to extend human
+										cognition and advance the Philippines' competitiveness in
+										tech. Delivering quantitative results and exceeding
+										expectations.
 									</p>
 								</div>
 							</div>
@@ -135,7 +136,7 @@ function Hero() {
 						<Card className="flex md:flex-col lg:flex-row items-center gap-4 p-4">
 							<FaLanguage className="h-8 w-8 text-muted-foreground" />
 							<div>
-								<p className="font-medium">Language I Speak!</p>
+								<p className="font-medium">Languages I Speak</p>
 								<p className="text-sm text-muted-foreground">
 									English | Filipino | 日本語 | 中文 | 한국어
 								</p>
@@ -147,7 +148,7 @@ function Hero() {
 							<div>
 								<p className="font-medium">GitHub Campus Expert Philippines</p>
 								<p className="text-sm text-muted-foreground">
-									5x GitHub, 4x Microsoft, 1x Oracle, Google
+									Taught over 1000+ students in PH
 								</p>
 							</div>
 						</Card>
