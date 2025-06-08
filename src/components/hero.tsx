@@ -103,8 +103,8 @@ function Hero() {
 								<div className="mt-6 max-w-2xl mx-auto lg:mx-0">
 									<p className="text-muted-foreground">
 										My goal is to advance multimodal AI research to extend human
-										cognition and advance the Philippines' competitiveness in
-										tech. Delivering quantitative results and exceeding
+										cognition and advance the Philippines&apos; competitiveness
+										in tech. Delivering quantitative results and exceeding
 										expectations.
 									</p>
 								</div>
