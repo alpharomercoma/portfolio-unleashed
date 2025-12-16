@@ -1,11 +1,11 @@
+import { client } from "@/sanity/lib/client";
+import { stegaClean } from "next-sanity";
 import {
 	useNextSanityImage,
 	type UseNextSanityImageOptions,
 } from "next-sanity-image";
-import { client } from "@/sanity/lib/client";
-import { urlFor } from "./image";
 import { preload } from "react-dom";
-import { stegaClean } from "next-sanity";
+import { urlFor } from "./image";
 
 const SIZES = [
 	120, 240, 360, 480, 640, 720, 800, 880, 960, 1280, 1440, 1600, 1800, 2000,
@@ -24,7 +24,7 @@ export default function Img({
 	imageSizes?: number[];
 	options?: UseNextSanityImageOptions;
 } & React.ImgHTMLAttributes<HTMLImageElement>) {
-	if (!image?.asset) return null;
+	if (!image) return null;
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { src, width, height } = useNextSanityImage(
@@ -64,7 +64,7 @@ export function Source({
 	options?: UseNextSanityImageOptions;
 	media?: string;
 }) {
-	if (!image?.asset) return null;
+	if (!image) return null;
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { src, width, height } = useNextSanityImage(
 		client,

@@ -1,22 +1,18 @@
 import "../globals.css";
 
 import type { Metadata } from "next";
-import {
-	VisualEditing,
-	toPlainText,
-	type PortableTextBlock,
-} from "next-sanity";
+import { toPlainText, type PortableTextBlock } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
 
-import AlertBanner from "./alert-banner";
-import PortableText from "./portable-text";
-import NavBar from "@/components/navbar";
-import { postNavLinks } from "./postNav";
+import { Navbar } from "@/components/navbar";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import AlertBanner from "./alert-banner";
+import PortableText from "./portable-text";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const settings = await sanityFetch({
@@ -67,7 +63,7 @@ export default async function RootLayout({
 	return (
 		<html lang="en" className={`${inter.variable} bg-white text-black`}>
 			<body>
-				<NavBar navLinks={postNavLinks} />
+				<Navbar />
 				<section className="min-h-screen">
 					{isDraftMode && <AlertBanner />}
 					<main>{children}</main>

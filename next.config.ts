@@ -24,6 +24,8 @@ const config = {
 			},
 		],
 	},
+	// Empty turbopack config to silence webpack/turbopack conflict warning
+	turbopack: {},
 } satisfies NextConfig;
 
 export default withPWA(config);

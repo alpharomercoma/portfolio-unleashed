@@ -1,27 +1,29 @@
-import Affiliations from "@/components/affiliations";
-import HonorsAndAwards from "@/components/awards";
-import Certifications from "@/components/certifications";
-// import Chatbot from "@/components/chat/Chatbot";
-import ContactForm from "@/components/contact";
-import Footer from "@/components/footer";
-import Hero from "@/components/hero";
-import NavBar from "@/components/navbar";
-import Projects from "@/components/projects";
-import Recommendations from "@/components/recommendations";
-import { homeNavLinks } from "@/components/homeNav";
+import { AwardsSection } from "@/components/awards-section";
+import { BlogSection } from "@/components/blog-section";
+import { CertificationsSection } from "@/components/certifications-section";
+// import { ContactSection } from "@/components/contact-section";
+import { FeaturedSection } from "@/components/featured-section";
+import { Footer } from "@/components/footer";
+import { HeroSection } from "@/components/hero-section";
+import { Navbar } from "@/components/navbar";
+import { ProjectsSection } from "@/components/projects-section";
+import { RecommendationsSection } from "@/components/recommendations-section";
+import { SpeakingSection } from "@/components/speaking-section";
+
 export default function Home() {
 	return (
-		<>
-			<NavBar navLinks={homeNavLinks} />
-			{/* <Chatbot /> */}
-			<Hero />
-			<Projects />
-			<Certifications />
-			<Affiliations />
-			<Recommendations />
-			<HonorsAndAwards />
-			<ContactForm />
+		<main className="min-h-screen bg-background">
+			<Navbar />
+			<HeroSection />
+			<FeaturedSection />
+			<ProjectsSection />
+			<SpeakingSection />
+			<BlogSection />
+			<CertificationsSection />
+			<RecommendationsSection />
+			<AwardsSection />
+			{/* <ContactSection /> */}
 			<Footer />
-		</>
+		</main>
 	);
 }
