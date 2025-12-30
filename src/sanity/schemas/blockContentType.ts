@@ -57,6 +57,11 @@ export const blockContentType = defineType({
 							},
 						],
 					},
+					{
+						name: "favoriteColor",
+						title: "Favorite color",
+						type: "color",
+					},
 				],
 			},
 		}),

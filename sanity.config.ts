@@ -11,6 +11,7 @@ import author from "@/sanity/schemas/documents/author";
 import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
 import { codeInput } from "@sanity/code-input";
+import { colorInput } from "@sanity/color-input";
 import { visionTool } from "@sanity/vision";
 import { PluginOptions, defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
@@ -84,6 +85,7 @@ export default defineConfig({
 		}),
 		structureTool({ structure: pageStructure([settings]) }),
 		// Configures the global "new document" button, and document actions, to suit the Settings document singleton
+		colorInput(),
 		singletonPlugin([settings.name]),
 		// Add an image asset source for Unsplash
 		unsplashImageAsset(),

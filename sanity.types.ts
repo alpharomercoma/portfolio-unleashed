@@ -23,11 +23,16 @@ export type BlockContent = Array<
 			}>;
 			style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
 			listItem?: "bullet" | "number";
-			markDefs?: Array<{
-				href?: string;
-				_type: "link";
-				_key: string;
-			}>;
+			markDefs?: Array<
+				| {
+						href?: string;
+						_type: "link";
+						_key: string;
+				  }
+				| ({
+						_key: string;
+				  } & Color)
+			>;
 			level?: number;
 			_type: "block";
 			_key: string;
@@ -338,6 +343,39 @@ export type Code = {
 	highlightedLines?: Array<number>;
 };
 
+export type Color = {
+	_type: "color";
+	hex?: string;
+	alpha?: number;
+	hsl?: HslaColor;
+	hsv?: HsvaColor;
+	rgb?: RgbaColor;
+};
+
+export type RgbaColor = {
+	_type: "rgbaColor";
+	r?: number;
+	g?: number;
+	b?: number;
+	a?: number;
+};
+
+export type HsvaColor = {
+	_type: "hsvaColor";
+	h?: number;
+	s?: number;
+	v?: number;
+	a?: number;
+};
+
+export type HslaColor = {
+	_type: "hslaColor";
+	h?: number;
+	s?: number;
+	l?: number;
+	a?: number;
+};
+
 export type SanityImagePaletteSwatch = {
 	_type: "sanity.imagePaletteSwatch";
 	background?: string;
@@ -456,6 +494,10 @@ export type AllSanitySchemaTypes =
 	| SanityAssistSchemaTypeField
 	| MediaTag
 	| Code
+	| Color
+	| RgbaColor
+	| HsvaColor
+	| HslaColor
 	| SanityImagePaletteSwatch
 	| SanityImagePalette
 	| SanityImageDimensions
