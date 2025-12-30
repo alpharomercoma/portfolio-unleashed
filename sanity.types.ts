@@ -46,6 +46,9 @@ export type BlockContent = Array<
 			_type: "image";
 			_key: string;
 	  }
+	| ({
+			_key: string;
+	  } & Code)
 >;
 
 export type Post = {
@@ -318,6 +321,23 @@ export type SanityAssistSchemaTypeField = {
 	>;
 };
 
+export type MediaTag = {
+	_id: string;
+	_type: "media.tag";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	name?: Slug;
+};
+
+export type Code = {
+	_type: "code";
+	language?: string;
+	filename?: string;
+	code?: string;
+	highlightedLines?: Array<number>;
+};
+
 export type SanityImagePaletteSwatch = {
 	_type: "sanity.imagePaletteSwatch";
 	background?: string;
@@ -434,6 +454,8 @@ export type AllSanitySchemaTypes =
 	| SanityAssistInstructionFieldRef
 	| SanityAssistInstruction
 	| SanityAssistSchemaTypeField
+	| MediaTag
+	| Code
 	| SanityImagePaletteSwatch
 	| SanityImagePalette
 	| SanityImageDimensions

@@ -10,10 +10,11 @@ import { blockContentType } from "@/sanity/schemas/blockContentType";
 import author from "@/sanity/schemas/documents/author";
 import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
-import { visionTool } from "@sanity/vision";
 import { codeInput } from "@sanity/code-input";
+import { visionTool } from "@sanity/vision";
 import { PluginOptions, defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
+import { media } from "sanity-plugin-media";
 import {
 	defineDocuments,
 	defineLocations,
@@ -87,6 +88,7 @@ export default defineConfig({
 		// Add an image asset source for Unsplash
 		unsplashImageAsset(),
 		codeInput(),
+		media(),
 		// Sets up AI Assist with preset prompts
 		// https://www.sanity.io/docs/ai-assist
 		assistWithPresets(),
