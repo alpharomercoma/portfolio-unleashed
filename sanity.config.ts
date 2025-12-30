@@ -11,6 +11,7 @@ import author from "@/sanity/schemas/documents/author";
 import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
 import { visionTool } from "@sanity/vision";
+import { codeInput } from "@sanity/code-input";
 import { PluginOptions, defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import {
@@ -85,6 +86,7 @@ export default defineConfig({
 		singletonPlugin([settings.name]),
 		// Add an image asset source for Unsplash
 		unsplashImageAsset(),
+		codeInput(),
 		// Sets up AI Assist with preset prompts
 		// https://www.sanity.io/docs/ai-assist
 		assistWithPresets(),
