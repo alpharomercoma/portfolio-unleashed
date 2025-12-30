@@ -12,6 +12,7 @@ import post from "@/sanity/schemas/documents/post";
 import settings from "@/sanity/schemas/singletons/settings";
 import { codeInput } from "@sanity/code-input";
 import { colorInput } from "@sanity/color-input";
+import { table } from "@sanity/table";
 import { visionTool } from "@sanity/vision";
 import { PluginOptions, defineConfig } from "sanity";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
@@ -41,6 +42,20 @@ export default defineConfig({
 			post,
 			blockContentType,
 			author,
+			{
+				name: "product",
+				title: "Product",
+				type: "document",
+				fields: [
+					{
+						// Include the table as a field
+						// Giving it a semantic title
+						name: "sizeChart",
+						title: "Size Chart",
+						type: "table",
+					},
+				],
+			},
 		],
 	},
 	plugins: [
@@ -86,6 +101,7 @@ export default defineConfig({
 		structureTool({ structure: pageStructure([settings]) }),
 		// Configures the global "new document" button, and document actions, to suit the Settings document singleton
 		colorInput(),
+		table(),
 		singletonPlugin([settings.name]),
 		// Add an image asset source for Unsplash
 		unsplashImageAsset(),

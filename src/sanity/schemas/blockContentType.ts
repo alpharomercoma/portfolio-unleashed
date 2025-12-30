@@ -1,4 +1,4 @@
-import { ImageIcon } from "@sanity/icons";
+import { DropIcon, ImageIcon, ThListIcon } from "@sanity/icons";
 import { defineArrayMember, defineType } from "sanity";
 
 /**
@@ -57,11 +57,6 @@ export const blockContentType = defineType({
 							},
 						],
 					},
-					{
-						name: "favoriteColor",
-						title: "Favorite color",
-						type: "color",
-					},
 				],
 			},
 		}),
@@ -82,6 +77,18 @@ export const blockContentType = defineType({
 		}),
 		defineArrayMember({
 			type: "code",
+		}),
+		defineArrayMember({
+			name: "favoriteColor",
+			title: "Favorite Color",
+			type: "color",
+			icon: DropIcon,
+		}),
+		defineArrayMember({
+			name: "sizeChart",
+			title: "Size Chart",
+			type: "table",
+			icon: ThListIcon,
 		}),
 	],
 });

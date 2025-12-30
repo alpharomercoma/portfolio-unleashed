@@ -13,6 +13,24 @@
  */
 
 // Source: schema.json
+export type Product = {
+	_id: string;
+	_type: "product";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	sizeChart?: Table;
+};
+
+export type Table = {
+	_type: "table";
+	rows?: Array<
+		{
+			_key: string;
+		} & TableRow
+	>;
+};
+
 export type BlockContent = Array<
 	| {
 			children?: Array<{
@@ -32,6 +50,9 @@ export type BlockContent = Array<
 				| ({
 						_key: string;
 				  } & Color)
+				| ({
+						_key: string;
+				  } & Table)
 			>;
 			level?: number;
 			_type: "block";
@@ -343,6 +364,11 @@ export type Code = {
 	highlightedLines?: Array<number>;
 };
 
+export type TableRow = {
+	_type: "tableRow";
+	cells?: Array<string>;
+};
+
 export type Color = {
 	_type: "color";
 	hex?: string;
@@ -473,6 +499,8 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+	| Product
+	| Table
 	| BlockContent
 	| Post
 	| Author
@@ -494,6 +522,7 @@ export type AllSanitySchemaTypes =
 	| SanityAssistSchemaTypeField
 	| MediaTag
 	| Code
+	| TableRow
 	| Color
 	| RgbaColor
 	| HsvaColor
