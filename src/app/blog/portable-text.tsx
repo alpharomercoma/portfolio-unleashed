@@ -3,6 +3,7 @@ import AnchoredHeading from "./AnchoredHeading";
 import Image from "./Image";
 import Code from "./Code";
 import CustomHTML from "./CustomHTML";
+import Table from "./Table";
 import { cn } from "@/lib/utils";
 import styles from "../../app/_components/markdown-styles.module.css";
 
@@ -46,6 +47,8 @@ export default function Content({
 					types: {
 						image: Image,
 						code: Code,
+						table: Table,
+						sizeChart: Table,
 						"custom-html": ({ value }) => (
 							<CustomHTML
 								className="has-[table]:md:mx-auto has-[table]:md:[grid-column:bleed]"

@@ -41,19 +41,11 @@ export type BlockContent = Array<
 			}>;
 			style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
 			listItem?: "bullet" | "number";
-			markDefs?: Array<
-				| {
-						href?: string;
-						_type: "link";
-						_key: string;
-				  }
-				| ({
-						_key: string;
-				  } & Color)
-				| ({
-						_key: string;
-				  } & Table)
-			>;
+			markDefs?: Array<{
+				href?: string;
+				_type: "link";
+				_key: string;
+			}>;
 			level?: number;
 			_type: "block";
 			_key: string;
@@ -75,6 +67,12 @@ export type BlockContent = Array<
 	| ({
 			_key: string;
 	  } & Code)
+	| ({
+			_key: string;
+	  } & Color)
+	| ({
+			_key: string;
+	  } & Table)
 >;
 
 export type Post = {
