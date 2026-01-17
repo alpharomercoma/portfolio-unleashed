@@ -231,20 +231,74 @@ function CarouselNext({
 	);
 }
 
-// Custom hook for paginated carousel state
-export function useCarouselPagination<T>(items: T[], itemsPerPage: number) {
+// Custom hook for paginated carousel state with auto-rotation
+export function useCarouselPagination<T>(
+	items: T[],
+	itemsPerPage: number,
+	autoRotateInterval?: number,
+) {
 	const [currentPage, setCurrentPage] = React.useState(0);
+	const [isAutoRotating, setIsAutoRotating] =
+		React.useState(!!autoRotateInterval);
+	const [isTransitioning, setIsTransitioning] = React.useState(false);
 	const totalPages = Math.ceil(items.length / itemsPerPage);
+	const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
 	const currentItems = items.slice(
 		currentPage * itemsPerPage,
 		(currentPage + 1) * itemsPerPage,
 	);
 
-	const nextPage = () => setCurrentPage((prev) => (prev + 1) % totalPages);
-	const prevPage = () =>
-		setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
-	const goToPage = (page: number) => setCurrentPage(page);
+	const changePage = React.useCallback((newPage: number) => {
+		setIsTransitioning(true);
+		// Small delay for exit animation
+		setTimeout(() => {
+			setCurrentPage(newPage);
+			// Reset transitioning after entry animation completes
+			setTimeout(() => setIsTransitioning(false), 300);
+		}, 50);
+	}, []);
+
+	const nextPage = React.useCallback(() => {
+		changePage((currentPage + 1) % totalPages);
+	}, [changePage, currentPage, totalPages]);
+
+	const prevPage = React.useCallback(() => {
+		changePage((currentPage - 1 + totalPages) % totalPages);
+	}, [changePage, currentPage, totalPages]);
+
+	const goToPage = React.useCallback(
+		(page: number) => {
+			changePage(page);
+		},
+		[changePage],
+	);
+
+	// Stop auto-rotation (called when user interacts)
+	const stopAutoRotate = React.useCallback(() => {
+		setIsAutoRotating(false);
+		if (intervalRef.current) {
+			clearInterval(intervalRef.current);
+			intervalRef.current = null;
+		}
+	}, []);
+
+	// Handle auto-rotation
+	React.useEffect(() => {
+		if (!isAutoRotating || !autoRotateInterval || totalPages <= 1) {
+			return;
+		}
+
+		intervalRef.current = setInterval(() => {
+			setCurrentPage((prev) => (prev + 1) % totalPages);
+		}, autoRotateInterval);
+
+		return () => {
+			if (intervalRef.current) {
+				clearInterval(intervalRef.current);
+			}
+		};
+	}, [isAutoRotating, autoRotateInterval, totalPages]);
 
 	return {
 		currentPage,
@@ -253,6 +307,9 @@ export function useCarouselPagination<T>(items: T[], itemsPerPage: number) {
 		nextPage,
 		prevPage,
 		goToPage,
+		stopAutoRotate,
+		isAutoRotating,
+		isTransitioning,
 	};
 }
 
@@ -265,6 +322,8 @@ interface CarouselControlsProps {
 	totalPages: number;
 	onPrev: () => void;
 	onNext: () => void;
+	onUserInteraction?: () => void;
+	isAutoRotating?: boolean;
 	className?: string;
 }
 
@@ -273,31 +332,49 @@ export function CarouselControls({
 	totalPages,
 	onPrev,
 	onNext,
+	onUserInteraction,
+	isAutoRotating,
 	className,
 }: CarouselControlsProps) {
 	if (totalPages <= 1) return null;
+
+	const handlePrev = () => {
+		onUserInteraction?.();
+		onPrev();
+	};
+
+	const handleNext = () => {
+		onUserInteraction?.();
+		onNext();
+	};
 
 	return (
 		<div
 			className={cn("flex items-center gap-2", className)}
 			style={{ animationDelay: "200ms" }}
 		>
+			{isAutoRotating && (
+				<span className="relative flex h-2 w-2 mr-1">
+					<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-blue)] opacity-75" />
+					<span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-blue)]" />
+				</span>
+			)}
 			<span className="text-xs text-muted-foreground mr-2">
 				{currentPage + 1}&nbsp;/&nbsp;{totalPages}
 			</span>
 			<Button
 				variant="outline"
 				size="icon"
-				className="h-8 w-8 cursor-pointer rounded-full bg-transparent"
-				onClick={onPrev}
+				className="h-8 w-8 cursor-pointer rounded-full bg-transparent transition-all duration-200 hover:scale-110 active:scale-95"
+				onClick={handlePrev}
 			>
 				<ChevronLeft className="h-4 w-4" />
 			</Button>
 			<Button
 				variant="outline"
 				size="icon"
-				className="h-8 w-8 cursor-pointer rounded-full bg-transparent"
-				onClick={onNext}
+				className="h-8 w-8 cursor-pointer rounded-full bg-transparent transition-all duration-200 hover:scale-110 active:scale-95"
+				onClick={handleNext}
 			>
 				<ChevronRight className="h-4 w-4" />
 			</Button>
@@ -310,6 +387,7 @@ interface CarouselDotsProps {
 	currentPage: number;
 	totalPages: number;
 	onGoToPage: (page: number) => void;
+	onUserInteraction?: () => void;
 	className?: string;
 }
 
@@ -317,18 +395,24 @@ export function CarouselDots({
 	currentPage,
 	totalPages,
 	onGoToPage,
+	onUserInteraction,
 	className,
 }: CarouselDotsProps) {
 	if (totalPages <= 1) return null;
+
+	const handleGoToPage = (page: number) => {
+		onUserInteraction?.();
+		onGoToPage(page);
+	};
 
 	return (
 		<div className={cn("flex justify-center gap-1.5", className)}>
 			{Array.from({ length: totalPages }).map((_, i) => (
 				<button
 					key={i}
-					onClick={() => onGoToPage(i)}
+					onClick={() => handleGoToPage(i)}
 					className={cn(
-						"h-1.5 rounded-full transition-all duration-300",
+						"h-1.5 rounded-full transition-all duration-300 hover:opacity-80",
 						i === currentPage
 							? "w-6 bg-[var(--color-blue)]"
 							: "w-1.5 bg-border hover:bg-muted-foreground/30",

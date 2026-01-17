@@ -92,6 +92,7 @@ const recommendations = [
 ];
 
 const ITEMS_PER_PAGE = 4;
+const AUTO_ROTATE_INTERVAL = 10000; // 10 seconds for recommendations (longer quotes)
 
 export function RecommendationsSection() {
 	const sectionRef = useRef<HTMLElement>(null);
@@ -102,7 +103,9 @@ export function RecommendationsSection() {
 		nextPage,
 		prevPage,
 		goToPage,
-	} = useCarousel(recommendations, ITEMS_PER_PAGE);
+		stopAutoRotate,
+		isAutoRotating,
+	} = useCarousel(recommendations, ITEMS_PER_PAGE, AUTO_ROTATE_INTERVAL);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -150,6 +153,8 @@ export function RecommendationsSection() {
 						totalPages={totalPages}
 						onPrev={prevPage}
 						onNext={nextPage}
+						onUserInteraction={stopAutoRotate}
+						isAutoRotating={isAutoRotating}
 						className="animate-on-scroll opacity-0"
 					/>
 				</div>
@@ -199,6 +204,7 @@ export function RecommendationsSection() {
 					currentPage={currentPage}
 					totalPages={totalPages}
 					onGoToPage={goToPage}
+					onUserInteraction={stopAutoRotate}
 					className="mt-4"
 				/>
 			</div>

@@ -223,6 +223,7 @@ export const certifications = [
 ].toReversed();
 
 const ITEMS_PER_PAGE = 9;
+const AUTO_ROTATE_INTERVAL = 5000; // 5 seconds for certifications (compact items)
 
 export function CertificationsSection() {
 	const sectionRef = useRef<HTMLElement>(null);
@@ -233,7 +234,9 @@ export function CertificationsSection() {
 		nextPage,
 		prevPage,
 		goToPage,
-	} = useCarousel(certifications, ITEMS_PER_PAGE);
+		stopAutoRotate,
+		isAutoRotating,
+	} = useCarousel(certifications, ITEMS_PER_PAGE, AUTO_ROTATE_INTERVAL);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -281,6 +284,8 @@ export function CertificationsSection() {
 						totalPages={totalPages}
 						onPrev={prevPage}
 						onNext={nextPage}
+						onUserInteraction={stopAutoRotate}
+						isAutoRotating={isAutoRotating}
 						className="animate-on-scroll opacity-0"
 					/>
 				</div>
@@ -325,6 +330,7 @@ export function CertificationsSection() {
 					currentPage={currentPage}
 					totalPages={totalPages}
 					onGoToPage={goToPage}
+					onUserInteraction={stopAutoRotate}
 					className="mt-4"
 				/>
 			</div>
