@@ -220,6 +220,14 @@ export const certifications = [
 		date: "2025-08-02",
 		link: "https://www.credly.com/badges/0d8cac99-a09d-4ee9-86ac-13ec16a066ff/public_url",
 	},
+	{
+		id: "26",
+		title: "AWS Certified Machine Learning Engineer - Associate",
+		issuer: "AWS",
+		logo: "aws.png",
+		date: "2025-12-30",
+		link: "https://www.credly.com/badges/89a55bb2-8f32-4938-84a1-683f21bb0e64/public_url",
+	},
 ].toReversed();
 
 const ITEMS_PER_PAGE = 9;

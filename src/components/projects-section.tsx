@@ -96,6 +96,16 @@ const projects = [
 		image: "kape-ni-rab.png",
 	},
 	{
+		title: "Setsunai: Private Space",
+		description:
+			"Open-source, Self-Hosted, & End-to-End-Encrypted Private Space for Thoughts that Need No Audience",
+		tags: ["NextJS", "Redis", "End-to-End Encryption"],
+		github: "http://github.com/alpharomercoma/setsunai",
+		demo: "https://setsunai.vercel.app",
+		color: "var(--color-blue)",
+		image: "setsunai.png",
+	},
+	{
 		title: "MyMNHS",
 		description:
 			"MyMNHS was the unofficial platform of Meycauayan National High School, completed with a real-time chat feature, announcements, and forums",
