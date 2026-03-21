@@ -11,13 +11,13 @@ const affiliations = [
 	{ name: "Google Cloud", logo: "/gcp.png" },
 	{ name: "Vercel", logo: "/vercel.png" },
 	{ name: "Tavily", logo: "/tavily.png" },
+	{ name: "PyTorch", logo: "/pytorch.png" },
 	{ name: "GitHub", logo: "/github.jpg" },
 	{ name: "GitHub Campus Expert", logo: "/github_campus_expert.png" },
 	{
 		name: "GitHub Campus Expert Philippines",
 		logo: "/github_campus_expert_philippines.png",
 	},
-	{ name: "Kollab", logo: "/kollab.png" },
 	{ name: "FEU Institute of Technology", logo: "/fit.png" },
 	{ name: "FEU Tech ACM", logo: "/fitacm.png" },
 	{
