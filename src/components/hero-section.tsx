@@ -14,10 +14,7 @@ const affiliations = [
 	{ name: "PyTorch", logo: "/pytorch.png" },
 	{ name: "GitHub", logo: "/github.jpg" },
 	{ name: "GitHub Campus Expert", logo: "/github_campus_expert.png" },
-	{
-		name: "GitHub Campus Expert Philippines",
-		logo: "/github_campus_expert_philippines.png",
-	},
+	{ name: "FreeCodeCamp", logo: "/fcc.png" },
 	{ name: "FEU Institute of Technology", logo: "/fit.png" },
 	{ name: "FEU Tech ACM", logo: "/fitacm.png" },
 	{
