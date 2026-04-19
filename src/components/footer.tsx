@@ -4,16 +4,17 @@ import { Github, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 
 const footerLinks = {
-	navigation: [
+	explore: [
 		{ label: "About", href: "#about" },
+		{ label: "Featured", href: "#featured" },
 		{ label: "Projects", href: "#projects" },
-		{ label: "Awards", href: "#awards" },
 		{ label: "Speaking", href: "#speaking" },
 	],
 	resources: [
-		{ label: "Certifications", href: "#certifications" },
 		{ label: "Blog", href: "#blog" },
-		// { label: "Contact", href: "#contact" },
+		{ label: "Certifications", href: "#certifications" },
+		{ label: "Recommendations", href: "#recommendations" },
+		{ label: "Awards", href: "#awards" },
 	],
 	social: [
 		{
@@ -36,87 +37,86 @@ const footerLinks = {
 
 export function Footer() {
 	return (
-		<footer className="px-4 sm:px-6 py-8">
-			<div className="max-w-5xl mx-auto">
-				<div className="bg-secondary/50 border border-border rounded-2xl p-6 sm:p-8">
-					<div className="grid sm:grid-cols-4 gap-6 mb-6">
-						<div className="sm:col-span-2">
-							<Link
-								href="/"
-								className="text-lg font-semibold text-foreground mb-2 inline-block"
-							>
-								<span className="text-[var(--color-blue)]">A</span>
-								<span className="text-[var(--color-red)]">l</span>
-								<span className="text-[var(--color-yellow)]">p</span>
-								<span className="text-[var(--color-green)]">h</span>
-								<span className="text-[var(--color-blue)]">a</span>
-								<span className="text-foreground"> Romer</span>
-							</Link>
-							<p className="text-xs text-muted-foreground mb-4 max-w-xs">
-								AI/ML Engineer building intelligent systems that solve
-								real-world problems.
-							</p>
-							<div className="flex items-center gap-2">
-								{footerLinks.social.map((social) => (
+		<footer className="px-4 sm:px-6 pb-8">
+			<div className="max-w-6xl mx-auto">
+				<div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-gray-200">
+					<div className="col-span-2">
+						<Link
+							href="/"
+							className="text-xl font-semibold text-foreground inline-block mb-3"
+						>
+							<span className="text-[var(--color-blue)]">A</span>
+							<span className="text-[var(--color-red)]">l</span>
+							<span className="text-[var(--color-yellow)]">p</span>
+							<span className="text-[var(--color-green)]">h</span>
+							<span className="text-[var(--color-blue)]">a</span>
+							<span className="text-foreground"> Romer Coma</span>
+						</Link>
+						<p className="text-sm text-muted-foreground mb-5 max-w-sm leading-relaxed">
+							AI/ML Engineer building intelligent systems that scale.
+							Researching multimodal AI with a $376,000 Google Cloud compute
+							grant.
+						</p>
+						<div className="flex items-center gap-2">
+							{footerLinks.social.map((social) => (
+								<Link
+									key={social.label}
+									href={social.href}
+									className="p-2.5 bg-gray-100 text-muted-foreground hover:bg-foreground hover:text-background transition-colors rounded-full"
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={social.label}
+								>
+									<social.icon className="h-4 w-4" />
+								</Link>
+							))}
+						</div>
+					</div>
+
+					<div>
+						<h4 className="font-semibold text-foreground mb-4 text-sm">
+							Explore
+						</h4>
+						<ul className="space-y-2.5">
+							{footerLinks.explore.map((link) => (
+								<li key={link.label}>
 									<Link
-										key={social.label}
-										href={social.href}
-										className="p-2 bg-background text-muted-foreground hover:text-[var(--color-blue)] transition-colors rounded-full border border-border"
-										target="_blank"
-										rel="noopener noreferrer"
-										aria-label={social.label}
+										href={link.href}
+										className="text-sm text-muted-foreground hover:text-foreground transition-colors"
 									>
-										<social.icon className="h-4 w-4" />
+										{link.label}
 									</Link>
-								))}
-							</div>
-						</div>
-
-						<div>
-							<h4 className="font-medium text-foreground mb-3 text-sm">
-								Navigation
-							</h4>
-							<ul className="space-y-2">
-								{footerLinks.navigation.map((link) => (
-									<li key={link.label}>
-										<Link
-											href={link.href}
-											className="text-xs text-muted-foreground hover:text-[var(--color-blue)] transition-colors"
-										>
-											{link.label}
-										</Link>
-									</li>
-								))}
-							</ul>
-						</div>
-
-						<div>
-							<h4 className="font-medium text-foreground mb-3 text-sm">
-								Resources
-							</h4>
-							<ul className="space-y-2">
-								{footerLinks.resources.map((link) => (
-									<li key={link.label}>
-										<Link
-											href={link.href}
-											className="text-xs text-muted-foreground hover:text-[var(--color-blue)] transition-colors"
-										>
-											{link.label}
-										</Link>
-									</li>
-								))}
-							</ul>
-						</div>
+								</li>
+							))}
+						</ul>
 					</div>
 
-					<div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-						<p className="text-xs text-muted-foreground">
-							© {new Date().getFullYear()} Alpha Romer Coma
-						</p>
-						<p className="text-xs text-muted-foreground">
-							Built with Next.js & Vercel
-						</p>
+					<div>
+						<h4 className="font-semibold text-foreground mb-4 text-sm">
+							Resources
+						</h4>
+						<ul className="space-y-2.5">
+							{footerLinks.resources.map((link) => (
+								<li key={link.label}>
+									<Link
+										href={link.href}
+										className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+									>
+										{link.label}
+									</Link>
+								</li>
+							))}
+						</ul>
 					</div>
+				</div>
+
+				<div className="border-t border-gray-200 py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+					<p className="text-xs text-muted-foreground">
+						© {new Date().getFullYear()} Alpha Romer Coma. All rights reserved.
+					</p>
+					<p className="text-xs text-muted-foreground">
+						Built with Next.js & Vercel
+					</p>
 				</div>
 			</div>
 		</footer>

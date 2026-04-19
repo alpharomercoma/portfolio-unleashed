@@ -2,25 +2,22 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { CalendarModal } from "./calendar-modal";
+
 const navItems = [
 	{ label: "About", href: "#about" },
-	{ label: "Featured", href: "#featured" },
 	{ label: "Projects", href: "#projects" },
 	{ label: "Speaking", href: "#speaking" },
-	{ label: "Blog", href: "#blog" },
-	{ label: "Certifications", href: "#certifications" },
-	// { label: "Contact", href: "#contact" },
+	{ label: "Writing", href: "#blog" },
+	{ label: "Awards", href: "#awards" },
 ];
 
 export function Navbar() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isVisible, setIsVisible] = useState(true);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 	const lastScrollY = useRef(0);
 
 	useEffect(() => {
@@ -29,7 +26,7 @@ export function Navbar() {
 
 			if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
 				setIsVisible(false);
-				setIsMobileMenuOpen(false); // Close mobile menu when hiding
+				setIsMobileMenuOpen(false);
 			} else {
 				setIsVisible(true);
 			}
@@ -55,10 +52,11 @@ export function Navbar() {
 			)}
 			style={{ borderRadius: "9999px" }}
 		>
-			<div className="px-5 sm:px-6 lg:px-8 py-3 sm:py-3.5 lg:py-4 flex items-center justify-between">
+			<div className="px-5 sm:px-6 lg:px-8 py-3 sm:py-3.5 lg:py-4 flex items-center justify-between gap-4">
 				<Link
 					href="/"
-					className="text-lg lg:text-xl font-semibold text-foreground hover:text-[var(--color-blue)] transition-colors"
+					className="text-lg lg:text-xl font-semibold text-foreground hover:opacity-80 transition-opacity shrink-0"
+					aria-label="Alpha Romer Coma, home"
 				>
 					<span className="text-[var(--color-blue)]">A</span>
 					<span className="text-[var(--color-red)]">l</span>
@@ -67,38 +65,38 @@ export function Navbar() {
 					<span className="text-[var(--color-blue)]">a</span>
 				</Link>
 
-				<div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+				<div className="hidden lg:flex items-center gap-1">
 					{navItems.map((item) => (
 						<Link
 							key={item.label}
 							href={item.href}
-							className="px-3 xl:px-4 py-2 text-sm xl:text-base text-muted-foreground transition-colors rounded-full"
+							className="px-3 xl:px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full"
 						>
 							{item.label}
 						</Link>
 					))}
 				</div>
 
-				<div className="hidden lg:flex items-center">
+				<div className="hidden lg:flex items-center shrink-0">
 					<Button
-						size="lg"
-						className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-12 sm:h-11 px-6 w-full sm:w-auto"
-						onClick={() => setIsCalendarOpen(true)}
+						asChild
+						size="sm"
+						className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-10 px-5"
 					>
-						Let&apos;s Talk
+						<Link href="/blog">
+							Blog
+							<ArrowUpRight className="ml-1 h-4 w-4" />
+						</Link>
 					</Button>
-					<CalendarModal
-						isOpen={isCalendarOpen}
-						onClose={() => setIsCalendarOpen(false)}
-					/>
 				</div>
 
 				<Button
 					variant="ghost"
 					size="icon"
-					className="lg:hidden h-10 w-10 relative bg-background text-foreground hover:bg-foreground/90"
+					className="lg:hidden h-10 w-10 relative bg-transparent text-foreground hover:bg-gray-100"
 					onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 					aria-label="Toggle menu"
+					aria-expanded={isMobileMenuOpen}
 				>
 					<Menu
 						className={cn(
@@ -145,18 +143,15 @@ export function Navbar() {
 						</Link>
 					))}
 					<Button
+						asChild
 						size="lg"
-						className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-12 sm:h-11 px-6 w-full sm:w-auto"
-						onClick={() => setIsCalendarOpen(true)}
+						className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-12 px-6 w-full mt-2"
 					>
-						Let&apos;s Talk
-						<ArrowRight className="ml-2 h-4 w-4" />
+						<Link href="/blog" onClick={() => setIsMobileMenuOpen(false)}>
+							Blog
+							<ArrowUpRight className="ml-2 h-4 w-4" />
+						</Link>
 					</Button>
-					<CalendarModal
-						isOpen={isCalendarOpen}
-						onClose={() => setIsCalendarOpen(false)}
-					/>
-					{/* </Button> */}
 				</div>
 			</div>
 		</nav>

@@ -1,11 +1,12 @@
 "use client";
 
-import { ResumeButton } from "@/components/resume-modal";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, ExternalLink, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+
+import { CalendarModal } from "./calendar-modal";
+
 const affiliations = [
 	{ name: "AWS", logo: "/aws.png" },
 	{ name: "Google Cloud", logo: "/gcp.png" },
@@ -23,7 +24,36 @@ const affiliations = [
 	},
 ];
 
-import { CalendarModal } from "./calendar-modal";
+const stats = [
+	{
+		value: "$376K",
+		label: "Compute grant",
+		sub: "Google Cloud TPU Research Cloud",
+	},
+	{
+		value: "92%",
+		label: "VLM thesis accuracy",
+		sub: "Visual-Qwen, multimodal",
+	},
+	{
+		value: "4×",
+		label: "Accelerators benched",
+		sub: "H100, TPU v6e, Trainium1",
+	},
+	{
+		value: "25+",
+		label: "Conference talks",
+		sub: "PyTorch Conf Europe, Microsoft, Google, AWS",
+	},
+];
+
+const credentials = [
+	"AWS Community Builder, AI Engineering",
+	"Google ML Engineer",
+	"AWS ML Engineer",
+	"Azure AI Engineer",
+	"GitHub Campus Expert",
+];
 
 export function HeroSection() {
 	const sectionRef = useRef<HTMLElement>(null);
@@ -51,68 +81,99 @@ export function HeroSection() {
 		<section
 			ref={sectionRef}
 			id="about"
-			className="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 pt-24 pb-8 overflow-hidden"
+			className="relative flex flex-col justify-center px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20 bg-background"
 		>
-			{/* Subtle grid background */}
-			<div className="absolute inset-0 pointer-events-none">
-				<svg className="w-full h-full" preserveAspectRatio="none">
-					<defs>
-						<pattern
-							id="heroGridPattern"
-							width="60"
-							height="60"
-							patternUnits="userSpaceOnUse"
-						>
-							<path
-								d="M 60 0 L 0 0 0 60"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="0.5"
-								className="text-gray-200"
-							/>
-							<path
-								d="M 0 0 L 60 60"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="0.3"
-								className="text-gray-200"
-							/>
-						</pattern>
-					</defs>
-					<rect width="100%" height="100%" fill="url(#heroGridPattern)" />
-				</svg>
-			</div>
-
-			<div className="max-w-6xl mx-auto w-full relative z-10">
-				<div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
-					<div className="order-2 lg:order-1 text-center lg:text-left">
+			<div className="max-w-6xl mx-auto w-full">
+				<div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-center mb-20 sm:mb-24">
+					<div className="order-1 lg:order-1">
 						<h1
-							className="animate-on-scroll opacity-0 text-4xl sm:text-5xl md:text-6xl lg:text-6xl text-foreground leading-tight mb-4 mx-auto lg:mx-0 max-w-xl lg:max-w-none"
+							className="animate-on-scroll opacity-0 display-xl mb-6 max-w-xl"
 							style={{ animationDelay: "100ms" }}
 						>
-							Building Intelligent Systems&nbsp;that&nbsp;Scale.
+							Building intelligent{" "}
+							<span className="relative inline-block text-[var(--color-blue)]">
+								systems
+								<svg
+									aria-hidden="true"
+									viewBox="0 0 220 12"
+									preserveAspectRatio="none"
+									className="absolute left-0 right-0 -bottom-[0.12em] w-full h-[0.38em] text-[var(--color-blue)]/60"
+								>
+									<path
+										d="M2 8 C 60 2, 160 2, 218 8"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth="2.5"
+										strokeLinecap="round"
+									/>
+								</svg>
+							</span>{" "}
+							that scale.
 						</h1>
 
 						<p
-							className="animate-on-scroll opacity-0 text-base sm:text-lg md:text-xl text-muted-foreground mb-8 lg:mb-6 mx-auto lg:mx-0 max-w-md"
+							className="animate-on-scroll opacity-0 lede mb-8 max-w-lg"
 							style={{ animationDelay: "150ms" }}
 						>
-							Alpha Romer Coma • AI/ML Engineer
+							ML engineer specializing in{" "}
+							<span className="font-semibold text-foreground">
+								multimodality
+							</span>{" "}
+							and{" "}
+							<span className="font-semibold text-foreground">
+								accelerated computing
+							</span>
+							. Speaker at{" "}
+							<span className="font-semibold text-foreground">
+								PyTorch Conference Europe 2026
+							</span>
+							, backed by a $376,000 Google Cloud compute grant.
 						</p>
 
 						<div
-							className="animate-on-scroll opacity-0 flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-3 sm:justify-center lg:justify-start"
-							style={{ animationDelay: "200ms" }}
+							className="animate-on-scroll opacity-0 flex flex-col sm:flex-row gap-3"
+							style={{ animationDelay: "220ms" }}
 						>
 							<Button
 								size="lg"
-								className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-12 sm:h-11 px-6 w-full sm:w-auto"
+								className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-12 px-6"
 								onClick={() => setIsCalendarOpen(true)}
 							>
-								Let&apos;s Talk
-								<ArrowRight className="ml-2 h-4 w-4" />
+								Get in touch
+								<ArrowRight className="ml-1.5 h-4 w-4" />
 							</Button>
-							<ResumeButton className="w-full sm:w-auto h-12 sm:h-11" />
+							<Button
+								asChild
+								size="lg"
+								variant="outline"
+								className="rounded-full h-12 px-6 border-gray-200 hover:bg-gray-50"
+							>
+								<a
+									href="https://linkedin.com/in/alpharomercoma"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Linkedin className="h-4 w-4" />
+									LinkedIn
+									<ExternalLink className="h-3.5 w-3.5 opacity-60" />
+								</a>
+							</Button>
+							<Button
+								asChild
+								size="lg"
+								variant="outline"
+								className="rounded-full h-12 px-6 border-gray-200 hover:bg-gray-50"
+							>
+								<a
+									href="https://github.com/alpharomercoma"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<Github className="h-4 w-4" />
+									GitHub
+									<ExternalLink className="h-3.5 w-3.5 opacity-60" />
+								</a>
+							</Button>
 						</div>
 						<CalendarModal
 							isOpen={isCalendarOpen}
@@ -120,225 +181,57 @@ export function HeroSection() {
 						/>
 					</div>
 
-					<div className="order-1 lg:order-2 hidden lg:flex justify-center lg:justify-end">
+					<div className="order-2 lg:order-2 flex justify-center lg:justify-end">
 						<div
-							className="animate-on-scroll opacity-0 relative w-full max-w-md aspect-square"
+							className="animate-on-scroll opacity-0 w-full max-w-md"
 							style={{ animationDelay: "150ms" }}
 						>
-							<svg
-								className="w-full h-full"
-								viewBox="0 0 400 400"
-								preserveAspectRatio="xMidYMid meet"
-							>
-								{/* Connection lines */}
-								<g opacity="0.4">
-									<line
-										x1="200"
-										y1="200"
-										x2="80"
-										y2="80"
-										stroke="var(--color-blue)"
-										strokeWidth="2"
-									/>
-									<line
-										x1="200"
-										y1="200"
-										x2="320"
-										y2="80"
-										stroke="var(--color-red)"
-										strokeWidth="2"
-									/>
-									<line
-										x1="200"
-										y1="200"
-										x2="80"
-										y2="320"
-										stroke="var(--color-yellow)"
-										strokeWidth="2"
-									/>
-									<line
-										x1="200"
-										y1="200"
-										x2="320"
-										y2="320"
-										stroke="var(--color-green)"
-										strokeWidth="2"
-									/>
-								</g>
-
-								{/* Center node - AI/ML */}
-								<circle
-									cx="200"
-									cy="200"
-									r="40"
-									fill="white"
-									stroke="#e5e7eb"
-									strokeWidth="2"
-									filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"
-								/>
-								<text
-									x="200"
-									y="205"
-									textAnchor="middle"
-									fontSize="14"
-									fontWeight="600"
-									fill="#1f2937"
-								>
-									AI/ML
-								</text>
-
-								{/* Software Engineering - Blue (top left) */}
-								<g>
-									<rect
-										x="20"
-										y="45"
-										width="120"
-										height="70"
-										rx="8"
-										fill="var(--color-blue)"
-										filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"
-									/>
-									<text
-										x="80"
-										y="75"
-										textAnchor="middle"
-										fontSize="12"
-										fontWeight="600"
-										fill="white"
-									>
-										Software
-									</text>
-									<text
-										x="80"
-										y="95"
-										textAnchor="middle"
-										fontSize="12"
-										fontWeight="600"
-										fill="white"
-									>
-										Engineering
-									</text>
-								</g>
-
-								{/* Machine Learning - Red (top right) */}
-								<g>
-									<rect
-										x="260"
-										y="45"
-										width="120"
-										height="70"
-										rx="8"
-										fill="var(--color-red)"
-										filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"
-									/>
-									<text
-										x="320"
-										y="75"
-										textAnchor="middle"
-										fontSize="12"
-										fontWeight="600"
-										fill="white"
-									>
-										Machine
-									</text>
-									<text
-										x="320"
-										y="95"
-										textAnchor="middle"
-										fontSize="12"
-										fontWeight="600"
-										fill="white"
-									>
-										Learning
-									</text>
-								</g>
-
-								{/* Leadership - Yellow (bottom left) */}
-								<g>
-									<rect
-										x="20"
-										y="285"
-										width="120"
-										height="70"
-										rx="8"
-										fill="var(--color-yellow)"
-										filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"
-									/>
-									<text
-										x="80"
-										y="325"
-										textAnchor="middle"
-										fontSize="12"
-										fontWeight="600"
-										fill="white"
-									>
-										Leadership
-									</text>
-								</g>
-
-								{/* Cloud Computing - Green (bottom right) */}
-								<g>
-									<rect
-										x="260"
-										y="285"
-										width="120"
-										height="70"
-										rx="8"
-										fill="var(--color-green)"
-										filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"
-									/>
-									<text
-										x="320"
-										y="315"
-										textAnchor="middle"
-										fontSize="12"
-										fontWeight="600"
-										fill="white"
-									>
-										Cloud
-									</text>
-									<text
-										x="320"
-										y="335"
-										textAnchor="middle"
-										fontSize="12"
-										fontWeight="600"
-										fill="white"
-									>
-										Computing
-									</text>
-								</g>
-
-								{/* Small connector dots */}
-								<circle
-									cx="140"
-									cy="140"
-									r="4"
-									fill="var(--color-blue)"
-									opacity="0.6"
-								/>
-								<circle
-									cx="260"
-									cy="140"
-									r="4"
-									fill="var(--color-red)"
-									opacity="0.6"
-								/>
-								<circle
-									cx="140"
-									cy="260"
-									r="4"
-									fill="var(--color-yellow)"
-									opacity="0.6"
-								/>
-								<circle
-									cx="260"
-									cy="260"
-									r="4"
-									fill="var(--color-green)"
-									opacity="0.6"
-								/>
-							</svg>
+							<div className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-12px_rgba(15,23,42,0.08)]">
+								<div className="flex items-center gap-2 px-4 py-3 border-b border-gray-100 bg-gray-50/60">
+									<div className="flex items-center gap-1.5">
+										<span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+										<span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+										<span className="h-3 w-3 rounded-full bg-[#28c840]" />
+									</div>
+									<span className="ml-3 text-[13px] text-gray-500 font-mono">
+										alpha_stats.py
+									</span>
+								</div>
+								<div className="p-5">
+									<div className="grid grid-cols-2 gap-2.5">
+										{stats.map((stat) => (
+											<div
+												key={stat.label}
+												className="rounded-xl bg-gray-50 px-4 py-4"
+											>
+												<div className="text-2xl font-semibold text-foreground leading-none mb-1.5 tracking-tight">
+													{stat.value}
+												</div>
+												<div className="text-xs font-medium text-foreground">
+													{stat.label}
+												</div>
+												<div className="text-[11px] text-muted-foreground mt-0.5">
+													{stat.sub}
+												</div>
+											</div>
+										))}
+									</div>
+									<div className="my-5 border-t border-gray-100" />
+									<div className="text-[13px] font-medium text-foreground mb-3">
+										Credentials
+									</div>
+									<div className="flex flex-wrap gap-1.5">
+										{credentials.map((cert) => (
+											<span
+												key={cert}
+												className="inline-flex items-center rounded-full bg-[color-mix(in_oklch,var(--color-blue)_10%,white)] text-[var(--color-blue)] text-[11px] font-medium px-2.5 py-1"
+											>
+												{cert}
+											</span>
+										))}
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -347,14 +240,12 @@ export function HeroSection() {
 					className="animate-on-scroll opacity-0"
 					style={{ animationDelay: "300ms" }}
 				>
-					<p className="text-center text-sm text-muted-foreground mb-6">
-						Affiliated with Leading Organizations
-					</p>
-					<div className="flex flex-wrap justify-center gap-x-6 sm:gap-x-8 md:gap-x-10 lg:gap-x-12 gap-y-4 sm:gap-y-5 max-w-4xl mx-auto mb-4 sm:mb-6">
+					<p className="eyebrow text-center mb-8">Trusted & affiliated with</p>
+					<div className="flex flex-wrap justify-center items-center gap-x-10 sm:gap-x-12 md:gap-x-14 gap-y-6 max-w-5xl mx-auto">
 						{affiliations.map((company) => (
 							<div
 								key={company.name}
-								className="hover:scale-105 transition-transform duration-300 flex items-center justify-center"
+								className="flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
 								title={company.name}
 							>
 								<Image
@@ -362,7 +253,7 @@ export function HeroSection() {
 									alt={company.name}
 									width={100}
 									height={100}
-									className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain max-w-[80px] sm:max-w-[100px] md:max-w-[115px]"
+									className="h-8 sm:h-9 md:h-10 w-auto object-contain max-w-[90px] sm:max-w-[110px]"
 								/>
 							</div>
 						))}

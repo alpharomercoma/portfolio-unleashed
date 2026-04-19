@@ -96,10 +96,46 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-background text-foreground antialiased;
+		font-feature-settings: "ss01", "cv11";
 	}
 	html {
 		scroll-behavior: smooth;
+	}
+	h1,
+	h2,
+	h3,
+	h4 {
+		letter-spacing: -0.02em;
+	}
+}
+
+@layer components {
+	/* Display headings — used across section titles (Nebius-inspired scale) */
+	.display-xl {
+		@apply text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] tracking-tight text-foreground;
+	}
+	.display-lg {
+		@apply text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.1] tracking-tight text-foreground;
+	}
+	.display-md {
+		@apply text-2xl sm:text-3xl md:text-4xl font-semibold leading-[1.15] tracking-tight text-foreground;
+	}
+	/* Eyebrow label above a section title */
+	.eyebrow {
+		@apply text-xs font-medium tracking-[0.12em] uppercase text-muted-foreground;
+	}
+	/* Section subtitle / lede */
+	.lede {
+		@apply text-base sm:text-lg text-muted-foreground leading-relaxed;
+	}
+	/* Color-tinted card: pass --tint via inline style */
+	.tinted-card {
+		background-color: color-mix(
+			in oklch,
+			var(--tint, var(--color-blue)) 10%,
+			white
+		);
 	}
 }
 

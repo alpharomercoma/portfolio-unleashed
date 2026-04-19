@@ -26,6 +26,14 @@ export const moreStoriesQuery = defineQuery(`
   }
 `);
 
+// Latest N published posts for the homepage Blog section. Uses the same
+// post shape as the full /blog so Sanity updates flow here automatically.
+export const latestPostsQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
+    ${postFields}
+  }
+`);
+
 export const postQuery = defineQuery(`
   *[_type == "post" && slug.current == $slug] [0] {
     content,

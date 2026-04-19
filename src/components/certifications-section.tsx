@@ -5,9 +5,10 @@ import {
 	CarouselDots,
 	useCarousel,
 } from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export const certifications = [
 	{
@@ -71,7 +72,7 @@ export const certifications = [
 		title: "Oracle Cloud Infrastructure 2024 Generative AI Professional",
 		issuer: "Oracle",
 		logo: "oci.png",
-		date: "2024-7-29",
+		date: "2024-07-29",
 		link: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=66DB4958222C3A7B8EB90BFD0AFF59F72149D7BCC33B39F331061F2044643166",
 	},
 	{
@@ -92,13 +93,12 @@ export const certifications = [
 	},
 	{
 		id: "11",
-		title: "Github Actions",
+		title: "GitHub Actions",
 		issuer: "GitHub",
 		logo: "github.png",
 		date: "2024-08-12",
 		link: "https://www.credly.com/badges/49a69c52-5186-4fac-a101-9531d5f41cd0/public_url",
 	},
-
 	{
 		id: "12",
 		title: "Certified AppSec Practitioner (CAP)",
@@ -115,7 +115,6 @@ export const certifications = [
 		date: "2024-09-20",
 		link: "https://www.credly.com/badges/c3e411bd-2f7b-445d-bb20-ce4e191667b0/public_url",
 	},
-
 	{
 		id: "14",
 		title: "Microsoft Certified: Azure Fundamentals",
@@ -175,7 +174,7 @@ export const certifications = [
 	{
 		id: "20",
 		title: "PMI Project Management Ready®",
-		issuer: "Project Management Institute",
+		issuer: "PMI",
 		logo: "pmi.png",
 		date: "2025-03-26",
 		link: "https://www.certiport.com/portal/Pages/PrintTranscriptInfo.aspx?action=Cert&id=457&cvid=9Om6RZuqbFMbIM6kygizPA==",
@@ -228,13 +227,57 @@ export const certifications = [
 		date: "2025-12-30",
 		link: "https://www.credly.com/badges/89a55bb2-8f32-4938-84a1-683f21bb0e64/public_url",
 	},
-].toReversed();
+].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+// Primary issuers to surface as filter chips; everything else falls under "Other".
+const PRIMARY_ISSUERS = [
+	"Google",
+	"Microsoft",
+	"AWS",
+	"GitHub",
+	"FreeCodeCamp",
+	"Oracle",
+] as const;
+
+type Filter = "All" | (typeof PRIMARY_ISSUERS)[number] | "Other";
 
 const ITEMS_PER_PAGE = 9;
-const AUTO_ROTATE_INTERVAL = 5000; // 5 seconds for certifications (compact items)
+const AUTO_ROTATE_INTERVAL = 8000;
+
+function formatDate(iso: string) {
+	const d = new Date(iso);
+	return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
 
 export function CertificationsSection() {
 	const sectionRef = useRef<HTMLElement>(null);
+	const [filter, setFilter] = useState<Filter>("All");
+
+	const filtered = useMemo(() => {
+		if (filter === "All") return certifications;
+		if (filter === "Other") {
+			return certifications.filter(
+				(c) =>
+					!PRIMARY_ISSUERS.includes(
+						c.issuer as (typeof PRIMARY_ISSUERS)[number],
+					),
+			);
+		}
+		return certifications.filter((c) => c.issuer === filter);
+	}, [filter]);
+
+	const issuerCounts = useMemo(() => {
+		const counts: Record<string, number> = { All: certifications.length };
+		for (const issuer of PRIMARY_ISSUERS) {
+			counts[issuer] = certifications.filter((c) => c.issuer === issuer).length;
+		}
+		counts.Other = certifications.filter(
+			(c) =>
+				!PRIMARY_ISSUERS.includes(c.issuer as (typeof PRIMARY_ISSUERS)[number]),
+		).length;
+		return counts;
+	}, []);
+
 	const {
 		currentPage,
 		totalPages,
@@ -244,7 +287,7 @@ export function CertificationsSection() {
 		goToPage,
 		stopAutoRotate,
 		isAutoRotating,
-	} = useCarousel(certifications, ITEMS_PER_PAGE, AUTO_ROTATE_INTERVAL);
+	} = useCarousel(filtered, ITEMS_PER_PAGE, AUTO_ROTATE_INTERVAL);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -257,33 +300,44 @@ export function CertificationsSection() {
 			},
 			{ threshold: 0.1 },
 		);
-
 		const elements = sectionRef.current?.querySelectorAll(".animate-on-scroll");
 		elements?.forEach((el) => observer.observe(el));
-
 		return () => observer.disconnect();
 	}, []);
+
+	// Reset to first page on filter change
+	useEffect(() => {
+		if (currentPage !== 0) goToPage(0);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [filter]);
+
+	const filters: Filter[] = ["All", ...PRIMARY_ISSUERS, "Other"];
 
 	return (
 		<section
 			ref={sectionRef}
 			id="certifications"
-			className="py-12 px-4 sm:px-6"
+			className="py-20 sm:py-28 px-4 sm:px-6"
 		>
 			<div className="max-w-6xl mx-auto">
-				<div className="mb-6 flex items-end justify-between">
-					<div>
+				<div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+					<div className="max-w-3xl">
+						<p className="animate-on-scroll opacity-0 eyebrow mb-4">
+							Certifications
+						</p>
 						<h2
-							className="animate-on-scroll opacity-0 text-2xl sm:text-3xl font-bold text-foreground mb-1"
+							className="animate-on-scroll opacity-0 display-lg mb-4"
 							style={{ animationDelay: "100ms" }}
 						>
-							Certifications
+							{certifications.length}+ industry-recognized credentials.
 						</h2>
 						<p
-							className="animate-on-scroll opacity-0 text-sm text-muted-foreground"
+							className="animate-on-scroll opacity-0 lede"
 							style={{ animationDelay: "200ms" }}
 						>
-							{certifications.length}+ industry-recognized credentials
+							{issuerCounts.GitHub}x GitHub, {issuerCounts.Microsoft}x
+							Microsoft, {issuerCounts.Google}x Google, {issuerCounts.AWS}x AWS,
+							plus Oracle, Cisco, Salesforce, and more.
 						</p>
 					</div>
 
@@ -294,44 +348,87 @@ export function CertificationsSection() {
 						onNext={nextPage}
 						onUserInteraction={stopAutoRotate}
 						isAutoRotating={isAutoRotating}
-						className="animate-on-scroll opacity-0"
+						className="shrink-0"
 					/>
 				</div>
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 transition-all duration-300">
-					{currentItems.map((cert, index) => (
-						<Link
-							href={cert.link || "#"}
-							target="_blank"
-							key={`${cert.title}-${currentPage}`}
-							className="flex items-center gap-3 p-3 bg-secondary/30 rounded-xl hover:bg-secondary/50 transition-colors group border border-transparent hover:border-border"
-							style={{
-								animation: "fadeIn 0.3s ease forwards",
-								animationDelay: `${index * 30}ms`,
-								opacity: 0,
-							}}
-						>
-							<div className="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center shrink-0 overflow-hidden">
-								<Image
-									src={"/certification/logo/" + cert.logo || "/placeholder.svg"}
-									alt={cert.issuer}
-									width={40}
-									height={40}
-									className="w-6 h-6 object-contain"
-								/>
-							</div>
-							<div className="min-w-0 flex-1">
-								<h3 className="font-medium text-foreground text-base line-clamp-2 group-hover:text-[var(--color-blue)] transition-colors">
-									{cert.title}
-								</h3>
-								<div className="flex items-center gap-2 text-sm text-muted-foreground">
-									<span className="truncate">{cert.issuer}</span>
-									<span className="text-muted-foreground/50">•</span>
-									<span className="shrink-0">{cert.date}</span>
+				<div
+					role="tablist"
+					aria-label="Filter by issuer"
+					className="flex flex-wrap gap-2 mb-8"
+				>
+					{filters.map((f) => {
+						const active = f === filter;
+						return (
+							<button
+								key={f}
+								type="button"
+								role="tab"
+								aria-selected={active}
+								onClick={() => {
+									stopAutoRotate();
+									setFilter(f);
+								}}
+								className={cn(
+									"inline-flex items-center gap-1.5 rounded-full px-4 h-9 text-sm font-medium transition-all",
+									active
+										? "bg-foreground text-background"
+										: "bg-gray-50 text-muted-foreground hover:bg-gray-100",
+								)}
+							>
+								{f}
+								<span
+									className={cn(
+										"text-[11px] font-semibold tabular-nums",
+										active ? "text-background/70" : "text-muted-foreground/70",
+									)}
+								>
+									{issuerCounts[f]}
+								</span>
+							</button>
+						);
+					})}
+				</div>
+
+				<div className="rounded-3xl bg-white border border-gray-100 p-3 sm:p-4">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+						{currentItems.map((cert, index) => (
+							<Link
+								href={cert.link || "#"}
+								target={cert.link ? "_blank" : undefined}
+								rel={cert.link ? "noopener noreferrer" : undefined}
+								key={`${cert.id}-${currentPage}-${filter}`}
+								className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50 transition-colors group"
+								style={{
+									animation: "fadeIn 0.3s ease forwards",
+									animationDelay: `${index * 25}ms`,
+									opacity: 0,
+								}}
+							>
+								<div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 overflow-hidden border border-gray-100">
+									<Image
+										src={"/certification/logo/" + cert.logo}
+										alt={cert.issuer}
+										width={36}
+										height={36}
+										className="w-5 h-5 object-contain"
+									/>
 								</div>
-							</div>
-						</Link>
-					))}
+								<div className="min-w-0 flex-1">
+									<h3 className="font-medium text-foreground text-sm line-clamp-1 group-hover:text-[var(--color-blue)] transition-colors">
+										{cert.title}
+									</h3>
+									<div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+										<span className="truncate">{cert.issuer}</span>
+										<span className="text-muted-foreground/40">·</span>
+										<span className="shrink-0 tabular-nums">
+											{formatDate(cert.date)}
+										</span>
+									</div>
+								</div>
+							</Link>
+						))}
+					</div>
 				</div>
 
 				<CarouselDots
@@ -339,7 +436,7 @@ export function CertificationsSection() {
 					totalPages={totalPages}
 					onGoToPage={goToPage}
 					onUserInteraction={stopAutoRotate}
-					className="mt-4"
+					className="mt-8"
 				/>
 			</div>
 		</section>

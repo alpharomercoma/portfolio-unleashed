@@ -91,7 +91,7 @@ const recommendations = [
 	},
 ];
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 3;
 const AUTO_ROTATE_INTERVAL = 10000; // 10 seconds for recommendations (longer quotes)
 
 export function RecommendationsSection() {
@@ -129,22 +129,26 @@ export function RecommendationsSection() {
 		<section
 			ref={sectionRef}
 			id="recommendations"
-			className="py-12 px-4 sm:px-6"
+			className="py-20 sm:py-28 px-4 sm:px-6"
 		>
 			<div className="max-w-6xl mx-auto">
-				<div className="flex items-end justify-between mb-6">
-					<div>
+				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
+					<div className="max-w-3xl">
+						<p className="animate-on-scroll opacity-0 eyebrow mb-4">
+							Recommendations
+						</p>
 						<h2
-							className="animate-on-scroll opacity-0 text-2xl sm:text-3xl font-bold text-foreground mb-1"
+							className="animate-on-scroll opacity-0 display-lg mb-4"
 							style={{ animationDelay: "100ms" }}
 						>
-							Recommendations
+							What faculty, mentors, and engineers say about working with me.
 						</h2>
 						<p
-							className="animate-on-scroll opacity-0 text-sm text-muted-foreground"
+							className="animate-on-scroll opacity-0 lede"
 							style={{ animationDelay: "150ms" }}
 						>
-							What colleagues say about working with me.
+							16 LinkedIn recommendations from professors, adviser, and industry
+							colleagues at Samsung, Boost Capital, and FEU Tech.
 						</p>
 					</div>
 
@@ -155,31 +159,32 @@ export function RecommendationsSection() {
 						onNext={nextPage}
 						onUserInteraction={stopAutoRotate}
 						isAutoRotating={isAutoRotating}
-						className="animate-on-scroll opacity-0"
+						className="shrink-0"
 					/>
 				</div>
 
-				<div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+				<div className="grid md:grid-cols-3 gap-6">
 					{currentItems.map((rec, index) => (
 						<div
 							key={`${rec.author}-${currentPage}`}
-							className="p-4 bg-secondary/50 rounded-xl border border-border hover:border-[var(--color-blue)]/30 transition-all group h-full flex flex-col"
+							className="p-8 sm:p-9 rounded-3xl h-full flex flex-col transition-transform duration-300 hover:-translate-y-1"
 							style={{
 								animation: "fadeIn 0.3s ease forwards",
-								animationDelay: `${index * 50}ms`,
+								animationDelay: `${index * 60}ms`,
 								opacity: 0,
+								backgroundColor: `color-mix(in oklch, ${rec.color} 10%, white)`,
 							}}
 						>
 							<Quote
-								className="h-5 w-5 mb-2 shrink-0"
-								style={{ color: rec.color, opacity: 0.5 }}
+								className="h-7 w-7 mb-5 shrink-0"
+								style={{ color: rec.color, opacity: 0.55 }}
 							/>
-							<p className="text-sm text-foreground mb-3 leading-relaxed flex-1">
-								"{rec.quote}"
+							<p className="text-[15px] sm:text-base text-foreground mb-8 leading-relaxed flex-1">
+								&ldquo;{rec.quote}&rdquo;
 							</p>
-							<div className="flex items-center gap-2 mt-auto">
+							<div className="flex items-center gap-3 mt-auto pt-6 border-t border-black/5">
 								<div
-									className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white shrink-0"
+									className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white shrink-0"
 									style={{ backgroundColor: rec.color }}
 								>
 									{rec.author
@@ -187,11 +192,11 @@ export function RecommendationsSection() {
 										.map((n) => n[0])
 										.join("")}
 								</div>
-								<div>
-									<p className="font-medium text-foreground text-sm">
+								<div className="min-w-0">
+									<p className="font-medium text-foreground text-sm truncate">
 										{rec.author}
 									</p>
-									<p className="text-xs text-muted-foreground">
+									<p className="text-xs text-muted-foreground truncate">
 										{rec.title}, {rec.company}
 									</p>
 								</div>
@@ -205,7 +210,7 @@ export function RecommendationsSection() {
 					totalPages={totalPages}
 					onGoToPage={goToPage}
 					onUserInteraction={stopAutoRotate}
-					className="mt-4"
+					className="mt-6"
 				/>
 			</div>
 		</section>
