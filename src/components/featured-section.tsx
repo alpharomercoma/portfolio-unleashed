@@ -11,7 +11,7 @@ const featuredPosts = [
 		title: "De-mystifying PyTorch for ASICs at PyTorch Conference Europe 2026",
 		description:
 			"Benchmark study across 1x H100 (RunPod), 8x H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge, training image recognition and text generation models on each platform. Delivered at Station F, Paris for the Linux Foundation.",
-		image: "pytorch-conf-europe-2026.png",
+		image: "pytorch-conf-europe.png",
 		category: "Accelerated Computing",
 		color: "var(--color-red)",
 		href: "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
