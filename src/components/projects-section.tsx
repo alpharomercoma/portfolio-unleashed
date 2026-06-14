@@ -223,14 +223,14 @@ export function ProjectsSection() {
 						className="animate-on-scroll opacity-0 display-lg mb-4"
 						style={{ animationDelay: "100ms" }}
 					>
-						Things I&apos;ve built — research to production.
+						Things I&apos;ve built, research to production.
 					</h2>
 					<p
 						className="animate-on-scroll opacity-0 lede"
 						style={{ animationDelay: "150ms" }}
 					>
-						Work across my two niches — multimodality and accelerated computing
-						— plus the software engineering projects that keep shipping to real
+						Work across my two niches, multimodality and accelerated computing,
+						plus the software engineering projects that keep shipping to real
 						users.
 					</p>
 				</div>

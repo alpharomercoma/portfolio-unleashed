@@ -10,7 +10,7 @@
  */
 :root {
 	/* Brand */
-	--lime: #e0ff4f; /* signature accent — buttons, key highlights, tags */
+	--lime: #e0ff4f; /* signature accent: buttons, key highlights, tags */
 	--lime-soft: #eaff8c; /* tints, hover washes */
 	--lime-strong: #b6d62f; /* lime as text/icon on light surfaces (contrast) */
 	--ink: #16171a; /* near-black */
@@ -26,7 +26,7 @@
 	--secondary: #f4f5f3;
 	--secondary-foreground: #16171a;
 	--muted: #f4f5f3;
-	--muted-foreground: #6b6e74;
+	--muted-foreground: #52555b;
 	--accent: #f0f1ee;
 	--accent-foreground: #16171a;
 	--destructive: #e5484d;

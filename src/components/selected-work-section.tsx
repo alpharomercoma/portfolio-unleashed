@@ -7,12 +7,12 @@ import { useEffect, useRef } from "react";
 
 // One lead piece + three supporting pieces. The category tags carry the three
 // pillars (Multimodality / Accelerated Computing / Community) plus Applied AI,
-// so the work itself tells the story — no separate icon grid. All real data.
+// so the work itself tells the story, no separate icon grid. All real data.
 const lead = {
 	tag: "Accelerated Computing",
 	title: "De-mystifying PyTorch for ASICs at PyTorch Conference Europe 2026",
 	description:
-		"Benchmark study across 1× H100 (RunPod), 8× H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge — training image-recognition and text-generation models on each. Delivered at Station F, Paris, for the Linux Foundation.",
+		"Benchmark study across 1× H100 (RunPod), 8× H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge, training image-recognition and text-generation models on each. Delivered at Station F, Paris, for the Linux Foundation.",
 	image: "/featured/pytorch-conf-europe.png",
 	cta: "Read the breakdown",
 	href: "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
@@ -21,7 +21,7 @@ const lead = {
 const supporting = [
 	{
 		tag: "Multimodality",
-		title: "MicroMARC — a 92%-accurate vision-language model",
+		title: "MicroMARC: a 92%-accurate vision-language model",
 		description:
 			"Visual-Qwen VLM that flags cognitively-degrading short-form video, fine-tuned on a 6,000-row multimodal dataset under a $376,000 Google Cloud compute grant.",
 		image: "/blog/thesis.png",
@@ -39,7 +39,7 @@ const supporting = [
 		tag: "Community",
 		title: "GitHub Universe '25 recap at az:Repo Microsoft PH",
 		description:
-			"Agentic Copilot, GPT-powered code review, and the GitHub Models platform — unpacked for the Microsoft Azure community in Manila.",
+			"Agentic Copilot, GPT-powered code review, and the GitHub Models platform, unpacked for the Microsoft Azure community in Manila.",
 		image: "/featured/azrepo.jpg",
 		href: "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit?usp=sharing",
 	},
@@ -86,9 +86,9 @@ export function SelectedWorkSection() {
 						Research, accelerated computing, and community.
 					</h2>
 					<p className="lede">
-						A few pieces — a shipped vision-language model, accelerator
-						benchmarks, and talks — that show how the research, the systems
-						work, and the teaching fit together.
+						A few pieces: a shipped vision-language model, accelerator
+						benchmarks, and talks that show how the research, the systems work,
+						and the teaching fit together.
 					</p>
 				</div>
 

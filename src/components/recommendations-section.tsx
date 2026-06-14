@@ -4,7 +4,7 @@ import { ArrowUpRight, Quote } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-// A short, curated strip — faculty, a Samsung engineer, and a startup AI
+// A short, curated strip: faculty, a Samsung engineer, and a startup AI
 // engineer. The full set lives on LinkedIn (linked below). Quotes trimmed for
 // scannability; wording preserved.
 const recommendations = [
@@ -22,7 +22,7 @@ const recommendations = [
 	},
 	{
 		quote:
-			"An amazing team player who steps up his game — his ability to turn the tide in our team's favor is incredible.",
+			"An amazing team player who steps up his game. His ability to turn the tide in our team's favor is incredible.",
 		author: "Xynil Jhed Lacap",
 		title: "AI Engineer, Boost Capital",
 	},
@@ -87,7 +87,7 @@ export function RecommendationsSection() {
 							className="animate-on-scroll opacity-0 flex flex-col rounded-3xl border border-border bg-card p-7 sm:p-8"
 							style={{ animationDelay: `${index * 80}ms` }}
 						>
-							<Quote className="size-6 text-lime-strong mb-5 shrink-0" />
+							<Quote className="size-6 text-foreground mb-5 shrink-0" />
 							<blockquote className="text-[15px] text-foreground leading-relaxed flex-1">
 								{rec.quote}
 							</blockquote>

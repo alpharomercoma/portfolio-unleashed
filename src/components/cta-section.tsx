@@ -28,7 +28,7 @@ export function CtaSection() {
 					</h2>
 					<p className="lede max-w-2xl mx-auto mb-9">
 						Full-time ML roles, research collaborations, and speaking
-						invitations — multimodal AI and accelerated computing especially.
+						invitations, especially multimodal AI and accelerated computing.
 						Book a call or send a note; I read every one.
 					</p>
 					<div className="flex flex-col sm:flex-row justify-center gap-3">

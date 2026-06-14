@@ -83,7 +83,7 @@ type Certification = {
 // derived from this; the complete set is linked out to keep the section tight.
 const certifications: Certification[] = [
 	{
-		title: "AWS Certified Machine Learning Engineer – Associate",
+		title: "AWS Certified Machine Learning Engineer, Associate",
 		issuer: "AWS",
 		logo: "aws.png",
 		date: "2025-12-30",
@@ -287,7 +287,7 @@ export function RecognitionSection() {
 					))}
 				</div>
 
-				{/* Certifications — condensed */}
+				{/* Certifications, condensed */}
 				<div className="animate-on-scroll opacity-0 mt-6 rounded-3xl border border-border bg-card p-6 sm:p-8">
 					<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
 						<div>
