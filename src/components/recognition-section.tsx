@@ -1,9 +1,15 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
+
+import {
+	CarouselControls,
+	CarouselDots,
+	useCarousel,
+} from "@/components/ui/carousel";
 
 type Award = {
 	title: string;
@@ -79,126 +85,202 @@ type Certification = {
 	link: string;
 };
 
-// Full credential history (newest first). Counts and the recent list below are
-// derived from this; the complete set is linked out to keep the section tight.
-const certifications: Certification[] = [
-	{
-		title: "AWS Certified Machine Learning Engineer, Associate",
-		issuer: "AWS",
-		logo: "aws.png",
-		date: "2025-12-30",
-		link: "https://www.credly.com/badges/89a55bb2-8f32-4938-84a1-683f21bb0e64/public_url",
-	},
-	{
-		title: "Generative AI Leader Certification",
-		issuer: "Google",
-		logo: "google.png",
-		date: "2025-08-02",
-		link: "https://www.credly.com/badges/0d8cac99-a09d-4ee9-86ac-13ec16a066ff/public_url",
-	},
-	{
-		title: "AWS Certified AI Practitioner",
-		issuer: "AWS",
-		logo: "aws.png",
-		date: "2025-07-27",
-		link: "https://www.credly.com/badges/51675536-28ff-40f2-ac7b-f8003bda3bb3/linked_in_profile",
-	},
-	{
-		title: "Oracle Cloud Infrastructure 2025 Generative AI Professional",
-		issuer: "Oracle",
-		logo: "oci.png",
-		date: "2025-07-14",
-		link: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=09C717FD1428F3C34B3B54C1AA51A3463C7843A2AE2EDB02ED1DFB32DF11D78B",
-	},
-	{
-		title: "Professional Machine Learning Engineer Certification",
-		issuer: "Google",
-		logo: "google.png",
-		date: "2025-05-11",
-		link: "https://www.credly.com/badges/4199288a-f45e-4584-87d3-a73397d2692c/linked_in_profile",
-	},
-	{
-		title: "Associate Cloud Engineer Certification",
-		issuer: "Google",
-		logo: "google.png",
-		date: "2025-04-13",
-		link: "https://www.credly.com/badges/197a51dd-409d-40b1-ba17-2b78bb1c30b1/linked_in_profile",
-	},
-	{
-		title: "Microsoft Certified: Azure AI Engineer Associate",
-		issuer: "Microsoft",
-		logo: "microsoft.png",
-		date: "2025-03-16",
-		link: "https://learn.microsoft.com/api/credentials/share/en-us/alpharomercoma/BEECBE94524A21B4?sharingId",
-	},
-	{
-		title: "Cloud Digital Leader Certification",
-		issuer: "Google",
-		logo: "google.png",
-		date: "2025-03-09",
-		link: "https://www.credly.com/badges/c118b804-1532-466d-908d-49eb0277ca15/linked_in_profile",
-	},
-	{
-		title: "AI Associate",
-		issuer: "Salesforce",
-		logo: "salesforce.png",
-		date: "2024-11-06",
-		link: "https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=1q75ORYKJY/5EcgRkX17sio5ciSo5CK2gt5/YcKKiahFYjzhs1RSE2VFNV79c3di",
-	},
-	{
-		title: "GitHub Copilot",
-		issuer: "GitHub",
-		logo: "github.png",
-		date: "2024-10-09",
-		link: "https://www.credly.com/badges/df7c0d7f-96e5-4a17-b063-d3e03f91d2e2/public_url",
-	},
-	{
-		title: "Microsoft Certified: Azure Fundamentals",
-		issuer: "Microsoft",
-		logo: "microsoft.png",
-		date: "2024-10-08",
-		link: "https://learn.microsoft.com/api/credentials/share/en-us/alpharomercoma/FFD20E7A4CB76E82?sharingId",
-	},
-	{
-		title: "Oracle Cloud Infrastructure 2024 Generative AI Professional",
-		issuer: "Oracle",
-		logo: "oci.png",
-		date: "2024-07-29",
-		link: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=66DB4958222C3A7B8EB90BFD0AFF59F72149D7BCC33B39F331061F2044643166",
-	},
-	{
-		title: "Information Technology Specialist in Python",
-		issuer: "Certiport",
-		logo: "certiport.jpg",
-		date: "2024-07-14",
-		link: "https://www.credly.com/badges/d2cba34f-80c8-44a2-ae3a-019407612b90",
-	},
-	{
-		title: "CS50x: Introduction to Computer Science",
-		issuer: "Harvard University",
-		logo: "harvard.jpg",
-		date: "2023-12-22",
-		link: "https://certificates.cs50.io/70f8307b-9c42-4fb9-a931-14d5e835a834.pdf?size=letter",
-	},
-	{
-		title: "Back End Development and APIs",
-		issuer: "FreeCodeCamp",
-		logo: "FCC.png",
-		date: "2022-08-03",
-		link: "https://www.freecodecamp.org/certification/alphacoma18/back-end-development-and-apis",
-	},
-];
+const certifications: Certification[] = (
+	[
+		{
+			title: "JavaScript Algorithms and Data Structures",
+			issuer: "FreeCodeCamp",
+			logo: "FCC.png",
+			date: "2022-07-09",
+			link: "https://www.freecodecamp.org/certification/alphacoma18/javascript-algorithms-and-data-structures",
+		},
+		{
+			title: "Back End Development and APIs",
+			issuer: "FreeCodeCamp",
+			logo: "FCC.png",
+			date: "2022-08-03",
+			link: "https://www.freecodecamp.org/certification/alphacoma18/back-end-development-and-apis",
+		},
+		{
+			title: "Foundational C# with Microsoft",
+			issuer: "FreeCodeCamp",
+			logo: "FCC.png",
+			date: "2023-10-13",
+			link: "https://freecodecamp.org/certification/alpha-coma/foundational-c-sharp-with-microsoft",
+		},
+		{
+			title: "CS50x: Introduction to Computer Science",
+			issuer: "Harvard University",
+			logo: "harvard.jpg",
+			date: "2023-12-22",
+			link: "https://certificates.cs50.io/70f8307b-9c42-4fb9-a931-14d5e835a834.pdf?size=letter",
+		},
+		{
+			title: "GitHub Foundations",
+			issuer: "GitHub",
+			logo: "github.png",
+			date: "2024-01-27",
+			link: "https://www.credly.com/badges/59e40eef-9a77-43fd-8aa1-de64bd1b5a37",
+		},
+		{
+			title: "Front End Development Libraries",
+			issuer: "FreeCodeCamp",
+			logo: "FCC.png",
+			date: "2024-06-23",
+			link: "https://www.freecodecamp.org/certification/alpha-coma/front-end-development-libraries",
+		},
+		{
+			title: "Information Technology Specialist in Python",
+			issuer: "Certiport",
+			logo: "certiport.jpg",
+			date: "2024-07-14",
+			link: "https://www.credly.com/badges/d2cba34f-80c8-44a2-ae3a-019407612b90",
+		},
+		{
+			title: "Oracle Cloud Infrastructure 2024 Generative AI Professional",
+			issuer: "Oracle",
+			logo: "oci.png",
+			date: "2024-07-29",
+			link: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=66DB4958222C3A7B8EB90BFD0AFF59F72149D7BCC33B39F331061F2044643166",
+		},
+		{
+			title: "GitHub Administration",
+			issuer: "GitHub",
+			logo: "github.png",
+			date: "2024-08-05",
+			link: "https://www.credly.com/badges/d11f87a6-bfcb-4f21-922c-a00c23a0ea0b/public_url",
+		},
+		{
+			title: "GitHub Advanced Security",
+			issuer: "GitHub",
+			logo: "github.png",
+			date: "2024-08-10",
+			link: "https://www.credly.com/badges/ba18ce6a-4190-4680-905b-61149b9ac675/public_url",
+		},
+		{
+			title: "GitHub Actions",
+			issuer: "GitHub",
+			logo: "github.png",
+			date: "2024-08-12",
+			link: "https://www.credly.com/badges/49a69c52-5186-4fac-a101-9531d5f41cd0/public_url",
+		},
+		{
+			title: "Certified AppSec Practitioner (CAP)",
+			issuer: "The SecOps Group",
+			logo: "secops.jpg",
+			date: "2024-08-12",
+			link: "",
+		},
+		{
+			title: "Cisco CCNA: Introduction to Networks",
+			issuer: "Cisco",
+			logo: "cisco.png",
+			date: "2024-09-20",
+			link: "https://www.credly.com/badges/c3e411bd-2f7b-445d-bb20-ce4e191667b0/public_url",
+		},
+		{
+			title: "Microsoft Certified: Azure Fundamentals",
+			issuer: "Microsoft",
+			logo: "microsoft.png",
+			date: "2024-10-08",
+			link: "https://learn.microsoft.com/api/credentials/share/en-us/alpharomercoma/FFD20E7A4CB76E82?sharingId",
+		},
+		{
+			title: "GitHub Copilot",
+			issuer: "GitHub",
+			logo: "github.png",
+			date: "2024-10-09",
+			link: "https://www.credly.com/badges/df7c0d7f-96e5-4a17-b063-d3e03f91d2e2/public_url",
+		},
+		{
+			title: "AI Associate",
+			issuer: "Salesforce",
+			logo: "salesforce.png",
+			date: "2024-11-06",
+			link: "https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=1q75ORYKJY/5EcgRkX17sio5ciSo5CK2gt5/YcKKiahFYjzhs1RSE2VFNV79c3di",
+		},
+		{
+			title: "Microsoft Certified: Azure AI Fundamentals",
+			issuer: "Microsoft",
+			logo: "microsoft.png",
+			date: "2025-03-09",
+			link: "https://learn.microsoft.com/api/credentials/share/en-us/alpharomercoma/42E56DA981C5FAAD?sharingId",
+		},
+		{
+			title: "Cloud Digital Leader Certification",
+			issuer: "Google",
+			logo: "google.png",
+			date: "2025-03-09",
+			link: "https://www.credly.com/badges/c118b804-1532-466d-908d-49eb0277ca15/linked_in_profile",
+		},
+		{
+			title: "Microsoft Certified: Azure Data Fundamentals",
+			issuer: "Microsoft",
+			logo: "microsoft.png",
+			date: "2025-03-15",
+			link: "https://learn.microsoft.com/api/credentials/share/en-us/alpharomercoma/D03EB5967F34272A?sharingId",
+		},
+		{
+			title: "Microsoft Certified: Azure AI Engineer Associate",
+			issuer: "Microsoft",
+			logo: "microsoft.png",
+			date: "2025-03-16",
+			link: "https://learn.microsoft.com/api/credentials/share/en-us/alpharomercoma/BEECBE94524A21B4?sharingId",
+		},
+		{
+			title: "PMI Project Management Ready",
+			issuer: "PMI",
+			logo: "pmi.png",
+			date: "2025-03-26",
+			link: "https://www.certiport.com/portal/Pages/PrintTranscriptInfo.aspx?action=Cert&id=457&cvid=9Om6RZuqbFMbIM6kygizPA==",
+		},
+		{
+			title: "Associate Cloud Engineer Certification",
+			issuer: "Google",
+			logo: "google.png",
+			date: "2025-04-13",
+			link: "https://www.credly.com/badges/197a51dd-409d-40b1-ba17-2b78bb1c30b1/linked_in_profile",
+		},
+		{
+			title: "Professional Machine Learning Engineer Certification",
+			issuer: "Google",
+			logo: "google.png",
+			date: "2025-05-11",
+			link: "https://www.credly.com/badges/4199288a-f45e-4584-87d3-a73397d2692c/linked_in_profile",
+		},
+		{
+			title: "Oracle Cloud Infrastructure 2025 Generative AI Professional",
+			issuer: "Oracle",
+			logo: "oci.png",
+			date: "2025-07-14",
+			link: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=09C717FD1428F3C34B3B54C1AA51A3463C7843A2AE2EDB02ED1DFB32DF11D78B",
+		},
+		{
+			title: "AWS Certified AI Practitioner",
+			issuer: "AWS",
+			logo: "aws.png",
+			date: "2025-07-27",
+			link: "https://www.credly.com/badges/51675536-28ff-40f2-ac7b-f8003bda3bb3/linked_in_profile",
+		},
+		{
+			title: "Generative AI Leader Certification",
+			issuer: "Google",
+			logo: "google.png",
+			date: "2025-08-02",
+			link: "https://www.credly.com/badges/0d8cac99-a09d-4ee9-86ac-13ec16a066ff/public_url",
+		},
+		{
+			title: "AWS Certified Machine Learning Engineer, Associate",
+			issuer: "AWS",
+			logo: "aws.png",
+			date: "2025-12-30",
+			link: "https://www.credly.com/badges/89a55bb2-8f32-4938-84a1-683f21bb0e64/public_url",
+		},
+	] satisfies Certification[]
+).sort((a, b) => (a.date < b.date ? 1 : -1));
 
-const TOTAL_CREDENTIALS = 26;
-const ISSUER_LOGOS: { issuer: string; logo: string }[] = [
-	{ issuer: "Google", logo: "google.png" },
-	{ issuer: "Microsoft", logo: "microsoft.png" },
-	{ issuer: "AWS", logo: "aws.png" },
-	{ issuer: "GitHub", logo: "github.png" },
-	{ issuer: "Oracle", logo: "oci.png" },
-	{ issuer: "Harvard", logo: "harvard.jpg" },
-	{ issuer: "Cisco", logo: "cisco.png" },
-];
+const TOTAL_CREDENTIALS = certifications.length;
+const CERTS_PER_PAGE = 6; // 2 columns x 3 rows
 
 function formatDate(iso: string) {
 	const d = new Date(iso);
@@ -207,7 +289,16 @@ function formatDate(iso: string) {
 
 export function RecognitionSection() {
 	const sectionRef = useRef<HTMLElement>(null);
-	const recentCerts = useMemo(() => certifications.slice(0, 6), []);
+	const {
+		currentPage,
+		totalPages,
+		currentItems,
+		nextPage,
+		prevPage,
+		goToPage,
+		stopAutoRotate,
+		isAutoRotating,
+	} = useCarousel(certifications, CERTS_PER_PAGE);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -287,9 +378,9 @@ export function RecognitionSection() {
 					))}
 				</div>
 
-				{/* Certifications, condensed */}
+				{/* Certifications: 2 x 3 paginated carousel */}
 				<div className="animate-on-scroll opacity-0 mt-6 rounded-3xl border border-border bg-card p-6 sm:p-8">
-					<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
+					<div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
 						<div>
 							<h3 className="font-display text-xl font-semibold tracking-tight">
 								{TOTAL_CREDENTIALS} industry credentials
@@ -299,42 +390,62 @@ export function RecognitionSection() {
 								platforms.
 							</p>
 						</div>
-						<div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-							{ISSUER_LOGOS.map((it) => (
-								<Image
-									key={it.issuer}
-									src={"/certification/logo/" + it.logo}
-									alt={it.issuer}
-									width={72}
-									height={28}
-									title={it.issuer}
-									className="h-6 w-auto object-contain grayscale opacity-70"
-								/>
-							))}
-						</div>
+						<CarouselControls
+							currentPage={currentPage}
+							totalPages={totalPages}
+							onPrev={prevPage}
+							onNext={nextPage}
+							onUserInteraction={stopAutoRotate}
+							isAutoRotating={isAutoRotating}
+							className="shrink-0"
+						/>
 					</div>
 
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 border-t border-border pt-6">
-						{recentCerts.map((cert) => (
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+						{currentItems.map((cert, index) => (
 							<Link
-								key={cert.title}
+								key={`${cert.title}-${currentPage}`}
 								href={cert.link || "#"}
 								target={cert.link ? "_blank" : undefined}
 								rel={cert.link ? "noopener noreferrer" : undefined}
-								className="group flex items-center justify-between gap-3 py-2.5 border-b border-border/60 last:border-0"
+								className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/25"
+								style={{
+									animation: "fadeIn 0.3s ease forwards",
+									animationDelay: `${index * 40}ms`,
+									opacity: 0,
+								}}
 							>
-								<span className="min-w-0">
-									<span className="block text-sm font-medium text-foreground truncate group-hover:text-muted-foreground transition-colors">
+								<span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary overflow-hidden">
+									<Image
+										src={"/certification/logo/" + cert.logo}
+										alt={cert.issuer}
+										width={28}
+										height={28}
+										className="size-6 object-contain"
+									/>
+								</span>
+								<span className="min-w-0 flex-1">
+									<span className="block text-sm font-medium text-foreground leading-snug line-clamp-2">
 										{cert.title}
 									</span>
-									<span className="block text-xs text-muted-foreground">
+									<span className="block text-xs text-muted-foreground mt-0.5">
 										{cert.issuer} · {formatDate(cert.date)}
 									</span>
 								</span>
-								<ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+								{cert.link && (
+									<ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+								)}
 							</Link>
 						))}
 					</div>
+
+					<CarouselDots
+						currentPage={currentPage}
+						totalPages={totalPages}
+						onGoToPage={goToPage}
+						onUserInteraction={stopAutoRotate}
+						className="mt-6"
+					/>
 
 					<Link
 						href="https://www.linkedin.com/in/alpharomercoma/details/certifications/"
@@ -342,7 +453,7 @@ export function RecognitionSection() {
 						rel="noopener noreferrer"
 						className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:gap-2.5 transition-all"
 					>
-						View all {TOTAL_CREDENTIALS} credentials
+						View all on LinkedIn
 						<ArrowUpRight className="size-4" />
 					</Link>
 				</div>
