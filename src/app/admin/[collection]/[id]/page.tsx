@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CollectionForm } from "@/components/admin/collection-form";
-import { buildImageOptions } from "@/lib/collections/images";
 import { getCollection } from "@/lib/collections/registry";
 import { getItem } from "@/lib/collections/store";
 
@@ -21,7 +20,6 @@ export default async function EditCollectionItemPage({
 	if (!item) notFound();
 
 	const { error } = await searchParams;
-	const imageOptions = await buildImageOptions(cfg.fields);
 	const { title } = cfg.summary(item);
 
 	return (
@@ -37,7 +35,6 @@ export default async function EditCollectionItemPage({
 				fields={cfg.fields}
 				collectionKey={collection}
 				item={item}
-				imageOptions={imageOptions}
 				labelSingular={cfg.labelSingular}
 				listHref={`/admin/${collection}`}
 				error={error}

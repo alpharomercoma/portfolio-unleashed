@@ -9,7 +9,7 @@
 		"github": "https://github.com/alpharomercoma",
 		"demo": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
 		"demoLabel": "View deck",
-		"image": "pytorch-asics.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/pytorch-asics-tFWtApJV7T5KhI5Wn5WBT0Zajs1gDd.png",
 		"order": 10
 	},
 	{
@@ -22,7 +22,7 @@
 		"github": "https://github.com/alpharomercoma/micromarc",
 		"demo": "https://micromarc.vercel.app/",
 		"demoLabel": "",
-		"image": "visual-qwen.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/visual-qwen-BH33A3SrAlUyWgjC0PvmVesQBB8hSd.png",
 		"order": 20
 	},
 	{
@@ -35,7 +35,7 @@
 		"github": "https://gist.github.com/NoctisDEV/e253977d65c5a18f7902ac984d1107e6",
 		"demo": "https://www.kaggle.com/datasets/jobisaacong/tiktok-sludge-dataset-500/",
 		"demoLabel": "Kaggle",
-		"image": "sludge-dataset.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/sludge-dataset-nRW4GYXwO4AHaIU7WETPt99U90tmal.png",
 		"order": 30
 	},
 	{
@@ -48,7 +48,7 @@
 		"github": "https://github.com/alpharomercoma/acerouter",
 		"demo": "https://acerouter.vercel.app",
 		"demoLabel": "",
-		"image": "acerouter.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/acerouter-KR8imqGuwWom23N1mTdJJhMEV4MIip.png",
 		"order": 40
 	},
 	{
@@ -61,7 +61,7 @@
 		"github": "https://github.com/FEUTechACMX/acmx",
 		"demo": "https://acmx.vercel.app",
 		"demoLabel": "",
-		"image": "acmx.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/acmx-MwpwiN1Mv5SEeqm4AknBRmnyZveKts.png",
 		"order": 10
 	},
 	{
@@ -74,7 +74,7 @@
 		"github": "https://github.com/alpharomercoma/ts-jobspy",
 		"demo": "https://www.npmjs.com/package/ts-jobspy",
 		"demoLabel": "",
-		"image": "ts-jobspy.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/ts-jobspy-UuBY0XsOUL4gE8V8iQTeX44diJYhoZ.png",
 		"order": 20
 	},
 	{
@@ -87,7 +87,7 @@
 		"github": "https://github.com/alpharomercoma/para-po",
 		"demo": "https://parapo.vercel.app",
 		"demoLabel": "",
-		"image": "para-po.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/para-po-PDpcv7814JtTEUjpavHhP3XiuEZHRh.png",
 		"order": 30
 	},
 	{
@@ -100,7 +100,7 @@
 		"github": "https://github.com/FEUTechACM/NASA-hackathon-2024",
 		"demo": "https://projectnature.vercel.app",
 		"demoLabel": "",
-		"image": "project-nature.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/project-nature-6fHeWxHRcdvD1ejPbPnUYp5ZGkb39k.png",
 		"order": 40
 	},
 	{
@@ -113,7 +113,7 @@
 		"github": "https://www.spaceappschallenge.org/2023/find-a-team/feu-tech-acm/?tab=project",
 		"demo": "https://drive.google.com/file/d/1FE7qHmqmVG-y03WzYkNwnDzSRIBPOyUl/view",
 		"demoLabel": "",
-		"image": "fireguard.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/fireguard-2qEUe5YVuzULrWTYDnFMJwJ9FJfzO9.png",
 		"order": 50
 	},
 	{
@@ -126,7 +126,7 @@
 		"github": "http://github.com/alpharomercoma/kape",
 		"demo": "https://alpharomercoma.github.io/kape",
 		"demoLabel": "",
-		"image": "kape-ni-rab.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/kape-ni-rab-CNHJcjKyTlYngdFYGoXkypH2ymjAbI.png",
 		"order": 60
 	},
 	{
@@ -139,7 +139,7 @@
 		"github": "http://github.com/alpharomercoma/mdstudio",
 		"demo": "https://markdownstudio.vercel.app/",
 		"demoLabel": "",
-		"image": "mdstudio.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/mdstudio-QAvGCfPpOv0kUvSRdzFP8Zn3ZXVAbn.png",
 		"order": 70
 	},
 	{
@@ -152,7 +152,7 @@
 		"github": "http://github.com/alpharomercoma/setsunai",
 		"demo": "https://setsunai.vercel.app",
 		"demoLabel": "",
-		"image": "setsunai.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/setsunai-YZZaOw7wfI7IFC3yZfbZFOvDUd4ODN.png",
 		"order": 80
 	},
 	{
@@ -165,7 +165,7 @@
 		"github": "https://github.com/alpharomercoma/mymnhs",
 		"demo": "https://mymnhs.vercel.app",
 		"demoLabel": "",
-		"image": "mymnhs.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/mymnhs-PrGonVLoKfeCmUAZQJ9ByqNoSF5Jbe.png",
 		"order": 90
 	}
 ]

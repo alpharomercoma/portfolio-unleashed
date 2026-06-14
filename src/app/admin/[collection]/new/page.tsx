@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CollectionForm } from "@/components/admin/collection-form";
-import { buildImageOptions } from "@/lib/collections/images";
 import { getCollection } from "@/lib/collections/registry";
 
 export default async function NewCollectionItemPage({
@@ -17,7 +16,6 @@ export default async function NewCollectionItemPage({
 	if (!cfg) notFound();
 
 	const { error } = await searchParams;
-	const imageOptions = await buildImageOptions(cfg.fields);
 
 	return (
 		<div>
@@ -31,7 +29,6 @@ export default async function NewCollectionItemPage({
 			<CollectionForm
 				fields={cfg.fields}
 				collectionKey={collection}
-				imageOptions={imageOptions}
 				labelSingular={cfg.labelSingular}
 				listHref={`/admin/${collection}`}
 				error={error}

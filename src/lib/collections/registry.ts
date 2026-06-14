@@ -37,7 +37,6 @@ export type FieldConfig = {
 	kind: FieldKind;
 	required?: boolean;
 	options?: readonly string[]; // select
-	imageDir?: string; // image: /public subdir to list, e.g. "/certification/logo"
 	help?: string;
 	placeholder?: string;
 	full?: boolean; // span the full form width
@@ -73,8 +72,7 @@ const certifications: CollectionConfig<Certification> = {
 			name: "logo",
 			label: "Logo",
 			kind: "image",
-			imageDir: "/certification/logo",
-			help: "Pick an existing logo or paste a custom path/URL.",
+			help: "Upload or choose from the image library.",
 		},
 		{
 			name: "link",
@@ -115,9 +113,8 @@ const awards: CollectionConfig<Award> = {
 			name: "image",
 			label: "Image",
 			kind: "image",
-			imageDir: "/awards",
 			full: true,
-			help: "Pick an existing image or paste a custom path/URL.",
+			help: "Upload or choose from the image library.",
 		},
 		{ name: "context", label: "Context", kind: "textarea", full: true },
 	],
@@ -183,9 +180,8 @@ const selectedWork: CollectionConfig<SelectedWork> = {
 			name: "image",
 			label: "Image",
 			kind: "image",
-			imageDir: "/featured",
 			full: true,
-			help: "Pick from /featured or paste a /path (e.g. /blog/thesis.png) or URL.",
+			help: "Upload or choose from the image library.",
 		},
 		{
 			name: "href",
@@ -268,9 +264,8 @@ const projects: CollectionConfig<Project> = {
 			name: "image",
 			label: "Image",
 			kind: "image",
-			imageDir: "/projects",
 			full: true,
-			help: "Pick an existing image or paste a custom path/URL.",
+			help: "Upload or choose from the image library.",
 		},
 	],
 	sort: byOrderAsc,

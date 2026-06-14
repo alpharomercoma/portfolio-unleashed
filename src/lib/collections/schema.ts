@@ -74,7 +74,7 @@ export const selectedWorkSchema = z.object({
 	title: z.string().min(1),
 	tag: z.string().default(""),
 	description: z.string().default(""),
-	// Full path (e.g. "/featured/x.png" or "/blog/thesis.png"), or a URL.
+	// Image URL from the picker (Blob), or any image path/URL.
 	image: z.string().default(""),
 	href: z.string().default(""),
 	cta: z.string().default(""),

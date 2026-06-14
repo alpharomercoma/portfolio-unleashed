@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { saveCollectionItem } from "@/app/admin/collection-actions";
+import { ImagePicker } from "@/components/admin/image-picker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +17,6 @@ export function CollectionForm({
 	fields,
 	collectionKey,
 	item,
-	imageOptions,
 	labelSingular,
 	listHref,
 	error,
@@ -24,7 +24,6 @@ export function CollectionForm({
 	fields: FieldConfig[];
 	collectionKey: string;
 	item?: Record<string, unknown>;
-	imageOptions: Record<string, string[]>;
 	labelSingular: string;
 	listHref: string;
 	error?: string;
@@ -51,8 +50,6 @@ export function CollectionForm({
 			<div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
 				{fields.map((field) => {
 					const id = `field-${field.name}`;
-					const listId = `${id}-options`;
-					const options = imageOptions[field.name] ?? [];
 					return (
 						<div
 							key={field.name}
@@ -90,20 +87,7 @@ export function CollectionForm({
 									))}
 								</select>
 							) : field.kind === "image" ? (
-								<>
-									<Input
-										id={id}
-										name={field.name}
-										list={listId}
-										placeholder={field.placeholder ?? "file name or URL"}
-										defaultValue={val(field.name)}
-									/>
-									<datalist id={listId}>
-										{options.map((opt) => (
-											<option key={opt} value={opt} />
-										))}
-									</datalist>
-								</>
+								<ImagePicker name={field.name} defaultValue={val(field.name)} />
 							) : (
 								<Input
 									id={id}

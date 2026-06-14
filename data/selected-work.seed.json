@@ -4,7 +4,7 @@
 		"title": "De-mystifying PyTorch for ASICs at PyTorch Conference Europe 2026",
 		"tag": "Accelerated Computing",
 		"description": "Benchmark study across 1× H100 (RunPod), 8× H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge, training image-recognition and text-generation models on each. Delivered at Station F, Paris, for the Linux Foundation.",
-		"image": "/featured/pytorch-conf-europe.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/pytorch-conf-europe-FmyKon0N2lewIzSFoZlVmUssyA6wj2.png",
 		"href": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
 		"cta": "Read the breakdown",
 		"order": 10
@@ -14,7 +14,7 @@
 		"title": "MicroMARC: a 92%-accurate vision-language model",
 		"tag": "Multimodality",
 		"description": "Visual-Qwen VLM that flags cognitively-degrading short-form video, fine-tuned on a 6,000-row multimodal dataset under a $376,000 Google Cloud compute grant.",
-		"image": "/blog/thesis.png",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/thesis-zbRtJst9BAVRBvfcjias2zbnbitQDe.png",
 		"href": "https://micromarc.vercel.app",
 		"cta": "",
 		"order": 20
@@ -24,7 +24,7 @@
 		"title": "Crafting the winning prompt of NAIPDC PH 2025",
 		"tag": "Applied AI",
 		"description": "Model selection, chain-of-thought structure, XML scaffolding, and the guardrails behind the prompt that won the National AI Prompt Design Challenge PH.",
-		"image": "/featured/naipdc.jpg",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/naipdc-oK8zDXpgLlVmo0phfxNtnN5xK40b5Y.jpg",
 		"href": "https://alpharomer.com/blog/crafting-the-winning-prompt-of-national-ai-prompt-design-challenge",
 		"cta": "",
 		"order": 30
@@ -34,7 +34,7 @@
 		"title": "GitHub Universe '25 recap at az:Repo Microsoft PH",
 		"tag": "Community",
 		"description": "Agentic Copilot, GPT-powered code review, and the GitHub Models platform, unpacked for the Microsoft Azure community in Manila.",
-		"image": "/featured/azrepo.jpg",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/azrepo-mu0Cce1LNXYVj7Z7a7hJTu1LtJ8Cnj.jpg",
 		"href": "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit?usp=sharing",
 		"cta": "",
 		"order": 40

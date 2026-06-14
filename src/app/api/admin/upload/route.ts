@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 import { uploadImageToBlob } from "@/lib/blob";
 import { getSession } from "@/lib/session";
 
-// Session-gated image upload for the admin markdown editor. Stores the file in
-// Vercel Blob and returns its public URL for embedding as `![alt](url)`.
+// Session-gated image upload used by the markdown editor and the image picker.
+// Stores the file in Vercel Blob (under the given folder, default "media") and
+// returns its public URL.
 export async function POST(req: Request) {
 	if (!(await getSession())) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -31,8 +32,12 @@ export async function POST(req: Request) {
 		);
 	}
 
+	const folder =
+		String(form.get("folder") ?? "media").replace(/[^a-z0-9-]/gi, "") ||
+		"media";
+
 	try {
-		const url = await uploadImageToBlob("about", file);
+		const url = await uploadImageToBlob(folder, file);
 		return NextResponse.json({ url });
 	} catch (error) {
 		console.error("[upload] failed", error);
