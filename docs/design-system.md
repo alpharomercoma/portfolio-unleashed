@@ -180,3 +180,23 @@ lime-strong as text/icons on white (fails contrast); add uppercase mono eyebrow
 labels; use a centered dark "let's build together" SaaS CTA; repeat one formulaic
 eyebrow + heading + grid rhythm; write filler copy or empty sections; use em/en
 dashes; mix radius/gap scales within a group.
+
+## 10. Speaking pages (`/speaking`)
+
+Talk-centric, text-forward (content is king), modeled on smatoto.dev but in our
+brand. Data lives in Upstash Redis (`src/lib/talks/store.ts`) with the committed
+`data/talks.seed.json` as fallback + seed source; managed via the authed `/admin`.
+
+- **Model:** a _talk_ (topic) has type, category, level, duration, language, tags,
+  abstract, outline, key takeaways, and an `events[]` array (each delivery:
+  organizer, date, venue, audience, slide/video links). One talk, many events.
+- **Index (`/speaking`):** stat band (talks, sessions, developers reached, years),
+  category filter chips, lean `TalkCard`s (lime category dot, mono meta).
+- **Detail (`/speaking/[slug]`):** statement title, metadata bar (hairline-divided
+  cells), tag chips, abstract, numbered outline, lime-dot key takeaways, slide
+  embed + open-in-new-tab, and a "Delivered N times" events table.
+- **Restraint:** lime only as the category dot, one stat highlight, and key-takeaway
+  bullets. No per-card imagery by default; showcase images are optional (Blob).
+- **Admin (`/admin`):** password + signed-cookie auth (`src/lib/auth.ts`,
+  `src/middleware.ts`); CRUD via server actions; line-based fields for arrays and a
+  JSON editor for events; optional image upload to Vercel Blob.

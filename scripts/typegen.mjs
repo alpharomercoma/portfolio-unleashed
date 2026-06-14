@@ -9,7 +9,7 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 
 if (!projectId || projectId === "placeholder") {
 	console.log(
-		"[typegen] No NEXT_PUBLIC_SANITY_PROJECT_ID — skipping Sanity type generation; using committed sanity.types.ts.",
+		"[typegen] No NEXT_PUBLIC_SANITY_PROJECT_ID set; skipping Sanity type generation and using committed sanity.types.ts.",
 	);
 	process.exit(0);
 }

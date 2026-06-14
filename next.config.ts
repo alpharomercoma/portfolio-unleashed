@@ -22,6 +22,10 @@ const config = {
 				protocol: "https",
 				hostname: "cdn.sanity.io",
 			},
+			{
+				protocol: "https",
+				hostname: "*.public.blob.vercel-storage.com",
+			},
 		],
 	},
 	// Empty turbopack config to silence webpack/turbopack conflict warning
