@@ -1,11 +1,11 @@
 import { createClient } from "next-sanity";
 
-import { studioUrl } from "@/sanity/lib/api";
+import { apiVersion, dataset, projectId, studioUrl } from "@/sanity/lib/api";
 
 export const client = createClient({
-	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-	apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION!,
+	projectId,
+	dataset,
+	apiVersion,
 	useCdn: true,
 	perspective: "published",
 	stega: {

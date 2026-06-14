@@ -23,11 +23,13 @@ const postSlugs = defineQuery(
 );
 
 export async function generateStaticParams() {
-	return await sanityFetch({
-		query: postSlugs,
-		perspective: "published",
-		stega: false,
-	});
+	return (
+		(await sanityFetch({
+			query: postSlugs,
+			perspective: "published",
+			stega: false,
+		})) ?? []
+	);
 }
 
 export async function generateMetadata(

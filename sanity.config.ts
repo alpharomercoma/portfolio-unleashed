@@ -2,7 +2,7 @@
 /**
  * This config is used to set up Sanity Studio that's mounted on the `app/(sanity)/studio/[[...tool]]/page.tsx` route
  */
-import { studioUrl } from "@/sanity/lib/api";
+import { apiVersion, dataset, projectId, studioUrl } from "@/sanity/lib/api";
 import { resolveHref } from "@/sanity/lib/utils";
 import { assistWithPresets } from "@/sanity/plugins/assist";
 import { pageStructure, singletonPlugin } from "@/sanity/plugins/settings";
@@ -32,8 +32,8 @@ const homeLocation = {
 
 export default defineConfig({
 	basePath: studioUrl,
-	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+	projectId,
+	dataset,
 	schema: {
 		types: [
 			// Singletons
@@ -114,7 +114,7 @@ export default defineConfig({
 		// https://www.sanity.io/docs/the-vision-plugin
 		process.env.NODE_ENV === "development" &&
 			visionTool({
-				defaultApiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION!,
+				defaultApiVersion: apiVersion,
 			}),
 	].filter(Boolean) as PluginOptions[],
 });
