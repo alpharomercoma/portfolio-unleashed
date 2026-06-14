@@ -1,6 +1,5 @@
 "use server";
 
-import { put } from "@vercel/blob";
 import { revalidatePath, updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -11,6 +10,7 @@ import {
 	checkPassword,
 	signSession,
 } from "@/lib/auth";
+import { uploadImageToBlob } from "@/lib/blob";
 import { getSession } from "@/lib/session";
 import {
 	type Talk,
@@ -69,11 +69,7 @@ export async function saveTalk(formData: FormData) {
 		file.size > 0 &&
 		process.env.BLOB_READ_WRITE_TOKEN
 	) {
-		const blob = await put(`talks/${slug}-${file.name}`, file, {
-			access: "public",
-			addRandomSuffix: true,
-		});
-		showcaseImage = blob.url;
+		showcaseImage = await uploadImageToBlob("talks", file);
 	}
 
 	// Events come through as a JSON array textarea.

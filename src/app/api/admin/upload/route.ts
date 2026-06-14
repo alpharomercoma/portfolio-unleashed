@@ -1,6 +1,6 @@
-import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
+import { uploadImageToBlob } from "@/lib/blob";
 import { getSession } from "@/lib/session";
 
 // Session-gated image upload for the admin markdown editor. Stores the file in
@@ -32,12 +32,8 @@ export async function POST(req: Request) {
 	}
 
 	try {
-		const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-		const blob = await put(`about/${Date.now()}-${safeName}`, file, {
-			access: "public",
-			addRandomSuffix: true,
-		});
-		return NextResponse.json({ url: blob.url });
+		const url = await uploadImageToBlob("about", file);
+		return NextResponse.json({ url });
 	} catch (error) {
 		console.error("[upload] failed", error);
 		return NextResponse.json(
