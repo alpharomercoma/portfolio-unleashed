@@ -14,7 +14,13 @@ import path from "node:path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 
-const COLLECTIONS = ["certifications", "awards", "recommendations"];
+const COLLECTIONS = [
+	"selected-work",
+	"projects",
+	"awards",
+	"certifications",
+	"recommendations",
+];
 
 async function readSeed(key) {
 	const file = path.join(root, "data", `${key}.seed.json`);

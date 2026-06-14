@@ -11,17 +11,28 @@ import { SpeakingSection } from "@/components/speaking-section";
 import type {
 	Award,
 	Certification,
+	Project,
 	Recommendation,
+	SelectedWork,
 } from "@/lib/collections/schema";
 import { getAllItems } from "@/lib/collections/store";
 import { getAllTalks } from "@/lib/talks/store";
 
 export default async function Home() {
-	const [talks, awards, certifications, recommendations] = await Promise.all([
+	const [
+		talks,
+		awards,
+		certifications,
+		recommendations,
+		projects,
+		selectedWork,
+	] = await Promise.all([
 		getAllTalks(),
 		getAllItems("awards"),
 		getAllItems("certifications"),
 		getAllItems("recommendations"),
+		getAllItems("projects"),
+		getAllItems("selected-work"),
 	]);
 	const featured = talks.filter((t) => t.featured);
 	const speakingTeaser = (featured.length > 0 ? featured : talks).slice(0, 6);
@@ -30,8 +41,8 @@ export default async function Home() {
 		<main className="min-h-screen bg-background">
 			<Navbar />
 			<HeroSection />
-			<SelectedWorkSection />
-			<ProjectsSection />
+			<SelectedWorkSection items={selectedWork as unknown as SelectedWork[]} />
+			<ProjectsSection projects={projects as unknown as Project[]} />
 			<SpeakingSection talks={speakingTeaser} total={talks.length} />
 			<BlogSection />
 			<RecognitionSection

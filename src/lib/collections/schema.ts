@@ -40,3 +40,44 @@ export const recommendationSchema = z.object({
 	role: z.string().default(""),
 });
 export type Recommendation = z.infer<typeof recommendationSchema>;
+
+// Numeric display order captured from a plain text input. Anything non-numeric
+// (blank, undefined, junk) becomes 0, so the form never produces NaN.
+const orderField = z.preprocess(
+	(v) => (Number.isFinite(Number(v)) ? Number(v) : 0),
+	z.number(),
+);
+
+export const PROJECT_CATEGORIES = [
+	"Machine Learning",
+	"Software Engineering",
+] as const;
+
+export const projectSchema = z.object({
+	id: z.string().min(1),
+	title: z.string().min(1),
+	description: z.string().default(""),
+	category: z.enum(PROJECT_CATEGORIES).default("Machine Learning"),
+	tags: z.array(z.string()).default([]),
+	metrics: z.array(z.string()).default([]),
+	github: z.string().default(""),
+	demo: z.string().default(""),
+	demoLabel: z.string().default(""),
+	// File name inside /public/projects (e.g. "acmx.png"), or a URL.
+	image: z.string().default(""),
+	order: orderField,
+});
+export type Project = z.infer<typeof projectSchema>;
+
+export const selectedWorkSchema = z.object({
+	id: z.string().min(1),
+	title: z.string().min(1),
+	tag: z.string().default(""),
+	description: z.string().default(""),
+	// Full path (e.g. "/featured/x.png" or "/blog/thesis.png"), or a URL.
+	image: z.string().default(""),
+	href: z.string().default(""),
+	cta: z.string().default(""),
+	order: orderField,
+});
+export type SelectedWork = z.infer<typeof selectedWorkSchema>;

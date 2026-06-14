@@ -3,20 +3,33 @@ import type { z } from "zod";
 import { slugify } from "@/lib/talks/schema";
 import awardSeed from "../../../data/awards.seed.json";
 import certSeed from "../../../data/certifications.seed.json";
+import projectSeed from "../../../data/projects.seed.json";
 import recommendationSeed from "../../../data/recommendations.seed.json";
+import selectedWorkSeed from "../../../data/selected-work.seed.json";
 import {
 	AWARD_CATEGORIES,
 	type Award,
 	type Certification,
+	PROJECT_CATEGORIES,
+	type Project,
 	type Recommendation,
+	type SelectedWork,
 	awardSchema,
 	certificationSchema,
+	projectSchema,
 	recommendationSchema,
+	selectedWorkSchema,
 } from "./schema";
 
 // A single admin-managed content type. Adding a new section = add one entry to
 // the registry below; the generic list, form, and store all read from this.
-export type FieldKind = "text" | "textarea" | "date" | "select" | "image";
+export type FieldKind =
+	| "text"
+	| "textarea"
+	| "date"
+	| "select"
+	| "image"
+	| "list";
 
 export type FieldConfig = {
 	name: string;
@@ -137,10 +150,142 @@ const recommendations: CollectionConfig<Recommendation> = {
 	seed: recommendationSeed as Recommendation[],
 };
 
+const byOrderAsc = <T extends { order: number; title: string }>(items: T[]) =>
+	[...items].sort(
+		(a, b) => a.order - b.order || a.title.localeCompare(b.title),
+	);
+
+const selectedWork: CollectionConfig<SelectedWork> = {
+	key: "selected-work",
+	labelSingular: "Highlight",
+	labelPlural: "Selected work",
+	description:
+		"The lead + supporting highlights in the homepage Selected Work section.",
+	schema: selectedWorkSchema,
+	idFrom: (d) => slugify(d.title ?? ""),
+	fields: [
+		{ name: "title", label: "Title", kind: "text", required: true, full: true },
+		{
+			name: "tag",
+			label: "Tag",
+			kind: "text",
+			placeholder: "e.g. Accelerated Computing",
+		},
+		{
+			name: "order",
+			label: "Order",
+			kind: "text",
+			placeholder: "0",
+			help: "Lowest order is the large lead; the rest are supporting cards.",
+		},
+		{ name: "description", label: "Description", kind: "textarea", full: true },
+		{
+			name: "image",
+			label: "Image",
+			kind: "image",
+			imageDir: "/featured",
+			full: true,
+			help: "Pick from /featured or paste a /path (e.g. /blog/thesis.png) or URL.",
+		},
+		{
+			name: "href",
+			label: "Link URL",
+			kind: "text",
+			full: true,
+			placeholder: "https://...",
+		},
+		{
+			name: "cta",
+			label: "Lead button label",
+			kind: "text",
+			placeholder: "Read more",
+		},
+	],
+	sort: byOrderAsc,
+	summary: (s) => ({ title: s.title, meta: `${s.tag} · #${s.order}` }),
+	seed: selectedWorkSeed as SelectedWork[],
+};
+
+const projects: CollectionConfig<Project> = {
+	key: "projects",
+	labelSingular: "Project",
+	labelPlural: "Projects",
+	description:
+		"ML and software engineering work shown in the Projects carousel.",
+	schema: projectSchema,
+	idFrom: (d) => slugify(d.title ?? ""),
+	fields: [
+		{ name: "title", label: "Title", kind: "text", required: true, full: true },
+		{
+			name: "category",
+			label: "Category",
+			kind: "select",
+			options: PROJECT_CATEGORIES,
+		},
+		{
+			name: "order",
+			label: "Order",
+			kind: "text",
+			placeholder: "0",
+			help: "Lower numbers appear first within the category.",
+		},
+		{ name: "description", label: "Description", kind: "textarea", full: true },
+		{
+			name: "tags",
+			label: "Tags",
+			kind: "list",
+			full: true,
+			help: "One per line. Tech/topic chips.",
+		},
+		{
+			name: "metrics",
+			label: "Metrics",
+			kind: "list",
+			full: true,
+			help: "One per line. Shown as pills on the card.",
+		},
+		{
+			name: "github",
+			label: "GitHub URL",
+			kind: "text",
+			full: true,
+			placeholder: "https://github.com/...",
+		},
+		{
+			name: "demo",
+			label: "Demo URL",
+			kind: "text",
+			full: true,
+			placeholder: "https://...",
+		},
+		{
+			name: "demoLabel",
+			label: "Demo button label",
+			kind: "text",
+			placeholder: "Live demo",
+		},
+		{
+			name: "image",
+			label: "Image",
+			kind: "image",
+			imageDir: "/projects",
+			full: true,
+			help: "Pick an existing image or paste a custom path/URL.",
+		},
+	],
+	sort: byOrderAsc,
+	summary: (p) => ({ title: p.title, meta: `${p.category} · #${p.order}` }),
+	seed: projectSeed as Project[],
+};
+
+// Ordered to match the homepage section flow (Selected Work, Projects, then
+// Recognition = Awards before Certifications, then Recommendations).
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const COLLECTIONS: Record<string, CollectionConfig<any>> = {
-	certifications,
+	"selected-work": selectedWork,
+	projects,
 	awards,
+	certifications,
 	recommendations,
 };
 

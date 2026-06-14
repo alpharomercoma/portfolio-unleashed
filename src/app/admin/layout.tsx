@@ -4,19 +4,15 @@ import Link from "next/link";
 import { logout } from "@/app/admin/actions";
 import { AdminNav, type NavItem } from "@/components/admin/admin-nav";
 import { Button } from "@/components/ui/button";
-import { COLLECTIONS } from "@/lib/collections/registry";
+import { ADMIN_SECTIONS } from "@/lib/admin-sections";
 import { getSession } from "@/lib/session";
 
 export const metadata: Metadata = { title: "Admin", robots: { index: false } };
 
+// Ordered to match the public site (see ADMIN_SECTIONS).
 const navItems: NavItem[] = [
 	{ label: "Overview", href: "/admin" },
-	{ label: "Talks", href: "/admin/talks" },
-	...Object.values(COLLECTIONS).map((c) => ({
-		label: c.labelPlural,
-		href: `/admin/${c.key}`,
-	})),
-	{ label: "About", href: "/admin/about" },
+	...ADMIN_SECTIONS.map((s) => ({ label: s.label, href: s.href })),
 ];
 
 export default async function AdminLayout({

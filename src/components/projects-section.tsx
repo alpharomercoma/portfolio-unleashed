@@ -7,176 +7,35 @@ import {
 	useCarousel,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import type { Project } from "@/lib/collections/schema";
 import { ArrowUpRight, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-type Project = {
-	title: string;
-	description: string;
-	tags: string[];
-	metrics: string[];
-	github: string;
-	demo: string;
-	demoLabel?: string;
-	image: string;
-};
-
-const mlProjects: Project[] = [
-	{
-		title: "De-mystifying PyTorch for ASICs",
-		description:
-			"Benchmark study across 1x H100 (RunPod), 8x H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge, training image recognition and text generation models on each platform. Presented at PyTorch Conference Europe 2026 (Linux Foundation, Station F).",
-		tags: ["PyTorch", "ASICs", "Accelerated Computing"],
-		metrics: ["4 accelerator classes", "PyTorch Conf Europe 2026"],
-		github: "https://github.com/alpharomercoma",
-		demo: "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
-		demoLabel: "View deck",
-		image: "pytorch-asics.png",
-	},
-	{
-		title: "Visual-Qwen",
-		description:
-			"Vision-language model from the MicroMARC thesis, fine-tuned on Google TPUs to detect cognitively-degrading short-form video. Built with 10 ML experts, 20 content creators, and 20 moderators in the loop.",
-		tags: ["PyTorch", "TPU", "VLM"],
-		metrics: ["92% accuracy", "Google Cloud TRC"],
-		github: "https://github.com/alpharomercoma/micromarc",
-		demo: "https://micromarc.vercel.app/",
-		image: "visual-qwen.png",
-	},
-	{
-		title: "Multimodal Sludge Dataset",
-		description:
-			"Novel multimodal (text · video · audio) dataset of 2,000+ cognitively-degrading clips scraped from TikTok and YouTube via a human-in-the-loop and synthetic-data pipeline.",
-		tags: ["Dataset", "Synthetic Data", "HITL"],
-		metrics: ["2,000+ samples", "Published on Kaggle"],
-		github:
-			"https://gist.github.com/NoctisDEV/e253977d65c5a18f7902ac984d1107e6",
-		demo: "https://www.kaggle.com/datasets/jobisaacong/tiktok-sludge-dataset-500/",
-		demoLabel: "Kaggle",
-		image: "sludge-dataset.png",
-	},
-	{
-		title: "AceRouter",
-		description:
-			"AI agent for Philippine delivery riders that optimizes routes, drafts client messages, and maximizes earnings via conversational guidance powered by Gemini.",
-		tags: ["Next.js", "Gemini", "Agents"],
-		metrics: ["Gemini-powered", "Prompt engineered"],
-		github: "https://github.com/alpharomercoma/acerouter",
-		demo: "https://acerouter.vercel.app",
-		image: "acerouter.png",
-	},
-];
-
-const sweProjects: Project[] = [
-	{
-		title: "FEU Tech ACMX",
-		description:
-			"Official cross-platform application of the FEU Tech ACM, released on Google Play, Microsoft Store, Xiaomi GetApps, and Huawei App Gallery.",
-		tags: ["Next.js", "shadcn/ui", "Vercel"],
-		metrics: ["4,000+ students", "90K+ tasks/yr"],
-		github: "https://github.com/FEUTechACMX/acmx",
-		demo: "https://acmx.vercel.app",
-		image: "acmx.png",
-	},
-	{
-		title: "TypeScript JobSpy",
-		description:
-			"TypeScript job-scraping library aggregating postings from the major job boards. Production-grade rate limiting and anti-detection across 60+ countries.",
-		tags: ["TypeScript", "npm", "Web Scraping"],
-		metrics: ["7,200 jobs/min", "60+ countries"],
-		github: "https://github.com/alpharomercoma/ts-jobspy",
-		demo: "https://www.npmjs.com/package/ts-jobspy",
-		image: "ts-jobspy.png",
-	},
-	{
-		title: "Para Po!",
-		description:
-			"Geospatial jeepney & transport route optimizer with an incentivized carbon-footprint reduction program. Finalist at the Philippine Junior Data Science Challenge 2024.",
-		tags: ["Next.js", "Geospatial", "Data Science"],
-		metrics: ["PJDSC Finalist", "GlobalCo Special Award"],
-		github: "https://github.com/alpharomercoma/para-po",
-		demo: "https://parapo.vercel.app",
-		image: "para-po.png",
-	},
-	{
-		title: "Project NATURE · NASA '24",
-		description:
-			"Interactive 3D globe that translates the U.S. Greenhouse Gas Center dataset into a public storytelling platform for climate-change education.",
-		tags: ["Next.js", "Data Viz", "3D"],
-		metrics: ["NASA Space Apps 2024", "Built in 48h"],
-		github: "https://github.com/FEUTechACM/NASA-hackathon-2024",
-		demo: "https://projectnature.vercel.app",
-		image: "project-nature.png",
-	},
-	{
-		title: "Fireguard",
-		description:
-			"Data-driven, community-based fire-management system leveraging satellite active-fire data to address fire incidents across the Philippines.",
-		tags: ["Research", "Satellite Data"],
-		metrics: ["NASA Global Nominee '23", "Top 40 worldwide"],
-		github:
-			"https://www.spaceappschallenge.org/2023/find-a-team/feu-tech-acm/?tab=project",
-		demo: "https://drive.google.com/file/d/1FE7qHmqmVG-y03WzYkNwnDzSRIBPOyUl/view",
-		image: "fireguard.png",
-	},
-	{
-		title: "Kape ni Rab!",
-		description:
-			"Coffee shop website built in 48 hours and crowned champion of Codetober 2024, the FEU Tech AITS web development competition.",
-		tags: ["Next.js", "shadcn/ui", "Vercel"],
-		metrics: ["Codetober '24 Champion", "Built in 2 days"],
-		github: "http://github.com/alpharomercoma/kape",
-		demo: "https://alpharomercoma.github.io/kape",
-		image: "kape-ni-rab.png",
-	},
-	{
-		title: "Markdown Studio",
-		description:
-			"Cross-platform markdown note-taking & blogging app. Shipped to Google Play Store and Microsoft Store with 200+ installs.",
-		tags: ["MongoDB", "React", "Express"],
-		metrics: ["200+ installs", "2 app stores"],
-		github: "http://github.com/alpharomercoma/mdstudio",
-		demo: "https://markdownstudio.vercel.app/",
-		image: "mdstudio.png",
-	},
-	{
-		title: "Setsunai · Private Space",
-		description:
-			"Open-source, self-hosted, end-to-end-encrypted private space for thoughts that need no audience.",
-		tags: ["Next.js", "Redis", "E2E Encryption"],
-		metrics: ["Open source", "Self-hosted"],
-		github: "http://github.com/alpharomercoma/setsunai",
-		demo: "https://setsunai.vercel.app",
-		image: "setsunai.png",
-	},
-	{
-		title: "MyMNHS",
-		description:
-			"Unofficial platform for Meycauayan National High School, complete with real-time chat, announcements, and forums. My first full-stack release.",
-		tags: ["React", "Express", "Socket.io"],
-		metrics: ["Real-time chat", "First full-stack"],
-		github: "https://github.com/alpharomercoma/mymnhs",
-		demo: "https://mymnhs.vercel.app",
-		image: "mymnhs.png",
-	},
-];
 
 const ITEMS_PER_PAGE = 6;
 const AUTO_ROTATE_INTERVAL = 0; // disabled so tab switches feel intentional
 
 type Tab = "ml" | "swe";
 
-const tabConfig: Record<Tab, { label: string; count: number }> = {
-	ml: { label: "Machine Learning", count: mlProjects.length },
-	swe: { label: "Software Engineering", count: sweProjects.length },
+const tabLabel: Record<Tab, string> = {
+	ml: "Machine Learning",
+	swe: "Software Engineering",
 };
 
-export function ProjectsSection() {
+// Resolve a stored image value to a URL: pass through absolute paths/URLs,
+// otherwise treat it as a file name in /public/projects.
+function asset(value: string): string {
+	return /^(https?:|\/)/.test(value) ? value : `/projects/${value}`;
+}
+
+export function ProjectsSection({ projects }: { projects: Project[] }) {
 	const sectionRef = useRef<HTMLElement>(null);
 	const [tab, setTab] = useState<Tab>("ml");
-	const items = tab === "ml" ? mlProjects : sweProjects;
+	const ml = projects.filter((p) => p.category === "Machine Learning");
+	const swe = projects.filter((p) => p.category === "Software Engineering");
+	const items = tab === "ml" ? ml : swe;
+	const counts: Record<Tab, number> = { ml: ml.length, swe: swe.length };
 
 	const {
 		currentPage,
@@ -241,7 +100,7 @@ export function ProjectsSection() {
 						aria-label="Project categories"
 						className="inline-flex items-center gap-1 p-1 rounded-full bg-secondary border border-border"
 					>
-						{(Object.keys(tabConfig) as Tab[]).map((k) => {
+						{(Object.keys(tabLabel) as Tab[]).map((k) => {
 							const active = tab === k;
 							return (
 								<button
@@ -257,7 +116,7 @@ export function ProjectsSection() {
 											: "text-muted-foreground hover:text-foreground",
 									)}
 								>
-									{tabConfig[k].label}
+									{tabLabel[k]}
 									<span
 										className={cn(
 											"text-[11px] font-semibold tabular-nums",
@@ -266,7 +125,7 @@ export function ProjectsSection() {
 												: "text-muted-foreground/60",
 										)}
 									>
-										{tabConfig[k].count}
+										{counts[k]}
 									</span>
 								</button>
 							);
@@ -297,7 +156,7 @@ export function ProjectsSection() {
 						>
 							<div className="relative aspect-[16/10] overflow-hidden bg-muted border-b border-border">
 								<Image
-									src={"/projects/" + project.image}
+									src={asset(project.image)}
 									alt={project.title}
 									fill
 									sizes="(max-width: 640px) 100vw, 33vw"
@@ -344,7 +203,7 @@ export function ProjectsSection() {
 											target="_blank"
 											rel="noopener noreferrer"
 										>
-											{project.demoLabel ?? "Live demo"}
+											{project.demoLabel || "Live demo"}
 											<ArrowUpRight className="h-3.5 w-3.5" />
 										</Link>
 									</Button>

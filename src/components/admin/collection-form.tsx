@@ -29,8 +29,12 @@ export function CollectionForm({
 	listHref: string;
 	error?: string;
 }) {
-	const val = (name: string) =>
-		item?.[name] != null ? String(item[name]) : "";
+	const val = (name: string) => {
+		const v = item?.[name];
+		if (v == null) return "";
+		// `list` fields are stored as string arrays; show one per line.
+		return Array.isArray(v) ? v.join("\n") : String(v);
+	};
 
 	return (
 		<form action={saveCollectionItem} className="space-y-6 max-w-2xl">
@@ -53,7 +57,9 @@ export function CollectionForm({
 						<div
 							key={field.name}
 							className={`space-y-2 ${
-								field.full || field.kind === "textarea" ? "sm:col-span-2" : ""
+								field.full || field.kind === "textarea" || field.kind === "list"
+									? "sm:col-span-2"
+									: ""
 							}`}
 						>
 							<Label htmlFor={id}>
@@ -61,7 +67,7 @@ export function CollectionForm({
 								{field.required && <span className="text-destructive"> *</span>}
 							</Label>
 
-							{field.kind === "textarea" ? (
+							{field.kind === "textarea" || field.kind === "list" ? (
 								<Textarea
 									id={id}
 									name={field.name}

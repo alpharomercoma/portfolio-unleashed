@@ -18,7 +18,15 @@ export async function saveCollectionItem(formData: FormData) {
 
 	const data: Record<string, unknown> = {};
 	for (const field of cfg.fields) {
-		data[field.name] = String(formData.get(field.name) ?? "").trim();
+		const raw = String(formData.get(field.name) ?? "");
+		// `list` fields are newline-separated textareas that become string arrays.
+		data[field.name] =
+			field.kind === "list"
+				? raw
+						.split("\n")
+						.map((s) => s.trim())
+						.filter(Boolean)
+				: raw.trim();
 	}
 	const existingId = String(formData.get("id") ?? "").trim();
 	if (existingId) data.id = existingId;

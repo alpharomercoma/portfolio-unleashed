@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-import { COLLECTIONS } from "@/lib/collections/registry";
+import { ADMIN_SECTIONS } from "@/lib/admin-sections";
 import { getAllItems } from "@/lib/collections/store";
 import { getAllTalks } from "@/lib/talks/store";
 
@@ -14,35 +14,21 @@ type SectionCard = {
 };
 
 export default async function AdminHub() {
-	const talks = await getAllTalks();
-
-	const collectionCards: SectionCard[] = await Promise.all(
-		Object.values(COLLECTIONS).map(async (c) => ({
-			label: c.labelPlural,
-			href: `/admin/${c.key}`,
-			count: (await getAllItems(c.key)).length,
-			unit: c.labelPlural.toLowerCase(),
-			description: c.description,
+	// Cards in the same order as the public site (see ADMIN_SECTIONS).
+	const sections: SectionCard[] = await Promise.all(
+		ADMIN_SECTIONS.map(async (s) => ({
+			label: s.label,
+			href: s.href,
+			unit: s.unit,
+			description: s.description,
+			count:
+				s.kind === "talks"
+					? (await getAllTalks()).length
+					: s.kind === "collection"
+						? (await getAllItems(s.key)).length
+						: undefined,
 		})),
 	);
-
-	const sections: SectionCard[] = [
-		{
-			label: "Talks",
-			href: "/admin/talks",
-			count: talks.length,
-			unit: "talks",
-			description:
-				"Talks, workshops, keynotes, and podcasts with their events.",
-		},
-		...collectionCards,
-		{
-			label: "About",
-			href: "/admin/about",
-			unit: "about page",
-			description: "Your personal story, written in markdown with images.",
-		},
-	];
 
 	return (
 		<div>

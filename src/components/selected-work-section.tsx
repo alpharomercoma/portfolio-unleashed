@@ -1,49 +1,16 @@
 "use client";
 
+import type { SelectedWork } from "@/lib/collections/schema";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-// One lead piece + three supporting pieces. The category tags carry the three
-// pillars (Multimodality / Accelerated Computing / Community) plus Applied AI,
-// so the work itself tells the story, no separate icon grid. All real data.
-const lead = {
-	tag: "Accelerated Computing",
-	title: "De-mystifying PyTorch for ASICs at PyTorch Conference Europe 2026",
-	description:
-		"Benchmark study across 1× H100 (RunPod), 8× H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge, training image-recognition and text-generation models on each. Delivered at Station F, Paris, for the Linux Foundation.",
-	image: "/featured/pytorch-conf-europe.png",
-	cta: "Read the breakdown",
-	href: "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
-};
-
-const supporting = [
-	{
-		tag: "Multimodality",
-		title: "MicroMARC: a 92%-accurate vision-language model",
-		description:
-			"Visual-Qwen VLM that flags cognitively-degrading short-form video, fine-tuned on a 6,000-row multimodal dataset under a $376,000 Google Cloud compute grant.",
-		image: "/blog/thesis.png",
-		href: "https://micromarc.vercel.app",
-	},
-	{
-		tag: "Applied AI",
-		title: "Crafting the winning prompt of NAIPDC PH 2025",
-		description:
-			"Model selection, chain-of-thought structure, XML scaffolding, and the guardrails behind the prompt that won the National AI Prompt Design Challenge PH.",
-		image: "/featured/naipdc.jpg",
-		href: "https://alpharomer.com/blog/crafting-the-winning-prompt-of-national-ai-prompt-design-challenge",
-	},
-	{
-		tag: "Community",
-		title: "GitHub Universe '25 recap at az:Repo Microsoft PH",
-		description:
-			"Agentic Copilot, GPT-powered code review, and the GitHub Models platform, unpacked for the Microsoft Azure community in Manila.",
-		image: "/featured/azrepo.jpg",
-		href: "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit?usp=sharing",
-	},
-];
+// Resolve a stored image value: pass through absolute paths/URLs, otherwise
+// treat it as a file name in /public/featured.
+function asset(value: string): string {
+	return /^(https?:|\/)/.test(value) ? value : `/featured/${value}`;
+}
 
 function Tag({ label }: { label: string }) {
 	return (
@@ -54,8 +21,10 @@ function Tag({ label }: { label: string }) {
 	);
 }
 
-export function SelectedWorkSection() {
+export function SelectedWorkSection({ items }: { items: SelectedWork[] }) {
 	const sectionRef = useRef<HTMLElement>(null);
+	const lead = items[0];
+	const supporting = items.slice(1);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -72,6 +41,8 @@ export function SelectedWorkSection() {
 		elements?.forEach((el) => observer.observe(el));
 		return () => observer.disconnect();
 	}, []);
+
+	if (!lead) return null;
 
 	return (
 		<section
@@ -110,13 +81,13 @@ export function SelectedWorkSection() {
 								{lead.description}
 							</p>
 							<span className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground text-sm font-medium px-5 h-10 w-fit transition-transform group-hover:translate-x-0.5">
-								{lead.cta}
+								{lead.cta || "Read more"}
 								<ArrowRight className="h-4 w-4" />
 							</span>
 						</div>
 						<div className="md:col-span-2 relative min-h-[240px] md:min-h-full border-t md:border-t-0 md:border-l border-border">
 							<Image
-								src={lead.image}
+								src={asset(lead.image)}
 								alt={lead.title}
 								fill
 								sizes="(max-width: 768px) 100vw, 40vw"
@@ -130,7 +101,7 @@ export function SelectedWorkSection() {
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
 					{supporting.map((item, index) => (
 						<Link
-							key={item.title}
+							key={item.id}
 							href={item.href}
 							target="_blank"
 							rel="noopener noreferrer"
@@ -139,7 +110,7 @@ export function SelectedWorkSection() {
 						>
 							<div className="relative aspect-[16/10] overflow-hidden border-b border-border">
 								<Image
-									src={item.image}
+									src={asset(item.image)}
 									alt={item.title}
 									fill
 									sizes="(max-width: 640px) 100vw, 33vw"
