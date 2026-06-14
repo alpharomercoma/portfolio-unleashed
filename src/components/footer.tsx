@@ -10,7 +10,7 @@ const footerLinks = {
 		{ label: "Speaking", href: "/speaking" },
 	],
 	resources: [
-		{ label: "Writing", href: "/#blog" },
+		{ label: "Writing", href: "/blog" },
 		{ label: "Recognition", href: "/#recognition" },
 		{ label: "Recommendations", href: "/#recommendations" },
 		{ label: "Get in touch", href: "/#contact" },
