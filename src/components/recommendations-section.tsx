@@ -1,7 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Quote } from "lucide-react";
-import Link from "next/link";
+import { Quote } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 import {
@@ -178,16 +177,6 @@ export function RecommendationsSection() {
 					onUserInteraction={stopAutoRotate}
 					className="mt-8"
 				/>
-
-				<Link
-					href="https://www.linkedin.com/in/alpharomercoma/details/recommendations/"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:gap-2.5 transition-all"
-				>
-					All 16 on LinkedIn
-					<ArrowUpRight className="size-4" />
-				</Link>
 			</div>
 		</section>
 	);

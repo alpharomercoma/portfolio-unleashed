@@ -446,16 +446,6 @@ export function RecognitionSection() {
 						onUserInteraction={stopAutoRotate}
 						className="mt-6"
 					/>
-
-					<Link
-						href="https://www.linkedin.com/in/alpharomercoma/details/certifications/"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:gap-2.5 transition-all"
-					>
-						View all on LinkedIn
-						<ArrowUpRight className="size-4" />
-					</Link>
 				</div>
 			</div>
 		</section>
