@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const navItems = [
-	{ label: "Work", href: "#work" },
-	{ label: "Projects", href: "#projects" },
-	{ label: "Speaking", href: "#speaking" },
-	{ label: "Writing", href: "#blog" },
-	{ label: "Recognition", href: "#recognition" },
+	{ label: "Work", href: "/#work" },
+	{ label: "Projects", href: "/#projects" },
+	{ label: "Speaking", href: "/speaking" },
+	{ label: "Writing", href: "/#blog" },
+	{ label: "Recognition", href: "/#recognition" },
 ];
 
 export function Navbar() {
@@ -79,7 +79,7 @@ export function Navbar() {
 
 				<div className="hidden lg:flex items-center shrink-0">
 					<Button asChild size="sm">
-						<Link href="#contact">
+						<Link href="/#contact">
 							Let&apos;s talk
 							<ArrowUpRight className="h-4 w-4" />
 						</Link>
@@ -139,7 +139,7 @@ export function Navbar() {
 						</Link>
 					))}
 					<Button asChild size="lg" className="w-full mt-2">
-						<Link href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+						<Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)}>
 							Let&apos;s talk
 							<ArrowUpRight className="h-4 w-4" />
 						</Link>

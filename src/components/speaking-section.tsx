@@ -1,93 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin, Presentation } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-type Talk = {
-	title: string;
-	event: string;
-	date: string;
-	location: string;
-	type: "Keynote" | "Talk" | "Workshop";
-	upcoming?: boolean;
-	summary: string;
-	slideLink: string;
-};
+import { TalkCard } from "@/components/speaking/talk-card";
+import { Button } from "@/components/ui/button";
+import type { Talk } from "@/lib/talks/schema";
 
-const speakingEvents: Talk[] = [
-	{
-		title:
-			"From Zero to Trainium: Building Your First Model on AWS's Native PyTorch Stack",
-		event: "AWS Community Day Philippines 2026",
-		date: "Jun 20, 2026",
-		location: "AWS Cloud Clubs PH",
-		type: "Talk",
-		upcoming: true,
-		summary:
-			"Quick start on AWS's native PyTorch stack: provisioning Trainium, porting a model, and running your first training job in under an hour.",
-		slideLink: "https://alpharomer.com",
-	},
-	{
-		title: "Introduction to GitHub Copilot and AI Development",
-		event: "Sparkpoint 2026",
-		date: "May 2, 2026",
-		location: "National University Laguna",
-		type: "Talk",
-		upcoming: true,
-		summary:
-			"Hands-on intro to GitHub Copilot: prompt patterns, agent mode, and wiring AI assistance into day-to-day development.",
-		slideLink: "https://alpharomer.com",
-	},
-	{
-		title: "Frontiers of Modern AI: Multimodality & Accelerated Computing",
-		event: "EDiTH Episode 9",
-		date: "Apr 10, 2026",
-		location: "FEU Institute of Technology",
-		type: "Talk",
-		summary:
-			"Tour of the two frontiers defining modern AI: multimodal fusion architectures and the accelerator stack (H100, TPU v6e, Trainium).",
-		slideLink:
-			"https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit?usp=sharing",
-	},
-	{
-		title:
-			"De-mystifying PyTorch for ASICs: When (and Why) To Move Your Development To AI Accelerators",
-		event: "PyTorch Conference Europe 2026",
-		date: "Apr 7, 2026",
-		location: "Station F, Paris, France",
-		type: "Talk",
-		summary:
-			"Benchmark walkthrough for image recognition and text generation across 1x H100 (RunPod), 8x H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge.",
-		slideLink:
-			"https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit?usp=sharing",
-	},
-	{
-		title: "Git and GitHub Workshop",
-		event: "JBECP, JRU Chapter",
-		date: "Mar 5, 2026",
-		location: "Jose Rizal University",
-		type: "Workshop",
-		summary:
-			"3-hour workshop on Git fundamentals, from initializing a repo to resolving merge conflicts and shipping your first pull request.",
-		slideLink:
-			"https://docs.google.com/presentation/d/1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw/edit?usp=sharing",
-	},
-	{
-		title: "Online Safety in the Age of AI",
-		event: "Ctrl + Prompt",
-		date: "Jan 8, 2026",
-		location: "FEU Institute of Technology",
-		type: "Talk",
-		summary:
-			"Navigating AI in the classroom: prompt injection, data leakage, and the safety practices students should adopt early.",
-		slideLink:
-			"https://docs.google.com/presentation/d/1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E/edit?usp=sharing",
-	},
-];
-
-export function SpeakingSection() {
+export function SpeakingSection({
+	talks,
+	total,
+}: {
+	talks: Talk[];
+	total: number;
+}) {
 	const sectionRef = useRef<HTMLElement>(null);
 
 	useEffect(() => {
@@ -106,6 +33,8 @@ export function SpeakingSection() {
 		return () => observer.disconnect();
 	}, []);
 
+	if (talks.length === 0) return null;
+
 	return (
 		<section
 			ref={sectionRef}
@@ -116,95 +45,43 @@ export function SpeakingSection() {
 				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
 					<div className="max-w-3xl">
 						<h2
-							className="animate-on-scroll opacity-0 display-lg mb-4"
+							className="animate-on-scroll opacity-0 display-lg"
 							style={{ animationDelay: "100ms" }}
 						>
 							From PyTorch Conference Europe to{" "}
 							<span className="text-lime">community stages</span>.
 						</h2>
 						<p
-							className="animate-on-scroll opacity-0 lede"
+							className="animate-on-scroll opacity-0 lede mt-4"
 							style={{ animationDelay: "150ms" }}
 						>
-							25+ talks on multimodality, accelerated computing, and developer
-							tooling at the Linux Foundation, Microsoft, Google, and AWS
-							community events.
+							{total}+ talks and workshops on AI, accelerated computing, and
+							developer tools at the Linux Foundation, Microsoft, Google, and
+							AWS community events.
 						</p>
 					</div>
-
 					<Button
+						asChild
 						variant="outline"
-						size="sm"
 						className="animate-on-scroll opacity-0 shrink-0"
 						style={{ animationDelay: "200ms" }}
-						asChild
 					>
-						<Link
-							href="https://www.appsheet.com/start/571f4238-a52d-4f25-925c-6fc4e114e940"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Full speakership database
-							<ArrowRight className="h-3.5 w-3.5" />
+						<Link href="/speaking">
+							All {total} talks
+							<ArrowRight className="h-4 w-4" />
 						</Link>
 					</Button>
 				</div>
 
-				<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-					{speakingEvents.map((event, index) => (
-						<article
-							key={event.title}
-							className="flex flex-col p-6 sm:p-7 rounded-3xl h-full bg-card border border-border transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25"
-							style={{
-								animation: "fadeIn 0.3s ease forwards",
-								animationDelay: `${index * 50}ms`,
-								opacity: 0,
-							}}
+				<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+					{talks.map((talk, i) => (
+						<div
+							key={talk.slug}
+							className="animate-on-scroll opacity-0"
+							style={{ animationDelay: `${(i + 2) * 70}ms` }}
 						>
-							<div className="flex items-center justify-between mb-5">
-								<div className="flex items-center gap-1.5">
-									<span className="font-mono text-[10px] font-medium tracking-[0.12em] uppercase px-2.5 py-1 rounded-full border border-border text-muted-foreground">
-										{event.type}
-									</span>
-									{event.upcoming && (
-										<span className="font-mono text-[10px] font-medium tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-lime text-ink">
-											Upcoming
-										</span>
-									)}
-								</div>
-								<span className="font-mono text-xs text-muted-foreground tabular-nums">
-									{event.date}
-								</span>
-							</div>
-
-							<h3 className="font-display font-semibold text-foreground text-lg leading-snug tracking-tight mb-2">
-								{event.title}
-							</h3>
-							<p className="text-sm font-medium text-foreground mb-3">
-								{event.event}
-							</p>
-							<p className="text-sm text-muted-foreground leading-relaxed mb-6">
-								{event.summary}
-							</p>
-
-							<div className="mt-auto pt-5 border-t border-border flex items-center justify-between">
-								<div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
-									<MapPin className="h-3.5 w-3.5 shrink-0" />
-									<span className="truncate">{event.location}</span>
-								</div>
-								{!event.upcoming && (
-									<Link
-										href={event.slideLink}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:opacity-70 transition-opacity shrink-0"
-									>
-										Slides
-										<Presentation className="h-3.5 w-3.5" />
-									</Link>
-								)}
-							</div>
-						</article>
+							<TalkCard talk={talk} />
+						</div>
 					))}
 				</div>
 			</div>

@@ -5,15 +5,15 @@ import Link from "next/link";
 
 const footerLinks = {
 	explore: [
-		{ label: "Work", href: "#work" },
-		{ label: "Projects", href: "#projects" },
-		{ label: "Speaking", href: "#speaking" },
+		{ label: "Work", href: "/#work" },
+		{ label: "Projects", href: "/#projects" },
+		{ label: "Speaking", href: "/speaking" },
 	],
 	resources: [
-		{ label: "Writing", href: "#blog" },
-		{ label: "Recognition", href: "#recognition" },
-		{ label: "Recommendations", href: "#recommendations" },
-		{ label: "Get in touch", href: "#contact" },
+		{ label: "Writing", href: "/#blog" },
+		{ label: "Recognition", href: "/#recognition" },
+		{ label: "Recommendations", href: "/#recommendations" },
+		{ label: "Get in touch", href: "/#contact" },
 	],
 	social: [
 		{
