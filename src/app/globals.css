@@ -4,9 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Brand system: black, white, and bold lime (#E0FF4F, sampled from Nebius).
- * Lime is a dominant brand color (gradients, fills, tinted surfaces, CTAs),
- * not a timid accent. See docs/design-system.md for the full rules.
+ * Brand system: Nebius navy-black (#052B42), white, and bold lime (#E0FF4F) —
+ * both the navy and the lime are sampled from Nebius. Lime is a dominant brand
+ * color (gradients, fills, tinted surfaces, CTAs), not a timid accent. The "black"
+ * is never pure #000 — it's the desaturated navy Nebius uses for its wordmark.
+ * See docs/design-system.md for the full rules.
  */
 :root {
 	/* Brand */
@@ -14,37 +16,37 @@
 	--lime-soft: #eaff8c; /* lighter lime for gradients/glows */
 	--lime-wash: #f3ffce; /* very light lime tint for section/card surfaces */
 	--lime-strong: #aacf1f; /* deeper lime, only where lime must read on light */
-	--ink: #16171a; /* near-black */
+	--ink: #052b42; /* Nebius navy-black (a "shade of black", not pure #000) */
 
 	--background: #ffffff;
-	--foreground: #16171a;
+	--foreground: #052b42;
 	--card: #ffffff;
-	--card-foreground: #16171a;
+	--card-foreground: #052b42;
 	--popover: #ffffff;
-	--popover-foreground: #16171a;
+	--popover-foreground: #052b42;
 	--primary: #e0ff4f;
-	--primary-foreground: #16171a;
+	--primary-foreground: #052b42;
 	--secondary: #f4f5f3;
-	--secondary-foreground: #16171a;
+	--secondary-foreground: #052b42;
 	--muted: #f4f5f3;
 	--muted-foreground: #52555b;
 	--accent: #f0f1ee;
-	--accent-foreground: #16171a;
+	--accent-foreground: #052b42;
 	--destructive: #e5484d;
 	--destructive-foreground: #ffffff;
 	--border: #e7e8e4;
 	--input: #e7e8e4;
-	--ring: #16171a;
+	--ring: #052b42;
 
 	--radius: 0.875rem;
 	--sidebar: #ffffff;
-	--sidebar-foreground: #16171a;
+	--sidebar-foreground: #052b42;
 	--sidebar-primary: #e0ff4f;
-	--sidebar-primary-foreground: #16171a;
+	--sidebar-primary-foreground: #052b42;
 	--sidebar-accent: #f0f1ee;
-	--sidebar-accent-foreground: #16171a;
+	--sidebar-accent-foreground: #052b42;
 	--sidebar-border: #e7e8e4;
-	--sidebar-ring: #16171a;
+	--sidebar-ring: #052b42;
 }
 
 /*
@@ -59,7 +61,7 @@
 	--popover: #161719;
 	--popover-foreground: #f5f6f3;
 	--primary: #e0ff4f;
-	--primary-foreground: #16171a;
+	--primary-foreground: #052b42;
 	--secondary: #1c1d20;
 	--secondary-foreground: #f5f6f3;
 	--muted: #1c1d20;
@@ -67,14 +69,14 @@
 	--accent: #232427;
 	--accent-foreground: #f5f6f3;
 	--destructive: #ff6166;
-	--destructive-foreground: #16171a;
+	--destructive-foreground: #052b42;
 	--border: rgba(255, 255, 255, 0.12);
 	--input: rgba(255, 255, 255, 0.16);
 	--ring: #e0ff4f;
 	--sidebar: #0d0e10;
 	--sidebar-foreground: #f5f6f3;
 	--sidebar-primary: #e0ff4f;
-	--sidebar-primary-foreground: #16171a;
+	--sidebar-primary-foreground: #052b42;
 	--sidebar-accent: #232427;
 	--sidebar-accent-foreground: #f5f6f3;
 	--sidebar-border: rgba(255, 255, 255, 0.12);
@@ -144,11 +146,16 @@
 @layer components {
 	/* Semantic typography helpers (Tailwind compositions, Nebius display scale).
 	   Headings render in the display grotesque; body uses the sans grotesque. */
+	/* Line-height is intentionally roomy: these headings carry an inline
+	   `.lime-mark` highlight whose painted box is the display font's full em-box
+	   (Schibsted Grotesk ≈ 1.23em — taller than it looks). Tighter leading lets
+	   that pill bleed into the descenders of the line above (the "systems" pill
+	   undercutting "intelligent"). 1.3 clears the pill with a clean gap. */
 	.display-xl {
-		@apply font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] tracking-[-0.035em] text-foreground;
+		@apply font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.3] tracking-[-0.035em] text-foreground;
 	}
 	.display-lg {
-		@apply font-display text-4xl sm:text-5xl md:text-[3.4rem] font-bold leading-[1.08] tracking-[-0.03em] text-foreground;
+		@apply font-display text-4xl sm:text-5xl md:text-[3.4rem] font-bold leading-[1.28] tracking-[-0.03em] text-foreground;
 	}
 	.display-md {
 		@apply font-display text-2xl sm:text-3xl md:text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-foreground;

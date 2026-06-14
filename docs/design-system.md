@@ -25,11 +25,11 @@ roughly: white/off-white as the base canvas, ink for text and full dark sections
 and lime used confidently as gradients, large fills, tinted surfaces, marker
 highlights, and the primary CTA.
 
-| Role             | Tokens                                                                                      | Usage                                                                                        |
-| ---------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| **Base** (white) | `background` `#FFFFFF`, `secondary`/`muted` `#F4F5F3`                                       | Page canvas, most cards                                                                      |
-| **Ink** (black)  | `foreground` `#16171A`; dark sections via `.dark` (`#0D0E10`)                               | Text, one or two full-bleed dark feature sections                                            |
-| **Lime** (bold)  | `lime` **`#E0FF4F`**, `lime-soft` `#EAFF8C`, `lime-wash` `#F3FFCE`, `lime-strong` `#AACF1F` | Hero gradient field, the CTA field, lime-wash sections, marker highlights, primary CTA, tags |
+| Role                 | Tokens                                                                                                                | Usage                                                                                        |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Base** (white)     | `background` `#FFFFFF`, `secondary`/`muted` `#F4F5F3`                                                                 | Page canvas, most cards                                                                      |
+| **Ink** (navy-black) | `foreground`/`ink` `#052B42` (Nebius navy, a "shade of black" — not pure #000); dark sections via `.dark` (`#0D0E10`) | Text, `bg-ink` panels, one or two full-bleed dark feature sections                           |
+| **Lime** (bold)      | `lime` **`#E0FF4F`**, `lime-soft` `#EAFF8C`, `lime-wash` `#F3FFCE`, `lime-strong` `#AACF1F`                           | Hero gradient field, the CTA field, lime-wash sections, marker highlights, primary CTA, tags |
 
 **Lime rules (do not break):**
 
