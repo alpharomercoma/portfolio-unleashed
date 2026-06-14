@@ -18,13 +18,6 @@ export function CtaSection() {
 				<div className="relative overflow-hidden rounded-[2rem] bg-lime text-ink px-7 sm:px-12 lg:px-16 py-16 sm:py-20">
 					<div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 lg:items-end">
 						<div>
-							<span className="inline-flex items-center gap-2 rounded-full border border-ink/25 px-3 py-1 text-xs font-medium text-ink mb-7">
-								<span className="relative flex size-2">
-									<span className="absolute inline-flex h-full w-full rounded-full bg-ink opacity-60 animate-ping" />
-									<span className="relative inline-flex size-2 rounded-full bg-ink" />
-								</span>
-								Open to ML roles &amp; collaborations
-							</span>
 							<h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[0.98] tracking-[-0.035em] text-ink">
 								Let&apos;s build something together.
 							</h2>
