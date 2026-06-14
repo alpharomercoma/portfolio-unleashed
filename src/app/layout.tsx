@@ -29,6 +29,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://alpharomer.com"),
 	title: "Alpha Romer Coma | Portfolio",
 	applicationName: "Alpha",
 	description: "",

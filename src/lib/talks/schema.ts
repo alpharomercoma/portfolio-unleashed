@@ -53,7 +53,8 @@ export const talkSchema = z.object({
 	featured: z.boolean().default(false),
 	// Set true when content was drafted from a deck/title and the owner should review.
 	needsReview: z.boolean().default(false),
-	showcaseImage: z.string().url().optional().or(z.literal("")),
+	// URL or a local /public path (e.g. /talks/covers/<slug>.jpg).
+	showcaseImage: z.string().default(""),
 	primarySlideUrl: z.string().url().optional().or(z.literal("")),
 	videoUrl: z.string().url().optional().or(z.literal("")),
 	events: z.array(talkEventSchema).default([]),

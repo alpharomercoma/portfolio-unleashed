@@ -1,6 +1,7 @@
 import { format, parseISO } from "date-fns";
 import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -20,9 +21,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { slug } = await params;
 	const talk = await getTalk(slug);
 	if (!talk) return { title: "Talk not found" };
+	const description = talk.tagline || talk.abstract.slice(0, 155);
+	const images = talk.showcaseImage ? [talk.showcaseImage] : [];
 	return {
 		title: `${talk.title} | Speaking`,
-		description: talk.tagline || talk.abstract.slice(0, 155),
+		description,
+		openGraph: { title: talk.title, description, images },
+		twitter: {
+			card: "summary_large_image",
+			title: talk.title,
+			description,
+			images,
+		},
 	};
 }
 
@@ -92,6 +102,19 @@ export default async function TalkPage({ params }: Props) {
 						<h1 className="display-lg mt-4">{talk.title}</h1>
 						{talk.tagline && <p className="lede mt-5">{talk.tagline}</p>}
 					</header>
+
+					{talk.showcaseImage && (
+						<div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border bg-secondary mt-10">
+							<Image
+								src={talk.showcaseImage}
+								alt={`${talk.title} title slide`}
+								fill
+								sizes="(max-width: 896px) 100vw, 896px"
+								className="object-cover"
+								priority
+							/>
+						</div>
+					)}
 
 					{/* Metadata bar */}
 					<dl className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px rounded-2xl overflow-hidden border border-border bg-border">

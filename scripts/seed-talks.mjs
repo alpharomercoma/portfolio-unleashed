@@ -8,6 +8,7 @@
 // needsReview:true so they can be refined in the admin.
 //
 // Usage: node scripts/seed-talks.mjs   (or: pnpm seed-talks)
+import { existsSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -716,6 +717,10 @@ function build() {
 	const stamp = "2026-06-14T00:00:00.000Z";
 	return TALKS.map((t) => {
 		const slug = slugify(t.title);
+		// Auto-wire a cover if a title-slide image exists in public/talks/covers/.
+		const coverFile = path.join(root, "public", "talks", "covers", `${slug}.jpg`);
+		const showcaseImage =
+			t.showcaseImage ?? (existsSync(coverFile) ? `/talks/covers/${slug}.jpg` : "");
 		return {
 			slug,
 			title: t.title,
@@ -731,7 +736,7 @@ function build() {
 			keyTakeaways: t.keyTakeaways ?? [],
 			featured: Boolean(t.featured),
 			needsReview: Boolean(t.needsReview),
-			showcaseImage: t.showcaseImage ?? "",
+			showcaseImage,
 			primarySlideUrl: t.primarySlideUrl ?? "",
 			videoUrl: t.videoUrl ?? "",
 			events: (t.events ?? []).map((e, i) => ({

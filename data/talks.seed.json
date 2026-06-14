@@ -90,7 +90,7 @@
 		],
 		"featured": true,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/foundations-of-multimodal-ai-fusions-architectures-and-beyond.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGsYa9Ivhw/view",
 		"videoUrl": "",
 		"events": [
@@ -190,7 +190,7 @@
 		],
 		"featured": true,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/git-and-github-foundations.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGgCsmcztc/view",
 		"videoUrl": "",
 		"events": [
@@ -267,7 +267,7 @@
 		],
 		"featured": false,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/practical-github-advanced-use-cases.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGfkJiDlTU/view",
 		"videoUrl": "",
 		"events": [
@@ -311,7 +311,7 @@
 		],
 		"featured": true,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/open-source-series-licensing-version-control-contributing-and-beyond.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAG3MtSllRU/view",
 		"videoUrl": "",
 		"events": [
@@ -355,7 +355,7 @@
 		],
 		"featured": false,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/internship-employability-resume-linkedin-github-and-beyond.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAG3vgFTIRw/view",
 		"videoUrl": "",
 		"events": [
@@ -399,7 +399,7 @@
 		],
 		"featured": false,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/secure-maintain-and-manage-digital-essentials.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGqHG1iTqc/view",
 		"videoUrl": "",
 		"events": [
@@ -443,7 +443,7 @@
 		],
 		"featured": false,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/demonstrating-websites-and-internal-data-handling.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGbBFeOF8Y/view",
 		"videoUrl": "",
 		"events": [
@@ -782,7 +782,7 @@
 		],
 		"featured": false,
 		"needsReview": false,
-		"showcaseImage": "",
+		"showcaseImage": "/talks/covers/initiatives-at-feu-tech-acm.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAF-vkkrquk/view",
 		"videoUrl": "",
 		"events": [
