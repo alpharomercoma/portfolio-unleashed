@@ -19,7 +19,7 @@ type Props = { params: Promise<{ slug: string }> };
 // Canonical origin; matches the root layout's metadataBase so canonical,
 // OpenGraph, and JSON-LD URLs all agree.
 const SITE_URL = "https://alpharomer.com";
-const DEFAULT_OG = "/cover.png";
+const DEFAULT_OG = "/og.png";
 
 export async function generateStaticParams() {
 	const talks = await getAllTalks();
@@ -68,6 +68,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		},
 		twitter: {
 			card: "summary_large_image",
+			site: "@alpharomercoma",
+			creator: "@alpharomercoma",
 			title: talk.title,
 			description,
 			images: [ogImage],

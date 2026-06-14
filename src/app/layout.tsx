@@ -30,9 +30,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://alpharomer.com"),
-	title: "Alpha Romer Coma | Portfolio",
+	title: "Alpha Romer Coma | Machine Learning Engineer",
 	applicationName: "Alpha",
-	description: "",
+	description:
+		"Machine learning engineer focused on multimodality and accelerated computing. PyTorch Conference Europe 2026 speaker, backed by a $376K Google Cloud compute grant.",
 	authors: { name: "Alpha Romer Coma", url: "https://alpharomer.vercel.app" },
 	category: "Technology",
 	classification: "Technology",
@@ -60,18 +61,28 @@ export const metadata: Metadata = {
 		card: "summary_large_image",
 		site: "@alpharomercoma",
 		creator: "@alpharomercoma",
-		images: "/cover.png",
+		title: "Alpha Romer Coma | Machine Learning Engineer",
+		description:
+			"Multimodality and accelerated computing. PyTorch Conference Europe 2026 speaker, backed by a $376K Google Cloud compute grant.",
+		images: "/og.png",
 	},
 	openGraph: {
 		description:
-			"Building the change of tomorrow | I am Alpha, striving to transcend AI to sentience. Welcome to my portfolio.",
-		title: "Alpha Romer Coma | Portfolio",
+			"Machine learning engineer focused on multimodality and accelerated computing. PyTorch Conference Europe 2026 speaker, backed by a $376K Google Cloud compute grant.",
+		title: "Alpha Romer Coma | Machine Learning Engineer",
 		type: "website",
 		locale: "en_US",
 		url: "https://alpharomer.vercel.app",
 		siteName: "Alpha",
 		emails: "alpharomercoma@proton.me",
-		images: "/cover.png",
+		images: [
+			{
+				url: "/og.png",
+				width: 1200,
+				height: 630,
+				alt: "Alpha Romer Coma, machine learning engineer",
+			},
+		],
 	},
 	referrer: "no-referrer",
 	appleWebApp: {

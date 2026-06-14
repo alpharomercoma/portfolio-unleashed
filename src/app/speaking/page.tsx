@@ -33,13 +33,15 @@ export const metadata: Metadata = {
 		url: "/speaking",
 		siteName: "Alpha Romer Coma",
 		locale: "en_US",
-		images: [{ url: "/cover.png", alt: "Alpha Romer Coma speaking" }],
+		images: [{ url: "/og.png", alt: "Alpha Romer Coma speaking" }],
 	},
 	twitter: {
 		card: "summary_large_image",
+		site: "@alpharomercoma",
+		creator: "@alpharomercoma",
 		title: "Speaking | Alpha Romer Coma",
 		description: SPEAKING_DESCRIPTION,
-		images: ["/cover.png"],
+		images: ["/og.png"],
 	},
 };
 
