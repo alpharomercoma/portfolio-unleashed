@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { BlogSection } from "@/components/blog-section";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
@@ -17,6 +19,39 @@ import type {
 } from "@/lib/collections/schema";
 import { getAllItems } from "@/lib/collections/store";
 import { getAllTalks } from "@/lib/talks/store";
+import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/seo";
+
+export const metadata: Metadata = {
+	alternates: { canonical: "/" },
+};
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "Person",
+			"@id": `${SITE_URL}/#person`,
+			name: SITE_NAME,
+			url: SITE_URL,
+			jobTitle: "Machine Learning Engineer",
+			sameAs: SOCIAL_LINKS,
+			knowsAbout: [
+				"Machine Learning",
+				"Multimodality",
+				"Accelerated Computing",
+				"PyTorch",
+				"Deep Learning",
+			],
+		},
+		{
+			"@type": "WebSite",
+			"@id": `${SITE_URL}/#website`,
+			url: SITE_URL,
+			name: SITE_NAME,
+			publisher: { "@id": `${SITE_URL}/#person` },
+		},
+	],
+};
 
 export default async function Home() {
 	const [
@@ -39,6 +74,13 @@ export default async function Home() {
 
 	return (
 		<main className="min-h-screen bg-background">
+			<script
+				type="application/ld+json"
+				// eslint-disable-next-line react/no-danger
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+				}}
+			/>
 			<Navbar />
 			<HeroSection />
 			<SelectedWorkSection items={selectedWork as unknown as SelectedWork[]} />

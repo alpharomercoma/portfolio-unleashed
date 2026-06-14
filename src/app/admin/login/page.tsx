@@ -41,9 +41,13 @@ export default async function LoginPage({
 						enable sign-in.
 					</p>
 				)}
-				{sp.error && (
+				{sp.error === "rate" ? (
+					<p className="mb-4 text-sm text-destructive">
+						Too many attempts. Try again in a few minutes.
+					</p>
+				) : sp.error ? (
 					<p className="mb-4 text-sm text-destructive">Incorrect password.</p>
-				)}
+				) : null}
 
 				<form action={login} className="space-y-4">
 					<input type="hidden" name="next" value={sp.next ?? "/admin"} />

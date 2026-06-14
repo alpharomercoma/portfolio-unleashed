@@ -7,6 +7,8 @@ import {
 } from "next/font/google";
 import "./globals.css";
 
+import { SITE_URL } from "@/lib/seo";
+
 // Display: a geometric grotesque with editorial character for headlines.
 const schibsted = Schibsted_Grotesk({
 	subsets: ["latin"],
@@ -29,12 +31,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://alpharomer.com"),
+	metadataBase: new URL(SITE_URL),
 	title: "Alpha Romer Coma | Machine Learning Engineer",
 	applicationName: "Alpha",
 	description:
 		"Machine learning engineer focused on multimodality and accelerated computing. PyTorch Conference Europe 2026 speaker, backed by a $376K Google Cloud compute grant.",
-	authors: { name: "Alpha Romer Coma", url: "https://alpharomer.vercel.app" },
+	authors: { name: "Alpha Romer Coma", url: SITE_URL },
 	category: "Technology",
 	classification: "Technology",
 	keywords: [
@@ -72,7 +74,7 @@ export const metadata: Metadata = {
 		title: "Alpha Romer Coma | Machine Learning Engineer",
 		type: "website",
 		locale: "en_US",
-		url: "https://alpharomer.vercel.app",
+		url: SITE_URL,
 		siteName: "Alpha",
 		emails: "alpharomercoma@proton.me",
 		images: [

@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
 
 import { Navbar } from "@/components/navbar";
+import { SITE_URL } from "@/lib/seo";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { settingsQuery } from "@/sanity/lib/queries";
@@ -24,13 +25,13 @@ export async function generateMetadata(): Promise<Metadata> {
 	const description = settings?.description || demo.description;
 
 	const ogImage = resolveOpenGraphImage(settings?.ogImage);
-	let metadataBase: URL | undefined = undefined;
+	let metadataBase = new URL(SITE_URL);
 	try {
-		metadataBase = settings?.ogImage?.metadataBase
-			? new URL(settings.ogImage.metadataBase)
-			: undefined;
+		if (settings?.ogImage?.metadataBase) {
+			metadataBase = new URL(settings.ogImage.metadataBase);
+		}
 	} catch {
-		// ignore
+		// ignore, keep the site default
 	}
 	return {
 		metadataBase,

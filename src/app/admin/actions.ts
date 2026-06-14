@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath, updateTag } from "next/cache";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import {
@@ -11,6 +11,8 @@ import {
 	signSession,
 } from "@/lib/auth";
 import { uploadImageToBlob } from "@/lib/blob";
+import { sendAdminAlert } from "@/lib/notify";
+import { loginRateLimit } from "@/lib/ratelimit";
 import { getSession } from "@/lib/session";
 import {
 	type Talk,
@@ -29,9 +31,27 @@ export async function login(formData: FormData) {
 	const next = String(formData.get("next") ?? "/admin");
 	const safeNext = next.startsWith("/admin") ? next : "/admin";
 
+	const h = await headers();
+	const ip =
+		(h.get("x-forwarded-for") ?? "").split(",")[0].trim() || "anonymous";
+	const ua = h.get("user-agent") ?? "unknown";
+
+	// Brute-force protection: block the IP after too many attempts.
+	const { success } = await loginRateLimit(ip);
+	if (!success) {
+		await sendAdminAlert("Blocked sign-in attempts on alpharomer.com", [
+			"Admin sign-in attempts were rate-limited (possible brute force).",
+			`IP: ${ip}`,
+			`User-Agent: ${ua}`,
+			`Time: ${new Date().toISOString()}`,
+		]);
+		redirect(`/admin/login?error=rate&next=${encodeURIComponent(safeNext)}`);
+	}
+
 	if (!checkPassword(password)) {
 		redirect(`/admin/login?error=1&next=${encodeURIComponent(safeNext)}`);
 	}
+
 	const token = await signSession();
 	(await cookies()).set(SESSION_COOKIE, token, {
 		httpOnly: true,
@@ -40,6 +60,14 @@ export async function login(formData: FormData) {
 		path: "/",
 		maxAge: SESSION_MAX_AGE,
 	});
+
+	await sendAdminAlert("Admin sign-in to alpharomer.com", [
+		"A successful admin sign-in just occurred.",
+		`IP: ${ip}`,
+		`User-Agent: ${ua}`,
+		`Time: ${new Date().toISOString()}`,
+	]);
+
 	redirect(safeNext);
 }
 

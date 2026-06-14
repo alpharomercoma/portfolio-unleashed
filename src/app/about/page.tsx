@@ -5,7 +5,7 @@ import { Markdown } from "@/components/markdown";
 import { Navbar } from "@/components/navbar";
 import { getAbout } from "@/lib/about/store";
 
-const SITE_URL = "https://alpharomer.com";
+import { SITE_URL } from "@/lib/seo";
 
 // Strip markdown syntax to a plain-text excerpt for meta descriptions.
 function excerpt(markdown: string, max = 155): string {

@@ -18,7 +18,7 @@ type Props = { params: Promise<{ slug: string }> };
 
 // Canonical origin; matches the root layout's metadataBase so canonical,
 // OpenGraph, and JSON-LD URLs all agree.
-const SITE_URL = "https://alpharomer.com";
+import { SITE_URL } from "@/lib/seo";
 const DEFAULT_OG = "/og.png";
 
 export async function generateStaticParams() {

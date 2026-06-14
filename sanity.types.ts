@@ -541,6 +541,14 @@ export type PostSlugsResult = Array<{
 	slug: string | null;
 }>;
 
+// Source: ./src/app/sitemap.ts
+// Variable: blogSlugs
+// Query: *[_type == "post" && defined(slug.current)]{ "slug": slug.current, "date": coalesce(date, _updatedAt) }
+export type BlogSlugsResult = Array<{
+	slug: string | null;
+	date: string;
+}>;
+
 // Source: ./src/sanity/lib/queries.ts
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]
@@ -766,6 +774,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
 	interface SanityQueries {
 		'*[_type == "post" && defined(slug.current)]{"slug": slug.current}': PostSlugsResult;
+		'*[_type == "post" && defined(slug.current)]{ "slug": slug.current, "date": coalesce(date, _updatedAt) }': BlogSlugsResult;
 		'*[_type == "settings"][0]': SettingsQueryResult;
 		'\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {\n    content,\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{"name": coalesce(name, "Anonymous"), picture},\n\n  }\n': HeroQueryResult;
 		'\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{"name": coalesce(name, "Anonymous"), picture},\n\n  }\n': MoreStoriesQueryResult;

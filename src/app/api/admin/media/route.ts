@@ -39,6 +39,23 @@ export async function DELETE(req: Request) {
 	if (!url) {
 		return NextResponse.json({ error: "No url provided." }, { status: 400 });
 	}
+	// Confine deletion to our media library: a public Blob URL under "media/".
+	// Without this, a client could pass any URL and delete arbitrary blobs.
+	let parsed: URL;
+	try {
+		parsed = new URL(url);
+	} catch {
+		return NextResponse.json({ error: "Invalid url." }, { status: 400 });
+	}
+	if (
+		!parsed.hostname.endsWith(".public.blob.vercel-storage.com") ||
+		!parsed.pathname.startsWith(`/${PREFIX}`)
+	) {
+		return NextResponse.json(
+			{ error: "Refusing to delete: not a media library image." },
+			{ status: 400 },
+		);
+	}
 	try {
 		await del(url);
 		return NextResponse.json({ ok: true });

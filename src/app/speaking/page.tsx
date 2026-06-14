@@ -6,7 +6,7 @@ import { SpeakingIndex } from "@/components/speaking/speaking-index";
 import { computeStats } from "@/lib/talks/schema";
 import { getAllTalks } from "@/lib/talks/store";
 
-const SITE_URL = "https://alpharomer.com";
+import { SITE_URL } from "@/lib/seo";
 const SPEAKING_DESCRIPTION =
 	"Talks and workshops on AI, accelerated computing, and developer tools, from PyTorch Conference Europe to community stages across the Philippines.";
 

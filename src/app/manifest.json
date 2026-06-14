@@ -1,6 +1,6 @@
 {
-	"name": "Alpha Romer",
-	"description": "Building the change of tomorrow | I am Alpha, striving to transcend AI to sentience. Welcome to my portfolio.",
+	"name": "Alpha Romer Coma",
+	"description": "Machine learning engineer focused on multimodality and accelerated computing.",
 	"short_name": "Alpha",
 	"icons": [
 		{
@@ -39,5 +39,5 @@
 	"orientation": "natural",
 	"scope": "/",
 	"prefer_related_applications": false,
-	"start_url": "https://alpharomer.vercel.app"
+	"start_url": "/"
 }

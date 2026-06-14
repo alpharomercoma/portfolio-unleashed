@@ -5,7 +5,7 @@ import { Navbar } from "@/components/navbar";
 import type { GalleryImage } from "@/lib/collections/schema";
 import { getAllItems } from "@/lib/collections/store";
 
-const SITE_URL = "https://alpharomer.com";
+import { SITE_URL } from "@/lib/seo";
 const DESCRIPTION =
 	"A visual log of talks, hackathons, and the things I build.";
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -8,8 +9,35 @@ import MoreStories from "./more-stories";
 import Onboarding from "./onboarding";
 
 import type { HeroQueryResult } from "../../../sanity.types";
+import { SITE_NAME } from "@/lib/seo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { heroQuery } from "@/sanity/lib/queries";
+
+const BLOG_DESCRIPTION =
+	"Writing on machine learning, accelerated computing, and developer tools.";
+
+export const metadata: Metadata = {
+	title: "Writing",
+	description: BLOG_DESCRIPTION,
+	alternates: { canonical: "/blog" },
+	openGraph: {
+		type: "website",
+		title: `Writing | ${SITE_NAME}`,
+		description: BLOG_DESCRIPTION,
+		url: "/blog",
+		siteName: SITE_NAME,
+		locale: "en_US",
+		images: [{ url: "/og.png", alt: SITE_NAME }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		site: "@alpharomercoma",
+		creator: "@alpharomercoma",
+		title: `Writing | ${SITE_NAME}`,
+		description: BLOG_DESCRIPTION,
+		images: ["/og.png"],
+	},
+};
 
 function HeroPost({
 	title,

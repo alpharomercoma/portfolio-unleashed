@@ -12,6 +12,10 @@ export const env = createEnv({
 		BLOB_READ_WRITE_TOKEN: z.string().min(1).optional(),
 		ADMIN_PASSWORD: z.string().min(1).optional(),
 		AUTH_SECRET: z.string().min(1).optional(),
+		// Email alerts (admin sign-in + brute-force lockout) via Resend.
+		RESEND_API_KEY: z.string().min(1).optional(),
+		RESEND_FROM: z.string().min(1).optional(),
+		ALERT_EMAIL: z.string().email().optional(),
 	},
 	client: {
 		NEXT_PUBLIC_API_URL: z.string().url().min(1).optional(),
@@ -33,6 +37,9 @@ export const env = createEnv({
 		BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
 		ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
 		AUTH_SECRET: process.env.AUTH_SECRET,
+		RESEND_API_KEY: process.env.RESEND_API_KEY,
+		RESEND_FROM: process.env.RESEND_FROM,
+		ALERT_EMAIL: process.env.ALERT_EMAIL,
 		NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN:
 			process.env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,
 		NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,

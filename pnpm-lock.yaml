@@ -76,6 +76,9 @@ importers:
       "@uiw/react-md-editor":
         specifier: ^4.1.1
         version: 4.1.1(@types/react@19.1.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      "@upstash/ratelimit":
+        specifier: ^2.0.8
+        version: 2.0.8(@upstash/redis@1.38.0)
       "@upstash/redis":
         specifier: ^1.38.0
         version: 1.38.0
@@ -142,9 +145,6 @@ importers:
       next-sanity-image:
         specifier: ^6.2.0
         version: 6.2.0(@sanity/client@7.13.2)(next@16.0.10(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
-      next-sitemap:
-        specifier: ^4.2.3
-        version: 4.2.3(next@16.0.10(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))
       nodemailer:
         specifier: ^7.0.11
         version: 7.0.11
@@ -169,6 +169,9 @@ importers:
       remark-html:
         specifier: ^16.0.1
         version: 16.0.1
+      resend:
+        specifier: ^6.12.4
+        version: 6.12.4
       sanity:
         specifier: ^4.21.1
         version: 4.21.1(@emotion/is-prop-valid@1.2.2)(@portabletext/sanity-bridge@1.2.14(@types/react@19.1.8))(@types/node@25.0.2)(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(immer@11.1.3)(jiti@2.6.1)(lightningcss@1.30.2)(postcss@8.5.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(styled-components@6.1.19(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(terser@5.43.1)(typescript@5.8.3)(yaml@2.8.2)
@@ -1939,12 +1942,6 @@ packages:
         integrity: sha512-KTy0OqRDLR5y/zZMnizyx09z/rPlPC/zKhYgH8o/q6PuAjoQAKlRfY4zzv0M64yybQ//6//4H1n14pxaLZfUnA==,
       }
     engines: { node: ">=v18" }
-
-  "@corex/deepmerge@4.0.43":
-    resolution:
-      {
-        integrity: sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==,
-      }
 
   "@csstools/color-helpers@5.1.0":
     resolution:
@@ -5628,6 +5625,12 @@ packages:
       }
     engines: { node: ">=18.0.0" }
 
+  "@stablelib/base64@1.0.1":
+    resolution:
+      {
+        integrity: sha512-1bnPQqSxSuc3Ii6MhBysoWCg58j97aUjuCSZrGSmDxNqtytIi0k8utUenAwTZN4V5mXXYGsVUI9zeBqy+jBOSQ==,
+      }
+
   "@standard-schema/spec@1.0.0":
     resolution:
       {
@@ -6503,6 +6506,21 @@ packages:
       }
     cpu: [x64]
     os: [win32]
+
+  "@upstash/core-analytics@0.0.10":
+    resolution:
+      {
+        integrity: sha512-7qJHGxpQgQr9/vmeS1PktEwvNAF7TI4iJDi8Pu2CFZ9YUGHZH4fOP5TfYlZ4aVxfopnELiE4BS4FBjyK7V1/xQ==,
+      }
+    engines: { node: ">=16.0.0" }
+
+  "@upstash/ratelimit@2.0.8":
+    resolution:
+      {
+        integrity: sha512-YSTMBJ1YIxsoPkUMX/P4DDks/xV5YYCswWMamU8ZIfK9ly6ppjRnVOyBhMDXBmzjODm4UQKcxsJPvaeFAijp5w==,
+      }
+    peerDependencies:
+      "@upstash/redis": ^1.34.3
 
   "@upstash/redis@1.38.0":
     resolution:
@@ -8843,6 +8861,12 @@ packages:
     resolution:
       {
         integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==,
+      }
+
+  fast-sha256@1.3.0:
+    resolution:
+      {
+        integrity: sha512-n11RGP/lrWEFI/bWdygLxhI+pVeo1ZYIVwvvPkW7azl/rOy+F3HYRZ2K5zeE9mmkhQppyv9sQFx0JM9UabnpPQ==,
       }
 
   fast-uri@3.0.6:
@@ -11623,16 +11647,6 @@ packages:
       sanity: ^4.19.0
       styled-components: ^6.1
 
-  next-sitemap@4.2.3:
-    resolution:
-      {
-        integrity: sha512-vjdCxeDuWDzldhCnyFCQipw5bfpl4HmZA7uoo3GAaYGjGgfL4Cxb1CiztPuWGmS+auYs7/8OekRS8C2cjdAsjQ==,
-      }
-    engines: { node: ">=14.18" }
-    hasBin: true
-    peerDependencies:
-      next: "*"
-
   next@13.5.11:
     resolution:
       {
@@ -12249,6 +12263,12 @@ packages:
         integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==,
       }
     engines: { node: ">= 0.4" }
+
+  postal-mime@2.7.4:
+    resolution:
+      {
+        integrity: sha512-0WdnFQYUrPGGTFu1uOqD2s7omwua8xaeYGdO6rb88oD5yJ/4pPHDA4sdWqfD8wQVfCny563n/HQS7zTFft+f/g==,
+      }
 
   postcss-selector-parser@6.0.10:
     resolution:
@@ -13004,6 +13024,18 @@ packages:
         integrity: sha512-K/BG6eIky/SBpzfHZv/dd+9JBFiS4SWV7FIujVyJRux6e45+73RaUHXLmIR1f7WOMaQ0U1km6qwklRQxpJJY0w==,
       }
 
+  resend@6.12.4:
+    resolution:
+      {
+        integrity: sha512-lRpJ2Hxd+ht+JPDm97juRcUp9HOMuZyxaRFRFmc9Tx8iNWiei94Dx9v6SWufgKk2667C/uCeKKspMotOHSpCSg==,
+      }
+    engines: { node: ">=20" }
+    peerDependencies:
+      "@react-email/render": "*"
+    peerDependenciesMeta:
+      "@react-email/render":
+        optional: true
+
   resolve-from@4.0.0:
     resolution:
       {
@@ -13608,6 +13640,12 @@ packages:
     resolution:
       {
         integrity: sha512-+L3ccpzibovGXFK+Ap/f8LOS0ahMrHTf3xu7mMLSpEGU0EO9ucaysSylKo9eRDFNhWve/y275iPmIZ4z39a9iA==,
+      }
+
+  standardwebhooks@1.0.0:
+    resolution:
+      {
+        integrity: sha512-BbHGOQK9olHPMvQNHWul6MYlrRTAOKn03rOe4A8O3CLWhNf4YHBqq2HJKKC+sfqpxiBY52pNeesD6jIiLDz8jg==,
       }
 
   stdin-discarder@0.2.2:
@@ -17407,8 +17445,6 @@ snapshots:
       "@types/conventional-commits-parser": 5.0.1
       chalk: 5.6.2
 
-  "@corex/deepmerge@4.0.43": {}
-
   "@csstools/color-helpers@5.1.0": {}
 
   "@csstools/css-calc@2.1.4(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)":
@@ -19968,6 +20004,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  "@stablelib/base64@1.0.1": {}
+
   "@standard-schema/spec@1.0.0": {}
 
   "@standard-schema/utils@0.3.0": {}
@@ -20505,6 +20543,15 @@ snapshots:
 
   "@unrs/resolver-binding-win32-x64-msvc@1.9.1":
     optional: true
+
+  "@upstash/core-analytics@0.0.10":
+    dependencies:
+      "@upstash/redis": 1.38.0
+
+  "@upstash/ratelimit@2.0.8(@upstash/redis@1.38.0)":
+    dependencies:
+      "@upstash/core-analytics": 0.0.10
+      "@upstash/redis": 1.38.0
 
   "@upstash/redis@1.38.0":
     dependencies:
@@ -22065,6 +22112,8 @@ snapshots:
   fast-json-stable-stringify@2.1.0: {}
 
   fast-levenshtein@2.0.6: {}
+
+  fast-sha256@1.3.0: {}
 
   fast-uri@3.0.6: {}
 
@@ -23914,14 +23963,6 @@ snapshots:
       - svelte
       - typescript
 
-  next-sitemap@4.2.3(next@16.0.10(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)):
-    dependencies:
-      "@corex/deepmerge": 4.0.43
-      "@next/env": 13.5.11
-      fast-glob: 3.3.3
-      minimist: 1.2.8
-      next: 16.0.10(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-
   next@13.5.11(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       "@next/env": 13.5.11
@@ -24299,6 +24340,8 @@ snapshots:
       "@babel/runtime": 7.28.4
 
   possible-typed-array-names@1.1.0: {}
+
+  postal-mime@2.7.4: {}
 
   postcss-selector-parser@6.0.10:
     dependencies:
@@ -24863,6 +24906,11 @@ snapshots:
   require-from-string@2.0.2: {}
 
   reselect@5.1.1: {}
+
+  resend@6.12.4:
+    dependencies:
+      postal-mime: 2.7.4
+      standardwebhooks: 1.0.0
 
   resolve-from@4.0.0: {}
 
@@ -25469,6 +25517,11 @@ snapshots:
   sprintf-js@1.0.3: {}
 
   stable-hash@0.0.5: {}
+
+  standardwebhooks@1.0.0:
+    dependencies:
+      "@stablelib/base64": 1.0.1
+      fast-sha256: 1.3.0
 
   stdin-discarder@0.2.2: {}
 
