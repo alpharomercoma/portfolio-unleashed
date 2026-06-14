@@ -145,10 +145,10 @@
 	/* Semantic typography helpers (Tailwind compositions, Nebius display scale).
 	   Headings render in the display grotesque; body uses the sans grotesque. */
 	.display-xl {
-		@apply font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[0.98] tracking-[-0.035em] text-foreground;
+		@apply font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] tracking-[-0.035em] text-foreground;
 	}
 	.display-lg {
-		@apply font-display text-4xl sm:text-5xl md:text-[3.4rem] font-bold leading-[1.02] tracking-[-0.03em] text-foreground;
+		@apply font-display text-4xl sm:text-5xl md:text-[3.4rem] font-bold leading-[1.08] tracking-[-0.03em] text-foreground;
 	}
 	.display-md {
 		@apply font-display text-2xl sm:text-3xl md:text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-foreground;
