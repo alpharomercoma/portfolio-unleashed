@@ -6,10 +6,41 @@ import { SpeakingIndex } from "@/components/speaking/speaking-index";
 import { computeStats } from "@/lib/talks/schema";
 import { getAllTalks } from "@/lib/talks/store";
 
+const SITE_URL = "https://alpharomer.com";
+const SPEAKING_DESCRIPTION =
+	"Talks and workshops on AI, accelerated computing, and developer tools, from PyTorch Conference Europe to community stages across the Philippines.";
+
 export const metadata: Metadata = {
 	title: "Speaking | Alpha Romer Coma",
-	description:
-		"Talks and workshops on AI, accelerated computing, and developer tools, from PyTorch Conference Europe to community stages across the Philippines.",
+	description: SPEAKING_DESCRIPTION,
+	keywords: [
+		"Alpha Romer Coma",
+		"speaking",
+		"talks",
+		"workshops",
+		"keynote",
+		"AI",
+		"machine learning",
+		"accelerated computing",
+		"PyTorch",
+		"developer tools",
+	],
+	alternates: { canonical: "/speaking" },
+	openGraph: {
+		type: "website",
+		title: "Speaking | Alpha Romer Coma",
+		description: SPEAKING_DESCRIPTION,
+		url: "/speaking",
+		siteName: "Alpha Romer Coma",
+		locale: "en_US",
+		images: [{ url: "/cover.png", alt: "Alpha Romer Coma speaking" }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Speaking | Alpha Romer Coma",
+		description: SPEAKING_DESCRIPTION,
+		images: ["/cover.png"],
+	},
 };
 
 export default async function SpeakingPage() {
@@ -27,8 +58,45 @@ export default async function SpeakingPage() {
 		{ value: String(stats.yearsSpeaking), label: "Years speaking" },
 	];
 
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "BreadcrumbList",
+				itemListElement: [
+					{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: "Speaking",
+						item: `${SITE_URL}/speaking`,
+					},
+				],
+			},
+			{
+				"@type": "ItemList",
+				name: "Talks & workshops",
+				description: SPEAKING_DESCRIPTION,
+				numberOfItems: talks.length,
+				itemListElement: talks.map((t, i) => ({
+					"@type": "ListItem",
+					position: i + 1,
+					url: `${SITE_URL}/speaking/${t.slug}`,
+					name: t.title,
+				})),
+			},
+		],
+	};
+
 	return (
 		<main className="min-h-screen bg-background">
+			<script
+				type="application/ld+json"
+				// eslint-disable-next-line react/no-danger
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+				}}
+			/>
 			<Navbar />
 			<section className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-14 sm:pb-16">
 				<div className="max-w-6xl mx-auto">

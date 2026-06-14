@@ -7,31 +7,70 @@ import { notFound } from "next/navigation";
 
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
-import { type Talk, sortTalksByRecency } from "@/lib/talks/schema";
+import {
+	type Talk,
+	latestEventDate,
+	sortTalksByRecency,
+} from "@/lib/talks/schema";
 import { getAllTalks, getTalk } from "@/lib/talks/store";
 
 type Props = { params: Promise<{ slug: string }> };
+
+// Canonical origin; matches the root layout's metadataBase so canonical,
+// OpenGraph, and JSON-LD URLs all agree.
+const SITE_URL = "https://alpharomer.com";
+const DEFAULT_OG = "/cover.png";
 
 export async function generateStaticParams() {
 	const talks = await getAllTalks();
 	return talks.map((t) => ({ slug: t.slug }));
 }
 
+function metaDescription(talk: Talk): string {
+	const raw = (talk.tagline || talk.abstract || "").replace(/\s+/g, " ").trim();
+	return raw.length > 160 ? `${raw.slice(0, 157).trimEnd()}...` : raw;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { slug } = await params;
 	const talk = await getTalk(slug);
-	if (!talk) return { title: "Talk not found" };
-	const description = talk.tagline || talk.abstract.slice(0, 155);
-	const images = talk.showcaseImage ? [talk.showcaseImage] : [];
+	if (!talk) return { title: "Talk not found", robots: { index: false } };
+
+	const description = metaDescription(talk);
+	const path = `/speaking/${slug}`;
+	// Every talk gets a share image: its cover, or the site default for the
+	// rare cover-less talk. Relative paths resolve against metadataBase.
+	const ogImage = talk.showcaseImage || DEFAULT_OG;
+	const published = (talk.createdAt || latestEventDate(talk) || "").slice(
+		0,
+		10,
+	);
+	const modified = (talk.updatedAt || talk.createdAt || "").slice(0, 10);
+
 	return {
 		title: `${talk.title} | Speaking`,
 		description,
-		openGraph: { title: talk.title, description, images },
+		keywords: talk.tags.length ? talk.tags : undefined,
+		authors: [{ name: "Alpha Romer Coma", url: SITE_URL }],
+		alternates: { canonical: path },
+		openGraph: {
+			type: "article",
+			title: talk.title,
+			description,
+			url: path,
+			siteName: "Alpha Romer Coma",
+			locale: "en_US",
+			images: [{ url: ogImage, alt: talk.title }],
+			...(published ? { publishedTime: published } : {}),
+			...(modified ? { modifiedTime: modified } : {}),
+			authors: [SITE_URL],
+			tags: talk.tags,
+		},
 		twitter: {
 			card: "summary_large_image",
 			title: talk.title,
 			description,
-			images,
+			images: [ogImage],
 		},
 	};
 }
@@ -80,8 +119,84 @@ export default async function TalkPage({ params }: Props) {
 		.filter((t) => t.slug !== talk.slug)
 		.slice(0, 3);
 
+	const talkUrl = `${SITE_URL}/speaking/${talk.slug}`;
+	const ogImageUrl = `${SITE_URL}${talk.showcaseImage || DEFAULT_OG}`;
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "BreadcrumbList",
+				itemListElement: [
+					{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+					{
+						"@type": "ListItem",
+						position: 2,
+						name: "Speaking",
+						item: `${SITE_URL}/speaking`,
+					},
+					{
+						"@type": "ListItem",
+						position: 3,
+						name: talk.title,
+						item: talkUrl,
+					},
+				],
+			},
+			{
+				"@type": "CreativeWork",
+				"@id": talkUrl,
+				name: talk.title,
+				headline: talk.title,
+				description: talk.abstract || talk.tagline,
+				url: talkUrl,
+				image: ogImageUrl,
+				inLanguage: talk.language || "English",
+				...(talk.tags.length ? { keywords: talk.tags.join(", ") } : {}),
+				...(talk.createdAt
+					? { datePublished: talk.createdAt.slice(0, 10) }
+					: {}),
+				...(talk.updatedAt
+					? { dateModified: talk.updatedAt.slice(0, 10) }
+					: {}),
+				author: {
+					"@type": "Person",
+					name: "Alpha Romer Coma",
+					url: SITE_URL,
+				},
+				...(events.length
+					? {
+							recordedAt: events.map((e) => ({
+								"@type": "Event",
+								name: e.eventName,
+								startDate: e.date,
+								...(e.venue
+									? { location: { "@type": "Place", name: e.venue } }
+									: {}),
+								...(e.organizerName
+									? {
+											organizer: {
+												"@type": "Organization",
+												name: e.organizerName,
+											},
+										}
+									: {}),
+							})),
+						}
+					: {}),
+			},
+		],
+	};
+
 	return (
 		<main className="min-h-screen bg-background">
+			<script
+				type="application/ld+json"
+				// JSON-LD: escape "<" so no field value can close the <script> tag.
+				// eslint-disable-next-line react/no-danger
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+				}}
+			/>
 			<Navbar />
 
 			<article className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-20">
