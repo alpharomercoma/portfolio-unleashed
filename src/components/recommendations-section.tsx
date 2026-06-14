@@ -59,12 +59,11 @@ export function RecommendationsSection() {
 		<section
 			ref={sectionRef}
 			id="recommendations"
-			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-border"
+			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-secondary border-t border-border"
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="animate-on-scroll opacity-0 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-12">
 					<div className="max-w-2xl">
-						<p className="eyebrow mb-4">Recommendations</p>
 						<h2 className="display-md">
 							What faculty, mentors, and engineers say.
 						</h2>

@@ -10,9 +10,10 @@
  */
 :root {
 	/* Brand */
-	--lime: #e0ff4f; /* signature accent: buttons, key highlights, tags */
-	--lime-soft: #eaff8c; /* tints, hover washes */
-	--lime-strong: #b6d62f; /* lime as text/icon on light surfaces (contrast) */
+	--lime: #e0ff4f; /* signature accent, used boldly: fills, CTAs, highlights */
+	--lime-soft: #eaff8c; /* lighter lime for gradients/glows */
+	--lime-wash: #f3ffce; /* very light lime tint for section/card surfaces */
+	--lime-strong: #aacf1f; /* deeper lime, only where lime must read on light */
 	--ink: #16171a; /* near-black */
 
 	--background: #ffffff;
@@ -85,6 +86,7 @@
 	--font-mono: var(--font-geist-mono), ui-monospace, monospace;
 	--color-lime: var(--lime);
 	--color-lime-soft: var(--lime-soft);
+	--color-lime-wash: var(--lime-wash);
 	--color-lime-strong: var(--lime-strong);
 	--color-ink: var(--ink);
 	--color-background: var(--background);
@@ -143,21 +145,32 @@
 	/* Semantic typography helpers (Tailwind compositions, Nebius display scale).
 	   Headings render in the display grotesque; body uses the sans grotesque. */
 	.display-xl {
-		@apply font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.04] tracking-[-0.03em] text-foreground;
+		@apply font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[0.98] tracking-[-0.035em] text-foreground;
 	}
 	.display-lg {
-		@apply font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.08] tracking-[-0.025em] text-foreground;
+		@apply font-display text-4xl sm:text-5xl md:text-[3.4rem] font-bold leading-[1.02] tracking-[-0.03em] text-foreground;
 	}
 	.display-md {
-		@apply font-display text-2xl sm:text-3xl md:text-4xl font-semibold leading-[1.12] tracking-[-0.02em] text-foreground;
-	}
-	/* Eyebrow label above a section title */
-	.eyebrow {
-		@apply font-mono text-xs font-medium tracking-[0.14em] uppercase text-muted-foreground;
+		@apply font-display text-2xl sm:text-3xl md:text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-foreground;
 	}
 	/* Section subtitle / lede */
 	.lede {
-		@apply text-base sm:text-lg text-muted-foreground leading-relaxed;
+		@apply text-lg sm:text-xl text-muted-foreground leading-relaxed;
+	}
+	/* Lime marker highlight for a keyword inside a heading */
+	.lime-mark {
+		@apply bg-lime text-ink box-decoration-clone rounded-[0.2em] px-[0.18em];
+	}
+	/* Bold organic lime field for the hero backdrop (Nebius-style). */
+	.hero-lime-field {
+		background:
+			radial-gradient(
+				75% 55% at 8% 0%,
+				var(--lime) 0%,
+				var(--lime-soft) 30%,
+				transparent 62%
+			),
+			radial-gradient(55% 45% at 100% 4%, var(--lime-soft) 0%, transparent 50%);
 	}
 }
 

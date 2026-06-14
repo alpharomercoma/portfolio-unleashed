@@ -52,7 +52,6 @@ export function BlogSectionView({ posts }: Props) {
 			<div className="max-w-6xl mx-auto">
 				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
 					<div className="max-w-3xl">
-						<p className="animate-on-scroll opacity-0 eyebrow mb-4">Writing</p>
 						<h2
 							className="animate-on-scroll opacity-0 display-lg mb-4"
 							style={{ animationDelay: "100ms" }}

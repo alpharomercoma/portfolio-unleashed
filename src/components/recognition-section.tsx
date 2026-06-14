@@ -229,13 +229,13 @@ export function RecognitionSection() {
 		<section
 			ref={sectionRef}
 			id="recognition"
-			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-secondary border-t border-border"
+			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-lime-wash border-t border-border"
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="animate-on-scroll opacity-0 mb-12 sm:mb-16 max-w-3xl">
-					<p className="eyebrow mb-4">Recognition</p>
-					<h2 className="display-lg mb-4">
-						Honored as a PH100 mind and the national AI champion.
+					<h2 className="display-lg mb-5">
+						Honored as a PH100 mind and the national AI{" "}
+						<span className="lime-mark">champion</span>.
 					</h2>
 					<p className="lede">
 						Awards across AI research and hackathons, plus {TOTAL_CREDENTIALS}{" "}

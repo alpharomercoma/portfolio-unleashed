@@ -81,9 +81,9 @@ export function SelectedWorkSection() {
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="animate-on-scroll opacity-0 mb-12 sm:mb-16 max-w-3xl">
-					<p className="eyebrow mb-4">Selected work</p>
-					<h2 className="display-lg mb-4">
-						Research, accelerated computing, and community.
+					<h2 className="display-lg mb-5">
+						Research, accelerated computing, and{" "}
+						<span className="lime-mark">community</span>.
 					</h2>
 					<p className="lede">
 						A few pieces: a shipped vision-language model, accelerator

@@ -6,65 +6,89 @@
 
 ## 1. Direction
 
-Monochrome canvas + a single electric-lime accent, modeled on the current
-[Nebius](https://nebius.com/about) brand: confident black headlines on white,
-generous negative space, hairline borders, and lime used only where it counts.
-Distinctive but professional — the bar is a top-tier big-tech employee portfolio,
-not a generic template.
+Bold lime on black and white, modeled on the current **Nebius homepage** (not the
+muted About page): a large flowing lime gradient hero, confident black headlines,
+dramatic full-bleed dark sections, and lime-tinted surfaces. Energetic, premium,
+and distinctive. The bar is a top-tier big-tech employee portfolio, never a
+generic minimal AI-startup template.
 
-**Tone:** precise, engineering-forward, quietly confident. Let the work and the
-numbers talk. No hype words, no invented copy, no sections without real data.
+**Tone:** precise, engineering-forward, confident. Let the work and the numbers
+talk. No hype words, no invented copy, no sections without real data.
 
-## 2. Color — the 60 / 30 / 10 rule
+**Lesson from v1:** copying the muted About page (flat white, lime as a tiny 10%
+dot, lots of gray) read as bland and generic. Use lime **boldly**.
 
-This is the most important rule. Every screen should read as:
+## 2. Color — black, white, and bold lime
 
-| Share   | Role                       | Tokens                                                                           | Usage                                                                        |
-| ------- | -------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **60%** | White / off-white surfaces | `background` `#FFFFFF`, `secondary`/`muted` `#F4F5F3`                            | Page + most section backgrounds, cards                                       |
-| **30%** | Ink black                  | `foreground` `#16171A`; dark panels via `.dark` (`#0D0E10`)                      | Text, a few full-bleed dark feature blocks                                   |
-| **10%** | Lime                       | `lime` **`#E0FF4F`** (`primary`), `lime-soft` `#EAFF8C`, `lime-strong` `#B6D62F` | Primary CTA, one key stat/word, tags, focus ring (on dark), small highlights |
+Three colors only. Lime is a **dominant brand color**, not a timid accent. Mix is
+roughly: white/off-white as the base canvas, ink for text and full dark sections,
+and lime used confidently as gradients, large fills, tinted surfaces, marker
+highlights, and the primary CTA.
 
-**Lime discipline (do not break):**
+| Role             | Tokens                                                                                      | Usage                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Base** (white) | `background` `#FFFFFF`, `secondary`/`muted` `#F4F5F3`                                       | Page canvas, most cards                                                                      |
+| **Ink** (black)  | `foreground` `#16171A`; dark sections via `.dark` (`#0D0E10`)                               | Text, one or two full-bleed dark feature sections                                            |
+| **Lime** (bold)  | `lime` **`#E0FF4F`**, `lime-soft` `#EAFF8C`, `lime-wash` `#F3FFCE`, `lime-strong` `#AACF1F` | Hero gradient field, the CTA field, lime-wash sections, marker highlights, primary CTA, tags |
 
-- Lime is for **emphasis only** — never a large fill on a light page. One or two
-  lime moments per viewport, max.
-- Lime is light, so **text/icons on lime must be ink** (`primary-foreground`),
-  never white. (Verified WCAG AA: ink on `#E0FF4F` ≈ 15:1.)
-- Need lime as text/icon on a white surface? Use `lime-strong` (`#B6D62F`) for
-  contrast, or just use ink. Plain `#E0FF4F` text on white fails contrast.
-- On dark panels, lime pops as the accent and as the focus ring.
+**Lime rules (do not break):**
 
-Exact Nebius source values sampled from nebius.com: lime `#E0FF4F` (+ `#E8FF7E`,
-`#D4F43E`), inks `#212529`/`#262626`, off-whites `#F2F2F2`/`#EFF2F8`, border
-`#E8E8E8`. We use neutral (hue-less) grays so lime is the only chromatic note.
+- Use lime **boldly**: the hero gradient (`.hero-lime-field`), a full lime CTA
+  panel, `bg-lime-wash` section surfaces, and `.lime-mark` keyword highlights are
+  all encouraged. It is the brand, not a garnish.
+- Lime is light, so **text/icons on lime must be ink** (`text-ink`), never white.
+  Verified WCAG AA: ink on `#E0FF4F` is ~15:1.
+- Never use `lime` or `lime-strong` as **text or meaningful icons on white** (they
+  fail contrast). For a lime word on a light surface, use `.lime-mark` (lime
+  background, ink text). On **dark** sections, `text-lime` is fine and pops.
+- Keep it to these three colors. Do not reintroduce the old multicolor.
 
-Tokens live in `src/app/globals.css` (`:root` light, `.dark` panels) and are the
+Exact Nebius source values sampled from nebius.com: lime `#E0FF4F` (+ `#E8FF7E`),
+used as a `background` fill on the live site. We use neutral (hue-less) grays so
+lime is the only chromatic note.
+
+Tokens live in `src/app/globals.css` (`:root` light, `.dark` sections) and are the
 **only** place colors are defined. Components consume them through Tailwind
-utilities (`bg-background`, `text-foreground`, `bg-primary`, `bg-lime`,
-`text-muted-foreground`, `border-border`). Never hard-code a hex in a component.
+utilities (`bg-background`, `text-foreground`, `bg-lime`, `bg-lime-wash`,
+`text-ink`, `text-muted-foreground`, `border-border`). Never hard-code a hex in a
+component.
 
-### Dark feature panels
+### Dark feature sections
 
-Wrap a section (or card) in `className="dark"` and it flips to the ink palette
-using the same shadcn tokens — `bg-background` becomes near-black, `bg-primary`
-stays lime. Use sparingly: the hero stat block and at most one or two feature
-blocks. That selective ink is the "30%".
+Wrap a section in `className="dark bg-background text-foreground"` and it flips to
+the ink palette using the same shadcn tokens; `text-lime` and `bg-lime` accents
+pop against it (e.g. the Speaking section, our "Built by builders" moment). Use
+one or two per page.
+
+### Accessibility (WCAG AA)
+
+All body/secondary text must clear 4.5:1; `--muted-foreground` is `#52555B` for
+this. Icons that carry meaning must clear 3:1. Audit token pairs after any color
+change. Keyboard focus rings stay visible.
+
+### Copy
+
+No em (—) or en (–) dashes anywhere in copy. Reword with commas, periods, or
+colons. (Hyphens and × are fine.)
 
 ## 3. Typography
 
-| Role                            | Family                | Token / utility       | Notes                                             |
-| ------------------------------- | --------------------- | --------------------- | ------------------------------------------------- |
-| Display (h1–h4, section titles) | **Schibsted Grotesk** | `font-display`        | Tight tracking (−0.02 to −0.03em), weight 600–700 |
-| Body / UI                       | **Hanken Grotesk**    | `font-sans` (default) | 400/500/600, `leading-relaxed` for prose          |
-| Mono (stats, code, eyebrows)    | **Geist Mono**        | `font-mono`           | The "engineering" motif — numbers, labels, kbd    |
+| Role                            | Family                | Token / utility       | Notes                                               |
+| ------------------------------- | --------------------- | --------------------- | --------------------------------------------------- |
+| Display (h1–h4, section titles) | **Schibsted Grotesk** | `font-display`        | Tight tracking (−0.02 to −0.03em), weight 600–700   |
+| Body / UI                       | **Hanken Grotesk**    | `font-sans` (default) | 400/500/600, `leading-relaxed` for prose            |
+| Mono (stats, tags, dates)       | **Geist Mono**        | `font-mono`           | The "engineering" motif: numbers, tag labels, dates |
 
 Loaded via `next/font/google` in `src/app/layout.tsx`. Headings auto-use
-`font-display` (set in the base layer). Helpers: `.display-xl/lg/md`, `.eyebrow`
-(mono, uppercase, tracked), `.lede` (muted subtitle).
+`font-display` and are **bold** (700) for energy. Helpers: `.display-xl/lg/md`,
+`.lede` (muted subtitle), `.lime-mark` (lime keyword highlight).
 
-Scale guide: hero `display-xl` (→ `text-6xl`), section title `display-lg`,
-card/sub `display-md`. Body `text-base`/`text-lg`. Don't exceed this scale.
+Scale guide: hero `display-xl` (to `text-7xl`), section title `display-lg`,
+card/sub `display-md`. Body `text-base`/`text-lg`.
+
+**No uppercase mono "eyebrow" labels above headings** (a generic AI-template tic,
+removed in v2). The section is identified by its bold statement heading, often
+with a `.lime-mark` keyword.
 
 ## 4. Spacing, borders, radius
 
@@ -146,10 +170,13 @@ npx playwright screenshot --browser=chromium --viewport-size=1440,2400 --full-pa
 
 ## 9. Do / Don't
 
-**Do:** keep it monochrome + lime; align to a single container; uniform section
-rhythm; hairline borders; mono for numbers; quantify outcomes; one primary CTA.
+**Do:** use lime boldly (gradient hero, lime CTA field, lime-wash sections, marker
+highlights); **vary** section surfaces and headers for rhythm (white, secondary,
+dark, lime-wash); single container; hairline borders; mono for numbers; quantify
+outcomes; one primary CTA per view; bold display headings.
 
-**Don't:** reintroduce the old blue/red/yellow/green multicolor; use lime as a
-large fill or as low-contrast text on white; add gradients-on-white or purple AI
-clichés; write filler copy or empty sections; hard-code colors/CSS in components;
-mix radius/gap scales within a group.
+**Don't:** reintroduce the old blue/red/yellow/green multicolor; use lime or
+lime-strong as text/icons on white (fails contrast); add uppercase mono eyebrow
+labels; use a centered dark "let's build together" SaaS CTA; repeat one formulaic
+eyebrow + heading + grid rhythm; write filler copy or empty sections; use em/en
+dashes; mix radius/gap scales within a group.

@@ -47,14 +47,6 @@ const stats = [
 	},
 ];
 
-const credentials = [
-	"AWS Community Builder, AI Engineering",
-	"Google ML Engineer",
-	"AWS ML Engineer",
-	"Azure AI Engineer",
-	"GitHub Campus Expert",
-];
-
 export function HeroSection() {
 	const sectionRef = useRef<HTMLElement>(null);
 	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -81,141 +73,103 @@ export function HeroSection() {
 		<section
 			ref={sectionRef}
 			id="about"
-			className="relative flex flex-col justify-center px-4 sm:px-6 pt-28 sm:pt-32 pb-16 sm:pb-20 bg-background"
+			className="hero-lime-field relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-44 pb-16 sm:pb-20"
 		>
 			<div className="max-w-6xl mx-auto w-full">
-				<div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-center mb-20 sm:mb-24">
-					<div className="order-1 lg:order-1">
-						<h1
-							className="animate-on-scroll opacity-0 display-xl mb-6 max-w-xl"
-							style={{ animationDelay: "100ms" }}
-						>
-							Building intelligent{" "}
-							<span className="bg-lime text-ink box-decoration-clone rounded-md px-1.5">
-								systems
-							</span>{" "}
-							that scale.
-						</h1>
+				<div className="max-w-4xl">
+					<h1
+						className="animate-on-scroll opacity-0 display-xl"
+						style={{ animationDelay: "100ms" }}
+					>
+						Building intelligent <span className="lime-mark">systems</span> that
+						scale.
+					</h1>
 
-						<p
-							className="animate-on-scroll opacity-0 lede mb-8 max-w-lg"
-							style={{ animationDelay: "150ms" }}
-						>
-							ML engineer specializing in{" "}
-							<span className="font-semibold text-foreground">
-								multimodality
-							</span>{" "}
-							and{" "}
-							<span className="font-semibold text-foreground">
-								accelerated computing
-							</span>
-							. Speaker at{" "}
-							<span className="font-semibold text-foreground">
-								PyTorch Conference Europe 2026
-							</span>
-							, backed by a $376,000 Google Cloud compute grant.
-						</p>
+					<p
+						className="animate-on-scroll opacity-0 lede mt-7 max-w-2xl"
+						style={{ animationDelay: "150ms" }}
+					>
+						ML engineer specializing in{" "}
+						<span className="font-semibold text-foreground">multimodality</span>{" "}
+						and{" "}
+						<span className="font-semibold text-foreground">
+							accelerated computing
+						</span>
+						. Speaker at{" "}
+						<span className="font-semibold text-foreground">
+							PyTorch Conference Europe 2026
+						</span>
+						, backed by a $376,000 Google Cloud compute grant.
+					</p>
 
-						<div
-							className="animate-on-scroll opacity-0 flex flex-col sm:flex-row gap-3"
-							style={{ animationDelay: "220ms" }}
-						>
-							<Button size="lg" onClick={() => setIsCalendarOpen(true)}>
-								Get in touch
-								<ArrowRight className="h-4 w-4" />
-							</Button>
-							<Button asChild size="lg" variant="outline">
-								<a
-									href="https://linkedin.com/in/alpharomercoma"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<Linkedin className="h-4 w-4" />
-									LinkedIn
-								</a>
-							</Button>
-							<Button asChild size="lg" variant="outline">
-								<a
-									href="https://github.com/alpharomercoma"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<Github className="h-4 w-4" />
-									GitHub
-								</a>
-							</Button>
-						</div>
-						<CalendarModal
-							isOpen={isCalendarOpen}
-							onClose={() => setIsCalendarOpen(false)}
-						/>
+					<div
+						className="animate-on-scroll opacity-0 mt-9 flex flex-col sm:flex-row gap-3"
+						style={{ animationDelay: "220ms" }}
+					>
+						<Button size="lg" onClick={() => setIsCalendarOpen(true)}>
+							Get in touch
+							<ArrowRight className="h-4 w-4" />
+						</Button>
+						<Button asChild size="lg" variant="outline">
+							<a
+								href="https://linkedin.com/in/alpharomercoma"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Linkedin className="h-4 w-4" />
+								LinkedIn
+							</a>
+						</Button>
+						<Button asChild size="lg" variant="outline">
+							<a
+								href="https://github.com/alpharomercoma"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Github className="h-4 w-4" />
+								GitHub
+							</a>
+						</Button>
 					</div>
-
-					<div className="order-2 lg:order-2 flex justify-center lg:justify-end">
-						<div
-							className="animate-on-scroll opacity-0 w-full max-w-md"
-							style={{ animationDelay: "150ms" }}
-						>
-							<div className="dark bg-card text-card-foreground rounded-2xl border border-border overflow-hidden">
-								<div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-secondary/50">
-									<div className="flex items-center gap-1.5">
-										<span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-										<span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-										<span className="h-3 w-3 rounded-full bg-[#28c840]" />
-									</div>
-									<span className="ml-3 text-[13px] text-muted-foreground font-mono">
-										alpha_stats.py
-									</span>
-								</div>
-								<div className="p-5">
-									<div className="grid grid-cols-2 gap-2.5">
-										{stats.map((stat, i) => (
-											<div
-												key={stat.label}
-												className="rounded-xl bg-secondary px-4 py-4"
-											>
-												<div
-													className={`font-mono text-2xl font-semibold leading-none mb-1.5 tracking-tight ${
-														i === 0 ? "text-lime" : "text-foreground"
-													}`}
-												>
-													{stat.value}
-												</div>
-												<div className="text-xs font-medium text-foreground">
-													{stat.label}
-												</div>
-												<div className="text-[11px] text-muted-foreground mt-0.5">
-													{stat.sub}
-												</div>
-											</div>
-										))}
-									</div>
-									<div className="my-5 border-t border-border" />
-									<div className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
-										Credentials
-									</div>
-									<div className="flex flex-wrap gap-1.5">
-										{credentials.map((cert) => (
-											<span
-												key={cert}
-												className="inline-flex items-center rounded-full border border-border text-muted-foreground text-[11px] font-medium px-2.5 py-1"
-											>
-												{cert}
-											</span>
-										))}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<CalendarModal
+						isOpen={isCalendarOpen}
+						onClose={() => setIsCalendarOpen(false)}
+					/>
 				</div>
 
+				{/* Bold inline stat band (replaces the bento card) */}
 				<div
-					className="animate-on-scroll opacity-0"
+					className="animate-on-scroll opacity-0 mt-16 sm:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 border-t border-foreground/15 pt-10"
 					style={{ animationDelay: "300ms" }}
 				>
-					<p className="eyebrow text-center mb-8">Trusted & affiliated with</p>
-					<div className="flex flex-wrap justify-center items-center gap-x-10 sm:gap-x-12 md:gap-x-14 gap-y-6 max-w-5xl mx-auto">
+					{stats.map((stat, i) => (
+						<div key={stat.label}>
+							<div className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-foreground leading-none">
+								{i === 0 ? (
+									<span className="lime-mark">{stat.value}</span>
+								) : (
+									stat.value
+								)}
+							</div>
+							<div className="mt-3 text-sm font-semibold text-foreground">
+								{stat.label}
+							</div>
+							<div className="mt-0.5 text-xs text-muted-foreground">
+								{stat.sub}
+							</div>
+						</div>
+					))}
+				</div>
+
+				{/* Affiliations */}
+				<div
+					className="animate-on-scroll opacity-0 mt-16 sm:mt-20"
+					style={{ animationDelay: "360ms" }}
+				>
+					<p className="text-sm font-medium text-muted-foreground mb-7">
+						Trusted &amp; affiliated with
+					</p>
+					<div className="flex flex-wrap items-center gap-x-10 sm:gap-x-12 md:gap-x-14 gap-y-6">
 						{affiliations.map((company) => (
 							<div
 								key={company.name}

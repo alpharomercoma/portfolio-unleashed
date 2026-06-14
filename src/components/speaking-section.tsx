@@ -110,17 +110,17 @@ export function SpeakingSection() {
 		<section
 			ref={sectionRef}
 			id="speaking"
-			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-secondary border-t border-border"
+			className="dark bg-background text-foreground py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8"
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
 					<div className="max-w-3xl">
-						<p className="animate-on-scroll opacity-0 eyebrow mb-4">Speaking</p>
 						<h2
 							className="animate-on-scroll opacity-0 display-lg mb-4"
 							style={{ animationDelay: "100ms" }}
 						>
-							From PyTorch Conference Europe to community stages.
+							From PyTorch Conference Europe to{" "}
+							<span className="text-lime">community stages</span>.
 						</h2>
 						<p
 							className="animate-on-scroll opacity-0 lede"
@@ -167,7 +167,7 @@ export function SpeakingSection() {
 										{event.type}
 									</span>
 									{event.upcoming && (
-										<span className="font-mono text-[10px] font-medium tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-foreground text-background">
+										<span className="font-mono text-[10px] font-medium tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-lime text-ink">
 											Upcoming
 										</span>
 									)}

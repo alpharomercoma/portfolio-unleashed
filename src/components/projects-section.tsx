@@ -214,16 +214,16 @@ export function ProjectsSection() {
 		<section
 			ref={sectionRef}
 			id="projects"
-			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-border"
+			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-secondary border-t border-border"
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="max-w-3xl mb-10 sm:mb-12">
-					<p className="animate-on-scroll opacity-0 eyebrow mb-4">Projects</p>
 					<h2
-						className="animate-on-scroll opacity-0 display-lg mb-4"
+						className="animate-on-scroll opacity-0 display-lg mb-5"
 						style={{ animationDelay: "100ms" }}
 					>
-						Things I&apos;ve built, research to production.
+						Things I&apos;ve <span className="lime-mark">built</span>, research
+						to production.
 					</h2>
 					<p
 						className="animate-on-scroll opacity-0 lede"
