@@ -24,7 +24,26 @@ const slugify = (s) =>
 		.replace(/^-+|-+$/g, "")
 		.slice(0, 80);
 
-const canva = (id) => `https://www.canva.com/design/${id}/view`;
+// Canva public-view URLs need the share token after the design id, otherwise
+// Canva returns an access-denied page (the tokenless /design/<id>/view 303s away).
+const CANVA_TOKENS = {
+	DAGbBFeOF8Y: "rqAdKRR_ScEbVmp6HJzOJQ",
+	DAGfkJiDlTU: "-5yJxltDAmR2lSMGxLgtTg",
+	DAGqHG1iTqc: "47m0L7mWC7q24rOU5kQzeQ",
+	DAG3vgFTIRw: "lX11R-l5WCG5HWNGph9WKA",
+	"DAF-vkkrquk": "l98xZeGkXN9ULHIIz38GjA",
+	DAF_ciFtU9o: "_WSNwT2EvG-RRcZn0dVbxw",
+	DAGSHoSgVYE: "o8DVbBqk80T00npdVFSs2g",
+	DAGgCsmcztc: "tl9-PQ-MqNSL42RuamjAqA",
+	DAGsYa9Ivhw: "F8zdWJRzINK8vPgjArJ7Dw",
+	DAG3MtSllRU: "ALPO2D_8PBPXoApxNW17zQ",
+};
+const canva = (id) => {
+	const token = CANVA_TOKENS[id];
+	return token
+		? `https://www.canva.com/design/${id}/${token}/view`
+		: `https://www.canva.com/design/${id}/view`;
+};
 const gslides = (id) => `https://docs.google.com/presentation/d/${id}/edit`;
 
 // One entry per talk. events[] carries each delivery.
