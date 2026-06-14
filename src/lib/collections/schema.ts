@@ -69,6 +69,15 @@ export const projectSchema = z.object({
 });
 export type Project = z.infer<typeof projectSchema>;
 
+export const galleryImageSchema = z.object({
+	id: z.string().min(1),
+	// Image URL from the picker (Blob), or any image path/URL.
+	image: z.string().min(1),
+	title: z.string().default(""), // shown on hover
+	order: orderField,
+});
+export type GalleryImage = z.infer<typeof galleryImageSchema>;
+
 export const selectedWorkSchema = z.object({
 	id: z.string().min(1),
 	title: z.string().min(1),

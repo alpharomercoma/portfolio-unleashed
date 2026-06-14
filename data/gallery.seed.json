@@ -1,0 +1,74 @@
+[
+	{
+		"id": "g-de-mystifying-pytorch-for-asics",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/pytorch-asics-tFWtApJV7T5KhI5Wn5WBT0Zajs1gDd.png",
+		"title": "PyTorch Conference Europe 2026",
+		"order": 10
+	},
+	{
+		"id": "g-ph100-100-brightest-minds-of-the-philippines",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/ph100-0yOiZI6W7u0s5wPUAVFX9aEexbrdOv.png",
+		"title": "PH100 Brightest Minds",
+		"order": 20
+	},
+	{
+		"id": "g-visual-qwen",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/visual-qwen-BH33A3SrAlUyWgjC0PvmVesQBB8hSd.png",
+		"title": "Visual-Qwen VLM",
+		"order": 30
+	},
+	{
+		"id": "g-pytorch-conf-europe-2026",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/pytorch-conf-europe-FmyKon0N2lewIzSFoZlVmUssyA6wj2.png",
+		"title": "Station F, Paris",
+		"order": 40
+	},
+	{
+		"id": "g-multimodal-sludge-dataset",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/sludge-dataset-nRW4GYXwO4AHaIU7WETPt99U90tmal.png",
+		"title": "Multimodal Sludge Dataset",
+		"order": 50
+	},
+	{
+		"id": "g-national-ai-prompt-design-challenge-ph-champion",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/naipdc-HnTlzKiEOg4ZTOWmOPqBMyms73TWOX.jpg",
+		"title": "NAIPDC PH Champion",
+		"order": 60
+	},
+	{
+		"id": "g-feu-tech-acmx",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/acmx-MwpwiN1Mv5SEeqm4AknBRmnyZveKts.png",
+		"title": "FEU Tech ACMX",
+		"order": 70
+	},
+	{
+		"id": "g-para-po",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/para-po-PDpcv7814JtTEUjpavHhP3XiuEZHRh.png",
+		"title": "Para Po!",
+		"order": 80
+	},
+	{
+		"id": "g-algolympics-finalist",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/algolympics-bJPpe5a6XvlE8rM3SB2SWIcmYSkVgs.png",
+		"title": "Algolympics Finalist",
+		"order": 90
+	},
+	{
+		"id": "g-project-nature-nasa-24",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/project-nature-6fHeWxHRcdvD1ejPbPnUYp5ZGkb39k.png",
+		"title": "Project NATURE, NASA 24",
+		"order": 100
+	},
+	{
+		"id": "g-acerouter",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/acerouter-KR8imqGuwWom23N1mTdJJhMEV4MIip.png",
+		"title": "AceRouter",
+		"order": 110
+	},
+	{
+		"id": "g-kape-ni-rab",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/kape-ni-rab-CNHJcjKyTlYngdFYGoXkypH2ymjAbI.png",
+		"title": "Kape ni Rab!",
+		"order": 120
+	}
+]

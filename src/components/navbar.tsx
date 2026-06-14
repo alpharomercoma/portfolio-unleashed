@@ -13,6 +13,7 @@ const navItems = [
 	{ label: "Writing", href: "/blog" },
 	{ label: "Recognition", href: "/#recognition" },
 	{ label: "About", href: "/about" },
+	{ label: "Gallery", href: "/gallery" },
 ];
 
 export function Navbar() {

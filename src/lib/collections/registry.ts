@@ -3,6 +3,7 @@ import type { z } from "zod";
 import { slugify } from "@/lib/talks/schema";
 import awardSeed from "../../../data/awards.seed.json";
 import certSeed from "../../../data/certifications.seed.json";
+import gallerySeed from "../../../data/gallery.seed.json";
 import projectSeed from "../../../data/projects.seed.json";
 import recommendationSeed from "../../../data/recommendations.seed.json";
 import selectedWorkSeed from "../../../data/selected-work.seed.json";
@@ -10,12 +11,14 @@ import {
 	AWARD_CATEGORIES,
 	type Award,
 	type Certification,
+	type GalleryImage,
 	PROJECT_CATEGORIES,
 	type Project,
 	type Recommendation,
 	type SelectedWork,
 	awardSchema,
 	certificationSchema,
+	galleryImageSchema,
 	projectSchema,
 	recommendationSchema,
 	selectedWorkSchema,
@@ -273,8 +276,50 @@ const projects: CollectionConfig<Project> = {
 	seed: projectSeed as Project[],
 };
 
+const gallery: CollectionConfig<GalleryImage> = {
+	key: "gallery",
+	labelSingular: "Image",
+	labelPlural: "Gallery",
+	description: "Standalone image gallery shown at /gallery.",
+	schema: galleryImageSchema,
+	idFrom: (d) =>
+		slugify(d.title || "") ||
+		slugify((d.image || "").split("/").pop() || "") ||
+		"image",
+	fields: [
+		{
+			name: "image",
+			label: "Image",
+			kind: "image",
+			full: true,
+			required: true,
+			help: "Upload or choose from the image library.",
+		},
+		{
+			name: "title",
+			label: "Title (shown on hover)",
+			kind: "text",
+			full: true,
+		},
+		{
+			name: "order",
+			label: "Order",
+			kind: "text",
+			placeholder: "0",
+			help: "Lower numbers appear first.",
+		},
+	],
+	sort: byOrderAsc,
+	summary: (g) => ({
+		title: g.title || "(untitled image)",
+		meta: `#${g.order}`,
+	}),
+	seed: gallerySeed as GalleryImage[],
+};
+
 // Ordered to match the homepage section flow (Selected Work, Projects, then
-// Recognition = Awards before Certifications, then Recommendations).
+// Recognition = Awards before Certifications, then Recommendations), with the
+// standalone Gallery last.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const COLLECTIONS: Record<string, CollectionConfig<any>> = {
 	"selected-work": selectedWork,
@@ -282,6 +327,7 @@ export const COLLECTIONS: Record<string, CollectionConfig<any>> = {
 	awards,
 	certifications,
 	recommendations,
+	gallery,
 };
 
 export const COLLECTION_KEYS = Object.keys(COLLECTIONS);

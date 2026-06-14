@@ -20,6 +20,7 @@ const COLLECTIONS = [
 	"awards",
 	"certifications",
 	"recommendations",
+	"gallery",
 ];
 
 async function readSeed(key) {

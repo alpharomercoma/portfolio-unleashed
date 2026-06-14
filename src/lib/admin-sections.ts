@@ -55,4 +55,5 @@ export const ADMIN_SECTIONS: AdminSection[] = [
 	collectionSection("certifications"),
 	collectionSection("recommendations"),
 	ABOUT,
+	collectionSection("gallery"),
 ];
