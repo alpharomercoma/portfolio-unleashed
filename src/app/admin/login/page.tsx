@@ -29,9 +29,10 @@ export default async function LoginPage({
 						Admin
 					</span>
 				</div>
-				<h1 className="display-md mb-2">Manage talks</h1>
+				<h1 className="display-md mb-2">Manage content</h1>
 				<p className="text-sm text-muted-foreground mb-6">
-					Sign in to add, edit, and remove speaking entries.
+					Sign in to add, edit, and remove talks, certifications, awards, and
+					recommendations.
 				</p>
 
 				{!isAuthConfigured() && (
