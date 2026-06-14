@@ -104,9 +104,12 @@ rounded-full`). Secondary = `variant="outline"` (ink border/text). Ghost for
 
 ## 6. Motion
 
-Restraint. One orchestrated entrance per section (staggered fade/translate-up via
-`framer-motion`, already a dependency) on scroll into view. Avoid scattered
-micro-animations. Marquee for the affiliations strip. Respect
+Restraint — one orchestrated entrance per section, no scattered micro-animations.
+Current implementation: a shared `IntersectionObserver` adds `.animate-fade-up`
+to elements marked `.animate-on-scroll opacity-0` as they enter view (staggered
+via `animationDelay`); card grids use the `fadeIn` keyframe on mount. Keyframes
+live in `globals.css`. `framer-motion` is installed and is the preferred tool for
+any richer/new motion. Keep the affiliations marquee subtle; respect
 `prefers-reduced-motion`.
 
 ## 7. Section inventory (home)
