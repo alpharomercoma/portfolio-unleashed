@@ -8,7 +8,7 @@ import { getAllTalks } from "@/lib/talks/store";
 type SectionCard = {
 	label: string;
 	href: string;
-	count: number;
+	count?: number;
 	unit: string;
 	description: string;
 };
@@ -36,6 +36,12 @@ export default async function AdminHub() {
 				"Talks, workshops, keynotes, and podcasts with their events.",
 		},
 		...collectionCards,
+		{
+			label: "About",
+			href: "/admin/about",
+			unit: "about page",
+			description: "Your personal story, written in markdown with images.",
+		},
 	];
 
 	return (
@@ -59,9 +65,11 @@ export default async function AdminHub() {
 							<h2 className="font-display text-lg font-semibold tracking-tight">
 								{s.label}
 							</h2>
-							<span className="font-mono text-2xl font-bold tabular-nums text-foreground">
-								{s.count}
-							</span>
+							{s.count !== undefined && (
+								<span className="font-mono text-2xl font-bold tabular-nums text-foreground">
+									{s.count}
+								</span>
+							)}
 						</div>
 						<p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
 							{s.description}

@@ -12,6 +12,7 @@ const navItems = [
 	{ label: "Speaking", href: "/speaking" },
 	{ label: "Writing", href: "/blog" },
 	{ label: "Recognition", href: "/#recognition" },
+	{ label: "About", href: "/about" },
 ];
 
 export function Navbar() {

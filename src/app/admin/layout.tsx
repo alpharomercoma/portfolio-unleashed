@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
 		label: c.labelPlural,
 		href: `/admin/${c.key}`,
 	})),
+	{ label: "About", href: "/admin/about" },
 ];
 
 export default async function AdminLayout({
