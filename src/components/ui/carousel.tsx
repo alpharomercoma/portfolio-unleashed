@@ -355,8 +355,8 @@ export function CarouselControls({
 		>
 			{isAutoRotating && (
 				<span className="relative flex h-2 w-2 mr-1">
-					<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-blue)] opacity-75" />
-					<span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-blue)]" />
+					<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime opacity-75" />
+					<span className="relative inline-flex rounded-full h-2 w-2 bg-lime" />
 				</span>
 			)}
 			<span className="text-xs text-muted-foreground mr-2">
@@ -414,7 +414,7 @@ export function CarouselDots({
 					className={cn(
 						"h-1.5 rounded-full transition-all duration-300 hover:opacity-80",
 						i === currentPage
-							? "w-6 bg-[var(--color-blue)]"
+							? "w-6 bg-foreground"
 							: "w-1.5 bg-border hover:bg-muted-foreground/30",
 					)}
 					aria-label={`Go to page ${i + 1}`}

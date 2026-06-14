@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ExternalLink, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -91,22 +91,8 @@ export function HeroSection() {
 							style={{ animationDelay: "100ms" }}
 						>
 							Building intelligent{" "}
-							<span className="relative inline-block text-[var(--color-blue)]">
+							<span className="bg-lime text-ink box-decoration-clone rounded-md px-1.5">
 								systems
-								<svg
-									aria-hidden="true"
-									viewBox="0 0 220 12"
-									preserveAspectRatio="none"
-									className="absolute left-0 right-0 -bottom-[0.12em] w-full h-[0.38em] text-[var(--color-blue)]/60"
-								>
-									<path
-										d="M2 8 C 60 2, 160 2, 218 8"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2.5"
-										strokeLinecap="round"
-									/>
-								</svg>
 							</span>{" "}
 							that scale.
 						</h1>
@@ -134,20 +120,11 @@ export function HeroSection() {
 							className="animate-on-scroll opacity-0 flex flex-col sm:flex-row gap-3"
 							style={{ animationDelay: "220ms" }}
 						>
-							<Button
-								size="lg"
-								className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-12 px-6"
-								onClick={() => setIsCalendarOpen(true)}
-							>
+							<Button size="lg" onClick={() => setIsCalendarOpen(true)}>
 								Get in touch
-								<ArrowRight className="ml-1.5 h-4 w-4" />
+								<ArrowRight className="h-4 w-4" />
 							</Button>
-							<Button
-								asChild
-								size="lg"
-								variant="outline"
-								className="rounded-full h-12 px-6 border-gray-200 hover:bg-gray-50"
-							>
+							<Button asChild size="lg" variant="outline">
 								<a
 									href="https://linkedin.com/in/alpharomercoma"
 									target="_blank"
@@ -155,15 +132,9 @@ export function HeroSection() {
 								>
 									<Linkedin className="h-4 w-4" />
 									LinkedIn
-									<ExternalLink className="h-3.5 w-3.5 opacity-60" />
 								</a>
 							</Button>
-							<Button
-								asChild
-								size="lg"
-								variant="outline"
-								className="rounded-full h-12 px-6 border-gray-200 hover:bg-gray-50"
-							>
+							<Button asChild size="lg" variant="outline">
 								<a
 									href="https://github.com/alpharomercoma"
 									target="_blank"
@@ -171,7 +142,6 @@ export function HeroSection() {
 								>
 									<Github className="h-4 w-4" />
 									GitHub
-									<ExternalLink className="h-3.5 w-3.5 opacity-60" />
 								</a>
 							</Button>
 						</div>
@@ -186,25 +156,29 @@ export function HeroSection() {
 							className="animate-on-scroll opacity-0 w-full max-w-md"
 							style={{ animationDelay: "150ms" }}
 						>
-							<div className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-12px_rgba(15,23,42,0.08)]">
-								<div className="flex items-center gap-2 px-4 py-3 border-b border-gray-100 bg-gray-50/60">
+							<div className="dark bg-card text-card-foreground rounded-2xl border border-border overflow-hidden">
+								<div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-secondary/50">
 									<div className="flex items-center gap-1.5">
 										<span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
 										<span className="h-3 w-3 rounded-full bg-[#febc2e]" />
 										<span className="h-3 w-3 rounded-full bg-[#28c840]" />
 									</div>
-									<span className="ml-3 text-[13px] text-gray-500 font-mono">
+									<span className="ml-3 text-[13px] text-muted-foreground font-mono">
 										alpha_stats.py
 									</span>
 								</div>
 								<div className="p-5">
 									<div className="grid grid-cols-2 gap-2.5">
-										{stats.map((stat) => (
+										{stats.map((stat, i) => (
 											<div
 												key={stat.label}
-												className="rounded-xl bg-gray-50 px-4 py-4"
+												className="rounded-xl bg-secondary px-4 py-4"
 											>
-												<div className="text-2xl font-semibold text-foreground leading-none mb-1.5 tracking-tight">
+												<div
+													className={`font-mono text-2xl font-semibold leading-none mb-1.5 tracking-tight ${
+														i === 0 ? "text-lime" : "text-foreground"
+													}`}
+												>
 													{stat.value}
 												</div>
 												<div className="text-xs font-medium text-foreground">
@@ -216,15 +190,15 @@ export function HeroSection() {
 											</div>
 										))}
 									</div>
-									<div className="my-5 border-t border-gray-100" />
-									<div className="text-[13px] font-medium text-foreground mb-3">
+									<div className="my-5 border-t border-border" />
+									<div className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
 										Credentials
 									</div>
 									<div className="flex flex-wrap gap-1.5">
 										{credentials.map((cert) => (
 											<span
 												key={cert}
-												className="inline-flex items-center rounded-full bg-[color-mix(in_oklch,var(--color-blue)_10%,white)] text-[var(--color-blue)] text-[11px] font-medium px-2.5 py-1"
+												className="inline-flex items-center rounded-full border border-border text-muted-foreground text-[11px] font-medium px-2.5 py-1"
 											>
 												{cert}
 											</span>

@@ -13,7 +13,6 @@ type Talk = {
 	type: "Keynote" | "Talk" | "Workshop";
 	upcoming?: boolean;
 	summary: string;
-	color: string;
 	slideLink: string;
 };
 
@@ -28,7 +27,6 @@ const speakingEvents: Talk[] = [
 		upcoming: true,
 		summary:
 			"Quick start on AWS's native PyTorch stack: provisioning Trainium, porting a model, and running your first training job in under an hour.",
-		color: "var(--color-yellow)",
 		slideLink: "https://alpharomer.com",
 	},
 	{
@@ -40,7 +38,6 @@ const speakingEvents: Talk[] = [
 		upcoming: true,
 		summary:
 			"Hands-on intro to GitHub Copilot: prompt patterns, agent mode, and wiring AI assistance into day-to-day development.",
-		color: "var(--color-blue)",
 		slideLink: "https://alpharomer.com",
 	},
 	{
@@ -51,7 +48,6 @@ const speakingEvents: Talk[] = [
 		type: "Talk",
 		summary:
 			"Tour of the two frontiers defining modern AI: multimodal fusion architectures and the accelerator stack (H100, TPU v6e, Trainium).",
-		color: "var(--color-green)",
 		slideLink:
 			"https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit?usp=sharing",
 	},
@@ -64,7 +60,6 @@ const speakingEvents: Talk[] = [
 		type: "Talk",
 		summary:
 			"Benchmark walkthrough for image recognition and text generation across 1x H100 (RunPod), 8x H100 (Nebius), TPU v6e-8, and Trainium1 32xlarge.",
-		color: "var(--color-red)",
 		slideLink:
 			"https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit?usp=sharing",
 	},
@@ -76,7 +71,6 @@ const speakingEvents: Talk[] = [
 		type: "Workshop",
 		summary:
 			"3-hour workshop on Git fundamentals, from initializing a repo to resolving merge conflicts and shipping your first pull request.",
-		color: "var(--color-yellow)",
 		slideLink:
 			"https://docs.google.com/presentation/d/1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw/edit?usp=sharing",
 	},
@@ -88,7 +82,6 @@ const speakingEvents: Talk[] = [
 		type: "Talk",
 		summary:
 			"Navigating AI in the classroom: prompt injection, data leakage, and the safety practices students should adopt early.",
-		color: "var(--color-blue)",
 		slideLink:
 			"https://docs.google.com/presentation/d/1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E/edit?usp=sharing",
 	},
@@ -117,7 +110,7 @@ export function SpeakingSection() {
 		<section
 			ref={sectionRef}
 			id="speaking"
-			className="py-20 sm:py-28 px-4 sm:px-6 bg-gray-50/60"
+			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-secondary border-t border-border"
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
@@ -142,7 +135,7 @@ export function SpeakingSection() {
 					<Button
 						variant="outline"
 						size="sm"
-						className="animate-on-scroll opacity-0 rounded-full h-10 px-5 text-sm bg-white border-gray-200 hover:bg-white hover:border-gray-300 shrink-0"
+						className="animate-on-scroll opacity-0 shrink-0"
 						style={{ animationDelay: "200ms" }}
 						asChild
 					>
@@ -151,8 +144,8 @@ export function SpeakingSection() {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							Full speakership database{" "}
-							<ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+							Full speakership database
+							<ArrowRight className="h-3.5 w-3.5" />
 						</Link>
 					</Button>
 				</div>
@@ -161,47 +154,40 @@ export function SpeakingSection() {
 					{speakingEvents.map((event, index) => (
 						<article
 							key={event.title}
-							className="flex flex-col p-6 sm:p-7 rounded-3xl h-full transition-transform duration-300 hover:-translate-y-1"
+							className="flex flex-col p-6 sm:p-7 rounded-3xl h-full bg-card border border-border transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25"
 							style={{
 								animation: "fadeIn 0.3s ease forwards",
 								animationDelay: `${index * 50}ms`,
 								opacity: 0,
-								backgroundColor: `color-mix(in oklch, ${event.color} 11%, white)`,
 							}}
 						>
 							<div className="flex items-center justify-between mb-5">
 								<div className="flex items-center gap-1.5">
-									<span
-										className="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/70"
-										style={{ color: event.color }}
-									>
+									<span className="font-mono text-[10px] font-medium tracking-[0.12em] uppercase px-2.5 py-1 rounded-full border border-border text-muted-foreground">
 										{event.type}
 									</span>
 									{event.upcoming && (
-										<span className="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-foreground text-background">
+										<span className="font-mono text-[10px] font-medium tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-foreground text-background">
 											Upcoming
 										</span>
 									)}
 								</div>
-								<span className="text-xs font-medium text-muted-foreground">
+								<span className="font-mono text-xs text-muted-foreground tabular-nums">
 									{event.date}
 								</span>
 							</div>
 
-							<h3 className="font-semibold text-foreground text-lg leading-snug tracking-tight mb-2">
+							<h3 className="font-display font-semibold text-foreground text-lg leading-snug tracking-tight mb-2">
 								{event.title}
 							</h3>
-							<p
-								className="text-sm font-medium mb-3"
-								style={{ color: event.color }}
-							>
+							<p className="text-sm font-medium text-foreground mb-3">
 								{event.event}
 							</p>
 							<p className="text-sm text-muted-foreground leading-relaxed mb-6">
 								{event.summary}
 							</p>
 
-							<div className="mt-auto pt-5 border-t border-black/5 flex items-center justify-between">
+							<div className="mt-auto pt-5 border-t border-border flex items-center justify-between">
 								<div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
 									<MapPin className="h-3.5 w-3.5 shrink-0" />
 									<span className="truncate">{event.location}</span>

@@ -5,16 +5,15 @@ import Link from "next/link";
 
 const footerLinks = {
 	explore: [
-		{ label: "About", href: "#about" },
-		{ label: "Featured", href: "#featured" },
+		{ label: "Work", href: "#work" },
 		{ label: "Projects", href: "#projects" },
 		{ label: "Speaking", href: "#speaking" },
 	],
 	resources: [
-		{ label: "Blog", href: "#blog" },
-		{ label: "Certifications", href: "#certifications" },
+		{ label: "Writing", href: "#blog" },
+		{ label: "Recognition", href: "#recognition" },
 		{ label: "Recommendations", href: "#recommendations" },
-		{ label: "Awards", href: "#awards" },
+		{ label: "Get in touch", href: "#contact" },
 	],
 	social: [
 		{
@@ -39,18 +38,17 @@ export function Footer() {
 	return (
 		<footer className="px-4 sm:px-6 pb-8">
 			<div className="max-w-6xl mx-auto">
-				<div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-gray-200">
+				<div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-border">
 					<div className="col-span-2">
 						<Link
 							href="/"
-							className="text-xl font-semibold text-foreground inline-block mb-3"
+							className="flex items-center gap-2 font-display text-xl font-semibold text-foreground mb-3 tracking-tight w-fit"
 						>
-							<span className="text-[var(--color-blue)]">A</span>
-							<span className="text-[var(--color-red)]">l</span>
-							<span className="text-[var(--color-yellow)]">p</span>
-							<span className="text-[var(--color-green)]">h</span>
-							<span className="text-[var(--color-blue)]">a</span>
-							<span className="text-foreground"> Romer Coma</span>
+							<span
+								aria-hidden
+								className="inline-block size-3.5 rounded-[4px] bg-lime"
+							/>
+							Alpha Romer Coma
 						</Link>
 						<p className="text-sm text-muted-foreground mb-5 max-w-sm leading-relaxed">
 							AI/ML Engineer building intelligent systems that scale.
@@ -62,7 +60,7 @@ export function Footer() {
 								<Link
 									key={social.label}
 									href={social.href}
-									className="p-2.5 bg-gray-100 text-muted-foreground hover:bg-foreground hover:text-background transition-colors rounded-full"
+									className="p-2.5 bg-secondary border border-border text-muted-foreground hover:bg-foreground hover:text-background hover:border-foreground transition-colors rounded-full"
 									target="_blank"
 									rel="noopener noreferrer"
 									aria-label={social.label}
@@ -110,7 +108,7 @@ export function Footer() {
 					</div>
 				</div>
 
-				<div className="border-t border-gray-200 py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+				<div className="border-t border-border py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
 					<p className="text-xs text-muted-foreground">
 						© {new Date().getFullYear()} Alpha Romer Coma. All rights reserved.
 					</p>

@@ -35,13 +35,6 @@
 	--input: #e7e8e4;
 	--ring: #16171a;
 
-	/* Legacy multicolor tokens — retained until each section is rebranded,
-	   then removed. Do not use in new code; reach for --lime / --ink. */
-	--color-blue: oklch(0.55 0.2 250);
-	--color-red: oklch(0.6 0.22 25);
-	--color-yellow: oklch(0.8 0.18 85);
-	--color-green: oklch(0.6 0.2 145);
-
 	--radius: 0.875rem;
 	--sidebar: #ffffff;
 	--sidebar-foreground: #16171a;
@@ -113,10 +106,6 @@
 	--color-border: var(--border);
 	--color-input: var(--input);
 	--color-ring: var(--ring);
-	--color-blue: var(--color-blue);
-	--color-red: var(--color-red);
-	--color-yellow: var(--color-yellow);
-	--color-green: var(--color-green);
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);

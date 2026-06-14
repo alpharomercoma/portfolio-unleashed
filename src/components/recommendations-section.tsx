@@ -1,111 +1,43 @@
 "use client";
 
-import {
-	CarouselControls,
-	CarouselDots,
-	useCarousel,
-} from "@/components/ui/carousel";
-import { Quote } from "lucide-react";
+import { ArrowUpRight, Quote } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
+// A short, curated strip — faculty, a Samsung engineer, and a startup AI
+// engineer. The full set lives on LinkedIn (linked below). Quotes trimmed for
+// scannability; wording preserved.
 const recommendations = [
 	{
 		quote:
-			"What distinguishes Alpha further is his remarkable humility and positive attitude. Despite his impressive credentials and achievements, he remains grounded and approachable, always willing to learn and grow. His blend of intellectual curiosity, leadership qualities, and character make him a standout individual.",
+			"His blend of intellectual curiosity, leadership qualities, and character make him a standout individual.",
 		author: "Justine Jude Pura",
-		title: "CS Faculty",
-		company: "FEU Tech",
-		color: "var(--color-blue)",
+		title: "CS Faculty, FEU Tech",
 	},
 	{
 		quote:
-			"I can confidently say that he is an exceptional Webmaster with a forward-thinking mindset. Alpha never limited himself to his job responsibilities. Instead, he consistently ventured beyond his role, introducing ideas that greatly benefited the entire computer science community at FEU Tech.",
-		author: "Guennevere Rito",
-		title: "Vice President of External Affairs",
-		company: "FEU Tech ACM",
-		color: "var(--color-red)",
-	},
-	{
-		quote:
-			"Beyond his technical skills, Alpha was a collaborative and proactive member of the ACM Student Chapter, an academic organization for computer science, always contributing insightful ideas and fostering a positive environment.",
-		author: "Abraham Magpantay",
-		title: "Former Adviser",
-		company: "FEU Tech ACM",
-		color: "var(--color-yellow)",
-	},
-	{
-		quote:
-			"As Webmaster at FEU Tech ACM, He demonstrated exceptional leadership and technical skills. Also, his commitment to the ACM Beyond Campus Initiative positively impacted over a lot of people. Alpha's full-stack and back-end expertise, combined with a passion for education, make him an outstanding developer and team player.",
-		author: "Rab Karl Colasino",
-		title: "ACMX Lead",
-		company: "FEU Tech ACMX",
-		color: "var(--color-green)",
-	},
-	{
-		quote:
-			"Alpha consistently performs well academically. His work reflects a deep understanding of the material, and he consistently produces quality assignment. Alpha is exceptionally curious and displays a genuine eagerness to learn. He works well with his fellow classmates and is evident that he is a team player.",
-		author: "Beau Gray Habal",
-		title: "CS Faculty",
-		company: "FEU Tech",
-		color: "var(--color-blue)",
-	},
-	{
-		quote:
-			"I was Alpha's Computer Systems Architecture professor, but I didn't see him just as a student of CSA, he has always given an effort towards class work and goes beyond what is being asked. I had always admired how you go beyond what classes are always.",
-		author: "Michelle Anne Constantino",
-		title: "CS Faculty",
-		company: "FEU Tech",
-		color: "var(--color-red)",
-	},
-	{
-		quote:
-			"Mr. Alpha Romer is my data structure student. He is industrious and knowledgeable in computer programming. He is a multilingual person and a very competitive when it comes to project submissions. He can be a candidate for intern software development in the future of this school.",
-		author: "Angelo Arguson, DIT",
-		title: "CS Faculty",
-		company: "FEU Tech",
-		color: "var(--color-yellow)",
-	},
-	{
-		quote:
-			"Alpha Romer Coma, my student in design thinking, exhibits a profound passion for academic excellence, evident in the outstanding quality of his work. I eagerly anticipate witnessing his continued growth and achievements.",
-		author: "Jeneffer Sabonsolin",
-		title: "CS Faculty",
-		company: "FEU Tech",
-		color: "var(--color-green)",
-	},
-	{
-		quote:
-			"Alpha is an amazing team player, who always steps up his game especially in developing a program. He is really adept at adapting in unfavorable situations, and his skills to turn the tide in our team's favor is incredible.",
-		author: "Xynil Jhed Lacap",
-		title: "AI Engineer",
-		company: "Boost Capital",
-		color: "var(--color-blue)",
-	},
-	{
-		quote:
-			"Mr. Coma is a development-oriented person, as his passion for the field is unparalleled. His enthusiasm for sharing ideas and collaborating with colleagues fosters a dynamic and engaging work environment.",
+			"A development-oriented person whose passion for the field is unparalleled; his enthusiasm for sharing ideas fosters a dynamic, engaging environment.",
 		author: "John Kenneth Andales",
-		title: "Software Engineer",
-		company: "Samsung",
-		color: "var(--color-red)",
+		title: "Software Engineer, Samsung",
+	},
+	{
+		quote:
+			"An amazing team player who steps up his game — his ability to turn the tide in our team's favor is incredible.",
+		author: "Xynil Jhed Lacap",
+		title: "AI Engineer, Boost Capital",
 	},
 ];
 
-const ITEMS_PER_PAGE = 3;
-const AUTO_ROTATE_INTERVAL = 10000; // 10 seconds for recommendations (longer quotes)
+function initials(name: string) {
+	return name
+		.split(" ")
+		.map((n) => n[0])
+		.slice(0, 2)
+		.join("");
+}
 
 export function RecommendationsSection() {
 	const sectionRef = useRef<HTMLElement>(null);
-	const {
-		currentPage,
-		totalPages,
-		currentItems,
-		nextPage,
-		prevPage,
-		goToPage,
-		stopAutoRotate,
-		isAutoRotating,
-	} = useCarousel(recommendations, ITEMS_PER_PAGE, AUTO_ROTATE_INTERVAL);
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -118,10 +50,8 @@ export function RecommendationsSection() {
 			},
 			{ threshold: 0.1 },
 		);
-
 		const elements = sectionRef.current?.querySelectorAll(".animate-on-scroll");
 		elements?.forEach((el) => observer.observe(el));
-
 		return () => observer.disconnect();
 	}, []);
 
@@ -129,89 +59,54 @@ export function RecommendationsSection() {
 		<section
 			ref={sectionRef}
 			id="recommendations"
-			className="py-20 sm:py-28 px-4 sm:px-6"
+			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-border"
 		>
 			<div className="max-w-6xl mx-auto">
-				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
-					<div className="max-w-3xl">
-						<p className="animate-on-scroll opacity-0 eyebrow mb-4">
-							Recommendations
-						</p>
-						<h2
-							className="animate-on-scroll opacity-0 display-lg mb-4"
-							style={{ animationDelay: "100ms" }}
-						>
-							What faculty, mentors, and engineers say about working with me.
+				<div className="animate-on-scroll opacity-0 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-12">
+					<div className="max-w-2xl">
+						<p className="eyebrow mb-4">Recommendations</p>
+						<h2 className="display-md">
+							What faculty, mentors, and engineers say.
 						</h2>
-						<p
-							className="animate-on-scroll opacity-0 lede"
-							style={{ animationDelay: "150ms" }}
-						>
-							16 LinkedIn recommendations from professors, adviser, and industry
-							colleagues at Samsung, Boost Capital, and FEU Tech.
-						</p>
 					</div>
-
-					<CarouselControls
-						currentPage={currentPage}
-						totalPages={totalPages}
-						onPrev={prevPage}
-						onNext={nextPage}
-						onUserInteraction={stopAutoRotate}
-						isAutoRotating={isAutoRotating}
-						className="shrink-0"
-					/>
+					<Link
+						href="https://www.linkedin.com/in/alpharomercoma/details/recommendations/"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:gap-2.5 transition-all shrink-0"
+					>
+						All 16 on LinkedIn
+						<ArrowUpRight className="size-4" />
+					</Link>
 				</div>
 
 				<div className="grid md:grid-cols-3 gap-6">
-					{currentItems.map((rec, index) => (
-						<div
-							key={`${rec.author}-${currentPage}`}
-							className="p-8 sm:p-9 rounded-3xl h-full flex flex-col transition-transform duration-300 hover:-translate-y-1"
-							style={{
-								animation: "fadeIn 0.3s ease forwards",
-								animationDelay: `${index * 60}ms`,
-								opacity: 0,
-								backgroundColor: `color-mix(in oklch, ${rec.color} 10%, white)`,
-							}}
+					{recommendations.map((rec, index) => (
+						<figure
+							key={rec.author}
+							className="animate-on-scroll opacity-0 flex flex-col rounded-3xl border border-border bg-card p-7 sm:p-8"
+							style={{ animationDelay: `${index * 80}ms` }}
 						>
-							<Quote
-								className="h-7 w-7 mb-5 shrink-0"
-								style={{ color: rec.color, opacity: 0.55 }}
-							/>
-							<p className="text-[15px] sm:text-base text-foreground mb-8 leading-relaxed flex-1">
-								&ldquo;{rec.quote}&rdquo;
-							</p>
-							<div className="flex items-center gap-3 mt-auto pt-6 border-t border-black/5">
-								<div
-									className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white shrink-0"
-									style={{ backgroundColor: rec.color }}
-								>
-									{rec.author
-										.split(" ")
-										.map((n) => n[0])
-										.join("")}
-								</div>
-								<div className="min-w-0">
-									<p className="font-medium text-foreground text-sm truncate">
+							<Quote className="size-6 text-lime-strong mb-5 shrink-0" />
+							<blockquote className="text-[15px] text-foreground leading-relaxed flex-1">
+								{rec.quote}
+							</blockquote>
+							<figcaption className="flex items-center gap-3 mt-7 pt-6 border-t border-border">
+								<span className="flex size-9 items-center justify-center rounded-full bg-secondary text-xs font-semibold text-foreground shrink-0">
+									{initials(rec.author)}
+								</span>
+								<span className="min-w-0">
+									<span className="block text-sm font-medium text-foreground truncate">
 										{rec.author}
-									</p>
-									<p className="text-xs text-muted-foreground truncate">
-										{rec.title}, {rec.company}
-									</p>
-								</div>
-							</div>
-						</div>
+									</span>
+									<span className="block text-xs text-muted-foreground truncate">
+										{rec.title}
+									</span>
+								</span>
+							</figcaption>
+						</figure>
 					))}
 				</div>
-
-				<CarouselDots
-					currentPage={currentPage}
-					totalPages={totalPages}
-					onGoToPage={goToPage}
-					onUserInteraction={stopAutoRotate}
-					className="mt-6"
-				/>
 			</div>
 		</section>
 	);

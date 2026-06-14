@@ -20,7 +20,6 @@ type Project = {
 	github: string;
 	demo: string;
 	demoLabel?: string;
-	color: string;
 	image: string;
 };
 
@@ -34,7 +33,6 @@ const mlProjects: Project[] = [
 		github: "https://github.com/alpharomercoma",
 		demo: "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
 		demoLabel: "View deck",
-		color: "var(--color-red)",
 		image: "pytorch-asics.png",
 	},
 	{
@@ -45,7 +43,6 @@ const mlProjects: Project[] = [
 		metrics: ["92% accuracy", "Google Cloud TRC"],
 		github: "https://github.com/alpharomercoma/micromarc",
 		demo: "https://micromarc.vercel.app/",
-		color: "var(--color-blue)",
 		image: "visual-qwen.png",
 	},
 	{
@@ -58,7 +55,6 @@ const mlProjects: Project[] = [
 			"https://gist.github.com/NoctisDEV/e253977d65c5a18f7902ac984d1107e6",
 		demo: "https://www.kaggle.com/datasets/jobisaacong/tiktok-sludge-dataset-500/",
 		demoLabel: "Kaggle",
-		color: "var(--color-green)",
 		image: "sludge-dataset.png",
 	},
 	{
@@ -69,7 +65,6 @@ const mlProjects: Project[] = [
 		metrics: ["Gemini-powered", "Prompt engineered"],
 		github: "https://github.com/alpharomercoma/acerouter",
 		demo: "https://acerouter.vercel.app",
-		color: "var(--color-yellow)",
 		image: "acerouter.png",
 	},
 ];
@@ -83,7 +78,6 @@ const sweProjects: Project[] = [
 		metrics: ["4,000+ students", "90K+ tasks/yr"],
 		github: "https://github.com/FEUTechACMX/acmx",
 		demo: "https://acmx.vercel.app",
-		color: "var(--color-blue)",
 		image: "acmx.png",
 	},
 	{
@@ -94,7 +88,6 @@ const sweProjects: Project[] = [
 		metrics: ["7,200 jobs/min", "60+ countries"],
 		github: "https://github.com/alpharomercoma/ts-jobspy",
 		demo: "https://www.npmjs.com/package/ts-jobspy",
-		color: "var(--color-yellow)",
 		image: "ts-jobspy.png",
 	},
 	{
@@ -105,7 +98,6 @@ const sweProjects: Project[] = [
 		metrics: ["PJDSC Finalist", "GlobalCo Special Award"],
 		github: "https://github.com/alpharomercoma/para-po",
 		demo: "https://parapo.vercel.app",
-		color: "var(--color-green)",
 		image: "para-po.png",
 	},
 	{
@@ -116,7 +108,6 @@ const sweProjects: Project[] = [
 		metrics: ["NASA Space Apps 2024", "Built in 48h"],
 		github: "https://github.com/FEUTechACM/NASA-hackathon-2024",
 		demo: "https://projectnature.vercel.app",
-		color: "var(--color-blue)",
 		image: "project-nature.png",
 	},
 	{
@@ -128,7 +119,6 @@ const sweProjects: Project[] = [
 		github:
 			"https://www.spaceappschallenge.org/2023/find-a-team/feu-tech-acm/?tab=project",
 		demo: "https://drive.google.com/file/d/1FE7qHmqmVG-y03WzYkNwnDzSRIBPOyUl/view",
-		color: "var(--color-red)",
 		image: "fireguard.png",
 	},
 	{
@@ -139,7 +129,6 @@ const sweProjects: Project[] = [
 		metrics: ["Codetober '24 Champion", "Built in 2 days"],
 		github: "http://github.com/alpharomercoma/kape",
 		demo: "https://alpharomercoma.github.io/kape",
-		color: "var(--color-yellow)",
 		image: "kape-ni-rab.png",
 	},
 	{
@@ -150,7 +139,6 @@ const sweProjects: Project[] = [
 		metrics: ["200+ installs", "2 app stores"],
 		github: "http://github.com/alpharomercoma/mdstudio",
 		demo: "https://markdownstudio.vercel.app/",
-		color: "var(--color-green)",
 		image: "mdstudio.png",
 	},
 	{
@@ -161,7 +149,6 @@ const sweProjects: Project[] = [
 		metrics: ["Open source", "Self-hosted"],
 		github: "http://github.com/alpharomercoma/setsunai",
 		demo: "https://setsunai.vercel.app",
-		color: "var(--color-red)",
 		image: "setsunai.png",
 	},
 	{
@@ -172,7 +159,6 @@ const sweProjects: Project[] = [
 		metrics: ["Real-time chat", "First full-stack"],
 		github: "https://github.com/alpharomercoma/mymnhs",
 		demo: "https://mymnhs.vercel.app",
-		color: "var(--color-blue)",
 		image: "mymnhs.png",
 	},
 ];
@@ -228,25 +214,23 @@ export function ProjectsSection() {
 		<section
 			ref={sectionRef}
 			id="projects"
-			className="py-20 sm:py-28 px-4 sm:px-6"
+			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-border"
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="max-w-3xl mb-10 sm:mb-12">
-					<p className="animate-on-scroll opacity-0 eyebrow mb-4">
-						Selected work
-					</p>
+					<p className="animate-on-scroll opacity-0 eyebrow mb-4">Projects</p>
 					<h2
 						className="animate-on-scroll opacity-0 display-lg mb-4"
 						style={{ animationDelay: "100ms" }}
 					>
-						Research, accelerated compute, and production systems.
+						Things I&apos;ve built — research to production.
 					</h2>
 					<p
 						className="animate-on-scroll opacity-0 lede"
 						style={{ animationDelay: "150ms" }}
 					>
-						Work across my two niches, multimodality and accelerated computing,
-						plus the software engineering projects that keep shipping to real
+						Work across my two niches — multimodality and accelerated computing
+						— plus the software engineering projects that keep shipping to real
 						users.
 					</p>
 				</div>
@@ -255,7 +239,7 @@ export function ProjectsSection() {
 					<div
 						role="tablist"
 						aria-label="Project categories"
-						className="inline-flex items-center gap-1 p-1 rounded-full bg-gray-50 border border-gray-100"
+						className="inline-flex items-center gap-1 p-1 rounded-full bg-secondary border border-border"
 					>
 						{(Object.keys(tabConfig) as Tab[]).map((k) => {
 							const active = tab === k;
@@ -304,29 +288,25 @@ export function ProjectsSection() {
 					{currentItems.map((project, index) => (
 						<article
 							key={`${tab}-${project.title}-${currentPage}`}
-							className="group flex flex-col rounded-3xl overflow-hidden bg-white border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:border-gray-200 hover:shadow-[0_8px_30px_-10px_rgba(15,23,42,0.12)]"
+							className="group flex flex-col rounded-3xl overflow-hidden bg-card border border-border transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25"
 							style={{
 								animation: "fadeIn 0.3s ease forwards",
 								animationDelay: `${index * 40}ms`,
 								opacity: 0,
 							}}
 						>
-							<div
-								className="relative aspect-[16/10] overflow-hidden"
-								style={{
-									backgroundColor: `color-mix(in oklch, ${project.color} 10%, white)`,
-								}}
-							>
+							<div className="relative aspect-[16/10] overflow-hidden bg-muted border-b border-border">
 								<Image
 									src={"/projects/" + project.image}
 									alt={project.title}
 									fill
+									sizes="(max-width: 640px) 100vw, 33vw"
 									className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
 								/>
 							</div>
 							<div className="flex flex-col flex-1 p-6">
 								<div className="flex items-start justify-between gap-3 mb-3">
-									<h3 className="font-semibold text-foreground text-[17px] leading-snug tracking-tight">
+									<h3 className="font-display font-semibold text-foreground text-[17px] leading-snug tracking-tight">
 										{project.title}
 									</h3>
 									<ArrowUpRight className="h-4 w-4 text-muted-foreground shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -334,27 +314,18 @@ export function ProjectsSection() {
 								<p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
 									{project.description}
 								</p>
-								<div className="flex flex-wrap gap-1.5 mb-4">
+								<div className="flex flex-wrap gap-1.5 mb-5">
 									{project.metrics.map((metric) => (
 										<span
 											key={metric}
-											className="inline-flex items-center rounded-full text-[11px] font-medium px-2.5 py-1"
-											style={{
-												backgroundColor: `color-mix(in oklch, ${project.color} 14%, white)`,
-												color: project.color,
-											}}
+											className="inline-flex items-center rounded-full bg-secondary text-muted-foreground text-[11px] font-medium px-2.5 py-1"
 										>
 											{metric}
 										</span>
 									))}
 								</div>
 								<div className="mt-auto flex items-center gap-2">
-									<Button
-										variant="outline"
-										size="sm"
-										className="rounded-full border-gray-200 h-9 px-4"
-										asChild
-									>
+									<Button variant="outline" size="sm" asChild>
 										<Link
 											href={project.github}
 											target="_blank"
@@ -365,7 +336,7 @@ export function ProjectsSection() {
 									</Button>
 									<Button
 										size="sm"
-										className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-9 px-4"
+										className="bg-foreground text-background hover:bg-foreground/85"
 										asChild
 									>
 										<Link
@@ -373,7 +344,7 @@ export function ProjectsSection() {
 											target="_blank"
 											rel="noopener noreferrer"
 										>
-											{project.demoLabel ?? "Live demo"}{" "}
+											{project.demoLabel ?? "Live demo"}
 											<ArrowUpRight className="h-3.5 w-3.5" />
 										</Link>
 									</Button>

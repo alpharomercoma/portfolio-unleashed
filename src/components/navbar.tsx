@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const navItems = [
-	{ label: "About", href: "#about" },
+	{ label: "Work", href: "#work" },
 	{ label: "Projects", href: "#projects" },
 	{ label: "Speaking", href: "#speaking" },
 	{ label: "Writing", href: "#blog" },
-	{ label: "Awards", href: "#awards" },
+	{ label: "Recognition", href: "#recognition" },
 ];
 
 export function Navbar() {
@@ -55,14 +55,14 @@ export function Navbar() {
 			<div className="px-5 sm:px-6 lg:px-8 py-3 sm:py-3.5 lg:py-4 flex items-center justify-between gap-4">
 				<Link
 					href="/"
-					className="text-lg lg:text-xl font-semibold text-foreground hover:opacity-80 transition-opacity shrink-0"
+					className="flex items-center gap-2 font-display text-lg lg:text-xl font-semibold text-foreground hover:opacity-80 transition-opacity shrink-0 tracking-tight"
 					aria-label="Alpha Romer Coma, home"
 				>
-					<span className="text-[var(--color-blue)]">A</span>
-					<span className="text-[var(--color-red)]">l</span>
-					<span className="text-[var(--color-yellow)]">p</span>
-					<span className="text-[var(--color-green)]">h</span>
-					<span className="text-[var(--color-blue)]">a</span>
+					<span
+						aria-hidden="true"
+						className="inline-block size-3.5 rounded-[4px] bg-lime"
+					/>
+					Alpha
 				</Link>
 
 				<div className="hidden lg:flex items-center gap-1">
@@ -78,14 +78,10 @@ export function Navbar() {
 				</div>
 
 				<div className="hidden lg:flex items-center shrink-0">
-					<Button
-						asChild
-						size="sm"
-						className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-10 px-5"
-					>
-						<Link href="/blog">
-							Blog
-							<ArrowUpRight className="ml-1 h-4 w-4" />
+					<Button asChild size="sm">
+						<Link href="#contact">
+							Let&apos;s talk
+							<ArrowUpRight className="h-4 w-4" />
 						</Link>
 					</Button>
 				</div>
@@ -93,7 +89,7 @@ export function Navbar() {
 				<Button
 					variant="ghost"
 					size="icon"
-					className="lg:hidden h-10 w-10 relative bg-transparent text-foreground hover:bg-gray-100"
+					className="lg:hidden h-10 w-10 relative bg-transparent text-foreground hover:bg-secondary"
 					onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 					aria-label="Toggle menu"
 					aria-expanded={isMobileMenuOpen}
@@ -142,14 +138,10 @@ export function Navbar() {
 							{item.label}
 						</Link>
 					))}
-					<Button
-						asChild
-						size="lg"
-						className="rounded-full bg-foreground text-background hover:bg-foreground/90 h-12 px-6 w-full mt-2"
-					>
-						<Link href="/blog" onClick={() => setIsMobileMenuOpen(false)}>
-							Blog
-							<ArrowUpRight className="ml-2 h-4 w-4" />
+					<Button asChild size="lg" className="w-full mt-2">
+						<Link href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+							Let&apos;s talk
+							<ArrowUpRight className="h-4 w-4" />
 						</Link>
 					</Button>
 				</div>

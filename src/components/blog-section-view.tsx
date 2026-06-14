@@ -13,7 +13,6 @@ export type BlogCard = {
 	date: string; // human-readable, already formatted server-side
 	coverImage: string | null;
 	coverAlt: string;
-	color: string;
 };
 
 type Props = {
@@ -45,7 +44,11 @@ export function BlogSectionView({ posts }: Props) {
 	const more = posts.slice(MAX_LEAD);
 
 	return (
-		<section ref={sectionRef} id="blog" className="py-20 sm:py-28 px-4 sm:px-6">
+		<section
+			ref={sectionRef}
+			id="blog"
+			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-border"
+		>
 			<div className="max-w-6xl mx-auto">
 				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
 					<div className="max-w-3xl">
@@ -67,12 +70,13 @@ export function BlogSectionView({ posts }: Props) {
 					<Button
 						variant="outline"
 						size="sm"
-						className="animate-on-scroll opacity-0 rounded-full h-10 px-5 text-sm border-gray-200 hover:bg-gray-50 shrink-0"
+						className="animate-on-scroll opacity-0 shrink-0"
 						style={{ animationDelay: "200ms" }}
 						asChild
 					>
 						<Link href="/blog">
-							All posts <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+							All posts
+							<ArrowRight className="h-3.5 w-3.5" />
 						</Link>
 					</Button>
 				</div>
@@ -83,15 +87,10 @@ export function BlogSectionView({ posts }: Props) {
 							<Link
 								key={post.slug}
 								href={`/blog/${post.slug}`}
-								className="animate-on-scroll opacity-0 rounded-3xl overflow-hidden group block bg-white border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_-10px_rgba(15,23,42,0.12)]"
+								className="animate-on-scroll opacity-0 rounded-3xl overflow-hidden group block bg-card border border-border transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25"
 								style={{ animationDelay: `${(index + 1) * 50}ms` }}
 							>
-								<div
-									className="relative aspect-[16/10] overflow-hidden"
-									style={{
-										backgroundColor: `color-mix(in oklch, ${post.color} 12%, white)`,
-									}}
-								>
+								<div className="relative aspect-[16/10] overflow-hidden bg-muted border-b border-border">
 									{post.coverImage ? (
 										<Image
 											src={post.coverImage}
@@ -103,13 +102,13 @@ export function BlogSectionView({ posts }: Props) {
 									) : null}
 								</div>
 								<div className="p-6">
-									<h3 className="font-semibold text-foreground text-[17px] leading-snug tracking-tight mb-2.5">
+									<h3 className="font-display font-semibold text-foreground text-[17px] leading-snug tracking-tight mb-2.5">
 										{post.title}
 									</h3>
 									<p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">
 										{post.excerpt}
 									</p>
-									<div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-gray-100">
+									<div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
 										<span>{post.date}</span>
 										<span className="inline-flex items-center gap-1 font-medium text-foreground opacity-70 group-hover:opacity-100 transition-opacity">
 											Read <ArrowRight className="h-3 w-3" />
@@ -127,15 +126,15 @@ export function BlogSectionView({ posts }: Props) {
 							<Link
 								key={post.slug}
 								href={`/blog/${post.slug}`}
-								className="animate-on-scroll opacity-0 group flex items-start gap-4 p-5 rounded-2xl bg-gray-50/70 hover:bg-gray-50 transition-colors"
+								className="animate-on-scroll opacity-0 group flex items-start gap-4 p-5 rounded-2xl bg-secondary border border-border hover:border-foreground/25 transition-colors"
 								style={{ animationDelay: `${(index + 4) * 50}ms` }}
 							>
 								<span
-									className="mt-1 h-8 w-8 rounded-lg shrink-0"
-									style={{
-										backgroundColor: `color-mix(in oklch, ${post.color} 18%, white)`,
-									}}
-								/>
+									aria-hidden
+									className="mt-1 flex h-8 w-8 items-center justify-center rounded-lg bg-card border border-border shrink-0"
+								>
+									<span className="size-1.5 rounded-full bg-lime" />
+								</span>
 								<div className="min-w-0 flex-1">
 									<h4 className="font-medium text-foreground text-sm leading-snug mb-1 group-hover:opacity-70 transition-opacity line-clamp-2">
 										{post.title}
@@ -150,7 +149,7 @@ export function BlogSectionView({ posts }: Props) {
 				)}
 
 				{posts.length === 0 && (
-					<div className="rounded-2xl border border-gray-100 bg-gray-50/60 p-10 text-center">
+					<div className="rounded-2xl border border-border bg-secondary p-10 text-center">
 						<p className="text-sm text-muted-foreground">
 							No published posts yet. Check back soon.
 						</p>
