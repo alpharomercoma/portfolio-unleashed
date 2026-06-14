@@ -39,8 +39,13 @@ export function TalkCard({ talk }: { talk: Talk }) {
 
 			<div className="relative mt-6 flex items-center justify-between gap-3 pt-4 border-t border-border">
 				<span className="font-mono text-[11px] text-muted-foreground">
-					{talk.type} · {talk.level} · {sessions}{" "}
-					{sessions === 1 ? "session" : "sessions"}
+					{[
+						talk.type,
+						talk.level,
+						`${sessions} ${sessions === 1 ? "session" : "sessions"}`,
+					]
+						.filter(Boolean)
+						.join(" · ")}
 				</span>
 				<ArrowUpRight className="size-4 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 			</div>

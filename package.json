@@ -15,7 +15,8 @@
 		"setup": "npx sanity@latest init --env .env",
 		"postsetup": "echo 'create the read token by following the rest of the guide: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#creating-a-read-token'",
 		"typegen": "node scripts/typegen.mjs",
-		"seed-talks": "node scripts/seed-talks.mjs"
+		"seed-talks": "node scripts/seed-talks.mjs",
+		"seed-collections": "node scripts/seed-collections.mjs"
 	},
 	"dependencies": {
 		"@ai-sdk/google": "^2.0.46",

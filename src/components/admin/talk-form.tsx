@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 import { saveTalk } from "@/app/admin/actions";
 import { Button } from "@/components/ui/button";
@@ -9,6 +12,7 @@ import {
 	TALK_CATEGORIES,
 	TALK_LEVELS,
 	TALK_TYPES,
+	TYPES_WITHOUT_LEVEL,
 	type Talk,
 } from "@/lib/talks/schema";
 
@@ -17,6 +21,8 @@ const selectCls =
 
 export function TalkForm({ talk, error }: { talk?: Talk; error?: string }) {
 	const t = talk;
+	const [type, setType] = useState<Talk["type"]>(t?.type ?? "Talk");
+	const hasLevel = !TYPES_WITHOUT_LEVEL.includes(type);
 	return (
 		<form action={saveTalk} className="space-y-6 max-w-2xl">
 			{error && (
@@ -43,7 +49,8 @@ export function TalkForm({ talk, error }: { talk?: Talk; error?: string }) {
 					<select
 						id="type"
 						name="type"
-						defaultValue={t?.type ?? "Talk"}
+						value={type}
+						onChange={(e) => setType(e.target.value as Talk["type"])}
 						className={selectCls}
 					>
 						{TALK_TYPES.map((v) => (
@@ -53,21 +60,30 @@ export function TalkForm({ talk, error }: { talk?: Talk; error?: string }) {
 						))}
 					</select>
 				</div>
-				<div className="space-y-2">
-					<Label htmlFor="level">Level</Label>
-					<select
-						id="level"
-						name="level"
-						defaultValue={t?.level ?? "Foundational"}
-						className={selectCls}
-					>
-						{TALK_LEVELS.map((v) => (
-							<option key={v} value={v}>
-								{v}
-							</option>
-						))}
-					</select>
-				</div>
+				{hasLevel ? (
+					<div className="space-y-2">
+						<Label htmlFor="level">Level</Label>
+						<select
+							id="level"
+							name="level"
+							defaultValue={t?.level ?? "Foundational"}
+							className={selectCls}
+						>
+							{TALK_LEVELS.map((v) => (
+								<option key={v} value={v}>
+									{v}
+								</option>
+							))}
+						</select>
+					</div>
+				) : (
+					<div className="space-y-2">
+						<Label>Level</Label>
+						<p className="flex h-9 items-center text-sm text-muted-foreground">
+							Not applicable
+						</p>
+					</div>
+				)}
 				<div className="space-y-2 col-span-2 sm:col-span-1">
 					<Label htmlFor="category">Category</Label>
 					<input
@@ -217,7 +233,7 @@ export function TalkForm({ talk, error }: { talk?: Talk; error?: string }) {
 			<div className="flex items-center gap-3 pt-2">
 				<Button type="submit">Save talk</Button>
 				<Button asChild variant="outline">
-					<Link href="/admin">Cancel</Link>
+					<Link href="/admin/talks">Cancel</Link>
 				</Button>
 			</div>
 		</form>

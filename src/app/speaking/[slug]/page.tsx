@@ -117,10 +117,14 @@ export default async function TalkPage({ params }: Props) {
 					)}
 
 					{/* Metadata bar */}
-					<dl className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px rounded-2xl overflow-hidden border border-border bg-border">
+					<dl
+						className={`mt-10 grid grid-cols-2 sm:grid-cols-3 ${
+							talk.level ? "lg:grid-cols-5" : "lg:grid-cols-4"
+						} gap-px rounded-2xl overflow-hidden border border-border bg-border`}
+					>
 						<MetaCell label="Type" value={talk.type} />
 						<MetaCell label="Category" value={talk.category} />
-						<MetaCell label="Level" value={talk.level} />
+						{talk.level && <MetaCell label="Level" value={talk.level} />}
 						<MetaCell label="Duration" value={`${talk.durationMinutes} min`} />
 						<MetaCell label="Language" value={talk.language} />
 					</dl>

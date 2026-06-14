@@ -1,7 +1,7 @@
 "use server";
 
 import { put } from "@vercel/blob";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -12,8 +12,17 @@ import {
 	signSession,
 } from "@/lib/auth";
 import { getSession } from "@/lib/session";
-import { type Talk, slugify, talkEventSchema } from "@/lib/talks/schema";
-import { deleteTalk as storeDelete, upsertTalk } from "@/lib/talks/store";
+import {
+	type Talk,
+	TYPES_WITHOUT_LEVEL,
+	slugify,
+	talkEventSchema,
+} from "@/lib/talks/schema";
+import {
+	TALKS_TAG,
+	deleteTalk as storeDelete,
+	upsertTalk,
+} from "@/lib/talks/store";
 
 export async function login(formData: FormData) {
 	const password = String(formData.get("password") ?? "");
@@ -88,13 +97,21 @@ export async function saveTalk(formData: FormData) {
 		);
 	}
 
+	const type = (String(formData.get("type")) as Talk["type"]) || "Talk";
+	const levelRaw = String(formData.get("level") ?? "").trim();
+	// Podcasts (and any TYPES_WITHOUT_LEVEL) carry no level.
+	const level =
+		TYPES_WITHOUT_LEVEL.includes(type) || !levelRaw
+			? undefined
+			: (levelRaw as NonNullable<Talk["level"]>);
+
 	const talk: Talk = {
 		slug,
 		title,
 		tagline: String(formData.get("tagline") ?? "").trim(),
-		type: (String(formData.get("type")) as Talk["type"]) || "Talk",
+		type,
 		category: String(formData.get("category") ?? "Community").trim(),
-		level: (String(formData.get("level")) as Talk["level"]) || "Foundational",
+		level,
 		durationMinutes: Number(formData.get("durationMinutes") ?? 60) || 60,
 		language: String(formData.get("language") ?? "English").trim() || "English",
 		tags: lines(formData.get("tags")),
@@ -112,11 +129,12 @@ export async function saveTalk(formData: FormData) {
 	};
 
 	await upsertTalk(talk);
+	updateTag(TALKS_TAG);
 	revalidatePath("/speaking");
 	revalidatePath(`/speaking/${slug}`);
 	revalidatePath("/admin");
 	revalidatePath("/");
-	redirect("/admin");
+	redirect("/admin/talks");
 }
 
 export async function removeTalk(formData: FormData) {
@@ -124,9 +142,11 @@ export async function removeTalk(formData: FormData) {
 	const slug = String(formData.get("slug") ?? "").trim();
 	if (slug) {
 		await storeDelete(slug);
+		updateTag(TALKS_TAG);
 		revalidatePath("/speaking");
 		revalidatePath("/admin");
+		revalidatePath("/admin/talks");
 		revalidatePath("/");
 	}
-	redirect("/admin");
+	redirect("/admin/talks");
 }

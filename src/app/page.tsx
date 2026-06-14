@@ -8,10 +8,21 @@ import { RecognitionSection } from "@/components/recognition-section";
 import { RecommendationsSection } from "@/components/recommendations-section";
 import { SelectedWorkSection } from "@/components/selected-work-section";
 import { SpeakingSection } from "@/components/speaking-section";
+import type {
+	Award,
+	Certification,
+	Recommendation,
+} from "@/lib/collections/schema";
+import { getAllItems } from "@/lib/collections/store";
 import { getAllTalks } from "@/lib/talks/store";
 
 export default async function Home() {
-	const talks = await getAllTalks();
+	const [talks, awards, certifications, recommendations] = await Promise.all([
+		getAllTalks(),
+		getAllItems("awards"),
+		getAllItems("certifications"),
+		getAllItems("recommendations"),
+	]);
 	const featured = talks.filter((t) => t.featured);
 	const speakingTeaser = (featured.length > 0 ? featured : talks).slice(0, 6);
 
@@ -23,8 +34,13 @@ export default async function Home() {
 			<ProjectsSection />
 			<SpeakingSection talks={speakingTeaser} total={talks.length} />
 			<BlogSection />
-			<RecognitionSection />
-			<RecommendationsSection />
+			<RecognitionSection
+				awards={awards as unknown as Award[]}
+				certifications={certifications as unknown as Certification[]}
+			/>
+			<RecommendationsSection
+				recommendations={recommendations as unknown as Recommendation[]}
+			/>
 			<CtaSection />
 			<Footer />
 		</main>

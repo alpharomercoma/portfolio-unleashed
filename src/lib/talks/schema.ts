@@ -3,12 +3,17 @@ import { z } from "zod";
 // A talk is a topic (abstract, outline, takeaways, metadata). It is delivered at
 // one or more events. Modeled on smatoto.dev: one talk -> many events.
 
-export const TALK_TYPES = ["Talk", "Workshop", "Keynote"] as const;
+export const TALK_TYPES = ["Talk", "Workshop", "Keynote", "Podcast"] as const;
 export const TALK_LEVELS = [
 	"Foundational",
 	"Intermediate",
 	"Advanced",
 ] as const;
+
+// Types that carry an audience level. Podcasts (conversational) do not.
+export const TYPES_WITHOUT_LEVEL: readonly (typeof TALK_TYPES)[number][] = [
+	"Podcast",
+];
 
 // Suggested categories for this ML/dev portfolio. Stored as a free string so the
 // admin can add new ones, but the UI offers these.
@@ -43,7 +48,8 @@ export const talkSchema = z.object({
 	tagline: z.string().default(""),
 	type: z.enum(TALK_TYPES).default("Talk"),
 	category: z.string().default("Community"),
-	level: z.enum(TALK_LEVELS).default("Foundational"),
+	// Optional: podcasts and other conversational formats carry no level.
+	level: z.enum(TALK_LEVELS).optional(),
 	durationMinutes: z.number().int().positive().default(60),
 	language: z.string().default("English"),
 	tags: z.array(z.string()).default([]),

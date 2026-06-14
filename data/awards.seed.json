@@ -1,0 +1,56 @@
+[
+	{
+		"id": "ph100-100-brightest-minds-of-the-philippines",
+		"title": "PH100: 100 Brightest Minds of the Philippines",
+		"organization": "Stellar PH",
+		"year": "2025",
+		"image": "ph100.png",
+		"context": "Inducted into Stellar PH's inaugural cohort of the 100 brightest young minds across industries, from a nationwide pool of nominees.",
+		"category": "Recognition"
+	},
+	{
+		"id": "national-ai-prompt-design-challenge-ph-champion",
+		"title": "National AI Prompt Design Challenge PH Champion",
+		"organization": "Straits Interactive",
+		"year": "2025",
+		"image": "naipdc.jpg",
+		"context": "Won nationally with Kasanayan Navigator, a chain-of-thought chatbot that upskills Filipinos toward their desired role.",
+		"category": "AI & Research"
+	},
+	{
+		"id": "philippine-junior-data-science-challenge-finalist",
+		"title": "Philippine Junior Data Science Challenge Finalist",
+		"organization": "UP Data Science Society",
+		"year": "2024",
+		"image": "pjdsc.jpg",
+		"context": "Finalist and GlobalCo Special Award recipient for Para Po!, a transport route optimizer with an incentivized carbon-reduction program.",
+		"category": "AI & Research"
+	},
+	{
+		"id": "codetober-web-development-champions",
+		"title": "Codetober Web Development Champions",
+		"organization": "FEU Tech AITS",
+		"year": "2024",
+		"image": "codetober.png",
+		"context": "Shipped Kape ni Rab, a full coffee-shop site, in 48 hours to take the FEU Tech Alliance of IT Students' annual dev challenge.",
+		"category": "Hackathon"
+	},
+	{
+		"id": "algolympics-finalist",
+		"title": "Algolympics Finalist",
+		"organization": "UP Diliman ACM",
+		"year": "2024",
+		"image": "algolympics.png",
+		"context": "Finalist at the premier competitive-programming tournament of the UP Diliman ACM Student Chapter.",
+		"category": "Hackathon"
+	},
+	{
+		"id": "nasa-space-apps-challenge-global-nominee",
+		"title": "NASA Space Apps Challenge Global Nominee",
+		"organization": "NASA",
+		"year": "2023",
+		"image": "nasa_nominee_23.png",
+		"context": "Globally nominated with Fireguard, a satellite-driven, community-based fire-management system for the Philippines.",
+		"category": "Hackathon"
+	}
+]

@@ -1,10 +1,14 @@
 import "server-only";
 
 import { Redis } from "@upstash/redis";
+import { unstable_cache } from "next/cache";
 import { z } from "zod";
 
 import seedData from "../../../data/talks.seed.json";
 import { type Talk, sortTalksByRecency, talkSchema } from "./schema";
+
+// Revalidated by the admin write actions; until then reads serve from cache.
+export const TALKS_TAG = "talks";
 
 // Support both the Upstash-native and Vercel-KV-style env var names.
 const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
@@ -34,7 +38,7 @@ function parseTalks(raw: unknown[]): Talk[] {
 		.flatMap((r) => (r.success ? [r.data] : []));
 }
 
-export async function getAllTalks(): Promise<Talk[]> {
+async function readAllTalks(): Promise<Talk[]> {
 	if (!redis) return sortTalksByRecency(seedTalks());
 	try {
 		const slugs = await redis.smembers(SLUGS_KEY);
@@ -48,18 +52,18 @@ export async function getAllTalks(): Promise<Talk[]> {
 	}
 }
 
+/**
+ * All talks, cached and tagged `talks`. The admin write actions revalidate the
+ * tag, so Upstash is queried only on a cache miss rather than every request.
+ */
+export function getAllTalks(): Promise<Talk[]> {
+	return unstable_cache(readAllTalks, ["talks-all"], { tags: [TALKS_TAG] })();
+}
+
 export async function getTalk(slug: string): Promise<Talk | null> {
-	const fromSeed = () => seedTalks().find((t) => t.slug === slug) ?? null;
-	if (!redis) return fromSeed();
-	try {
-		const raw = await redis.get<unknown>(TALK_KEY(slug));
-		if (!raw) return fromSeed();
-		const res = talkSchema.safeParse(raw);
-		return res.success ? res.data : fromSeed();
-	} catch (error) {
-		console.warn("[talks] read failed; using seed fallback.", error);
-		return fromSeed();
-	}
+	// Derive from the cached list so a detail page doesn't add its own query.
+	const all = await getAllTalks();
+	return all.find((t) => t.slug === slug) ?? null;
 }
 
 export async function getFeaturedTalks(limit = 3): Promise<Talk[]> {
