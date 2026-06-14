@@ -83,18 +83,39 @@ Optional sanity check: `npx @bubblewrap/cli validate --url https://alpharomer.co
 
 ## Phase 4 — Store listing (assets are ready in `twa/play-assets/`)
 
-- **App icon (512×512):** `public/web-app-manifest-512x512.png`
+- **App icon (512×512, <1MB):** `twa/play-assets/app-icon-512.png`
 - **Feature graphic (1024×500):** `twa/play-assets/feature-graphic.png`
-- **Phone screenshots (1080×2160):** `twa/play-assets/phone-{home,speaking,gallery,blog}.png`
+- **Phone screenshots (1080×1920, 9:16):** `twa/play-assets/phone-{home,speaking,blog,stats}.png`
+  (hero, PyTorch Conf Europe talk card, a writing post, and the $376K/92%/4x/25+ + affiliations band)
+- **7-inch tablet (1920×1080, 16:9):** `twa/play-assets/tablet7-{home,speaking,blog}.png`
+- **10-inch tablet (2560×1440, 16:9):** `twa/play-assets/tablet10-{home,speaking,blog}.png`
 - **Privacy policy URL:** `https://alpharomer.com/privacy`
-- **Short description (≤80):** `ML engineer building intelligent systems that scale — talks, work, and writing.`
-- **Full description (draft):**
-  > Alpha is the official app for Alpha Romer Coma, a machine learning engineer
-  > focused on multimodality and accelerated computing. Browse selected work and
-  > projects, talks and workshops (including PyTorch Conference Europe), writing,
-  > recognition, and a gallery — all in a fast, installable, offline-capable app.
+- **Short description (78/80):**
+  `ML engineer building intelligent systems that scale. Talks, work, and writing.`
+- **Full description:**
+  > Alpha is the official app of Alpha Romer Coma, a machine learning engineer
+  > working on multimodality and accelerated computing. It is the fastest way to
+  > explore the work behind the title: selected projects and research, talks and
+  > workshops, writing, and recognition. The app installs to your home screen,
+  > loads instantly, and works offline.
+  >
+  > Speaking: talks and workshops, including PyTorch Conference Europe 2026, plus
+  > sessions with the Microsoft, Google, and AWS communities.
+  >
+  > Research and work: multimodal AI and accelerated computing, including a shipped
+  > vision-language model and benchmarks across modern accelerators, backed by a
+  > $376,000 Google Cloud compute grant.
+  >
+  > Writing: practical notes and essays on building intelligent systems and the
+  > engineering behind them.
+  >
+  > Recognition: awards, honors, and a running record of the work.
+  >
+  > Built as a Progressive Web App, Alpha mirrors alpharomer.com with offline
+  > support and a clean, distraction-free reading experience. No ads. No
+  > third-party tracking. Just the work.
 - Complete the **content rating** questionnaire, **Data safety** form (analytics
-  only; no data sold), and **target audience** (not directed at children).
+  only; no data sold), and **target audience** (13+, not directed at children).
 
 Promote Internal testing → Production when you're happy.
 
