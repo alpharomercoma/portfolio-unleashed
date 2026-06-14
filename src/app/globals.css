@@ -3,52 +3,97 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Light mode color palette with Google/Microsoft inspired hints of blue, red, yellow, green */
+/*
+ * Nebius-inspired brand system: white-dominant, ink-black, single lime accent.
+ * 60 white / 30 ink / 10 lime. Lime is the exact Nebius signature (#E0FF4F).
+ * See docs/design-system.md for the full rationale and usage rules.
+ */
 :root {
-	--background: oklch(0.99 0 0);
-	--foreground: oklch(0.15 0.01 260);
-	--card: oklch(0.98 0 0);
-	--card-foreground: oklch(0.15 0.01 260);
-	--popover: oklch(0.99 0 0);
-	--popover-foreground: oklch(0.15 0.01 260);
-	--primary: oklch(0.55 0.2 250);
-	--primary-foreground: oklch(0.99 0 0);
-	--secondary: oklch(0.96 0.005 260);
-	--secondary-foreground: oklch(0.25 0.01 260);
-	--muted: oklch(0.94 0.005 260);
-	--muted-foreground: oklch(0.45 0.02 260);
-	--accent: oklch(0.55 0.2 250);
-	--accent-foreground: oklch(0.99 0 0);
-	--destructive: oklch(0.6 0.22 25);
-	--destructive-foreground: oklch(0.99 0 0);
-	--border: oklch(0.9 0.005 260);
-	--input: oklch(0.94 0.005 260);
-	--ring: oklch(0.55 0.2 250);
+	/* Brand */
+	--lime: #e0ff4f; /* signature accent — buttons, key highlights, tags */
+	--lime-soft: #eaff8c; /* tints, hover washes */
+	--lime-strong: #b6d62f; /* lime as text/icon on light surfaces (contrast) */
+	--ink: #16171a; /* near-black */
 
-	/* Google/Microsoft inspired colors */
+	--background: #ffffff;
+	--foreground: #16171a;
+	--card: #ffffff;
+	--card-foreground: #16171a;
+	--popover: #ffffff;
+	--popover-foreground: #16171a;
+	--primary: #e0ff4f;
+	--primary-foreground: #16171a;
+	--secondary: #f4f5f3;
+	--secondary-foreground: #16171a;
+	--muted: #f4f5f3;
+	--muted-foreground: #6b6e74;
+	--accent: #f0f1ee;
+	--accent-foreground: #16171a;
+	--destructive: #e5484d;
+	--destructive-foreground: #ffffff;
+	--border: #e7e8e4;
+	--input: #e7e8e4;
+	--ring: #16171a;
+
+	/* Legacy multicolor tokens — retained until each section is rebranded,
+	   then removed. Do not use in new code; reach for --lime / --ink. */
 	--color-blue: oklch(0.55 0.2 250);
 	--color-red: oklch(0.6 0.22 25);
 	--color-yellow: oklch(0.8 0.18 85);
 	--color-green: oklch(0.6 0.2 145);
 
-	--chart-1: oklch(0.55 0.2 250);
-	--chart-2: oklch(0.6 0.22 25);
-	--chart-3: oklch(0.8 0.18 85);
-	--chart-4: oklch(0.6 0.2 145);
-	--chart-5: oklch(0.65 0.15 300);
-	--radius: 0.625rem;
-	--sidebar: oklch(0.98 0 0);
-	--sidebar-foreground: oklch(0.15 0.01 260);
-	--sidebar-primary: oklch(0.55 0.2 250);
-	--sidebar-primary-foreground: oklch(0.99 0 0);
-	--sidebar-accent: oklch(0.96 0.005 260);
-	--sidebar-accent-foreground: oklch(0.25 0.01 260);
-	--sidebar-border: oklch(0.9 0.005 260);
-	--sidebar-ring: oklch(0.55 0.2 250);
+	--radius: 0.875rem;
+	--sidebar: #ffffff;
+	--sidebar-foreground: #16171a;
+	--sidebar-primary: #e0ff4f;
+	--sidebar-primary-foreground: #16171a;
+	--sidebar-accent: #f0f1ee;
+	--sidebar-accent-foreground: #16171a;
+	--sidebar-border: #e7e8e4;
+	--sidebar-ring: #16171a;
+}
+
+/*
+ * Dark feature panels (the "30%" ink blocks). Wrap any section in
+ * `className="dark"` and shadcn primitives + utilities flip automatically.
+ */
+.dark {
+	--background: #0d0e10;
+	--foreground: #f5f6f3;
+	--card: #161719;
+	--card-foreground: #f5f6f3;
+	--popover: #161719;
+	--popover-foreground: #f5f6f3;
+	--primary: #e0ff4f;
+	--primary-foreground: #16171a;
+	--secondary: #1c1d20;
+	--secondary-foreground: #f5f6f3;
+	--muted: #1c1d20;
+	--muted-foreground: #a2a4ab;
+	--accent: #232427;
+	--accent-foreground: #f5f6f3;
+	--destructive: #ff6166;
+	--destructive-foreground: #16171a;
+	--border: rgba(255, 255, 255, 0.12);
+	--input: rgba(255, 255, 255, 0.16);
+	--ring: #e0ff4f;
+	--sidebar: #0d0e10;
+	--sidebar-foreground: #f5f6f3;
+	--sidebar-primary: #e0ff4f;
+	--sidebar-primary-foreground: #16171a;
+	--sidebar-accent: #232427;
+	--sidebar-accent-foreground: #f5f6f3;
+	--sidebar-border: rgba(255, 255, 255, 0.12);
+	--sidebar-ring: #e0ff4f;
 }
 @theme inline {
-	--font-sans: "Geist", "Geist Fallback", system-ui, sans-serif;
-	--font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
+	--font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+	--font-display: var(--font-schibsted), var(--font-hanken), sans-serif;
+	--font-mono: var(--font-geist-mono), ui-monospace, monospace;
+	--color-lime: var(--lime);
+	--color-lime-soft: var(--lime-soft);
+	--color-lime-strong: var(--lime-strong);
+	--color-ink: var(--ink);
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--color-card: var(--card);
@@ -72,11 +117,6 @@
 	--color-red: var(--color-red);
 	--color-yellow: var(--color-yellow);
 	--color-green: var(--color-green);
-	--color-chart-1: var(--chart-1);
-	--color-chart-2: var(--color-chart-2);
-	--color-chart-3: var(--color-chart-3);
-	--color-chart-4: var(--color-chart-4);
-	--color-chart-5: var(--color-chart-5);
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
@@ -97,7 +137,6 @@
 	}
 	body {
 		@apply bg-background text-foreground antialiased;
-		font-feature-settings: "ss01", "cv11";
 	}
 	html {
 		scroll-behavior: smooth;
@@ -106,36 +145,30 @@
 	h2,
 	h3,
 	h4 {
+		@apply font-display;
 		letter-spacing: -0.02em;
 	}
 }
 
 @layer components {
-	/* Display headings — used across section titles (Nebius-inspired scale) */
+	/* Semantic typography helpers (Tailwind compositions, Nebius display scale).
+	   Headings render in the display grotesque; body uses the sans grotesque. */
 	.display-xl {
-		@apply text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] tracking-tight text-foreground;
+		@apply font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.04] tracking-[-0.03em] text-foreground;
 	}
 	.display-lg {
-		@apply text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.1] tracking-tight text-foreground;
+		@apply font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.08] tracking-[-0.025em] text-foreground;
 	}
 	.display-md {
-		@apply text-2xl sm:text-3xl md:text-4xl font-semibold leading-[1.15] tracking-tight text-foreground;
+		@apply font-display text-2xl sm:text-3xl md:text-4xl font-semibold leading-[1.12] tracking-[-0.02em] text-foreground;
 	}
 	/* Eyebrow label above a section title */
 	.eyebrow {
-		@apply text-xs font-medium tracking-[0.12em] uppercase text-muted-foreground;
+		@apply font-mono text-xs font-medium tracking-[0.14em] uppercase text-muted-foreground;
 	}
 	/* Section subtitle / lede */
 	.lede {
 		@apply text-base sm:text-lg text-muted-foreground leading-relaxed;
-	}
-	/* Color-tinted card: pass --tint via inline style */
-	.tinted-card {
-		background-color: color-mix(
-			in oklch,
-			var(--tint, var(--color-blue)) 10%,
-			white
-		);
 	}
 }
 
