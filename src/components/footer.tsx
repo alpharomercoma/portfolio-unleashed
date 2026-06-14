@@ -113,9 +113,17 @@ export function Footer() {
 					<p className="text-xs text-muted-foreground">
 						© {new Date().getFullYear()} Alpha Romer Coma. All rights reserved.
 					</p>
-					<p className="text-xs text-muted-foreground">
-						Built with Next.js & Vercel
-					</p>
+					<div className="flex items-center gap-4">
+						<Link
+							href="/privacy"
+							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+						>
+							Privacy
+						</Link>
+						<p className="text-xs text-muted-foreground">
+							Built with Next.js & Vercel
+						</p>
+					</div>
 				</div>
 			</div>
 		</footer>
