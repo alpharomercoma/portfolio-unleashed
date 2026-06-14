@@ -1,4 +1,27 @@
+import withSerwistInit from "@serwist/next";
+import { execFileSync } from "node:child_process";
 import { NextConfig } from "next";
+
+// A revision versions the precached offline page so a new deploy busts it.
+let revision: string;
+try {
+	revision =
+		process.env.VERCEL_GIT_COMMIT_SHA ||
+		execFileSync("git", ["rev-parse", "HEAD"]).toString().trim();
+} catch {
+	revision = String(Date.now());
+}
+
+// Serwist service worker (offline support / installable PWA). Compiled by the
+// webpack build (we build with `next build --webpack`); disabled in dev so it
+// never touches Turbopack. See src/app/sw.ts for the worker itself.
+const withSerwist = withSerwistInit({
+	swSrc: "src/app/sw.ts",
+	swDest: "public/sw.js",
+	disable: process.env.NODE_ENV !== "production",
+	// The offline fallback document must be precached for the SW to serve it.
+	additionalPrecacheEntries: [{ url: "/offline", revision }],
+});
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -47,4 +70,4 @@ const config = {
 	},
 } satisfies NextConfig;
 
-export default config;
+export default withSerwist(config);
