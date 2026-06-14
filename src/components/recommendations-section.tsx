@@ -75,7 +75,7 @@ const recommendations = [
 	},
 ];
 
-const PER_PAGE = 6; // 2 columns x 3 rows
+const PER_PAGE = 4; // 2 columns x 2 rows
 
 function initials(name: string) {
 	return name
