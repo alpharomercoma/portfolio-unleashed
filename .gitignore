@@ -66,3 +66,13 @@ next-env.d.ts
 # sanity
 schema.json
 .env*.local
+
+# bubblewrap / android twa — never commit signing keys or build binaries
+**/*.keystore
+**/*.jks
+**/*.apk
+**/*.aab
+twa/.gradle/
+twa/build/
+twa/app/build/
+twa/node_modules/
