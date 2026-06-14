@@ -1,15 +1,4 @@
-import { WithPWA } from "next-pwa";
-import nextPWA from "next-pwa";
 import { NextConfig } from "next";
-const withPWA: WithPWA = nextPWA({
-	dest: "public",
-	disable: process.env.NODE_ENV === "development",
-	register: true,
-	skipWaiting: true,
-	scope: "/",
-	cacheId: "alpha",
-	cleanupOutdatedCaches: true,
-});
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -28,7 +17,6 @@ const config = {
 			},
 		],
 	},
-	// Empty turbopack config to silence webpack/turbopack conflict warning
 	turbopack: {},
 	// Baseline security headers on every response. No strict CSP: a nonce CSP
 	// forces dynamic rendering (this site is static-first) and risks breaking the
@@ -59,4 +47,4 @@ const config = {
 	},
 } satisfies NextConfig;
 
-export default withPWA(config);
+export default config;
