@@ -1,8 +1,8 @@
-# Design System — alpharomer.com
+# Design System, alpharomer.com
 
 > Reference for the Nebius-inspired rebrand. Read this before changing visuals so
 > the site stays consistent. The goal: build rapport, showcase real achievements,
-> and make "book a call / get in touch" feel easy — never pushy.
+> and make "book a call / get in touch" feel easy, never pushy.
 
 ## 1. Direction
 
@@ -18,7 +18,7 @@ talk. No hype words, no invented copy, no sections without real data.
 **Lesson from v1:** copying the muted About page (flat white, lime as a tiny 10%
 dot, lots of gray) read as bland and generic. Use lime **boldly**.
 
-## 2. Color — black, white, and bold lime
+## 2. Color, black, white, and bold lime
 
 Three colors only. Lime is a **dominant brand color**, not a timid accent. Mix is
 roughly: white/off-white as the base canvas, ink for text and full dark sections,
@@ -92,7 +92,7 @@ with a `.lime-mark` keyword.
 
 ## 4. Spacing, borders, radius
 
-Consistency here is what separates polished from amateur — the brief called it
+Consistency here is what separates polished from amateur, the brief called it
 out explicitly.
 
 - **Container:** `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8` (one container, reused).
@@ -102,7 +102,7 @@ out explicitly.
 - **Grid gaps:** `gap-4` (tight), `gap-6` (default cards), `gap-8` (lead layouts).
   Pick one per grid; don't mix.
 - **Card padding:** `p-6` (default) → `p-8` (lead/feature).
-- **Borders:** 1px hairline only — `border border-border`. On dark, `border-white/10`.
+- **Borders:** 1px hairline only, `border border-border`. On dark, `border-white/10`.
   No heavy/colored borders. Lime is never a border on light surfaces.
 - **Radius:** base `--radius` = `0.875rem`. Cards `rounded-2xl`/`rounded-3xl`,
   buttons & tags **pill** (`rounded-full`), inputs `rounded-lg`. Be consistent
@@ -128,7 +128,7 @@ rounded-full`). Secondary = `variant="outline"` (ink border/text). Ghost for
 
 ## 6. Motion
 
-Restraint — one orchestrated entrance per section, no scattered micro-animations.
+Restraint, one orchestrated entrance per section, no scattered micro-animations.
 Current implementation: a shared `IntersectionObserver` adds `.animate-fade-up`
 to elements marked `.animate-on-scroll opacity-0` as they enter view (staggered
 via `animationDelay`); card grids use the `fadeIn` keyframe on mount. Keyframes
@@ -138,23 +138,23 @@ any richer/new motion. Keep the affiliations marquee subtle; respect
 
 ## 7. Section inventory (home)
 
-Lean, "big-tech minimal" order — every section earns its place with real data:
+Lean, "big-tech minimal" order, every section earns its place with real data:
 
-1. **Navbar** — wordmark (ink + lime mark), anchors, one lime CTA.
-2. **Hero** — name + one-line positioning, primary CTA, mono stat block (one lime
+1. **Navbar**, wordmark (ink + lime mark), anchors, one lime CTA.
+2. **Hero**, name + one-line positioning, primary CTA, mono stat block (one lime
    metric), affiliations marquee.
-3. **Selected work** — _merged_ value-props + featured: 1 lead card + 3 supporting
+3. **Selected work**, _merged_ value-props + featured: 1 lead card + 3 supporting
    cards, each tagged with a pillar (Multimodality / Accelerated Computing /
    Community / Applied AI). Keeps the strongest real images.
-4. **Projects** — ML + software, carousel.
-5. **Speaking** — talks grid.
-6. **Writing** — latest posts (Sanity; empty-state safe).
-7. **Recognition** — _merged_ certifications + awards.
-8. **Recommendations** — short quote strip (compact, not a heavy section).
-9. **CTA** — "Book a call" + email, calm and non-pushy (reuses `calendar-modal`).
+4. **Projects**, ML + software, carousel.
+5. **Speaking**, talks grid.
+6. **Writing**, latest posts (Sanity; empty-state safe).
+7. **Recognition**, _merged_ certifications + awards.
+8. **Recommendations**, short quote strip (compact, not a heavy section).
+9. **CTA**, "Book a call" + email, calm and non-pushy (reuses `calendar-modal`).
 10. **Footer**.
 
-Content guardrails: results-first (quantify with real numbers — $376K grant, 92%
+Content guardrails: results-first (quantify with real numbers, $376K grant, 92%
 VLM accuracy, 25+ talks). Never fabricate metrics, logos, testimonials, or
 sections. If there's no data for a section, it doesn't exist.
 

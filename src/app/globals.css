@@ -4,9 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Nebius-inspired brand system: white-dominant, ink-black, single lime accent.
- * 60 white / 30 ink / 10 lime. Lime is the exact Nebius signature (#E0FF4F).
- * See docs/design-system.md for the full rationale and usage rules.
+ * Brand system: black, white, and bold lime (#E0FF4F, sampled from Nebius).
+ * Lime is a dominant brand color (gradients, fills, tinted surfaces, CTAs),
+ * not a timid accent. See docs/design-system.md for the full rules.
  */
 :root {
 	/* Brand */
