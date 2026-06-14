@@ -4,7 +4,9 @@
 		"target": {
 			"namespace": "android_app",
 			"package_name": "com.alpharomer.app",
-			"sha256_cert_fingerprints": []
+			"sha256_cert_fingerprints": [
+				"79:4E:BE:2F:B5:79:53:E5:64:1F:FA:CE:36:80:CE:11:28:EC:D8:0B:1E:5C:86:48:0C:AA:6C:EF:93:00:44:64"
+			]
 		}
 	}
 ]
