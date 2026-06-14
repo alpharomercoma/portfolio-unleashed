@@ -1,8 +1,9 @@
-// Brand mark: a neon-lime tile with a bold ink lambda (a reframed "alpha" / ML λ).
-// Single source of truth — the favicon (src/app/icon.svg) and generated PWA/Apple
-// icons use the same geometry. Reusable anywhere a logo mark is needed.
+// Brand mark: a neon-lime tile with a bold lambda in Nebius's dark navy (a "shade
+// of black", not pure #000) — a reframed "alpha" / ML λ. Single source of truth:
+// the favicon (src/app/icon.svg) and the generated PWA/Apple icons share this.
 export const LOGO_LIME = "#e0ff4f";
-export const LOGO_INK = "#16171a";
+// Nebius's signature dark (their wordmark color), a desaturated navy-black.
+export const LOGO_DARK = "#052b42";
 // The filled lambda, in a 0 0 64 64 viewBox.
 export const LOGO_MARK_PATH = "M32 14 L49 51 L41 51 L32 35 L23 51 L15 51 Z";
 
@@ -10,7 +11,7 @@ export function Logo({
 	size = 28,
 	rounded = true,
 	tile = LOGO_LIME,
-	mark = LOGO_INK,
+	mark = LOGO_DARK,
 	className,
 	title = "Alpha Romer Coma",
 }: {
