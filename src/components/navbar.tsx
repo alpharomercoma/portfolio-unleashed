@@ -8,10 +8,8 @@ import { useEffect, useRef, useState } from "react";
 
 const navItems = [
 	{ label: "Work", href: "/#work" },
-	{ label: "Projects", href: "/#projects" },
 	{ label: "Speaking", href: "/speaking" },
 	{ label: "Writing", href: "/blog" },
-	{ label: "Recognition", href: "/#recognition" },
 	{ label: "About", href: "/about" },
 	{ label: "Gallery", href: "/gallery" },
 ];
