@@ -3,6 +3,8 @@
 import { Github, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 
+import { Logo } from "@/components/logo";
+
 const footerLinks = {
 	explore: [
 		{ label: "Work", href: "/#work" },
@@ -46,10 +48,7 @@ export function Footer() {
 							href="/"
 							className="flex items-center gap-2 font-display text-xl font-semibold text-foreground mb-3 tracking-tight w-fit"
 						>
-							<span
-								aria-hidden
-								className="inline-block size-3.5 rounded-[4px] bg-lime"
-							/>
+							<Logo size={22} title={null} />
 							Alpha Romer Coma
 						</Link>
 						<p className="text-sm text-muted-foreground mb-5 max-w-sm leading-relaxed">

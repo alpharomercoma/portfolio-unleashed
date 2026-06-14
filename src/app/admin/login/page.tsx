@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { login } from "@/app/admin/actions";
+import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,10 +22,7 @@ export default async function LoginPage({
 		<main className="min-h-screen grid place-items-center bg-background px-4">
 			<div className="w-full max-w-sm">
 				<div className="flex items-center gap-2 mb-6">
-					<span
-						aria-hidden
-						className="inline-block size-3.5 rounded-[4px] bg-lime"
-					/>
+					<Logo size={22} title={null} />
 					<span className="font-display text-xl font-semibold tracking-tight">
 						Admin
 					</span>

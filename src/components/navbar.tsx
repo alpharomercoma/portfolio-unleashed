@@ -1,5 +1,6 @@
 "use client";
 
+import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -58,10 +59,7 @@ export function Navbar() {
 					className="flex items-center gap-2 font-display text-lg lg:text-xl font-semibold text-foreground hover:opacity-80 transition-opacity shrink-0 tracking-tight"
 					aria-label="Alpha Romer Coma, home"
 				>
-					<span
-						aria-hidden="true"
-						className="inline-block size-3.5 rounded-[4px] bg-lime"
-					/>
+					<Logo size={22} title={null} />
 					Alpha
 				</Link>
 

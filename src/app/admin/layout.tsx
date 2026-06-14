@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { logout } from "@/app/admin/actions";
 import { AdminNav, type NavItem } from "@/components/admin/admin-nav";
+import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { ADMIN_SECTIONS } from "@/lib/admin-sections";
 import { getSession } from "@/lib/session";
@@ -31,9 +32,12 @@ export default async function AdminLayout({
 					<div className="flex items-center gap-4 min-w-0">
 						<Link
 							href="/admin"
-							className="font-display text-sm font-bold tracking-tight shrink-0"
+							className="flex items-center gap-2 font-display text-sm font-bold tracking-tight shrink-0"
 						>
-							Alpha<span className="text-lime-strong">/admin</span>
+							<Logo size={18} title={null} />
+							<span>
+								Alpha<span className="text-lime-strong">/admin</span>
+							</span>
 						</Link>
 						<AdminNav items={navItems} />
 					</div>
