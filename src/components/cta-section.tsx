@@ -16,7 +16,7 @@ export function CtaSection() {
 		>
 			<div className="max-w-6xl mx-auto">
 				<div className="relative overflow-hidden rounded-[2rem] bg-lime text-ink px-7 sm:px-12 lg:px-16 py-16 sm:py-20">
-					<div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 lg:items-end">
+					<div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 lg:items-start">
 						<div>
 							<h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[0.98] tracking-[-0.035em] text-ink">
 								Let&apos;s build something together.
