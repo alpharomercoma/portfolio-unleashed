@@ -25,6 +25,7 @@ const slugify = (s) =>
 		.slice(0, 80);
 
 const canva = (id) => `https://www.canva.com/design/${id}/view`;
+const gslides = (id) => `https://docs.google.com/presentation/d/${id}/edit`;
 
 // One entry per talk. events[] carries each delivery.
 const TALKS = [
@@ -40,22 +41,24 @@ const TALKS = [
 		featured: true,
 		tags: ["PyTorch", "H100", "TPU", "Trainium", "ASICs", "Benchmarking"],
 		abstract:
-			"A practitioner's benchmark study of training image-recognition and text-generation models across four accelerator classes: 1x H100 (RunPod), 8x H100 (Nebius), Google TPU v6e-8, and AWS Trainium1 32xlarge. The talk demystifies when a custom ASIC actually pays off versus an NVIDIA GPU, and how PyTorch maps onto each backend.",
+			"How and why to move PyTorch development onto AI accelerators. Covers how ASICs and the XLA/Neuron compilers work, PyTorch/XLA on Google TPU and TorchNeuronX on AWS Trainium, the performance picture and the 'compiler tax', the common ASIC errors you'll hit, and a practical migration decision framework, benchmarked across H100, TPU v6e, and Trainium.",
 		outline: [
-			"Why accelerators, and the ASIC landscape (GPU, TPU, Trainium)",
-			"The benchmark setup across four platforms",
-			"Image recognition results and trade-offs",
-			"Text generation results and trade-offs",
-			"PyTorch on each backend: portability and gotchas",
-			"When (and when not) to move to an ASIC",
+			"Deep learning computations and how ASICs and XLA work",
+			"Google TPU with PyTorch/XLA",
+			"AWS Trainium with TorchNeuronX",
+			"Performance analysis and the 'compiler tax'",
+			"Common ASIC errors (device busy, OOM) and their fixes",
+			"Migration decision notes: when to move",
+			"The way forward: TorchTPU, MAIA 200, TPU v7 vs Trainium3 vs NVIDIA",
 		],
 		keyTakeaways: [
-			"ASIC value depends on workload shape, not headline FLOPS",
-			"PyTorch portability across backends is better than most assume",
-			"Cost-per-token and availability often matter more than peak speed",
+			"PyTorch/XLA and TorchNeuronX let you keep PyTorch while targeting TPU and Trainium",
+			"Budget for the 'compiler tax': graph compilation and torch_xla.sync() change how you code",
+			"Most ASIC failures are device-busy or OOM, with known, quick fixes",
+			"ASICs build on top of PyTorch, so your skills transfer",
 		],
-		primarySlideUrl: canva("DAGsYa9Ivhw"),
-		needsReview: true,
+		primarySlideUrl: gslides("1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc"),
+		needsReview: false,
 		events: [
 			{
 				eventName: "PyTorch Conference Europe 2026",
@@ -63,6 +66,7 @@ const TALKS = [
 				date: "2026-04-07",
 				venue: "Station F, Paris, France",
 				audienceSize: 100,
+				slideUrl: gslides("1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc"),
 			},
 			{
 				eventName: "AI Study Group 2026",
@@ -70,6 +74,7 @@ const TALKS = [
 				date: "2026-05-09",
 				venue: "Online",
 				audienceSize: 20,
+				slideUrl: gslides("11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE"),
 			},
 		],
 	},
@@ -132,21 +137,23 @@ const TALKS = [
 		featured: true,
 		tags: ["TPU", "Google Cloud", "TRC", "JAX", "ML Research"],
 		abstract:
-			"How to access and use Google's TPU Research Cloud to run serious ML research for free. Covers TPU pod architecture, how to apply for and use the TRC grant, and training workflows, illustrated with a thesis that ran on the equivalent of a ~$376,000 (₱21M) compute allocation.",
+			"How to access and use Google's TPU Research Cloud to run serious ML research for free. Covers TPU architecture (TensorCores, MXUs, systolic arrays, ICI/OCS torus topology) versus GPUs and competitors, training with PyTorch/XLA on MNIST, the TRC application process, and a live demo spinning up a TPU VM, with the cost math behind a ~$376,000 grant.",
 		outline: [
-			"What TPUs are and how pods are structured",
-			"Applying for and accessing TPU Research Cloud",
-			"Cost math: why TRC is a research superpower",
-			"Training workflows on TPU (JAX / PyTorch-XLA)",
-			"Lessons from a grant-backed thesis",
+			"Tensors, operations, and matrix multiplication",
+			"TPU architecture (TensorCores, MXUs, systolic arrays) vs GPU and competitors",
+			"Reduced precision: bfloat16 vs float32",
+			"Model training with PyTorch/XLA on MNIST",
+			"TPU Research Cloud: how to apply and gain access",
+			"Live demo: spinning up a TPU VM on GCP",
 		],
 		keyTakeaways: [
-			"TRC makes pod-scale compute accessible to students and researchers",
-			"A v4-64 pod equivalent can represent ~$376K of compute",
-			"Plan your data pipeline before you ever touch a pod",
+			"TRC grants free access to 1,000+ Cloud TPUs for accepted researchers",
+			"A v4-64 for 5 months is roughly $376K of compute",
+			"bfloat16 for matmul plus float32 accumulation is the precision sweet spot",
+			"You can provision a TPU VM in minutes with one gcloud command",
 		],
-		primarySlideUrl: canva("DAGsYa9Ivhw"),
-		needsReview: true,
+		primarySlideUrl: gslides("1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4"),
+		needsReview: false,
 		events: [
 			{
 				eventName: "DevFest 2025",
@@ -154,6 +161,7 @@ const TALKS = [
 				date: "2025-10-13",
 				venue: "LaunchGarage",
 				audienceSize: 120,
+				slideUrl: gslides("1TZMmXumbaCf4PEIHcNVOuhwniLFJyOvLjPoZrnanb78"),
 			},
 			{
 				eventName: "SOFTCON 2025",
@@ -161,6 +169,7 @@ const TALKS = [
 				date: "2025-10-17",
 				venue: "Online",
 				audienceSize: 120,
+				slideUrl: gslides("1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4"),
 			},
 		],
 	},
@@ -221,6 +230,7 @@ const TALKS = [
 				date: "2026-03-05",
 				venue: "Jose Rizal University",
 				audienceSize: 50,
+				slideUrl: gslides("1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw"),
 			},
 		],
 	},
@@ -430,8 +440,8 @@ const TALKS = [
 			"Capability gains now come from both data modality and hardware",
 			"Knowing your accelerator options is a research advantage",
 		],
-		primarySlideUrl: canva("DAGsYa9Ivhw"),
-		needsReview: true,
+		primarySlideUrl: gslides("11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE"),
+		needsReview: false,
 		events: [
 			{
 				eventName: "EDiTH Episode 9",
@@ -439,6 +449,7 @@ const TALKS = [
 				date: "2026-04-10",
 				venue: "FEU Institute of Technology",
 				audienceSize: 100,
+				slideUrl: gslides("11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE"),
 			},
 		],
 	},
@@ -487,19 +498,22 @@ const TALKS = [
 		featured: false,
 		tags: ["GitHub", "Copilot", "AI", "GitHub Models"],
 		abstract:
-			"A fast recap of GitHub Universe 2025's AI launches, delivered for the Microsoft Azure Community: agentic Copilot, GPT-powered code review, and the GitHub Models platform, and what they mean for everyday development.",
+			"A fast recap of GitHub Universe 2025's AI launches, delivered for the Microsoft Azure Community: Agent HQ, Copilot Plan Mode, custom agents, MCP server integrations, the Copilot CLI, background agents, and Copilot code review, plus GitHub Spark and the Octoverse 2025 report.",
 		outline: [
-			"What's new from GitHub Universe 2025",
-			"Agentic Copilot and the coding agent",
-			"GPT-powered code review",
-			"The GitHub Models platform",
+			"Agent HQ, now available in VS Code",
+			"Copilot Plan Mode and background agents",
+			"Custom agents (name, tools, models, prompts, MCP servers)",
+			"MCP server integrations and the Copilot CLI",
+			"Copilot code review",
+			"Bonus: GitHub Spark, Student Developer Pack, Octoverse 2025",
 		],
 		keyTakeaways: [
-			"Copilot is moving from autocomplete to autonomous agent",
-			"Code review is becoming an AI-assisted workflow",
-			"GitHub Models makes trying frontier models free and simple",
+			"Copilot is moving from autocomplete to an agent platform (Agent HQ)",
+			"Custom agents plus MCP servers let you tailor Copilot to your stack",
+			"The Copilot CLI brings agents to the terminal; Spark generates micro-apps",
 		],
-		needsReview: true,
+		primarySlideUrl: gslides("1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94"),
+		needsReview: false,
 		events: [
 			{
 				eventName: "az:Repo: The Code and Cloud Agentic Workshop",
@@ -507,6 +521,7 @@ const TALKS = [
 				date: "2025-11-14",
 				venue: "Microsoft Office Philippines",
 				audienceSize: 100,
+				slideUrl: gslides("1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94"),
 			},
 		],
 	},
@@ -521,18 +536,22 @@ const TALKS = [
 		featured: false,
 		tags: ["Google", "Gemini", "Developer Tools", "Cloud"],
 		abstract:
-			"A guide to Google's next-generation developer toolkit and how to fold it into your workflow, from Gemini and AI Studio to the wider Google Cloud and developer ecosystem.",
+			"A guided tour of Google's next-generation developer toolkit and how to fold it into your workflow: the free 1-year Google AI Pro for students, the Gemini and Gemma model families, running and fine-tuning models locally (Ollama, AI Edge, Unsloth), and AI-driven development with Google AI Studio and Firebase Studio.",
 		outline: [
-			"The shape of Google's current developer toolkit",
-			"Gemini and AI Studio for builders",
-			"Where Google Cloud fits",
-			"Putting it together in a real workflow",
+			"Free Google AI Pro for students (1 year)",
+			"The Gemini and Gemma model families",
+			"Running models locally and offline (Ollama, Gemma, AI Edge)",
+			"Fine-tuning Gemma with Unsloth, and specialized models (MedGemma)",
+			"AI-driven development: Google AI Studio and Firebase Studio",
+			"Certifications and recommendations",
 		],
 		keyTakeaways: [
-			"Google's toolkit is increasingly AI-first",
-			"Free tiers make most of it accessible to students",
+			"Students get a free year of Google AI Pro and the Student Developer Pack",
+			"You can run Gemma locally and offline with Ollama and AI Edge",
+			"AI Studio and Firebase Studio make 'vibe coding' fast and free",
 		],
-		needsReview: true,
+		primarySlideUrl: gslides("1Vafm3hrMy7Cs2Df_S_LJkFtQmtMSGq49UpfwWjAezsY"),
+		needsReview: false,
 		events: [
 			{
 				eventName: "InSession 2025",
@@ -540,6 +559,7 @@ const TALKS = [
 				date: "2025-11-06",
 				venue: "TUP Manila",
 				audienceSize: 100,
+				slideUrl: gslides("1Vafm3hrMy7Cs2Df_S_LJkFtQmtMSGq49UpfwWjAezsY"),
 			},
 		],
 	},
@@ -554,19 +574,21 @@ const TALKS = [
 		featured: false,
 		tags: ["AI Safety", "Cybersecurity", "Students", "Prompt Injection"],
 		abstract:
-			"Navigating AI in the classroom and online: prompt injection, data leakage, deepfakes, and the practical safety habits students should adopt early.",
+			"Navigating AI safely as a student: LLM hallucinations, deepfakes, and fake documents; how to make (and therefore recognize) AI-generated images and edits; the tells that give AI images away; and what the privacy policies of major AI companies actually say, with the ethical considerations for NGO use.",
 		outline: [
-			"How AI changes the online-safety picture",
-			"Prompt injection and data leakage, explained simply",
-			"Deepfakes and AI-powered scams",
-			"Safety habits to adopt now",
+			"Hallucinations, deepfakes, and fake documents",
+			"Creating your own AI images and edits",
+			"Emerging dangers in the age of AI",
+			"Recognizing AI-generated content (hands, textures, physics)",
+			"Privacy policies of AI companies",
 		],
 		keyTakeaways: [
-			"Never paste secrets or personal data into AI tools",
-			"Verify before you trust, especially media",
-			"Good habits beat any single tool or setting",
+			"Hallucinations range from fact-mixed to pure fabrication, so verify",
+			"Spot AI images by hands, plastic textures, and physics violations",
+			"Read an AI tool's privacy policy before you feed it your data",
 		],
-		needsReview: true,
+		primarySlideUrl: gslides("1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E"),
+		needsReview: false,
 		events: [
 			{
 				eventName: "Ctrl + Prompt",
@@ -574,6 +596,7 @@ const TALKS = [
 				date: "2026-01-08",
 				venue: "FEU Institute of Technology",
 				audienceSize: 20,
+				slideUrl: gslides("1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E"),
 			},
 		],
 	},
@@ -621,18 +644,21 @@ const TALKS = [
 		featured: false,
 		tags: ["GitHub Copilot", "AI", "Developer Tools"],
 		abstract:
-			"A hands-on introduction to GitHub Copilot: prompt patterns, agent mode, and wiring AI assistance into day-to-day development.",
+			"A hands-on introduction to GitHub Copilot: installing it in VS Code, the CLI versus the GUI, the four permission modes (interactive, plan, YOLO, autopilot) and the 'permission fatigue' trade-off, plus core capabilities like web search, image input, and the commit generator.",
 		outline: [
-			"Setting up Copilot in your editor",
-			"Prompt patterns for better suggestions",
-			"Agent mode and the terminal",
-			"Where Copilot helps and where to be careful",
+			"What Copilot is, and installing it in VS Code",
+			"Copilot CLI vs GUI",
+			"The four permission modes: interactive, plan, YOLO, autopilot",
+			"Capabilities: web search, image input, commit generator",
+			"Hands-on demo",
 		],
 		keyTakeaways: [
-			"Copilot rewards clear intent and good context",
-			"Treat AI output as a draft to review, not gospel",
+			"Match the Copilot mode to your trust level (interactive to autopilot)",
+			"The CLI brings Copilot to the terminal across Linux, macOS, and Windows",
+			"Copilot can search the web, read images, and draft your commits",
 		],
-		needsReview: true,
+		primarySlideUrl: gslides("1diyWyjbFnMRDKm07uJaCz1TL6kR-IKeDuZosOebusq4"),
+		needsReview: false,
 		events: [
 			{
 				eventName: "Sparkpoint 2026",
@@ -640,6 +666,7 @@ const TALKS = [
 				date: "2026-05-02",
 				venue: "National University Laguna",
 				audienceSize: 50,
+				slideUrl: gslides("1diyWyjbFnMRDKm07uJaCz1TL6kR-IKeDuZosOebusq4"),
 			},
 		],
 	},
