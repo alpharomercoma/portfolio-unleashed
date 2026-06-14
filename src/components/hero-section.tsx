@@ -75,7 +75,12 @@ export function HeroSection() {
 			id="about"
 			className="hero-lime-field relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-44 pb-16 sm:pb-20"
 		>
-			<div className="max-w-6xl mx-auto w-full">
+			<div aria-hidden className="hero-blobs">
+				<span className="hero-blob hero-blob-1" />
+				<span className="hero-blob hero-blob-2" />
+				<span className="hero-blob hero-blob-3" />
+			</div>
+			<div className="relative z-10 max-w-6xl mx-auto w-full">
 				<div className="max-w-4xl">
 					<h1
 						className="animate-on-scroll opacity-0 display-xl"

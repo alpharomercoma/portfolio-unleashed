@@ -172,6 +172,84 @@
 			),
 			radial-gradient(55% 45% at 100% 4%, var(--lime-soft) 0%, transparent 50%);
 	}
+	/* Drifting lime blobs layered over the static field for ambient motion. */
+	.hero-blobs {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		pointer-events: none;
+		z-index: 0;
+	}
+	.hero-blob {
+		position: absolute;
+		border-radius: 9999px;
+		filter: blur(64px);
+		opacity: 0.45;
+		will-change: transform;
+	}
+	.hero-blob-1 {
+		width: 34rem;
+		height: 34rem;
+		top: -11rem;
+		left: -7rem;
+		background: radial-gradient(circle, var(--lime) 0%, transparent 70%);
+		animation: hero-drift-1 26s ease-in-out infinite alternate;
+	}
+	.hero-blob-2 {
+		width: 27rem;
+		height: 27rem;
+		top: -8rem;
+		right: -4rem;
+		background: radial-gradient(circle, var(--lime-soft) 0%, transparent 70%);
+		animation: hero-drift-2 32s ease-in-out infinite alternate;
+	}
+	.hero-blob-3 {
+		width: 22rem;
+		height: 22rem;
+		top: 1rem;
+		left: 40%;
+		opacity: 0.3;
+		background: radial-gradient(circle, var(--lime) 0%, transparent 72%);
+		animation: hero-drift-3 29s ease-in-out infinite alternate;
+	}
+	@media (max-width: 640px) {
+		.hero-blob {
+			filter: blur(44px);
+		}
+		.hero-blob-3 {
+			display: none;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.hero-blob {
+			animation: none !important;
+		}
+	}
+}
+
+@keyframes hero-drift-1 {
+	from {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	to {
+		transform: translate3d(4rem, 3rem, 0) scale(1.15);
+	}
+}
+@keyframes hero-drift-2 {
+	from {
+		transform: translate3d(0, 0, 0) scale(1.05);
+	}
+	to {
+		transform: translate3d(-3.5rem, 2.5rem, 0) scale(0.9);
+	}
+}
+@keyframes hero-drift-3 {
+	from {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	to {
+		transform: translate3d(2.5rem, -2rem, 0) scale(1.12);
+	}
 }
 
 @keyframes fade-up {
