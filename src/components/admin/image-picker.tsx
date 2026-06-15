@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Button } from "@/components/ui/button";
+import { downscaleImage } from "@/lib/downscale-image";
 
 type MediaImage = {
 	url: string;
@@ -132,15 +133,29 @@ function PickerModal({
 		setUploading(true);
 		setError(null);
 		try {
+			// Shrink large images client-side; oversized requests are rejected by the
+			// platform (HTTP 413) before they ever reach the upload route.
+			const prepared = await downscaleImage(file);
 			const fd = new FormData();
-			fd.append("file", file);
+			fd.append("file", prepared);
 			fd.append("folder", "media");
 			const res = await fetch("/api/admin/upload", {
 				method: "POST",
 				body: fd,
 			});
-			const data = await res.json();
-			if (!res.ok || !data.url) throw new Error(data.error || "Upload failed");
+			if (!res.ok) {
+				// 413 and other platform errors return HTML, not JSON — read defensively.
+				const msg =
+					res.status === 413
+						? "Image is too large. Please use a smaller file."
+						: await res
+								.json()
+								.then((d) => d.error)
+								.catch(() => null);
+				throw new Error(msg || "Upload failed. Please try again.");
+			}
+			const data = await res.json().catch(() => ({}));
+			if (!data.url) throw new Error("Upload failed. Please try again.");
 			await load();
 			setSelected(data.url);
 		} catch (e) {

@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 	}
 	if (file.size > MAX_IMAGE_BYTES) {
 		return NextResponse.json(
-			{ error: "Image is too large (max 8 MB)." },
+			{ error: "Image is too large (max 4 MB)." },
 			{ status: 400 },
 		);
 	}

@@ -2,9 +2,11 @@ import "server-only";
 
 import { put } from "@vercel/blob";
 
-// Server-side upload guard. Vercel Functions cap bodies near 4.5 MB anyway, but
-// we enforce an explicit limit so the rule is clear and centralized.
-export const MAX_IMAGE_BYTES = 8 * 1024 * 1024; // 8 MB
+// Server-side upload guard. Kept just under Vercel's ~4.5 MB function body limit
+// (which rejects bigger requests with a 413 before they reach the route) so a
+// borderline file gets a clean JSON error here instead. Clients also downscale
+// large images before upload (see src/lib/downscale-image.ts).
+export const MAX_IMAGE_BYTES = 4 * 1024 * 1024; // 4 MB
 
 const startsWith = (b: Uint8Array, sig: number[], offset = 0) =>
 	sig.every((v, i) => b[offset + i] === v);
