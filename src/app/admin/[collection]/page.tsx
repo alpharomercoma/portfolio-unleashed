@@ -20,6 +20,10 @@ export default async function CollectionListPage({
 	if (!cfg) notFound();
 
 	const items = await getAllItems(collection);
+	// Collections with an image field get a small thumbnail beside each row.
+	const imageField = cfg.fields.find((f) => f.kind === "image")?.name;
+	const thumbOf = (item: Record<string, unknown>) =>
+		imageField ? String(item[imageField] ?? "") || undefined : undefined;
 
 	return (
 		<div>
@@ -54,6 +58,7 @@ export default async function CollectionListPage({
 							title,
 							meta,
 							editHref: `/admin/${collection}/${item.id}`,
+							thumb: thumbOf(item),
 						};
 					})}
 				/>
@@ -66,18 +71,29 @@ export default async function CollectionListPage({
 								key={item.id}
 								className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-4"
 							>
-								<div className="min-w-0">
-									<Link
-										href={`/admin/${collection}/${item.id}`}
-										className="font-medium text-foreground hover:underline line-clamp-1"
-									>
-										{title}
-									</Link>
-									{meta && (
-										<div className="text-xs text-muted-foreground mt-0.5">
-											{meta}
-										</div>
+								<div className="flex items-center gap-3 min-w-0">
+									{thumbOf(item) && (
+										// eslint-disable-next-line @next/next/no-img-element
+										<img
+											src={thumbOf(item)}
+											alt=""
+											loading="lazy"
+											className="size-10 shrink-0 rounded-md border border-border bg-secondary object-cover"
+										/>
 									)}
+									<div className="min-w-0">
+										<Link
+											href={`/admin/${collection}/${item.id}`}
+											className="font-medium text-foreground hover:underline line-clamp-1"
+										>
+											{title}
+										</Link>
+										{meta && (
+											<div className="text-xs text-muted-foreground mt-0.5">
+												{meta}
+											</div>
+										)}
+									</div>
 								</div>
 								<div className="flex items-center gap-2 shrink-0">
 									<Button asChild variant="outline" size="sm">

@@ -32,6 +32,8 @@ export type SortableRowData = {
 	title: string;
 	meta: string;
 	editHref: string;
+	/** Optional thumbnail URL shown to the left of the text. */
+	thumb?: string;
 };
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
@@ -190,6 +192,15 @@ function SortableRow({
 				>
 					<GripVertical className="size-4" />
 				</button>
+				{row.thumb && (
+					// eslint-disable-next-line @next/next/no-img-element
+					<img
+						src={row.thumb}
+						alt=""
+						loading="lazy"
+						className="size-10 shrink-0 rounded-md border border-border bg-secondary object-cover"
+					/>
+				)}
 				<div className="min-w-0">
 					<Link
 						href={row.editHref}
