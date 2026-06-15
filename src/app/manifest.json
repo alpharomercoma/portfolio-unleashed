@@ -28,6 +28,49 @@
 			"purpose": "maskable"
 		}
 	],
+	"screenshots": [
+		{
+			"src": "/screenshots/mobile-home.png",
+			"sizes": "1080x1920",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Home"
+		},
+		{
+			"src": "/screenshots/mobile-speaking.png",
+			"sizes": "1080x1920",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Speaking"
+		},
+		{
+			"src": "/screenshots/mobile-blog.png",
+			"sizes": "1080x1920",
+			"type": "image/png",
+			"form_factor": "narrow",
+			"label": "Writing"
+		},
+		{
+			"src": "/screenshots/desktop-home.png",
+			"sizes": "2560x1440",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Home"
+		},
+		{
+			"src": "/screenshots/desktop-speaking.png",
+			"sizes": "2560x1440",
+			"type": "image/png",
+			"form_factor": "wide",
+			"label": "Speaking"
+		}
+	],
+	"categories": ["education", "business", "productivity"],
+	"shortcuts": [
+		{ "name": "Speaking", "short_name": "Speaking", "url": "/speaking" },
+		{ "name": "Writing", "short_name": "Writing", "url": "/blog" },
+		{ "name": "Gallery", "short_name": "Gallery", "url": "/gallery" }
+	],
 	"theme_color": "#e0ff4f",
 	"background_color": "#e0ff4f",
 	"dir": "ltr",
