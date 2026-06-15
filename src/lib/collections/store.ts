@@ -96,3 +96,37 @@ export async function removeItem(key: string, id: string): Promise<void> {
 	await redis.del(ITEM_KEY(key, id));
 	await redis.srem(IDS_KEY(key), id);
 }
+
+/**
+ * Persist a new ordering for a collection. `orderedIds` is the full list of item
+ * ids in their new visual order; each item's `order` is rewritten to `(i+1)*10`
+ * (gaps left for readability) while every other field is preserved verbatim. Ids
+ * that no longer exist are skipped. The `ids` set membership is unchanged.
+ */
+export async function reorderItems(
+	key: string,
+	orderedIds: string[],
+): Promise<void> {
+	const cfg = getCollection(key);
+	if (!cfg) throw new Error(`Unknown collection: ${key}`);
+	if (!redis) throw new Error("Collections store is not configured.");
+	if (!orderedIds.length) return;
+
+	// Read existing items so we only overwrite `order` and keep all other fields.
+	const raw = await redis.mget<unknown[]>(
+		...orderedIds.map((id) => ITEM_KEY(key, id)),
+	);
+
+	const pipeline = redis.pipeline();
+	let writes = 0;
+	orderedIds.forEach((id, index) => {
+		const current = raw?.[index];
+		if (!current || typeof current !== "object") return; // id gone; skip
+		pipeline.set(ITEM_KEY(key, id), {
+			...(current as Record<string, unknown>),
+			order: (index + 1) * 10,
+		});
+		writes++;
+	});
+	if (writes) await pipeline.exec();
+}

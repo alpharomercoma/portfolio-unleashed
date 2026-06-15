@@ -56,6 +56,11 @@ export type CollectionConfig<T extends { id: string } = { id: string }> = {
 	sort: (items: T[]) => T[];
 	summary: (item: T) => { title: string; meta: string };
 	seed: T[];
+	// When true, the admin list is a drag-to-reorder sortable list and the manual
+	// `order` field is dropped from the form (order is rewritten on drop). Only set
+	// on collections sorted by `byOrderAsc`. This is config, not schema — the
+	// `order: number` field stays in the data.
+	reorderable?: boolean;
 };
 
 const byDateDesc = (a: string, b: string) => (a < b ? 1 : a > b ? -1 : 0);
@@ -171,13 +176,6 @@ const selectedWork: CollectionConfig<SelectedWork> = {
 			kind: "text",
 			placeholder: "e.g. Accelerated Computing",
 		},
-		{
-			name: "order",
-			label: "Order",
-			kind: "text",
-			placeholder: "0",
-			help: "Lowest order is the large lead; the rest are supporting cards.",
-		},
 		{ name: "description", label: "Description", kind: "textarea", full: true },
 		{
 			name: "image",
@@ -201,7 +199,8 @@ const selectedWork: CollectionConfig<SelectedWork> = {
 		},
 	],
 	sort: byOrderAsc,
-	summary: (s) => ({ title: s.title, meta: `${s.tag} · #${s.order}` }),
+	summary: (s) => ({ title: s.title, meta: s.tag }),
+	reorderable: true,
 	seed: selectedWorkSeed as SelectedWork[],
 };
 
@@ -220,13 +219,6 @@ const projects: CollectionConfig<Project> = {
 			label: "Category",
 			kind: "select",
 			options: PROJECT_CATEGORIES,
-		},
-		{
-			name: "order",
-			label: "Order",
-			kind: "text",
-			placeholder: "0",
-			help: "Lower numbers appear first within the category.",
 		},
 		{ name: "description", label: "Description", kind: "textarea", full: true },
 		{
@@ -272,7 +264,8 @@ const projects: CollectionConfig<Project> = {
 		},
 	],
 	sort: byOrderAsc,
-	summary: (p) => ({ title: p.title, meta: `${p.category} · #${p.order}` }),
+	summary: (p) => ({ title: p.title, meta: p.category }),
+	reorderable: true,
 	seed: projectSeed as Project[],
 };
 
@@ -301,19 +294,13 @@ const gallery: CollectionConfig<GalleryImage> = {
 			kind: "text",
 			full: true,
 		},
-		{
-			name: "order",
-			label: "Order",
-			kind: "text",
-			placeholder: "0",
-			help: "Lower numbers appear first.",
-		},
 	],
 	sort: byOrderAsc,
 	summary: (g) => ({
 		title: g.title || "(untitled image)",
-		meta: `#${g.order}`,
+		meta: "",
 	}),
+	reorderable: true,
 	seed: gallerySeed as GalleryImage[],
 };
 

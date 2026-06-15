@@ -4,7 +4,13 @@ import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { getCollection } from "@/lib/collections/registry";
-import { collectionTag, removeItem, upsertItem } from "@/lib/collections/store";
+import {
+	collectionTag,
+	getItem,
+	removeItem,
+	reorderItems,
+	upsertItem,
+} from "@/lib/collections/store";
 import { getSession } from "@/lib/session";
 
 // The collection key travels in a hidden `collection` form field rather than a
@@ -30,6 +36,14 @@ export async function saveCollectionItem(formData: FormData) {
 	}
 	const existingId = String(formData.get("id") ?? "").trim();
 	if (existingId) data.id = existingId;
+
+	// Reorderable collections drop the manual `order` input from the form, so it
+	// isn't in `data`. Without this, the zod `orderField` coerces the missing value
+	// to 0 and the edit would yank the item to the top. Preserve the stored order.
+	if (existingId && cfg.reorderable && data.order == null) {
+		const existing = await getItem(key, existingId);
+		if (existing?.order != null) data.order = existing.order;
+	}
 
 	try {
 		await upsertItem(key, data);
@@ -60,4 +74,29 @@ export async function removeCollectionItem(formData: FormData) {
 		revalidatePath(`/admin/${key}`);
 	}
 	redirect(`/admin/${key}`);
+}
+
+// Typed action (not a FormData action): invoked from the SortableList client
+// island after a drag. Persists the new order and revalidates; returns a result
+// so the client can keep its optimistic state and show a subtle save indicator.
+export async function reorderCollectionItems(
+	key: string,
+	orderedIds: string[],
+): Promise<{ ok: true } | { ok: false; error: string }> {
+	if (!(await getSession())) redirect("/admin/login");
+	const cfg = getCollection(key);
+	if (!cfg) return { ok: false, error: "Unknown collection" };
+	if (!cfg.reorderable)
+		return { ok: false, error: "This collection cannot be reordered" };
+
+	try {
+		await reorderItems(key, orderedIds);
+	} catch (err) {
+		return { ok: false, error: (err as Error).message };
+	}
+
+	updateTag(collectionTag(key));
+	revalidatePath("/");
+	revalidatePath(`/admin/${key}`);
+	return { ok: true };
 }

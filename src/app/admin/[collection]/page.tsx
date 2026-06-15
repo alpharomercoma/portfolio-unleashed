@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { removeCollectionItem } from "@/app/admin/collection-actions";
+import { SortableList } from "@/components/admin/sortable-list";
 import { Button } from "@/components/ui/button";
 import { getCollection } from "@/lib/collections/registry";
 import {
@@ -43,43 +44,58 @@ export default async function CollectionListPage({
 				</p>
 			)}
 
-			<ul className="divide-y divide-border border-y border-border">
-				{items.map((item) => {
-					const { title, meta } = cfg.summary(item);
-					return (
-						<li
-							key={item.id}
-							className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-4"
-						>
-							<div className="min-w-0">
-								<Link
-									href={`/admin/${collection}/${item.id}`}
-									className="font-medium text-foreground hover:underline line-clamp-1"
-								>
-									{title}
-								</Link>
-								{meta && (
-									<div className="text-xs text-muted-foreground mt-0.5">
-										{meta}
-									</div>
-								)}
-							</div>
-							<div className="flex items-center gap-2 shrink-0">
-								<Button asChild variant="outline" size="sm">
-									<Link href={`/admin/${collection}/${item.id}`}>Edit</Link>
-								</Button>
-								<form action={removeCollectionItem}>
-									<input type="hidden" name="collection" value={collection} />
-									<input type="hidden" name="id" value={String(item.id)} />
-									<Button variant="outline" size="sm" type="submit">
-										Delete
+			{cfg.reorderable ? (
+				<SortableList
+					collectionKey={collection}
+					items={items.map((item) => {
+						const { title, meta } = cfg.summary(item);
+						return {
+							id: String(item.id),
+							title,
+							meta,
+							editHref: `/admin/${collection}/${item.id}`,
+						};
+					})}
+				/>
+			) : (
+				<ul className="divide-y divide-border border-y border-border">
+					{items.map((item) => {
+						const { title, meta } = cfg.summary(item);
+						return (
+							<li
+								key={item.id}
+								className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-4"
+							>
+								<div className="min-w-0">
+									<Link
+										href={`/admin/${collection}/${item.id}`}
+										className="font-medium text-foreground hover:underline line-clamp-1"
+									>
+										{title}
+									</Link>
+									{meta && (
+										<div className="text-xs text-muted-foreground mt-0.5">
+											{meta}
+										</div>
+									)}
+								</div>
+								<div className="flex items-center gap-2 shrink-0">
+									<Button asChild variant="outline" size="sm">
+										<Link href={`/admin/${collection}/${item.id}`}>Edit</Link>
 									</Button>
-								</form>
-							</div>
-						</li>
-					);
-				})}
-			</ul>
+									<form action={removeCollectionItem}>
+										<input type="hidden" name="collection" value={collection} />
+										<input type="hidden" name="id" value={String(item.id)} />
+										<Button variant="outline" size="sm" type="submit">
+											Delete
+										</Button>
+									</form>
+								</div>
+							</li>
+						);
+					})}
+				</ul>
+			)}
 		</div>
 	);
 }
