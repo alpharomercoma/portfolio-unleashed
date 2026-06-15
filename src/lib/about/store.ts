@@ -1,21 +1,13 @@
 import "server-only";
 
-import { Redis } from "@upstash/redis";
 import { unstable_cache } from "next/cache";
 
+import { createRedis } from "@/lib/redis";
 import aboutSeed from "../../../data/about.seed.json";
 import { type About, aboutSchema } from "./schema";
 
-// Support both the Upstash-native and Vercel-KV-style env var names.
-const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-const token =
-	process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
-
-export const isAboutStoreConfigured = Boolean(url && token);
-
-const redis = isAboutStoreConfigured
-	? new Redis({ url: url as string, token: token as string })
-	: null;
+const redis = createRedis();
+export const isAboutStoreConfigured = redis != null;
 
 export const ABOUT_TAG = "about";
 const ABOUT_KEY = "about:doc";

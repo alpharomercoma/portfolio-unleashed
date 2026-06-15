@@ -40,3 +40,16 @@ export function slug(str: string) {
 		.replace(/^-+/, "")
 		.replace(/-+$/, "");
 }
+
+/** Split a textarea value into trimmed, non-empty lines (one item per line). */
+export function parseLines(value: unknown): string[] {
+	return String(value ?? "")
+		.split("\n")
+		.map((s) => s.trim())
+		.filter(Boolean);
+}
+
+/** Compare ISO date / year strings descending (newest first). */
+export function byDateDesc(a: string, b: string): number {
+	return a < b ? 1 : a > b ? -1 : 0;
+}

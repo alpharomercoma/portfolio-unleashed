@@ -10,14 +10,14 @@ import { RecognitionSection } from "@/components/recognition-section";
 import { RecommendationsSection } from "@/components/recommendations-section";
 import { SelectedWorkSection } from "@/components/selected-work-section";
 import { SpeakingSection } from "@/components/speaking-section";
-import type {
-	Award,
-	Certification,
-	Project,
-	Recommendation,
-	SelectedWork,
+import {
+	awardSchema,
+	certificationSchema,
+	projectSchema,
+	recommendationSchema,
+	selectedWorkSchema,
 } from "@/lib/collections/schema";
-import { getAllItems } from "@/lib/collections/store";
+import { getTypedItems } from "@/lib/collections/store";
 import { getPublishedTalks } from "@/lib/talks/store";
 import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/seo";
 
@@ -63,11 +63,11 @@ export default async function Home() {
 		selectedWork,
 	] = await Promise.all([
 		getPublishedTalks(),
-		getAllItems("awards"),
-		getAllItems("certifications"),
-		getAllItems("recommendations"),
-		getAllItems("projects"),
-		getAllItems("selected-work"),
+		getTypedItems("awards", awardSchema),
+		getTypedItems("certifications", certificationSchema),
+		getTypedItems("recommendations", recommendationSchema),
+		getTypedItems("projects", projectSchema),
+		getTypedItems("selected-work", selectedWorkSchema),
 	]);
 	const featured = talks.filter((t) => t.featured);
 	const speakingTeaser = (featured.length > 0 ? featured : talks).slice(0, 6);
@@ -83,17 +83,12 @@ export default async function Home() {
 			/>
 			<Navbar />
 			<HeroSection />
-			<SelectedWorkSection items={selectedWork as unknown as SelectedWork[]} />
-			<ProjectsSection projects={projects as unknown as Project[]} />
+			<SelectedWorkSection items={selectedWork} />
+			<ProjectsSection projects={projects} />
 			<SpeakingSection talks={speakingTeaser} total={talks.length} />
 			<BlogSection />
-			<RecognitionSection
-				awards={awards as unknown as Award[]}
-				certifications={certifications as unknown as Certification[]}
-			/>
-			<RecommendationsSection
-				recommendations={recommendations as unknown as Recommendation[]}
-			/>
+			<RecognitionSection awards={awards} certifications={certifications} />
+			<RecommendationsSection recommendations={recommendations} />
 			<CtaSection />
 			<Footer />
 		</main>

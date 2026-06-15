@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
-import type { GalleryImage } from "@/lib/collections/schema";
-import { getAllItems } from "@/lib/collections/store";
+import { galleryImageSchema } from "@/lib/collections/schema";
+import { getTypedItems } from "@/lib/collections/store";
 
 import { SITE_URL } from "@/lib/seo";
 const DESCRIPTION =
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryPage() {
-	const images = (await getAllItems("gallery")) as unknown as GalleryImage[];
+	const images = await getTypedItems("gallery", galleryImageSchema);
 
 	const jsonLd = {
 		"@context": "https://schema.org",

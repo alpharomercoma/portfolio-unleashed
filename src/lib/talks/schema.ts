@@ -33,13 +33,13 @@ export const TALK_CATEGORIES = [
 ] as const;
 
 export const talkEventSchema = z.object({
-	id: z.string().min(1),
-	eventName: z.string().min(1),
-	organizerName: z.string().min(1),
+	id: z.string().min(1).max(120),
+	eventName: z.string().min(1).max(200),
+	organizerName: z.string().min(1).max(200),
 	organizerLogo: z.string().url().optional().or(z.literal("")),
-	date: z.string().min(1), // ISO date "YYYY-MM-DD"
-	venue: z.string().default(""),
-	audienceSize: z.number().int().nonnegative().default(0),
+	date: z.string().min(1).max(40), // ISO date "YYYY-MM-DD"
+	venue: z.string().max(200).default(""),
+	audienceSize: z.number().int().nonnegative().max(100_000_000).default(0),
 	slideUrl: z.string().url().optional().or(z.literal("")),
 	videoUrl: z.string().url().optional().or(z.literal("")),
 });
@@ -48,30 +48,31 @@ export const talkSchema = z.object({
 	slug: z
 		.string()
 		.min(1)
+		.max(80)
 		.regex(/^[a-z0-9-]+$/, "lowercase letters, numbers, and dashes only"),
-	title: z.string().min(1),
-	tagline: z.string().default(""),
+	title: z.string().min(1).max(200),
+	tagline: z.string().max(200).default(""),
 	type: z.enum(TALK_TYPES).default("Talk"),
-	category: z.string().default("Community"),
+	category: z.string().max(80).default("Community"),
 	// Optional: podcasts and other conversational formats carry no level.
 	level: z.enum(TALK_LEVELS).optional(),
-	durationMinutes: z.number().int().positive().default(60),
-	language: z.string().default("English"),
-	tags: z.array(z.string()).default([]),
-	abstract: z.string().default(""),
-	outline: z.array(z.string()).default([]),
-	keyTakeaways: z.array(z.string()).default([]),
+	durationMinutes: z.number().int().positive().max(100_000).default(60),
+	language: z.string().max(80).default("English"),
+	tags: z.array(z.string().max(100)).max(50).default([]),
+	abstract: z.string().max(6000).default(""),
+	outline: z.array(z.string().max(500)).max(100).default([]),
+	keyTakeaways: z.array(z.string().max(500)).max(50).default([]),
 	featured: z.boolean().default(false),
 	// Draft talks are hidden from the public site until published. New talks
 	// default to published; AI-drafted talks are saved as drafts to review first.
 	status: z.enum(TALK_STATUSES).default("published"),
 	// URL or a local /public path (e.g. /talks/covers/<slug>.jpg).
-	showcaseImage: z.string().default(""),
+	showcaseImage: z.string().max(2000).default(""),
 	primarySlideUrl: z.string().url().optional().or(z.literal("")),
 	videoUrl: z.string().url().optional().or(z.literal("")),
-	events: z.array(talkEventSchema).default([]),
-	createdAt: z.string().default(""),
-	updatedAt: z.string().default(""),
+	events: z.array(talkEventSchema).max(100).default([]),
+	createdAt: z.string().max(40).default(""),
+	updatedAt: z.string().max(40).default(""),
 });
 
 export type TalkEvent = z.infer<typeof talkEventSchema>;

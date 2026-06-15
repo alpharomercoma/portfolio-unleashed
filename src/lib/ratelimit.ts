@@ -1,23 +1,32 @@
 import "server-only";
 
 import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 
-// Reuse the same Upstash credentials as the content stores.
-const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-const token =
-	process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
+import { createRedis } from "@/lib/redis";
+
+// Reuse the same Upstash client/creds as the content stores.
+const redis = createRedis();
 
 // Sliding window: at most 5 sign-in attempts per IP per 10 minutes.
-const ratelimit =
-	url && token
-		? new Ratelimit({
-				redis: new Redis({ url, token }),
-				limiter: Ratelimit.slidingWindow(5, "10 m"),
-				prefix: "ratelimit:login",
-				analytics: false,
-			})
-		: null;
+const loginLimiter = redis
+	? new Ratelimit({
+			redis,
+			limiter: Ratelimit.slidingWindow(5, "10 m"),
+			prefix: "ratelimit:login",
+			analytics: false,
+		})
+	: null;
+
+// The AI draft action fetches a PDF and calls Mistral, so it is expensive even
+// behind admin auth. Cap it to curb runaway cost / accidental loops.
+const aiDraftLimiter = redis
+	? new Ratelimit({
+			redis,
+			limiter: Ratelimit.slidingWindow(15, "1 h"),
+			prefix: "ratelimit:aidraft",
+			analytics: false,
+		})
+	: null;
 
 /**
  * Returns `{ success: false }` when the IP has exceeded the sign-in limit.
@@ -26,7 +35,21 @@ const ratelimit =
 export async function loginRateLimit(
 	ip: string,
 ): Promise<{ success: boolean; remaining: number }> {
-	if (!ratelimit) return { success: true, remaining: Number.POSITIVE_INFINITY };
-	const { success, remaining } = await ratelimit.limit(ip);
+	if (!loginLimiter)
+		return { success: true, remaining: Number.POSITIVE_INFINITY };
+	const { success, remaining } = await loginLimiter.limit(ip);
+	return { success, remaining };
+}
+
+/**
+ * Returns `{ success: false }` when the AI draft limit is exceeded for `key`
+ * (an admin IP). No-ops to success when Upstash is not configured.
+ */
+export async function aiDraftRateLimit(
+	key: string,
+): Promise<{ success: boolean; remaining: number }> {
+	if (!aiDraftLimiter)
+		return { success: true, remaining: Number.POSITIVE_INFINITY };
+	const { success, remaining } = await aiDraftLimiter.limit(key);
 	return { success, remaining };
 }

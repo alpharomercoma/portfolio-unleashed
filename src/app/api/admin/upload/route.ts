@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { uploadImageToBlob } from "@/lib/blob";
+import {
+	MAX_IMAGE_BYTES,
+	isSupportedImage,
+	uploadImageToBlob,
+} from "@/lib/blob";
 import { getSession } from "@/lib/session";
 
 // Session-gated image upload used by the markdown editor and the image picker.
@@ -25,9 +29,17 @@ export async function POST(req: Request) {
 	if (!(file instanceof File) || file.size === 0) {
 		return NextResponse.json({ error: "No file provided." }, { status: 400 });
 	}
-	if (!file.type.startsWith("image/")) {
+	if (file.size > MAX_IMAGE_BYTES) {
 		return NextResponse.json(
-			{ error: "Only image files are allowed." },
+			{ error: "Image is too large (max 8 MB)." },
+			{ status: 400 },
+		);
+	}
+	// Don't trust the client Content-Type; verify real image bytes.
+	const head = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+	if (!isSupportedImage(head)) {
+		return NextResponse.json(
+			{ error: "Unsupported file. Use a PNG, JPEG, GIF, WebP, or AVIF image." },
 			{ status: 400 },
 		);
 	}
@@ -42,7 +54,7 @@ export async function POST(req: Request) {
 	} catch (error) {
 		console.error("[upload] failed", error);
 		return NextResponse.json(
-			{ error: `Upload failed: ${(error as Error).message}` },
+			{ error: "Upload failed. Please try again." },
 			{ status: 500 },
 		);
 	}

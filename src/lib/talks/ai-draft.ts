@@ -6,6 +6,7 @@ import { createMistral } from "@ai-sdk/mistral";
 import { generateObject, generateText } from "ai";
 import { z } from "zod";
 
+import { SITE_URL } from "@/lib/seo";
 import { TALK_CATEGORIES, TALK_LEVELS, TALK_TYPES } from "./schema";
 
 // The subset of a talk's fields that can be reasonably inferred from a slide
@@ -60,8 +61,7 @@ How to write it (important):
 const SLIDES_RE = /docs\.google\.com\/presentation\/d\/([a-zA-Z0-9_-]+)/;
 const CANVA_RE = /canva\.com\/design\//i;
 
-const PREFLIGHT_UA =
-	"Mozilla/5.0 (compatible; alpharomer-admin/1.0; +https://alpharomer.com)";
+const PREFLIGHT_UA = `Mozilla/5.0 (compatible; alpharomer-admin/1.0; +${SITE_URL})`;
 
 // True for loopback, private, link-local (incl. cloud metadata 169.254.169.254),
 // CGNAT, and IPv6 equivalents. Used to keep the pre-flight fetch from being turned
@@ -220,7 +220,9 @@ export async function draftFromSlides(slidesUrl: string): Promise<TalkDraft> {
 	const pdfUrl = await resolveDeckPdfUrl(slidesUrl);
 
 	const mistral = createMistral({ apiKey });
-	const model = mistral("mistral-small-latest");
+	// Configurable so the model can be swapped without a code change. The default
+	// supports PDF document understanding.
+	const model = mistral(process.env.MISTRAL_MODEL_ID || "mistral-small-latest");
 	const content = [
 		{ type: "text" as const, text: PROMPT },
 		{
@@ -262,8 +264,13 @@ export async function draftFromSlides(slidesUrl: string): Promise<TalkDraft> {
 		try {
 			parsed = JSON.parse(stripCodeFence(text));
 		} catch {
-			throw new Error("The AI response couldn't be parsed. Please try again.");
+			throw new Error("The AI response couldn't be read. Please try again.");
 		}
-		return draftSchema.parse(parsed);
+		// Validate without leaking the raw model output in a ZodError message.
+		const result = draftSchema.safeParse(parsed);
+		if (!result.success) {
+			throw new Error("The AI response couldn't be read. Please try again.");
+		}
+		return result.data;
 	}
 }

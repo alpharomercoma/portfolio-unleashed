@@ -3,6 +3,7 @@
 import { revalidatePath, updateTag } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { ZodError } from "zod";
 
 import {
 	SESSION_COOKIE,
@@ -12,7 +13,9 @@ import {
 } from "@/lib/auth";
 import { sendAdminAlert } from "@/lib/notify";
 import { loginRateLimit } from "@/lib/ratelimit";
+import { SITE_DOMAIN } from "@/lib/seo";
 import { getSession } from "@/lib/session";
+import { parseLines } from "@/lib/utils";
 import {
 	type Talk,
 	TYPES_WITHOUT_LEVEL,
@@ -22,6 +25,7 @@ import {
 import {
 	TALKS_TAG,
 	deleteTalk as storeDelete,
+	getTalk,
 	upsertTalk,
 } from "@/lib/talks/store";
 
@@ -38,7 +42,7 @@ export async function login(formData: FormData) {
 	// Brute-force protection: block the IP after too many attempts.
 	const { success } = await loginRateLimit(ip);
 	if (!success) {
-		await sendAdminAlert("Blocked sign-in attempts on alpharomer.com", [
+		await sendAdminAlert(`Blocked sign-in attempts on ${SITE_DOMAIN}`, [
 			"Admin sign-in attempts were rate-limited (possible brute force).",
 			`IP: ${ip}`,
 			`User-Agent: ${ua}`,
@@ -60,7 +64,7 @@ export async function login(formData: FormData) {
 		maxAge: SESSION_MAX_AGE,
 	});
 
-	await sendAdminAlert("Admin sign-in to alpharomer.com", [
+	await sendAdminAlert(`Admin sign-in to ${SITE_DOMAIN}`, [
 		"A successful admin sign-in just occurred.",
 		`IP: ${ip}`,
 		`User-Agent: ${ua}`,
@@ -75,18 +79,22 @@ export async function logout() {
 	redirect("/admin/login");
 }
 
-function lines(value: FormDataEntryValue | null): string[] {
-	return String(value ?? "")
-		.split("\n")
-		.map((s) => s.trim())
-		.filter(Boolean);
-}
-
 export async function saveTalk(formData: FormData) {
 	if (!(await getSession())) redirect("/admin/login");
 
 	const title = String(formData.get("title") ?? "").trim();
-	const slug = String(formData.get("slug") ?? "").trim() || slugify(title);
+	// An existing talk submits its slug (hidden field); a new one derives it.
+	const submittedSlug = String(formData.get("slug") ?? "").trim();
+	const slug = submittedSlug || slugify(title);
+
+	// Creating a new talk must not silently overwrite an existing one.
+	if (!submittedSlug && (await getTalk(slug))) {
+		redirect(
+			`/admin/talks/new?error=${encodeURIComponent(
+				`A talk with the slug "${slug}" already exists. Edit that one, or change the title.`,
+			)}`,
+		);
+	}
 
 	// Showcase image URL comes from the Blob-backed image picker (or is blank).
 	const showcaseImage = String(formData.get("showcaseImage") ?? "").trim();
@@ -129,10 +137,10 @@ export async function saveTalk(formData: FormData) {
 		level,
 		durationMinutes: Number(formData.get("durationMinutes") ?? 60) || 60,
 		language: String(formData.get("language") ?? "English").trim() || "English",
-		tags: lines(formData.get("tags")),
+		tags: parseLines(formData.get("tags")),
 		abstract: String(formData.get("abstract") ?? "").trim(),
-		outline: lines(formData.get("outline")),
-		keyTakeaways: lines(formData.get("keyTakeaways")),
+		outline: parseLines(formData.get("outline")),
+		keyTakeaways: parseLines(formData.get("keyTakeaways")),
 		featured: formData.get("featured") === "on",
 		status: formData.get("status") === "draft" ? "draft" : "published",
 		showcaseImage,
@@ -143,7 +151,20 @@ export async function saveTalk(formData: FormData) {
 		updatedAt: "",
 	};
 
-	await upsertTalk(talk);
+	try {
+		await upsertTalk(talk);
+	} catch (err) {
+		// Schema validation (size caps, enums, slug format) rejected the input.
+		// Surface a friendly message; never leak the raw issue list.
+		if (err instanceof ZodError) {
+			redirect(
+				`/admin/talks/${slug || "new"}?error=${encodeURIComponent(
+					"Some fields are invalid or too long. Please review and try again.",
+				)}`,
+			);
+		}
+		throw err;
+	}
 	updateTag(TALKS_TAG);
 	revalidatePath("/speaking");
 	revalidatePath(`/speaking/${slug}`);

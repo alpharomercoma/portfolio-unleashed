@@ -1,24 +1,16 @@
 import "server-only";
 
-import { Redis } from "@upstash/redis";
 import { unstable_cache } from "next/cache";
 
+import { createRedis } from "@/lib/redis";
 import seedData from "../../../data/talks.seed.json";
 import { type Talk, sortTalksByRecency, talkSchema } from "./schema";
 
 // Revalidated by the admin write actions; until then reads serve from cache.
 export const TALKS_TAG = "talks";
 
-// Support both the Upstash-native and Vercel-KV-style env var names.
-const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-const token =
-	process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
-
-export const isStoreConfigured = Boolean(url && token);
-
-const redis = isStoreConfigured
-	? new Redis({ url: url as string, token: token as string })
-	: null;
+const redis = createRedis();
+export const isStoreConfigured = redis != null;
 
 const TALK_KEY = (slug: string) => `talk:${slug}`;
 const SLUGS_KEY = "talks:slugs";
@@ -43,9 +35,22 @@ function normalizeLegacy(raw: unknown): unknown {
 }
 
 function parseTalks(raw: unknown[]): Talk[] {
-	return raw
-		.map((t) => talkSchema.safeParse(normalizeLegacy(t)))
-		.flatMap((r) => (r.success ? [r.data] : []));
+	const out: Talk[] = [];
+	for (const item of raw) {
+		const res = talkSchema.safeParse(normalizeLegacy(item));
+		if (res.success) {
+			out.push(res.data);
+		} else {
+			// Surface corruption/seed drift instead of silently dropping data.
+			console.warn(
+				"[talks] dropped an item that failed validation:",
+				res.error.issues
+					.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`)
+					.join("; "),
+			);
+		}
+	}
+	return out;
 }
 
 async function readAllTalks(): Promise<Talk[]> {
@@ -95,13 +100,15 @@ export async function upsertTalk(talk: Talk): Promise<void> {
 		);
 	}
 	const now = new Date().toISOString();
-	const toSave: Talk = {
+	// Validate at the write boundary (mirrors collections' upsertItem) so only
+	// schema-valid, size-bounded talks ever reach Redis. Throws ZodError on bad input.
+	const toSave = talkSchema.parse({
 		...talk,
 		createdAt: talk.createdAt || now,
 		updatedAt: now,
-	};
-	await redis.set(TALK_KEY(talk.slug), toSave);
-	await redis.sadd(SLUGS_KEY, talk.slug);
+	});
+	await redis.set(TALK_KEY(toSave.slug), toSave);
+	await redis.sadd(SLUGS_KEY, toSave.slug);
 }
 
 export async function deleteTalk(slug: string): Promise<void> {

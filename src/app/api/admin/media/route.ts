@@ -27,7 +27,10 @@ export async function GET() {
 		return NextResponse.json({ images });
 	} catch (error) {
 		console.error("[media] list failed", error);
-		return NextResponse.json({ images: [], error: (error as Error).message });
+		return NextResponse.json({
+			images: [],
+			error: "Couldn't load the library.",
+		});
 	}
 }
 
@@ -60,8 +63,9 @@ export async function DELETE(req: Request) {
 		await del(url);
 		return NextResponse.json({ ok: true });
 	} catch (error) {
+		console.error("[media] delete failed", error);
 		return NextResponse.json(
-			{ error: (error as Error).message },
+			{ error: "Couldn't delete the image. Please try again." },
 			{ status: 500 },
 		);
 	}

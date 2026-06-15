@@ -18,6 +18,8 @@ export const env = createEnv({
 		ALERT_EMAIL: z.string().email().optional(),
 		// Mistral AI: drafts talk fields from a slides deck in the admin.
 		MISTRAL_API_KEY: z.string().min(1).optional(),
+		// Optional model override (defaults to mistral-small-latest).
+		MISTRAL_MODEL_ID: z.string().min(1).optional(),
 	},
 	client: {
 		NEXT_PUBLIC_API_URL: z.string().url().min(1).optional(),
@@ -43,6 +45,7 @@ export const env = createEnv({
 		RESEND_FROM: process.env.RESEND_FROM,
 		ALERT_EMAIL: process.env.ALERT_EMAIL,
 		MISTRAL_API_KEY: process.env.MISTRAL_API_KEY,
+		MISTRAL_MODEL_ID: process.env.MISTRAL_MODEL_ID,
 		NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN:
 			process.env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,
 		NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,

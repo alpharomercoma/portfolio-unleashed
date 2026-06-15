@@ -1,20 +1,13 @@
 import "server-only";
 
-import { Redis } from "@upstash/redis";
 import { unstable_cache } from "next/cache";
+import type { ZodType } from "zod";
 
+import { createRedis } from "@/lib/redis";
 import { type CollectionConfig, getCollection } from "./registry";
 
-// Support both the Upstash-native and Vercel-KV-style env var names.
-const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-const token =
-	process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
-
-export const isCollectionsStoreConfigured = Boolean(url && token);
-
-const redis = isCollectionsStoreConfigured
-	? new Redis({ url: url as string, token: token as string })
-	: null;
+const redis = createRedis();
+export const isCollectionsStoreConfigured = redis != null;
 
 export type CollectionItem = { id: string } & Record<string, unknown>;
 
@@ -62,6 +55,22 @@ export function getAllItems(key: string): Promise<CollectionItem[]> {
 	return unstable_cache(() => readAll(key), ["collection", key], {
 		tags: [collectionTag(key)],
 	})();
+}
+
+/**
+ * Typed read: validate each item against `schema` so callers receive `T[]` instead
+ * of the loose `CollectionItem[]`. Keeps the schema the single source of truth from
+ * store to render (no `as unknown as` casts at call sites).
+ */
+export async function getTypedItems<T>(
+	key: string,
+	schema: ZodType<T>,
+): Promise<T[]> {
+	const items = await getAllItems(key);
+	return items.flatMap((item) => {
+		const res = schema.safeParse(item);
+		return res.success ? [res.data] : [];
+	});
 }
 
 export async function getItem(

@@ -12,6 +12,7 @@ import {
 	upsertItem,
 } from "@/lib/collections/store";
 import { getSession } from "@/lib/session";
+import { parseLines } from "@/lib/utils";
 
 // The collection key travels in a hidden `collection` form field rather than a
 // bound argument, so these are imported directly by the client form (mirroring
@@ -26,13 +27,7 @@ export async function saveCollectionItem(formData: FormData) {
 	for (const field of cfg.fields) {
 		const raw = String(formData.get(field.name) ?? "");
 		// `list` fields are newline-separated textareas that become string arrays.
-		data[field.name] =
-			field.kind === "list"
-				? raw
-						.split("\n")
-						.map((s) => s.trim())
-						.filter(Boolean)
-				: raw.trim();
+		data[field.name] = field.kind === "list" ? parseLines(raw) : raw.trim();
 	}
 	const existingId = String(formData.get("id") ?? "").trim();
 	if (existingId) data.id = existingId;
@@ -92,7 +87,11 @@ export async function reorderCollectionItems(
 	try {
 		await reorderItems(key, orderedIds);
 	} catch (err) {
-		return { ok: false, error: (err as Error).message };
+		console.error(`[collections:${key}] reorder failed`, err);
+		return {
+			ok: false,
+			error: "Couldn't save the new order. Please try again.",
+		};
 	}
 
 	updateTag(collectionTag(key));

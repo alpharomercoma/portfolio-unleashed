@@ -1,6 +1,7 @@
 import type { z } from "zod";
 
 import { slugify } from "@/lib/talks/schema";
+import { byDateDesc } from "@/lib/utils";
 import awardSeed from "../../../data/awards.seed.json";
 import certSeed from "../../../data/certifications.seed.json";
 import gallerySeed from "../../../data/gallery.seed.json";
@@ -62,8 +63,6 @@ export type CollectionConfig<T extends { id: string } = { id: string }> = {
 	// `order: number` field stays in the data.
 	reorderable?: boolean;
 };
-
-const byDateDesc = (a: string, b: string) => (a < b ? 1 : a > b ? -1 : 0);
 
 const certifications: CollectionConfig<Certification> = {
 	key: "certifications",
