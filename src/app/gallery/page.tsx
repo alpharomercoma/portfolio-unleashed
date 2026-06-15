@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Footer } from "@/components/footer";
+import { GalleryGrid } from "@/components/gallery/gallery-grid";
 import { Navbar } from "@/components/navbar";
 import { galleryImageSchema } from "@/lib/collections/schema";
 import { getTypedItems } from "@/lib/collections/store";
@@ -85,35 +86,13 @@ export default async function GalleryPage() {
 					</header>
 
 					{images.length > 0 ? (
-						<div className="gap-4 [column-fill:balance] columns-2 md:columns-3 lg:columns-4">
-							{images.map((item) => (
-								<figure
-									key={item.id}
-									className="group relative mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-secondary"
-								>
-									{/* Plain img keeps the natural aspect ratio (no cropping). */}
-									{/* eslint-disable-next-line @next/next/no-img-element */}
-									<img
-										src={item.image}
-										alt={item.title || ""}
-										loading="lazy"
-										decoding="async"
-										className="block w-full h-auto transition-transform duration-500 group-hover:scale-[1.04]"
-									/>
-									{item.title && (
-										<figcaption className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-ink/85 via-ink/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-											<span className="flex items-center gap-2 p-4 text-sm font-medium text-background">
-												<span
-													aria-hidden
-													className="size-1.5 shrink-0 rounded-full bg-lime"
-												/>
-												{item.title}
-											</span>
-										</figcaption>
-									)}
-								</figure>
-							))}
-						</div>
+						<GalleryGrid
+							images={images.map((g) => ({
+								id: g.id,
+								image: g.image,
+								title: g.title,
+							}))}
+						/>
 					) : (
 						<div className="rounded-2xl border border-border bg-secondary p-10 text-center">
 							<p className="text-sm text-muted-foreground">
