@@ -83,8 +83,11 @@ export function GalleryGrid({ images }: { images: GalleryItem[] }) {
 
 	return (
 		<>
-			{/* Tighter, uniform gap so the masonry reads as one surface. */}
-			<div className="gap-3 [column-fill:balance] columns-2 md:columns-3 lg:columns-4">
+			{/* Tighter, uniform gap so the masonry reads as one surface. Three
+			    columns on desktop (down from four) gives each image more room —
+			    important here since the set skews landscape — and keeps the wall
+			    focused instead of dense. */}
+			<div className="gap-3 [column-fill:balance] columns-2 md:columns-3">
 				{images.map((item, i) => (
 					<figure key={item.id} className="mb-3 break-inside-avoid">
 						<button
