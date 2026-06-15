@@ -13,22 +13,33 @@ type MediaImage = {
 	uploadedAt: string;
 };
 
-// Image field backed by the Blob media library. Stores the selected image URL in
-// a hidden input so the surrounding form submits it. Opens a modal to upload,
-// browse, select, and delete images.
+// Image field backed by the Blob media library. Opens a modal to upload, browse,
+// select, and delete images. Two modes:
+//   • uncontrolled + `name` → stores the URL in a hidden input the form submits.
+//   • controlled `value`/`onChange` (no `name`) → caller owns the value (used by
+//     the talk events editor, which serializes logos into its own JSON payload).
 export function ImagePicker({
 	name,
 	defaultValue = "",
+	value: controlledValue,
+	onChange,
 }: {
-	name: string;
+	name?: string;
 	defaultValue?: string;
+	value?: string;
+	onChange?: (url: string) => void;
 }) {
-	const [value, setValue] = useState(defaultValue);
+	const [internal, setInternal] = useState(defaultValue);
+	const value = controlledValue ?? internal;
+	const setValue = (v: string) => {
+		if (onChange) onChange(v);
+		else setInternal(v);
+	};
 	const [open, setOpen] = useState(false);
 
 	return (
 		<div>
-			<input type="hidden" name={name} value={value} />
+			{name && <input type="hidden" name={name} value={value} />}
 			<div className="flex items-center gap-3">
 				<div className="relative size-16 shrink-0 overflow-hidden rounded-lg border border-border bg-secondary grid place-items-center">
 					{value ? (

@@ -1,62 +1,107 @@
 [
 	{
-		"id": "justine-jude-pura",
-		"quote": "What distinguishes Alpha further is his remarkable humility and positive attitude. Despite his impressive credentials and achievements, he remains grounded and approachable, always willing to learn and grow. His blend of intellectual curiosity, leadership qualities, and character make him a standout individual.",
-		"author": "Justine Jude Pura",
-		"role": "CS Faculty, FEU Tech"
+		"id": "sermil-matoto",
+		"quote": "Alpha has a rare talent for taking abstract ideas and turning them into working MVPs incredibly fast. During his internship under my direction, he consistently leveraged modern AI-driven development workflows to accelerate the delivery of proof-of-concepts. He is a strong asset for any team that needs to quickly validate ideas and build out initial product versions.",
+		"author": "Sermil Matoto",
+		"role": "Cloud GDE | GCP, AWS, DevOps",
+		"date": "2026-04-02"
 	},
 	{
-		"id": "guennevere-rito",
-		"quote": "I can confidently say that he is an exceptional Webmaster with a forward-thinking mindset. Alpha never limited himself to his job responsibilities. Instead, he consistently ventured beyond his role, introducing ideas that greatly benefited the entire computer science community at FEU Tech.",
-		"author": "Guennevere Rito",
-		"role": "VP of External Affairs, FEU Tech ACM"
+		"id": "jean-malolos",
+		"quote": "Throughout my Software Engineering 2 class, Alpha demonstrated responsibility and initiative, effectively balancing coursework with professional commitments. What impressed me most was his proactive interest in AI-driven web development, advanced model development on TPUs and cloud platforms, and career-focused growth. I am confident he will continue to succeed in any setting.",
+		"author": "Jean Malolos",
+		"role": "Senior Data Scientist, DOST-NICER",
+		"date": "2025-03-27"
 	},
 	{
 		"id": "abraham-magpantay",
 		"quote": "Beyond his technical skills, Alpha was a collaborative and proactive member of the ACM Student Chapter, an academic organization for computer science, always contributing insightful ideas and fostering a positive environment.",
 		"author": "Abraham Magpantay",
-		"role": "Former Adviser, FEU Tech ACM"
+		"role": "Former Adviser, FEU Tech ACM",
+		"date": "2024-12-10"
+	},
+	{
+		"id": "guennevere-rito",
+		"quote": "I can confidently say that he is an exceptional Webmaster with a forward-thinking mindset. Alpha never limited himself to his job responsibilities. Instead, he consistently ventured beyond his role, introducing ideas that greatly benefited the entire computer science community at FEU Tech.",
+		"author": "Guennevere Rito",
+		"role": "VP of External Affairs, FEU Tech ACM",
+		"date": "2024-08-21"
 	},
 	{
 		"id": "rab-karl-colasino",
 		"quote": "As Webmaster at FEU Tech ACM, he demonstrated exceptional leadership and technical skills. His commitment to the ACM Beyond Campus Initiative positively impacted a lot of people. Alpha's full-stack and back-end expertise, combined with a passion for education, make him an outstanding developer and team player.",
 		"author": "Rab Karl Colasino",
-		"role": "ACMX Lead, FEU Tech ACMX"
+		"role": "ACMX Lead, FEU Tech ACMX",
+		"date": "2024-07-29"
 	},
 	{
-		"id": "beau-gray-habal",
-		"quote": "Alpha consistently performs well academically. His work reflects a deep understanding of the material, and he consistently produces quality assignments. Alpha is exceptionally curious and displays a genuine eagerness to learn. He works well with his classmates and it is evident that he is a team player.",
-		"author": "Beau Gray Habal",
-		"role": "CS Faculty, FEU Tech"
-	},
-	{
-		"id": "michelle-anne-constantino",
-		"quote": "I was Alpha's Computer Systems Architecture professor, but I didn't see him just as a student of CSA; he has always given an effort towards class work and goes beyond what is being asked. I have always admired how he goes beyond what classes require.",
-		"author": "Michelle Anne Constantino",
-		"role": "CS Faculty, FEU Tech"
-	},
-	{
-		"id": "angelo-arguson-dit",
-		"quote": "Mr. Alpha Romer is my data structures student. He is industrious and knowledgeable in computer programming. He is a multilingual person and very competitive when it comes to project submissions. He can be a candidate for software development internships in the future.",
-		"author": "Angelo Arguson, DIT",
-		"role": "CS Faculty, FEU Tech"
+		"id": "justine-jude-pura",
+		"quote": "What distinguishes Alpha further is his remarkable humility and positive attitude. Despite his impressive credentials and achievements, he remains grounded and approachable, always willing to learn and grow. His blend of intellectual curiosity, leadership qualities, and character make him a standout individual.",
+		"author": "Justine Jude Pura",
+		"role": "CS Faculty, FEU Tech",
+		"date": "2024-03-28"
 	},
 	{
 		"id": "jeneffer-sabonsolin",
 		"quote": "Alpha Romer Coma, my student in design thinking, exhibits a profound passion for academic excellence, evident in the outstanding quality of his work. I eagerly anticipate witnessing his continued growth and achievements.",
 		"author": "Jeneffer Sabonsolin",
-		"role": "CS Faculty, FEU Tech"
+		"role": "CS Faculty, FEU Tech",
+		"date": "2024-03-25"
 	},
 	{
 		"id": "xynil-jhed-lacap",
 		"quote": "Alpha is an amazing team player who always steps up his game, especially in developing a program. He is really adept at adapting in unfavorable situations, and his ability to turn the tide in our team's favor is incredible.",
 		"author": "Xynil Jhed Lacap",
-		"role": "AI Engineer, Boost Capital"
+		"role": "AI Engineer, Boost Capital",
+		"date": "2024-03-25"
+	},
+	{
+		"id": "michelle-anne-constantino",
+		"quote": "I was Alpha's Computer Systems Architecture professor, but I didn't see him just as a student of CSA; he has always given an effort towards class work and goes beyond what is being asked. I have always admired how he goes beyond what classes require.",
+		"author": "Michelle Anne Constantino",
+		"role": "CS Faculty, FEU Tech",
+		"date": "2023-12-11"
+	},
+	{
+		"id": "angelo-arguson-dit",
+		"quote": "Mr. Alpha Romer is my data structures student. He is industrious and knowledgeable in computer programming. He is a multilingual person and very competitive when it comes to project submissions. He can be a candidate for software development internships in the future.",
+		"author": "Angelo Arguson, DIT",
+		"role": "CS Faculty, FEU Tech",
+		"date": "2023-07-14"
 	},
 	{
 		"id": "john-kenneth-andales",
 		"quote": "Mr. Coma is a development-oriented person, as his passion for the field is unparalleled. His enthusiasm for sharing ideas and collaborating with colleagues fosters a dynamic and engaging work environment.",
 		"author": "John Kenneth Andales",
-		"role": "Software Engineer, Samsung"
+		"role": "Software Engineer, Samsung",
+		"date": "2023-03-27"
+	},
+	{
+		"id": "john-rey-basilio",
+		"quote": "Mr. Coma is an excellent teammate you can rely on. We both honed our skills through a simultaneous exchange of ideas and solutions, whether design-related or code-related. Learning with Mr. Coma is such a pleasure.",
+		"author": "John Rey Basilio",
+		"role": "Customer Success Specialist",
+		"date": "2023-02-14"
+	},
+	{
+		"id": "kristoffer-ian-sioson",
+		"quote": "Despite his youth, Alpha demonstrated professionalism in every task he was given. He gave me a detailed explanation of the project we were working on and brought a new perspective to things I usually couldn't figure out. Working with him is something I heartily endorse.",
+		"author": "Kristoffer Ian Sioson",
+		"role": "Software Engineer",
+		"date": "2022-12-21"
+	},
+	{
+		"id": "job-isaac-ong",
+		"quote": "Working with Alpha on the project was a pleasure — he was responsive and professional throughout. The project was delivered on time and the quality of the work is excellent. I highly recommend working with him.",
+		"author": "Job Isaac Ong",
+		"role": "Software Engineer & AI Specialist",
+		"date": "2022-12-20"
+	},
+	{
+		"id": "beau-gray-habal",
+		"quote": "Alpha consistently performs well academically. His work reflects a deep understanding of the material, and he consistently produces quality assignments. Alpha is exceptionally curious and displays a genuine eagerness to learn. He works well with his classmates and it is evident that he is a team player.",
+		"author": "Beau Gray Habal",
+		"role": "CS Faculty, FEU Tech",
+		"date": ""
 	}
 ]

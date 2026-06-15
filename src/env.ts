@@ -16,6 +16,8 @@ export const env = createEnv({
 		RESEND_API_KEY: z.string().min(1).optional(),
 		RESEND_FROM: z.string().min(1).optional(),
 		ALERT_EMAIL: z.string().email().optional(),
+		// Mistral AI: drafts talk fields from a slides deck in the admin.
+		MISTRAL_API_KEY: z.string().min(1).optional(),
 	},
 	client: {
 		NEXT_PUBLIC_API_URL: z.string().url().min(1).optional(),
@@ -40,6 +42,7 @@ export const env = createEnv({
 		RESEND_API_KEY: process.env.RESEND_API_KEY,
 		RESEND_FROM: process.env.RESEND_FROM,
 		ALERT_EMAIL: process.env.ALERT_EMAIL,
+		MISTRAL_API_KEY: process.env.MISTRAL_API_KEY,
 		NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN:
 			process.env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,
 		NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,

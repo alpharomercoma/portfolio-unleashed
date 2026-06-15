@@ -38,18 +38,24 @@ export default async function AdminTalksPage() {
 						className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-4"
 					>
 						<div className="min-w-0">
-							<Link
-								href={`/admin/talks/${t.slug}`}
-								className="font-medium text-foreground hover:underline"
-							>
-								{t.title}
-							</Link>
+							<div className="flex items-center gap-2">
+								<Link
+									href={`/admin/talks/${t.slug}`}
+									className="font-medium text-foreground hover:underline"
+								>
+									{t.title}
+								</Link>
+								{t.status === "draft" && (
+									<span className="inline-flex shrink-0 items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-600 dark:text-amber-400">
+										Draft
+									</span>
+								)}
+							</div>
 							<div className="text-xs text-muted-foreground mt-0.5">
 								{[t.category, t.type, t.level, `${t.events.length} events`]
 									.filter(Boolean)
 									.join(" · ")}
 								{t.featured ? " · featured" : ""}
-								{t.needsReview ? " · needs review" : ""}
 							</div>
 						</div>
 						<div className="flex items-center gap-2 shrink-0">

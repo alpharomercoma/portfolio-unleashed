@@ -2,7 +2,6 @@ import "server-only";
 
 import { Redis } from "@upstash/redis";
 import { unstable_cache } from "next/cache";
-import { z } from "zod";
 
 import seedData from "../../../data/talks.seed.json";
 import { type Talk, sortTalksByRecency, talkSchema } from "./schema";
@@ -28,13 +27,24 @@ const SLUGS_KEY = "talks:slugs";
 // (local dev / a build with no credentials) and the canonical data the seed script
 // pushes into Upstash. Keeps /speaking populated and the build green without creds.
 function seedTalks(): Talk[] {
-	const res = z.array(talkSchema).safeParse(seedData);
-	return res.success ? res.data : [];
+	return parseTalks(seedData as unknown[]);
+}
+
+// Records written before the Draft/Published change carry a `needsReview` boolean
+// instead of `status`. Map those forward so review-flagged talks become drafts
+// (not silently published) without needing a data migration.
+function normalizeLegacy(raw: unknown): unknown {
+	if (!raw || typeof raw !== "object") return raw;
+	const rec = raw as Record<string, unknown>;
+	if (rec.status == null && "needsReview" in rec) {
+		return { ...rec, status: rec.needsReview === true ? "draft" : "published" };
+	}
+	return raw;
 }
 
 function parseTalks(raw: unknown[]): Talk[] {
 	return raw
-		.map((t) => talkSchema.safeParse(t))
+		.map((t) => talkSchema.safeParse(normalizeLegacy(t)))
 		.flatMap((r) => (r.success ? [r.data] : []));
 }
 
@@ -66,10 +76,16 @@ export async function getTalk(slug: string): Promise<Talk | null> {
 	return all.find((t) => t.slug === slug) ?? null;
 }
 
-export async function getFeaturedTalks(limit = 3): Promise<Talk[]> {
+/** Public-facing talks only — drafts are hidden from the live site. */
+export async function getPublishedTalks(): Promise<Talk[]> {
 	const all = await getAllTalks();
-	const featured = all.filter((t) => t.featured);
-	return (featured.length ? featured : all).slice(0, limit);
+	return all.filter((t) => t.status === "published");
+}
+
+export async function getFeaturedTalks(limit = 3): Promise<Talk[]> {
+	const published = await getPublishedTalks();
+	const featured = published.filter((t) => t.featured);
+	return (featured.length ? featured : published).slice(0, limit);
 }
 
 export async function upsertTalk(talk: Talk): Promise<void> {

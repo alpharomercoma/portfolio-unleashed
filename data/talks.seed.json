@@ -26,7 +26,7 @@
 			"ASICs build on top of PyTorch, so your skills transfer"
 		],
 		"featured": true,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/de-mystifying-pytorch-for-asics.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
 		"videoUrl": "",
@@ -91,7 +91,7 @@
 			"Benchmarks reveal a 'blind faith in text' failure mode in VLMs"
 		],
 		"featured": true,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/foundations-of-multimodal-ai-fusions-architectures-and-beyond.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGsYa9Ivhw/F8zdWJRzINK8vPgjArJ7Dw/view",
 		"videoUrl": "",
@@ -137,7 +137,7 @@
 			"You can provision a TPU VM in minutes with one gcloud command"
 		],
 		"featured": true,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/supercharge-your-ml-research-with-googles-tpu-research-cloud.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4/edit",
 		"videoUrl": "",
@@ -193,7 +193,7 @@
 			"Students can get GitHub Foundations certified for free"
 		],
 		"featured": true,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/git-and-github-foundations.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
 		"videoUrl": "",
@@ -270,7 +270,7 @@
 			"Codespaces gives you a disposable, full-power dev machine for free"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/practical-github-advanced-use-cases.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGfkJiDlTU/-5yJxltDAmR2lSMGxLgtTg/view",
 		"videoUrl": "",
@@ -314,7 +314,7 @@
 			"The Student Developer Pack is a huge, free head start"
 		],
 		"featured": true,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/open-source-series-licensing-version-control-contributing-and-beyond.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAG3MtSllRU/ALPO2D_8PBPXoApxNW17zQ/view",
 		"videoUrl": "",
@@ -358,7 +358,7 @@
 			"Direct applications beat one-click apply for response rate"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/internship-employability-resume-linkedin-github-and-beyond.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAG3vgFTIRw/lX11R-l5WCG5HWNGph9WKA/view",
 		"videoUrl": "",
@@ -402,7 +402,7 @@
 			"Match the PM approach (waterfall/agile/hybrid) to the project"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/secure-maintain-and-manage-digital-essentials.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGqHG1iTqc/47m0L7mWC7q24rOU5kQzeQ/view",
 		"videoUrl": "",
@@ -446,7 +446,7 @@
 			"Building your own web presence is more accessible than ever"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/demonstrating-websites-and-internal-data-handling.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGbBFeOF8Y/rqAdKRR_ScEbVmp6HJzOJQ/view",
 		"videoUrl": "",
@@ -488,7 +488,7 @@
 			"Knowing your accelerator options is a research advantage"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/frontiers-of-modern-ai-multimodality-and-accelerated-computing.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
 		"videoUrl": "",
@@ -533,7 +533,7 @@
 			"Know the pitfalls (POC purgatory, evaluation) before you ship"
 		],
 		"featured": true,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/product-building-with-ai.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1pQ5gzJtaP9tqAYS1ISIJ79EDVy6LHiWtXpgEOHvfQuo/edit",
 		"videoUrl": "",
@@ -578,7 +578,7 @@
 			"The Copilot CLI brings agents to the terminal; Spark generates micro-apps"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/github-universe-25-recap-ai-edition.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit",
 		"videoUrl": "",
@@ -623,7 +623,7 @@
 			"AI Studio and Firebase Studio make 'vibe coding' fast and free"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/g-trends-a-developers-guide-to-googles-next-gen-toolkit.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1Vafm3hrMy7Cs2Df_S_LJkFtQmtMSGq49UpfwWjAezsY/edit",
 		"videoUrl": "",
@@ -667,7 +667,7 @@
 			"Read an AI tool's privacy policy before you feed it your data"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/online-safety-in-the-age-of-ai.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E/edit",
 		"videoUrl": "",
@@ -709,7 +709,7 @@
 			"The Neuron SDK handles most of the porting work"
 		],
 		"featured": false,
-		"needsReview": true,
+		"status": "draft",
 		"showcaseImage": "",
 		"primarySlideUrl": "",
 		"videoUrl": "",
@@ -753,7 +753,7 @@
 			"Copilot can search the web, read images, and draft your commits"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/introduction-to-github-copilot-and-ai-development.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1diyWyjbFnMRDKm07uJaCz1TL6kR-IKeDuZosOebusq4/edit",
 		"videoUrl": "",
@@ -795,7 +795,7 @@
 			"Community tooling is a force multiplier for student orgs"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/initiatives-at-feu-tech-acm.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAF-vkkrquk/l98xZeGkXN9ULHIIz38GjA/view",
 		"videoUrl": "",
@@ -837,7 +837,7 @@
 			"Getting started is more about consistency than credentials"
 		],
 		"featured": false,
-		"needsReview": false,
+		"status": "published",
 		"showcaseImage": "/talks/covers/the-filipino-dream-in-tech.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAF_ciFtU9o/_WSNwT2EvG-RRcZn0dVbxw/view",
 		"videoUrl": "",

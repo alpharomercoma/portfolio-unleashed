@@ -3,7 +3,7 @@ import { defineQuery } from "next-sanity";
 
 import { SITE_URL } from "@/lib/seo";
 import { latestEventDate } from "@/lib/talks/schema";
-import { getAllTalks } from "@/lib/talks/store";
+import { getPublishedTalks } from "@/lib/talks/store";
 import { sanityFetch } from "@/sanity/lib/fetch";
 
 // Regenerate at most hourly so admin-added talks/posts appear without a redeploy.
@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		{ url: `${SITE_URL}/about`, changeFrequency: "monthly", priority: 0.6 },
 	];
 
-	const talks = await getAllTalks().catch(() => []);
+	const talks = await getPublishedTalks().catch(() => []);
 	const talkRoutes: MetadataRoute.Sitemap = talks.map((t) => ({
 		url: `${SITE_URL}/speaking/${t.slug}`,
 		lastModified: toDate(t.updatedAt) ?? toDate(latestEventDate(t)),

@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { SpeakingIndex } from "@/components/speaking/speaking-index";
 import { computeStats } from "@/lib/talks/schema";
-import { getAllTalks } from "@/lib/talks/store";
+import { getPublishedTalks } from "@/lib/talks/store";
 
 import { SITE_URL } from "@/lib/seo";
 const SPEAKING_DESCRIPTION =
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SpeakingPage() {
-	const talks = await getAllTalks();
+	const talks = await getPublishedTalks();
 	const stats = computeStats(talks);
 
 	const statItems = [

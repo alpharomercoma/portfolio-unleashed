@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { TalkForm } from "@/components/admin/talk-form";
+import { env } from "@/env";
 import { getTalk } from "@/lib/talks/store";
 
 export const metadata: Metadata = {
@@ -42,7 +43,11 @@ export default async function EditTalkPage({
 						View ↗
 					</Link>
 				</div>
-				<TalkForm talk={talk} error={sp.error} />
+				<TalkForm
+					talk={talk}
+					error={sp.error}
+					aiEnabled={Boolean(env.MISTRAL_API_KEY)}
+				/>
 			</div>
 		</main>
 	);

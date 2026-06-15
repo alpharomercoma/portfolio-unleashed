@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@ai-sdk/google": "^2.0.46",
+		"@ai-sdk/mistral": "^2.0.34",
 		"@commitlint/cli": "^20.2.0",
 		"@commitlint/config-conventional": "^20.2.0",
 		"@dnd-kit/core": "6.3.1",

@@ -12,7 +12,7 @@ import {
 	latestEventDate,
 	sortTalksByRecency,
 } from "@/lib/talks/schema";
-import { getAllTalks, getTalk } from "@/lib/talks/store";
+import { getPublishedTalks, getTalk } from "@/lib/talks/store";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -22,7 +22,7 @@ import { SITE_URL } from "@/lib/seo";
 const DEFAULT_OG = "/og.png";
 
 export async function generateStaticParams() {
-	const talks = await getAllTalks();
+	const talks = await getPublishedTalks();
 	return talks.map((t) => ({ slug: t.slug }));
 }
 
@@ -34,7 +34,9 @@ function metaDescription(talk: Talk): string {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { slug } = await params;
 	const talk = await getTalk(slug);
-	if (!talk) return { title: "Talk not found", robots: { index: false } };
+	// Drafts are not public: hide their metadata like a missing talk.
+	if (!talk || talk.status !== "published")
+		return { title: "Talk not found", robots: { index: false } };
 
 	const description = metaDescription(talk);
 	const path = `/speaking/${slug}`;
@@ -111,13 +113,14 @@ function MetaCell({ label, value }: { label: string; value: string }) {
 export default async function TalkPage({ params }: Props) {
 	const { slug } = await params;
 	const talk = await getTalk(slug);
-	if (!talk) notFound();
+	// Drafts 404 publicly; they're only reachable from the admin.
+	if (!talk || talk.status !== "published") notFound();
 
 	const events = [...talk.events].sort((a, b) => b.date.localeCompare(a.date));
 	const embed = toEmbedUrl(talk.primarySlideUrl ?? "");
 
-	// "More talks" = a few other talks by recency.
-	const more = sortTalksByRecency(await getAllTalks())
+	// "More talks" = a few other published talks by recency.
+	const more = sortTalksByRecency(await getPublishedTalks())
 		.filter((t) => t.slug !== talk.slug)
 		.slice(0, 3);
 

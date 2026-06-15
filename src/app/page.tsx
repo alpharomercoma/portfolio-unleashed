@@ -18,7 +18,7 @@ import type {
 	SelectedWork,
 } from "@/lib/collections/schema";
 import { getAllItems } from "@/lib/collections/store";
-import { getAllTalks } from "@/lib/talks/store";
+import { getPublishedTalks } from "@/lib/talks/store";
 import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -62,7 +62,7 @@ export default async function Home() {
 		projects,
 		selectedWork,
 	] = await Promise.all([
-		getAllTalks(),
+		getPublishedTalks(),
 		getAllItems("awards"),
 		getAllItems("certifications"),
 		getAllItems("recommendations"),

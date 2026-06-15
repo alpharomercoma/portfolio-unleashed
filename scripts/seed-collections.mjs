@@ -23,6 +23,17 @@ const COLLECTIONS = [
 	"gallery",
 ];
 
+// Optional CLI filter: `node scripts/seed-collections.mjs recommendations awards`
+// seeds only those keys. With no args, all collections are seeded. Useful to
+// push one collection without overwriting others' admin edits (e.g. reordering).
+const requested = process.argv.slice(2);
+const unknown = requested.filter((k) => !COLLECTIONS.includes(k));
+if (unknown.length) {
+	console.error(`[seed-collections] unknown collection(s): ${unknown.join(", ")}`);
+	process.exit(1);
+}
+const SELECTED = requested.length ? requested : COLLECTIONS;
+
 async function readSeed(key) {
 	const file = path.join(root, "data", `${key}.seed.json`);
 	return JSON.parse(await readFile(file, "utf8"));
@@ -30,9 +41,9 @@ async function readSeed(key) {
 
 async function main() {
 	const data = Object.fromEntries(
-		await Promise.all(COLLECTIONS.map(async (k) => [k, await readSeed(k)])),
+		await Promise.all(SELECTED.map(async (k) => [k, await readSeed(k)])),
 	);
-	for (const key of COLLECTIONS) {
+	for (const key of SELECTED) {
 		console.log(`[seed-collections] ${key}: ${data[key].length} items`);
 	}
 
@@ -48,7 +59,7 @@ async function main() {
 
 	const { Redis } = await import("@upstash/redis");
 	const redis = new Redis({ url, token });
-	for (const key of COLLECTIONS) {
+	for (const key of SELECTED) {
 		const items = data[key];
 		for (const item of items) {
 			await redis.set(`col:${key}:item:${item.id}`, item);

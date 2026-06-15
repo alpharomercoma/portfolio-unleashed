@@ -10,7 +10,6 @@ import {
 	checkPassword,
 	signSession,
 } from "@/lib/auth";
-import { uploadImageToBlob } from "@/lib/blob";
 import { sendAdminAlert } from "@/lib/notify";
 import { loginRateLimit } from "@/lib/ratelimit";
 import { getSession } from "@/lib/session";
@@ -89,16 +88,8 @@ export async function saveTalk(formData: FormData) {
 	const title = String(formData.get("title") ?? "").trim();
 	const slug = String(formData.get("slug") ?? "").trim() || slugify(title);
 
-	// Optional image upload to Vercel Blob.
-	let showcaseImage = String(formData.get("showcaseImage") ?? "").trim();
-	const file = formData.get("showcaseFile");
-	if (
-		file instanceof File &&
-		file.size > 0 &&
-		process.env.BLOB_READ_WRITE_TOKEN
-	) {
-		showcaseImage = await uploadImageToBlob("talks", file);
-	}
+	// Showcase image URL comes from the Blob-backed image picker (or is blank).
+	const showcaseImage = String(formData.get("showcaseImage") ?? "").trim();
 
 	// Events come through as a JSON array textarea.
 	let events: Talk["events"] = [];
@@ -143,7 +134,7 @@ export async function saveTalk(formData: FormData) {
 		outline: lines(formData.get("outline")),
 		keyTakeaways: lines(formData.get("keyTakeaways")),
 		featured: formData.get("featured") === "on",
-		needsReview: formData.get("needsReview") === "on",
+		status: formData.get("status") === "draft" ? "draft" : "published",
 		showcaseImage,
 		primarySlideUrl: String(formData.get("primarySlideUrl") ?? "").trim(),
 		videoUrl: String(formData.get("videoUrl") ?? "").trim(),

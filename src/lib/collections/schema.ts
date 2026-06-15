@@ -38,6 +38,7 @@ export const recommendationSchema = z.object({
 	quote: z.string().min(1),
 	author: z.string().min(1),
 	role: z.string().default(""),
+	date: z.string().default(""), // ISO date "YYYY-MM-DD" the recommendation was given
 });
 export type Recommendation = z.infer<typeof recommendationSchema>;
 

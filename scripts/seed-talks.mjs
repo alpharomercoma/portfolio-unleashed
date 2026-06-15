@@ -785,7 +785,9 @@ function build() {
 			outline: t.outline ?? [],
 			keyTakeaways: t.keyTakeaways ?? [],
 			featured: Boolean(t.featured),
-			needsReview: Boolean(t.needsReview),
+			// `needsReview` is this script's internal flag; the stored model uses
+			// a Draft/Published status (drafts are hidden from the public site).
+			status: t.needsReview ? "draft" : "published",
 			showcaseImage,
 			primarySlideUrl: t.primarySlideUrl ?? "",
 			videoUrl: t.videoUrl ?? "",

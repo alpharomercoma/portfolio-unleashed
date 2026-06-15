@@ -15,6 +15,11 @@ export const TYPES_WITHOUT_LEVEL: readonly (typeof TALK_TYPES)[number][] = [
 	"Podcast",
 ];
 
+// Publication state. Drafts are admin-only (e.g. a talk freshly drafted from a
+// slide deck by the AI, awaiting review); published talks appear on /speaking.
+export const TALK_STATUSES = ["draft", "published"] as const;
+export type TalkStatus = (typeof TALK_STATUSES)[number];
+
 // Suggested categories for this ML/dev portfolio. Stored as a free string so the
 // admin can add new ones, but the UI offers these.
 export const TALK_CATEGORIES = [
@@ -57,8 +62,9 @@ export const talkSchema = z.object({
 	outline: z.array(z.string()).default([]),
 	keyTakeaways: z.array(z.string()).default([]),
 	featured: z.boolean().default(false),
-	// Set true when content was drafted from a deck/title and the owner should review.
-	needsReview: z.boolean().default(false),
+	// Draft talks are hidden from the public site until published. New talks
+	// default to published; AI-drafted talks are saved as drafts to review first.
+	status: z.enum(TALK_STATUSES).default("published"),
 	// URL or a local /public path (e.g. /talks/covers/<slug>.jpg).
 	showcaseImage: z.string().default(""),
 	primarySlideUrl: z.string().url().optional().or(z.literal("")),

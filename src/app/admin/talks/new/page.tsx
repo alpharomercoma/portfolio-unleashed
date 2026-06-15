@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { TalkForm } from "@/components/admin/talk-form";
+import { env } from "@/env";
 
 export const metadata: Metadata = {
 	title: "New talk",
@@ -24,7 +25,7 @@ export default async function NewTalkPage({
 					← Back to talks
 				</Link>
 				<h1 className="display-md mt-6 mb-8">New talk</h1>
-				<TalkForm error={sp.error} />
+				<TalkForm error={sp.error} aiEnabled={Boolean(env.MISTRAL_API_KEY)} />
 			</div>
 		</main>
 	);

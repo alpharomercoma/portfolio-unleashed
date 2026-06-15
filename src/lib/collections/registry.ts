@@ -148,10 +148,14 @@ const recommendations: CollectionConfig<Recommendation> = {
 		},
 		{ name: "author", label: "Author", kind: "text", required: true },
 		{ name: "role", label: "Role", kind: "text" },
+		{ name: "date", label: "Date given", kind: "date" },
 	],
-	// Curated order, keep as authored.
-	sort: (items) => items,
-	summary: (r) => ({ title: r.author, meta: r.role }),
+	// Newest-first by the date the recommendation was given.
+	sort: (items) => [...items].sort((a, b) => byDateDesc(a.date, b.date)),
+	summary: (r) => ({
+		title: r.author,
+		meta: r.date ? `${r.role} · ${r.date}` : r.role,
+	}),
 	seed: recommendationSeed as Recommendation[],
 };
 
