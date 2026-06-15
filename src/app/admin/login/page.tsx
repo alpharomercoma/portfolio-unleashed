@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { login } from "@/app/admin/actions";
+import { login } from "@/app/admin/auth-actions";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

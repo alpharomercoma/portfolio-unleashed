@@ -1,11 +1,13 @@
 import { del, list } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
+import { createLogger } from "@/lib/logger";
 import { getSession } from "@/lib/session";
 
 // Media library backing the admin image picker. Lists and deletes images stored
 // in the public Blob store under the "media/" prefix. Session-gated.
 const PREFIX = "media/";
+const log = createLogger("media");
 
 export async function GET() {
 	if (!(await getSession())) {
@@ -26,7 +28,7 @@ export async function GET() {
 			.sort((a, b) => (a.uploadedAt < b.uploadedAt ? 1 : -1));
 		return NextResponse.json({ images });
 	} catch (error) {
-		console.error("[media] list failed", error);
+		log.error("list failed", error);
 		return NextResponse.json({
 			images: [],
 			error: "Couldn't load the library.",
@@ -63,7 +65,7 @@ export async function DELETE(req: Request) {
 		await del(url);
 		return NextResponse.json({ ok: true });
 	} catch (error) {
-		console.error("[media] delete failed", error);
+		log.error("delete failed", error);
 		return NextResponse.json(
 			{ error: "Couldn't delete the image. Please try again." },
 			{ status: 500 },

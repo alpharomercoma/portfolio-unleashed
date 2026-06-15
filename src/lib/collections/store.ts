@@ -3,9 +3,11 @@ import "server-only";
 import { unstable_cache } from "next/cache";
 import type { ZodType } from "zod";
 
+import { createLogger } from "@/lib/logger";
 import { createRedis } from "@/lib/redis";
 import { type CollectionConfig, getCollection } from "./registry";
 
+const log = createLogger("collections");
 const redis = createRedis();
 export const isCollectionsStoreConfigured = redis != null;
 
@@ -41,7 +43,7 @@ async function readAll(key: string): Promise<CollectionItem[]> {
 		const items = parseItems(cfg, (raw ?? []).filter(Boolean));
 		return cfg.sort(items.length ? items : cfg.seed) as CollectionItem[];
 	} catch (error) {
-		console.warn(`[collections:${key}] read failed; using seed.`, error);
+		log.warn(`${key}: read failed; using seed`, error);
 		return seed();
 	}
 }

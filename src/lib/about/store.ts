@@ -2,10 +2,12 @@ import "server-only";
 
 import { unstable_cache } from "next/cache";
 
+import { createLogger } from "@/lib/logger";
 import { createRedis } from "@/lib/redis";
 import aboutSeed from "../../../data/about.seed.json";
 import { type About, aboutSchema } from "./schema";
 
+const log = createLogger("about");
 const redis = createRedis();
 export const isAboutStoreConfigured = redis != null;
 
@@ -26,7 +28,7 @@ async function readAbout(): Promise<About> {
 		const parsed = aboutSchema.safeParse(raw);
 		return parsed.success ? parsed.data : seed();
 	} catch (error) {
-		console.warn("[about] read failed; using seed.", error);
+		log.warn("read failed; using seed", error);
 		return seed();
 	}
 }

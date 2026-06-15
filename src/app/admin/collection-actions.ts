@@ -11,14 +11,17 @@ import {
 	reorderItems,
 	upsertItem,
 } from "@/lib/collections/store";
-import { getSession } from "@/lib/session";
+import { createLogger } from "@/lib/logger";
+import { requireAdmin } from "@/lib/session";
 import { parseLines } from "@/lib/utils";
+
+const log = createLogger("collections");
 
 // The collection key travels in a hidden `collection` form field rather than a
 // bound argument, so these are imported directly by the client form (mirroring
 // the talks form) and used as `action={saveCollectionItem}`.
 export async function saveCollectionItem(formData: FormData) {
-	if (!(await getSession())) redirect("/admin/login");
+	await requireAdmin();
 	const key = String(formData.get("collection") ?? "").trim();
 	const cfg = getCollection(key);
 	if (!cfg) redirect("/admin");
@@ -58,7 +61,7 @@ export async function saveCollectionItem(formData: FormData) {
 }
 
 export async function removeCollectionItem(formData: FormData) {
-	if (!(await getSession())) redirect("/admin/login");
+	await requireAdmin();
 	const key = String(formData.get("collection") ?? "").trim();
 	if (!getCollection(key)) redirect("/admin");
 	const id = String(formData.get("id") ?? "").trim();
@@ -78,7 +81,7 @@ export async function reorderCollectionItems(
 	key: string,
 	orderedIds: string[],
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-	if (!(await getSession())) redirect("/admin/login");
+	await requireAdmin();
 	const cfg = getCollection(key);
 	if (!cfg) return { ok: false, error: "Unknown collection" };
 	if (!cfg.reorderable)
@@ -87,7 +90,7 @@ export async function reorderCollectionItems(
 	try {
 		await reorderItems(key, orderedIds);
 	} catch (err) {
-		console.error(`[collections:${key}] reorder failed`, err);
+		log.error(`${key}: reorder failed`, err);
 		return {
 			ok: false,
 			error: "Couldn't save the new order. Please try again.",

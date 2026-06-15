@@ -1,10 +1,9 @@
 "use server";
 
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 import { aiDraftRateLimit } from "@/lib/ratelimit";
-import { getSession } from "@/lib/session";
+import { requireAdmin } from "@/lib/session";
 import { type TalkDraft, draftFromSlides } from "@/lib/talks/ai-draft";
 
 /**
@@ -16,7 +15,7 @@ import { type TalkDraft, draftFromSlides } from "@/lib/talks/ai-draft";
 export async function draftTalkFromSlides(
 	slidesUrl: string,
 ): Promise<{ ok: true; draft: TalkDraft } | { ok: false; error: string }> {
-	if (!(await getSession())) redirect("/admin/login");
+	await requireAdmin();
 
 	const h = await headers();
 	const ip = (h.get("x-forwarded-for") ?? "").split(",")[0].trim() || "admin";

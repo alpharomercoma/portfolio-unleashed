@@ -5,7 +5,10 @@ import {
 	isSupportedImage,
 	uploadImageToBlob,
 } from "@/lib/blob";
+import { createLogger } from "@/lib/logger";
 import { getSession } from "@/lib/session";
+
+const log = createLogger("upload");
 
 // Session-gated image upload used by the markdown editor and the image picker.
 // Stores the file in Vercel Blob (under the given folder, default "media") and
@@ -52,7 +55,7 @@ export async function POST(req: Request) {
 		const url = await uploadImageToBlob(folder, file);
 		return NextResponse.json({ url });
 	} catch (error) {
-		console.error("[upload] failed", error);
+		log.error("upload failed", error);
 		return NextResponse.json(
 			{ error: "Upload failed. Please try again." },
 			{ status: 500 },

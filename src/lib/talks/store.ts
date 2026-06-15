@@ -2,6 +2,7 @@ import "server-only";
 
 import { unstable_cache } from "next/cache";
 
+import { createLogger } from "@/lib/logger";
 import { createRedis } from "@/lib/redis";
 import seedData from "../../../data/talks.seed.json";
 import { type Talk, sortTalksByRecency, talkSchema } from "./schema";
@@ -9,6 +10,7 @@ import { type Talk, sortTalksByRecency, talkSchema } from "./schema";
 // Revalidated by the admin write actions; until then reads serve from cache.
 export const TALKS_TAG = "talks";
 
+const log = createLogger("talks");
 const redis = createRedis();
 export const isStoreConfigured = redis != null;
 
@@ -42,8 +44,8 @@ function parseTalks(raw: unknown[]): Talk[] {
 			out.push(res.data);
 		} else {
 			// Surface corruption/seed drift instead of silently dropping data.
-			console.warn(
-				"[talks] dropped an item that failed validation:",
+			log.warn(
+				"dropped an item that failed validation",
 				res.error.issues
 					.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`)
 					.join("; "),
@@ -62,7 +64,7 @@ async function readAllTalks(): Promise<Talk[]> {
 		const talks = parseTalks((raw ?? []).filter(Boolean));
 		return sortTalksByRecency(talks.length ? talks : seedTalks());
 	} catch (error) {
-		console.warn("[talks] read failed; using seed fallback.", error);
+		log.warn("read failed; using seed fallback", error);
 		return sortTalksByRecency(seedTalks());
 	}
 }

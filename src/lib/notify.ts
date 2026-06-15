@@ -2,6 +2,9 @@ import "server-only";
 
 import { Resend } from "resend";
 
+import { createLogger } from "@/lib/logger";
+
+const log = createLogger("notify");
 const apiKey = process.env.RESEND_API_KEY;
 const resend = apiKey ? new Resend(apiKey) : null;
 // Use a verified-domain sender in prod (RESEND_FROM); falls back to Resend's
@@ -35,7 +38,7 @@ export async function sendAdminAlert(
 	lines: string[],
 ): Promise<string | null> {
 	if (!resend) {
-		console.warn("[notify] RESEND_API_KEY not set; skipping alert:", subject);
+		log.warn("RESEND_API_KEY not set; skipping alert", subject);
 		return null;
 	}
 	try {
@@ -51,12 +54,12 @@ export async function sendAdminAlert(
 			html,
 		});
 		if (error) {
-			console.error("[notify] resend error:", error.message);
+			log.error("resend error", error.message);
 			return null;
 		}
 		return data?.id ?? null;
 	} catch (err) {
-		console.error("[notify] send failed:", (err as Error).message);
+		log.error("send failed", (err as Error).message);
 		return null;
 	}
 }
