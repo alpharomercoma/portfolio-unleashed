@@ -40,12 +40,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# eslint
+.eslintcache
+
 # PWA files
 **/public/workbox-*.js
 **/public/sw.js
 **/public/service-worker.js
 **/public/fallback-*.js
 **/public/worker-*.js
+**/public/swe-worker-*.js
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map

@@ -17,11 +17,7 @@ export const collectionTag = (key: string) => `collection:${key}`;
 const ITEM_KEY = (key: string, id: string) => `col:${key}:item:${id}`;
 const IDS_KEY = (key: string) => `col:${key}:ids`;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function parseItems(
-	cfg: CollectionConfig<any>,
-	raw: unknown[],
-): CollectionItem[] {
+function parseItems(cfg: CollectionConfig, raw: unknown[]): CollectionItem[] {
 	return raw
 		.map((r) => cfg.schema.safeParse(r))
 		.flatMap((r) => (r.success ? [r.data as CollectionItem] : []));

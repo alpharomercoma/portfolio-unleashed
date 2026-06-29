@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ExternalLink, FileText, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface ResumeModalProps {
@@ -16,26 +16,27 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
 	const [showContent, setShowContent] = useState(false);
 
 	useEffect(() => {
-		if (isOpen) {
-			document.body.style.overflow = "hidden";
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => {
-					setShowContent(true);
-				});
+		if (!isOpen) return;
+		document.body.style.overflow = "hidden";
+		let raf2 = 0;
+		const raf1 = requestAnimationFrame(() => {
+			raf2 = requestAnimationFrame(() => {
+				setShowContent(true);
 			});
-		} else {
-			setShowContent(false);
-			document.body.style.overflow = "";
-		}
+		});
 		return () => {
+			cancelAnimationFrame(raf1);
+			cancelAnimationFrame(raf2);
 			document.body.style.overflow = "";
+			// Reset the enter animation so the next open starts hidden.
+			setShowContent(false);
 		};
 	}, [isOpen]);
 
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		setShowContent(false);
 		setTimeout(() => onClose(), 300);
-	};
+	}, [onClose]);
 
 	useEffect(() => {
 		const handleEscape = (e: KeyboardEvent) => {
@@ -45,7 +46,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
 		};
 		window.addEventListener("keydown", handleEscape);
 		return () => window.removeEventListener("keydown", handleEscape);
-	}, [isOpen]);
+	}, [isOpen, handleClose]);
 
 	if (!isOpen) return null;
 

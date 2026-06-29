@@ -3,12 +3,14 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"predev": "npm run typegen",
+		"predev": "node scripts/typegen.mjs",
 		"dev": "next --turbo",
-		"prebuild": "npm run typegen",
+		"prebuild": "node scripts/typegen.mjs",
 		"build": "next build --webpack",
 		"start": "next start",
-		"lint": "next lint",
+		"lint": "eslint . --max-warnings 0",
+		"lint:fix": "eslint . --fix",
+		"typecheck": "tsc --noEmit",
 		"prepare": "husky && husky install",
 		"presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#using-the-sanity-cli'",
 		"setup": "npx sanity@latest init --env .env",
@@ -65,7 +67,7 @@
 		"jose": "^6.2.3",
 		"jsdom": "^27.3.0",
 		"lucide-react": "^0.561.0",
-		"next": "16.0.10",
+		"next": "16.2.9",
 		"next-sanity": "^11.6.10",
 		"next-sanity-image": "^6.2.0",
 		"nodemailer": "^7.0.11",
@@ -97,7 +99,7 @@
 		"@types/react-dom": "^19",
 		"baseline-browser-mapping": "^2.10.37",
 		"eslint": "^9",
-		"eslint-config-next": "16.0.10",
+		"eslint-config-next": "16.2.9",
 		"eslint-config-prettier": "^10.1.8",
 		"lint-staged": "^16.2.7",
 		"postcss": "^8",
@@ -106,7 +108,10 @@
 		"typescript": "^5"
 	},
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx,json,css,scss,md,html,yml,yaml}": "prettier --write",
-		"*.js": "eslint --cache --fix"
+		"*.{js,jsx,ts,tsx}": [
+			"eslint --fix",
+			"prettier --write"
+		],
+		"*.{json,css,scss,md,html,yml,yaml}": "prettier --write"
 	}
 }

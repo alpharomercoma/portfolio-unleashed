@@ -197,7 +197,6 @@ export default async function TalkPage({ params }: Props) {
 			<script
 				type="application/ld+json"
 				// JSON-LD: escape "<" so no field value can close the <script> tag.
-				// eslint-disable-next-line react/no-danger
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}
@@ -239,7 +238,7 @@ export default async function TalkPage({ params }: Props) {
 					{/* Metadata bar */}
 					<dl
 						className={`mt-10 grid grid-cols-2 sm:grid-cols-3 ${
-							talk.level ? "lg:grid-cols-5" : "lg:grid-cols-4"
+							talk.level ? "lg:grid-cols-4" : "lg:grid-cols-3"
 						} gap-px rounded-2xl overflow-hidden border border-border bg-border`}
 					>
 						<MetaCell label="Type" value={talk.type} />

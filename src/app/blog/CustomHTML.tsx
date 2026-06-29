@@ -45,7 +45,7 @@ export default function CustomHTML({
 
 			ref.current?.appendChild(parsed);
 		}
-	}, [ref.current, html.code]);
+	}, [firstRender, html.code]);
 
 	return (
 		<section

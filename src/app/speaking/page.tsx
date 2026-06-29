@@ -94,7 +94,6 @@ export default async function SpeakingPage() {
 		<main className="min-h-screen bg-background">
 			<script
 				type="application/ld+json"
-				// eslint-disable-next-line react/no-danger
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}

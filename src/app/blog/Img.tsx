@@ -38,6 +38,9 @@ export default function Img({
 	}
 
 	return (
+		// Intentional <img>: this renders a hand-built Sanity srcset/sizes pipeline
+		// (auto-format CDN URLs) that next/image's loader contract can't express.
+		// eslint-disable-next-line @next/next/no-img-element
 		<img
 			src={src}
 			{...generateSrcset(image, { width: imageWidth, sizes: imageSizes })}

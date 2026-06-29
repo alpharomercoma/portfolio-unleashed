@@ -3,7 +3,13 @@
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import {
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+	useSyncExternalStore,
+} from "react";
 
 import {
 	type AdminNavItem,
@@ -13,6 +19,17 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 
 const COLLAPSE_KEY = "admin-sidebar-collapsed";
+// Same-tab toggles dispatch this event; other tabs arrive via `storage`.
+const COLLAPSE_EVENT = "admin-sidebar-collapsed-change";
+
+function subscribeCollapsed(onChange: () => void) {
+	window.addEventListener("storage", onChange);
+	window.addEventListener(COLLAPSE_EVENT, onChange);
+	return () => {
+		window.removeEventListener("storage", onChange);
+		window.removeEventListener(COLLAPSE_EVENT, onChange);
+	};
+}
 
 export function AdminShell({
 	navItems,
@@ -23,28 +40,27 @@ export function AdminShell({
 }) {
 	const pathname = usePathname();
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	// Start expanded to match SSR; hydrate the persisted choice after mount.
-	const [collapsed, setCollapsed] = useState(false);
+	// Persisted sidebar state, read SSR-safely: `false` on the server (matching
+	// the first client render), the stored value thereafter. Using an external
+	// store avoids a hydration mismatch and a setState-in-effect.
+	const collapsed = useSyncExternalStore(
+		subscribeCollapsed,
+		() => localStorage.getItem(COLLAPSE_KEY) === "1",
+		() => false,
+	);
 
 	const hamburgerRef = useRef<HTMLButtonElement>(null);
 	const closeRef = useRef<HTMLButtonElement>(null);
 	const openedOnce = useRef(false);
 
-	useEffect(() => {
-		setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
+	const toggleCollapse = useCallback(() => {
+		const next = localStorage.getItem(COLLAPSE_KEY) !== "1";
+		localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
+		window.dispatchEvent(new Event(COLLAPSE_EVENT));
 	}, []);
 
-	const toggleCollapse = () =>
-		setCollapsed((v) => {
-			const next = !v;
-			localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
-			return next;
-		});
-
-	// Close the drawer on navigation.
-	useEffect(() => {
-		setDrawerOpen(false);
-	}, [pathname]);
+	// The drawer closes from each nav link's `onNavigate`, so no route-change
+	// effect is needed.
 
 	// Escape closes the drawer.
 	useEffect(() => {

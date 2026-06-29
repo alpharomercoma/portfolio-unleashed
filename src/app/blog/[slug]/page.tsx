@@ -105,7 +105,6 @@ export default async function PostPage({ params }: Props) {
 		<div className="container mx-auto px-5">
 			<script
 				type="application/ld+json"
-				// eslint-disable-next-line react/no-danger
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}

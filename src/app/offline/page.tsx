@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { Logo } from "@/components/logo";
 
@@ -22,12 +23,12 @@ export default function OfflinePage() {
 					This page isn&apos;t available without a connection. Reconnect and try
 					again, the rest of the site will be right here.
 				</p>
-				<a
+				<Link
 					href="/"
 					className="mt-8 inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
 				>
 					Back to home
-				</a>
+				</Link>
 			</div>
 		</main>
 	);
