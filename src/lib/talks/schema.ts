@@ -40,8 +40,6 @@ export const talkEventSchema = z.object({
 	date: z.string().min(1).max(40), // ISO date "YYYY-MM-DD"
 	venue: z.string().max(200).default(""),
 	audienceSize: z.number().int().nonnegative().max(100_000_000).default(0),
-	slideUrl: z.string().url().optional().or(z.literal("")),
-	videoUrl: z.string().url().optional().or(z.literal("")),
 });
 
 export const talkSchema = z.object({

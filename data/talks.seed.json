@@ -38,9 +38,7 @@
 				"organizerLogo": "",
 				"date": "2026-04-07",
 				"venue": "Station F, Paris, France",
-				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
-				"videoUrl": ""
+				"audienceSize": 100
 			},
 			{
 				"id": "de-mystifying-pytorch-for-asics-2",
@@ -49,9 +47,7 @@
 				"organizerLogo": "",
 				"date": "2026-05-09",
 				"venue": "Online",
-				"audienceSize": 20,
-				"slideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
-				"videoUrl": ""
+				"audienceSize": 20
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -103,9 +99,7 @@
 				"organizerLogo": "",
 				"date": "2025-07-14",
 				"venue": "Online",
-				"audienceSize": 40,
-				"slideUrl": "https://www.canva.com/design/DAGsYa9Ivhw/F8zdWJRzINK8vPgjArJ7Dw/view",
-				"videoUrl": ""
+				"audienceSize": 40
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -149,9 +143,7 @@
 				"organizerLogo": "",
 				"date": "2025-10-13",
 				"venue": "LaunchGarage",
-				"audienceSize": 120,
-				"slideUrl": "https://docs.google.com/presentation/d/1TZMmXumbaCf4PEIHcNVOuhwniLFJyOvLjPoZrnanb78/edit",
-				"videoUrl": ""
+				"audienceSize": 120
 			},
 			{
 				"id": "supercharge-your-ml-research-with-googles-tpu-research-cloud-2",
@@ -160,9 +152,7 @@
 				"organizerLogo": "",
 				"date": "2025-10-17",
 				"venue": "Online",
-				"audienceSize": 120,
-				"slideUrl": "https://docs.google.com/presentation/d/1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4/edit",
-				"videoUrl": ""
+				"audienceSize": 120
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -205,9 +195,7 @@
 				"organizerLogo": "",
 				"date": "2025-01-24",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 30,
-				"slideUrl": "https://www.canva.com/design/DAGSHoSgVYE/o8DVbBqk80T00npdVFSs2g/view",
-				"videoUrl": ""
+				"audienceSize": 30
 			},
 			{
 				"id": "git-and-github-foundations-2",
@@ -216,9 +204,7 @@
 				"organizerLogo": "",
 				"date": "2025-02-26",
 				"venue": "Online",
-				"audienceSize": 100,
-				"slideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
-				"videoUrl": ""
+				"audienceSize": 100
 			},
 			{
 				"id": "git-and-github-foundations-3",
@@ -227,9 +213,7 @@
 				"organizerLogo": "",
 				"date": "2025-10-24",
 				"venue": "Online",
-				"audienceSize": 100,
-				"slideUrl": "",
-				"videoUrl": ""
+				"audienceSize": 100
 			},
 			{
 				"id": "git-and-github-foundations-4",
@@ -238,9 +222,7 @@
 				"organizerLogo": "",
 				"date": "2026-03-05",
 				"venue": "Jose Rizal University",
-				"audienceSize": 50,
-				"slideUrl": "https://docs.google.com/presentation/d/1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw/edit",
-				"videoUrl": ""
+				"audienceSize": 50
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -282,9 +264,7 @@
 				"organizerLogo": "",
 				"date": "2025-05-06",
 				"venue": "Online",
-				"audienceSize": 150,
-				"slideUrl": "https://www.canva.com/design/DAGfkJiDlTU/-5yJxltDAmR2lSMGxLgtTg/view",
-				"videoUrl": ""
+				"audienceSize": 150
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -326,9 +306,7 @@
 				"organizerLogo": "",
 				"date": "2025-10-30",
 				"venue": "National University Las Piñas",
-				"audienceSize": 100,
-				"slideUrl": "https://www.canva.com/design/DAG3MtSllRU/ALPO2D_8PBPXoApxNW17zQ/view",
-				"videoUrl": ""
+				"audienceSize": 100
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -370,9 +348,7 @@
 				"organizerLogo": "",
 				"date": "2025-11-05",
 				"venue": "Online",
-				"audienceSize": 40,
-				"slideUrl": "https://www.canva.com/design/DAG3vgFTIRw/lX11R-l5WCG5HWNGph9WKA/view",
-				"videoUrl": ""
+				"audienceSize": 40
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -414,9 +390,7 @@
 				"organizerLogo": "",
 				"date": "2025-06-13",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 20,
-				"slideUrl": "https://www.canva.com/design/DAGqHG1iTqc/47m0L7mWC7q24rOU5kQzeQ/view",
-				"videoUrl": ""
+				"audienceSize": 20
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -458,9 +432,7 @@
 				"organizerLogo": "",
 				"date": "2025-01-07",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 20,
-				"slideUrl": "https://www.canva.com/design/DAGbBFeOF8Y/rqAdKRR_ScEbVmp6HJzOJQ/view",
-				"videoUrl": ""
+				"audienceSize": 20
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -500,9 +472,7 @@
 				"organizerLogo": "",
 				"date": "2026-04-10",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
-				"videoUrl": ""
+				"audienceSize": 100
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -545,9 +515,7 @@
 				"organizerLogo": "",
 				"date": "2025-11-21",
 				"venue": "University of Batangas",
-				"audienceSize": 700,
-				"slideUrl": "https://docs.google.com/presentation/d/1pQ5gzJtaP9tqAYS1ISIJ79EDVy6LHiWtXpgEOHvfQuo/edit",
-				"videoUrl": ""
+				"audienceSize": 700
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -590,9 +558,7 @@
 				"organizerLogo": "",
 				"date": "2025-11-14",
 				"venue": "Microsoft Office Philippines",
-				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit",
-				"videoUrl": ""
+				"audienceSize": 100
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -635,9 +601,7 @@
 				"organizerLogo": "",
 				"date": "2025-11-06",
 				"venue": "TUP Manila",
-				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/1Vafm3hrMy7Cs2Df_S_LJkFtQmtMSGq49UpfwWjAezsY/edit",
-				"videoUrl": ""
+				"audienceSize": 100
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -679,9 +643,7 @@
 				"organizerLogo": "",
 				"date": "2026-01-08",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 20,
-				"slideUrl": "https://docs.google.com/presentation/d/1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E/edit",
-				"videoUrl": ""
+				"audienceSize": 20
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -721,9 +683,7 @@
 				"organizerLogo": "",
 				"date": "2026-06-20",
 				"venue": "AWS Office Philippines",
-				"audienceSize": 50,
-				"slideUrl": "",
-				"videoUrl": ""
+				"audienceSize": 50
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -765,9 +725,7 @@
 				"organizerLogo": "",
 				"date": "2026-05-02",
 				"venue": "National University Laguna",
-				"audienceSize": 50,
-				"slideUrl": "https://docs.google.com/presentation/d/1diyWyjbFnMRDKm07uJaCz1TL6kR-IKeDuZosOebusq4/edit",
-				"videoUrl": ""
+				"audienceSize": 50
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -807,9 +765,7 @@
 				"organizerLogo": "",
 				"date": "2024-04-20",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 100,
-				"slideUrl": "https://www.canva.com/design/DAF-vkkrquk/l98xZeGkXN9ULHIIz38GjA/view",
-				"videoUrl": ""
+				"audienceSize": 100
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -849,9 +805,7 @@
 				"organizerLogo": "",
 				"date": "2024-04-22",
 				"venue": "Valenzuela National High School",
-				"audienceSize": 50,
-				"slideUrl": "https://www.canva.com/design/DAF_ciFtU9o/_WSNwT2EvG-RRcZn0dVbxw/view",
-				"videoUrl": ""
+				"audienceSize": 50
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",

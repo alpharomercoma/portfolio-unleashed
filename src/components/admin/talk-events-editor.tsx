@@ -20,8 +20,6 @@ type Row = {
 	date: string;
 	venue: string;
 	audienceSize: string;
-	slideUrl: string;
-	videoUrl: string;
 };
 
 function toRow(e: Partial<TalkEvent>, key: number): Row {
@@ -34,8 +32,6 @@ function toRow(e: Partial<TalkEvent>, key: number): Row {
 		date: e.date ?? "",
 		venue: e.venue ?? "",
 		audienceSize: e.audienceSize != null ? String(e.audienceSize) : "",
-		slideUrl: e.slideUrl ?? "",
-		videoUrl: e.videoUrl ?? "",
 	};
 }
 
@@ -48,9 +44,7 @@ function isActive(r: Row): boolean {
 		r.organizerLogo ||
 		r.date ||
 		r.venue ||
-		r.audienceSize ||
-		r.slideUrl ||
-		r.videoUrl,
+		r.audienceSize,
 	);
 }
 
@@ -63,8 +57,6 @@ function serialize(rows: Row[]): string {
 		date: r.date,
 		venue: r.venue.trim(),
 		audienceSize: Number(r.audienceSize) || 0,
-		slideUrl: r.slideUrl.trim(),
-		videoUrl: r.videoUrl.trim(),
 	}));
 	return JSON.stringify(events);
 }
@@ -218,32 +210,6 @@ export function TalkEventsEditor({
 										placeholder="0"
 										onChange={(e) =>
 											update(row._key, { audienceSize: e.target.value })
-										}
-									/>
-								</div>
-
-								<div className="space-y-1.5 sm:col-span-2">
-									<Label htmlFor={`evt-slide-${row._key}`}>Slides URL</Label>
-									<Input
-										id={`evt-slide-${row._key}`}
-										type="url"
-										value={row.slideUrl}
-										placeholder="https://..."
-										onChange={(e) =>
-											update(row._key, { slideUrl: e.target.value })
-										}
-									/>
-								</div>
-
-								<div className="space-y-1.5 sm:col-span-2">
-									<Label htmlFor={`evt-video-${row._key}`}>Video URL</Label>
-									<Input
-										id={`evt-video-${row._key}`}
-										type="url"
-										value={row.videoUrl}
-										placeholder="https://..."
-										onChange={(e) =>
-											update(row._key, { videoUrl: e.target.value })
 										}
 									/>
 								</div>

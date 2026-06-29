@@ -1,5 +1,5 @@
 import { format, parseISO } from "date-fns";
-import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -359,19 +359,7 @@ export default async function TalkPage({ params }: Props) {
 										>
 											<span className="min-w-0">
 												<span className="block text-sm font-medium text-foreground">
-													{e.slideUrl ? (
-														<a
-															href={e.slideUrl}
-															target="_blank"
-															rel="noopener noreferrer"
-															className="inline-flex items-center gap-1 hover:text-muted-foreground transition-colors"
-														>
-															{e.eventName}
-															<ArrowUpRight className="size-3.5 text-muted-foreground" />
-														</a>
-													) : (
-														e.eventName
-													)}
+													{e.eventName}
 												</span>
 												{e.venue && (
 													<span className="block text-xs text-muted-foreground">
