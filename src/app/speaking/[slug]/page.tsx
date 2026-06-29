@@ -155,7 +155,7 @@ export default async function TalkPage({ params }: Props) {
 				description: talk.abstract || talk.tagline,
 				url: talkUrl,
 				image: ogImageUrl,
-				inLanguage: talk.language || "English",
+				inLanguage: "English",
 				...(talk.tags.length ? { keywords: talk.tags.join(", ") } : {}),
 				...(talk.createdAt
 					? { datePublished: talk.createdAt.slice(0, 10) }
@@ -246,7 +246,6 @@ export default async function TalkPage({ params }: Props) {
 						<MetaCell label="Category" value={talk.category} />
 						{talk.level && <MetaCell label="Level" value={talk.level} />}
 						<MetaCell label="Duration" value={`${talk.durationMinutes} min`} />
-						<MetaCell label="Language" value={talk.language} />
 					</dl>
 
 					{talk.tags.length > 0 && (

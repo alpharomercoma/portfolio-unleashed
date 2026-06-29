@@ -7,7 +7,6 @@
 		"category": "Accelerated Computing",
 		"level": "Intermediate",
 		"durationMinutes": 30,
-		"language": "English",
 		"tags": ["PyTorch", "H100", "TPU", "Trainium", "ASICs", "Benchmarking"],
 		"abstract": "How and why to move PyTorch development onto AI accelerators. Covers how ASICs and the XLA/Neuron compilers work, PyTorch/XLA on Google TPU and TorchNeuronX on AWS Trainium, the performance picture and the 'compiler tax', the common ASIC errors you'll hit, and a practical migration decision framework, benchmarked across H100, TPU v6e, and Trainium.",
 		"outline": [
@@ -61,7 +60,6 @@
 		"category": "AI & ML",
 		"level": "Advanced",
 		"durationMinutes": 120,
-		"language": "English",
 		"tags": [
 			"Multimodality",
 			"VLM",
@@ -113,7 +111,6 @@
 		"category": "Accelerated Computing",
 		"level": "Advanced",
 		"durationMinutes": 30,
-		"language": "English",
 		"tags": ["TPU", "Google Cloud", "TRC", "JAX", "ML Research"],
 		"abstract": "How to access and use Google's TPU Research Cloud to run serious ML research for free. Covers TPU architecture (TensorCores, MXUs, systolic arrays, ICI/OCS torus topology) versus GPUs and competitors, training with PyTorch/XLA on MNIST, the TRC application process, and a live demo spinning up a TPU VM, with the cost math behind a ~$376,000 grant.",
 		"outline": [
@@ -166,7 +163,6 @@
 		"category": "Developer Tools",
 		"level": "Foundational",
 		"durationMinutes": 120,
-		"language": "English",
 		"tags": ["Git", "GitHub", "Version Control", "Workshop", "Certification"],
 		"abstract": "A foundational, hands-on workshop on Git and GitHub: the core commands, the commit workflow, branching, pull requests, and the GitHub features that get you job-ready, including the path to the free-for-students GitHub Foundations certification and the Student Developer Pack.",
 		"outline": [
@@ -236,7 +232,6 @@
 		"category": "Developer Tools",
 		"level": "Intermediate",
 		"durationMinutes": 120,
-		"language": "English",
 		"tags": ["GitHub", "Actions", "Codespaces", "Copilot", "CI/CD"],
 		"abstract": "Beyond the basics: the GitHub features that level up personal and industry projects. Compares branching strategies, then works through real use cases of Codespaces, GitHub Actions (CI/CD), Copilot (editor, terminal, and web), and GitHub Models.",
 		"outline": [
@@ -278,7 +273,6 @@
 		"category": "Open Source",
 		"level": "Intermediate",
 		"durationMinutes": 120,
-		"language": "English",
 		"tags": ["Open Source", "Hacktoberfest", "Licensing", "Git", "GitHub"],
 		"abstract": "A Hacktoberfest workshop covering the full open-source on-ramp: what open source and Hacktoberfest are, software licensing, version control with Git and GitHub, and how to make your first contributions, plus the GitHub Student Developer Pack.",
 		"outline": [
@@ -320,7 +314,6 @@
 		"category": "Career",
 		"level": "Foundational",
 		"durationMinutes": 60,
-		"language": "English",
 		"tags": ["Career", "Resume", "LinkedIn", "Interviews", "Internship"],
 		"abstract": "A candid, opinionated session on getting hired: building an ATS-friendly resume, using LinkedIn and GitHub to stand out, navigating interview stages, reading company culture, negotiating an offer, and the mindset that ties it together.",
 		"outline": [
@@ -362,7 +355,6 @@
 		"category": "Web Development",
 		"level": "Foundational",
 		"durationMinutes": 30,
-		"language": "English",
 		"tags": ["Cybersecurity", "Web Maintenance", "Project Management", "SEO"],
 		"abstract": "Practical digital essentials built for the Virlanie Foundation: spotting AI-era cyber threats (phishing, deepfakes), keeping a website secure and performant (HTTPS, dependencies, analytics, SEO, hosting costs), and choosing a project-management approach (predictive, adaptive, hybrid).",
 		"outline": [
@@ -404,7 +396,6 @@
 		"category": "Web Development",
 		"level": "Intermediate",
 		"durationMinutes": 60,
-		"language": "English",
 		"tags": ["Web Development", "AI", "v0", "Vercel", "No-code"],
 		"abstract": "A live workshop on how modern websites work and how fast they are to ship today: the structure of a website, static vs dynamic, internal data handling and hosting, then hands-on demos building and deploying a real site with website builders and AI tools (v0, Cursor).",
 		"outline": [
@@ -446,7 +437,6 @@
 		"category": "AI & ML",
 		"level": "Intermediate",
 		"durationMinutes": 120,
-		"language": "English",
 		"tags": ["Multimodality", "Accelerated Computing", "TPU", "H100", "VLM"],
 		"abstract": "A guided tour of the two frontiers shaping modern AI: multimodal fusion architectures that combine text, vision, and audio, and the accelerator stack (H100, TPU v6e, Trainium) that makes training them possible.",
 		"outline": [
@@ -486,7 +476,6 @@
 		"category": "AI & ML",
 		"level": "Advanced",
 		"durationMinutes": 100,
-		"language": "English",
 		"tags": ["AI", "Product", "v0", "Vercel", "Workshop"],
 		"abstract": "A hands-on workshop, delivered to ~700 attendees at the Philippine Innovation Conference, on building real products with AI. Covers what makes a 'product', the levels and categories of AI, and the generative-AI toolchain, then a live case study building and deploying a hotel booking site and an employee management system with v0 and Vercel, plus the pitfalls of AI-assisted development.",
 		"outline": [
@@ -529,7 +518,6 @@
 		"category": "Developer Tools",
 		"level": "Intermediate",
 		"durationMinutes": 30,
-		"language": "English",
 		"tags": ["GitHub", "Copilot", "AI", "GitHub Models"],
 		"abstract": "A fast recap of GitHub Universe 2025's AI launches, delivered for the Microsoft Azure Community: Agent HQ, Copilot Plan Mode, custom agents, MCP server integrations, the Copilot CLI, background agents, and Copilot code review, plus GitHub Spark and the Octoverse 2025 report.",
 		"outline": [
@@ -572,7 +560,6 @@
 		"category": "Developer Tools",
 		"level": "Intermediate",
 		"durationMinutes": 30,
-		"language": "English",
 		"tags": ["Google", "Gemini", "Developer Tools", "Cloud"],
 		"abstract": "A guided tour of Google's next-generation developer toolkit and how to fold it into your workflow: the free 1-year Google AI Pro for students, the Gemini and Gemma model families, running and fine-tuning models locally (Ollama, AI Edge, Unsloth), and AI-driven development with Google AI Studio and Firebase Studio.",
 		"outline": [
@@ -615,7 +602,6 @@
 		"category": "AI & ML",
 		"level": "Foundational",
 		"durationMinutes": 60,
-		"language": "English",
 		"tags": ["AI Safety", "Cybersecurity", "Students", "Prompt Injection"],
 		"abstract": "Navigating AI safely as a student: LLM hallucinations, deepfakes, and fake documents; how to make (and therefore recognize) AI-generated images and edits; the tells that give AI images away; and what the privacy policies of major AI companies actually say, with the ethical considerations for NGO use.",
 		"outline": [
@@ -657,7 +643,6 @@
 		"category": "Accelerated Computing",
 		"level": "Intermediate",
 		"durationMinutes": 10,
-		"language": "English",
 		"tags": ["AWS", "Trainium", "PyTorch", "Neuron"],
 		"abstract": "A quick-start on AWS's native PyTorch stack: provisioning a Trainium instance, porting a model with the Neuron SDK, and running your first training job in under an hour.",
 		"outline": [
@@ -697,7 +682,6 @@
 		"category": "Developer Tools",
 		"level": "Foundational",
 		"durationMinutes": 30,
-		"language": "English",
 		"tags": ["GitHub Copilot", "AI", "Developer Tools"],
 		"abstract": "A hands-on introduction to GitHub Copilot: installing it in VS Code, the CLI versus the GUI, the four permission modes (interactive, plan, YOLO, autopilot) and the 'permission fatigue' trade-off, plus core capabilities like web search, image input, and the commit generator.",
 		"outline": [
@@ -739,7 +723,6 @@
 		"category": "Community",
 		"level": "Foundational",
 		"durationMinutes": 30,
-		"language": "English",
 		"tags": ["Community", "Leadership", "ACM-X", "Student Org"],
 		"abstract": "An inside look at the initiatives built for the FEU Tech ACM Student Chapter, including Project ACM-X, a cross-platform app with a dashboard, forum, undertaking generator, notifications, and more, and the Beyond Campus Initiative.",
 		"outline": [
@@ -779,7 +762,6 @@
 		"category": "Career",
 		"level": "Foundational",
 		"durationMinutes": 60,
-		"language": "English",
 		"tags": ["Career", "Inspiration", "Computer Science", "Students"],
 		"abstract": "A motivational outreach talk for high-school students: what technology and computer science really are, the honest pros and cons of a tech career, and how to get started, delivered with interactive challenges and giveaways.",
 		"outline": [

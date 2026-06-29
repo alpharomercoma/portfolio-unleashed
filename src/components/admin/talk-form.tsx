@@ -261,7 +261,7 @@ export function TalkForm({
 				</div>
 			</div>
 
-			<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+			<div className="grid grid-cols-2 gap-4">
 				<div className="space-y-2">
 					<Label htmlFor="durationMinutes">Duration (minutes)</Label>
 					<Input
@@ -269,14 +269,6 @@ export function TalkForm({
 						name="durationMinutes"
 						type="number"
 						defaultValue={t?.durationMinutes ?? 60}
-					/>
-				</div>
-				<div className="space-y-2">
-					<Label htmlFor="language">Language</Label>
-					<Input
-						id="language"
-						name="language"
-						defaultValue={t?.language ?? "English"}
 					/>
 				</div>
 				<div className="space-y-2">

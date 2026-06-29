@@ -55,7 +55,6 @@ export const talkSchema = z.object({
 	// Optional: podcasts and other conversational formats carry no level.
 	level: z.enum(TALK_LEVELS).optional(),
 	durationMinutes: z.number().int().positive().max(100_000).default(60),
-	language: z.string().max(80).default("English"),
 	tags: z.array(z.string().max(100)).max(50).default([]),
 	abstract: z.string().max(6000).default(""),
 	outline: z.array(z.string().max(500)).max(100).default([]),
