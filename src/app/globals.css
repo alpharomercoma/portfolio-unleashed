@@ -131,6 +131,17 @@
 	body {
 		@apply bg-background text-foreground antialiased;
 	}
+	/* Text selection uses the signature lime with navy ink for contrast.
+	   ::-moz-selection is written separately because an unknown pseudo-element
+	   invalidates the whole selector list in some engines (incl. older Firefox). */
+	::-moz-selection {
+		background-color: var(--lime);
+		color: var(--ink);
+	}
+	::selection {
+		background-color: var(--lime);
+		color: var(--ink);
+	}
 	html {
 		scroll-behavior: smooth;
 	}
