@@ -8,11 +8,12 @@ import { useEffect, useRef } from "react";
 // datasets and benchmarks) are its output. It gets its own class here: a single
 // dark band between the hero and the work below, linking out to the lab's site.
 // Deliberately lists no sub-projects; those live on experimentalmachines.org.
-const stats = [
-	{ value: "$376K", label: "Google TPU Research Cloud grant" },
-	{ value: "11", label: "Accelerators benchmarked" },
-	{ value: "69", label: "Open-source repositories" },
-];
+//
+// It shows the lab's research AREAS, not numbers: the personal achievement
+// stats (the $376K grant, accelerators benched, talks) belong to Alpha and live
+// in the hero. Repeating them — or a GitHub repo count — here would conflate the
+// person with the lab. Areas mirror the lab site's own 01/02/03 framing.
+const areas = ["Multimodality", "Accelerated computing", "Data engineering"];
 
 export function InitiativeSection() {
 	const sectionRef = useRef<HTMLElement>(null);
@@ -60,17 +61,22 @@ export function InitiativeSection() {
 								<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 							</span>
 						</div>
-						<div className="grid grid-cols-3 gap-4 lg:gap-6 border-t border-white/15 pt-8 lg:border-t-0 lg:border-l lg:border-white/15 lg:pt-0 lg:pl-12">
-							{stats.map((stat) => (
-								<div key={stat.label}>
-									<div className="font-display text-3xl sm:text-4xl font-bold tracking-[-0.03em] leading-none text-white">
-										{stat.value}
-									</div>
-									<div className="mt-2 text-xs leading-snug text-white/60">
-										{stat.label}
-									</div>
-								</div>
-							))}
+						<div className="border-t border-white/15 pt-8 lg:border-t-0 lg:border-l lg:border-white/15 lg:pt-0 lg:pl-12">
+							<p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+								Research areas
+							</p>
+							<ul className="mt-5 space-y-4">
+								{areas.map((area, i) => (
+									<li key={area} className="flex items-baseline gap-3">
+										<span className="font-display text-sm font-semibold tabular-nums text-lime">
+											0{i + 1}
+										</span>
+										<span className="font-display text-lg sm:text-xl font-semibold tracking-[-0.02em] text-white">
+											{area}
+										</span>
+									</li>
+								))}
+							</ul>
 						</div>
 					</div>
 				</a>
