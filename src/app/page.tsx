@@ -4,6 +4,7 @@ import { BlogSection } from "@/components/blog-section";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/hero-section";
+import { InitiativeSection } from "@/components/initiative-section";
 import { Navbar } from "@/components/navbar";
 import { ProjectsSection } from "@/components/projects-section";
 import { RecognitionSection } from "@/components/recognition-section";
@@ -82,6 +83,7 @@ export default async function Home() {
 			/>
 			<Navbar />
 			<HeroSection />
+			<InitiativeSection />
 			<SelectedWorkSection items={selectedWork} />
 			<ProjectsSection projects={projects} />
 			<SpeakingSection talks={speakingTeaser} total={talks.length} />
