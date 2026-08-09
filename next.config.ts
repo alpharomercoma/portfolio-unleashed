@@ -38,6 +38,12 @@ const config = {
 				protocol: "https",
 				hostname: "*.public.blob.vercel-storage.com",
 			},
+			{
+				// GitHub auto-generated repo social cards, used as project card
+				// art for benchmark repos that have no live demo to screenshot.
+				protocol: "https",
+				hostname: "opengraph.githubassets.com",
+			},
 		],
 	},
 	turbopack: {},

@@ -6,11 +6,63 @@
 		"category": "Machine Learning",
 		"tags": ["PyTorch", "ASICs", "Accelerated Computing"],
 		"metrics": ["4 accelerator classes", "PyTorch Conf Europe 2026"],
-		"github": "https://github.com/alpharomercoma",
+		"github": "https://github.com/alpharomercoma/pytorch-for-asics-code",
 		"demo": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
 		"demoLabel": "View deck",
 		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/pytorch-asics-tFWtApJV7T5KhI5Wn5WBT0Zajs1gDd.png",
 		"order": 10
+	},
+	{
+		"id": "experimental-machines",
+		"title": "Experimental Machines",
+		"description": "Independent research lab across intelligence, compute, and data — we run the benchmarks ourselves and publish the code, methods, and raw numbers. 11 accelerator platforms measured under a $376K Google TPU Research Cloud grant.",
+		"category": "Machine Learning",
+		"tags": ["Research", "Accelerated Computing", "Benchmarks"],
+		"metrics": ["11 accelerators benchmarked", "$376K TPU grant"],
+		"github": "https://github.com/alpharomercoma/experimentalmachines.org",
+		"demo": "https://experimentalmachines.org",
+		"demoLabel": "",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/experimentalmachines-ufZv6ZPv8R5vht25YLSIYDrcGip7pN.png",
+		"order": 50
+	},
+	{
+		"id": "mi300x-vs-h200",
+		"title": "MI300X vs H200",
+		"description": "Controlled single-GPU benchmark of inference and training on AMD MI300X vs NVIDIA H200. AMD's 1.32× paper-FLOPs lead inverts on achieved efficiency, but its 1.84× KV-cache headroom wins large-model serving outright.",
+		"category": "Machine Learning",
+		"tags": ["Benchmark", "AMD", "NVIDIA"],
+		"metrics": ["Single-GPU controlled test", "1.84× KV-cache advantage"],
+		"github": "https://github.com/alpharomercoma/MI300X-vs-H200",
+		"demo": "",
+		"demoLabel": "",
+		"image": "https://opengraph.githubassets.com/1/alpharomercoma/MI300X-vs-H200",
+		"order": 60
+	},
+	{
+		"id": "apple-m5-vs-snapdragon-x2",
+		"title": "Apple M5 vs Snapdragon X2 Elite",
+		"description": "Reproducible head-to-head AI benchmark across CPU, GPU, and NPU — inference and training — with fairness rules fixed before any measurement.",
+		"category": "Machine Learning",
+		"tags": ["Benchmark", "Apple Silicon", "On-device AI"],
+		"metrics": ["CPU · GPU · NPU", "Pre-registered fairness rules"],
+		"github": "https://github.com/alpharomercoma/snapdragon-vs-m5",
+		"demo": "",
+		"demoLabel": "",
+		"image": "https://opengraph.githubassets.com/1/alpharomercoma/snapdragon-vs-m5",
+		"order": 70
+	},
+	{
+		"id": "snapdragon-vs-mediatek",
+		"title": "Snapdragon 8 Elite vs Dimensity 9500s",
+		"description": "Reproducible on-device AI benchmark of Qualcomm Snapdragon 8 Elite against MediaTek Dimensity 9500s across NPU, GPU, and CPU inference and training.",
+		"category": "Machine Learning",
+		"tags": ["Benchmark", "Mobile NPU", "On-device AI"],
+		"metrics": ["NPU · GPU · CPU", "Inference + training"],
+		"github": "https://github.com/alpharomercoma/snapdragon-vs-mediatek",
+		"demo": "",
+		"demoLabel": "",
+		"image": "https://opengraph.githubassets.com/1/alpharomercoma/snapdragon-vs-mediatek",
+		"order": 80
 	},
 	{
 		"id": "visual-qwen",
@@ -167,5 +219,18 @@
 		"demoLabel": "",
 		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/mymnhs-PrGonVLoKfeCmUAZQJ9ByqNoSF5Jbe.png",
 		"order": 90
+	},
+	{
+		"id": "philippine-mall-explorer",
+		"title": "Philippine Mall Explorer",
+		"description": "What's inside 303 Philippine malls? 40,462 store listings from 10 operators, scraped and cleaned into a reproducible dataset on an interactive map.",
+		"category": "Software Engineering",
+		"tags": ["Python", "Web Scraping", "Data Viz"],
+		"metrics": ["40,462 listings · 303 malls", "10 operators"],
+		"github": "https://github.com/alpharomercoma/philippine-mall-explorer",
+		"demo": "https://alpharomercoma.github.io/philippine-mall-explorer/",
+		"demoLabel": "",
+		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/philippine-mall-explorer-CQUZQL57U8L0g8I6Ix6Pd4TvrwXiil.png",
+		"order": 100
 	}
 ]
