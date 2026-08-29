@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { removeCollectionItem } from "@/app/admin/collection-actions";
+import {
+	removeCollectionItem,
+	toggleCollectionItemVisibility,
+} from "@/app/admin/collection-actions";
+import { HiddenBadge } from "@/components/admin/hidden-badge";
 import { SortableList } from "@/components/admin/sortable-list";
 import { Button } from "@/components/ui/button";
 import { getCollection } from "@/lib/collections/registry";
@@ -59,6 +63,7 @@ export default async function CollectionListPage({
 							meta,
 							editHref: `/admin/${collection}/${item.id}`,
 							thumb: thumbOf(item),
+							hidden: Boolean(item.hidden),
 						};
 					})}
 				/>
@@ -66,6 +71,7 @@ export default async function CollectionListPage({
 				<ul className="divide-y divide-border border-y border-border">
 					{items.map((item) => {
 						const { title, meta } = cfg.summary(item);
+						const hidden = Boolean(item.hidden);
 						return (
 							<li
 								key={item.id}
@@ -78,16 +84,23 @@ export default async function CollectionListPage({
 											src={thumbOf(item)}
 											alt=""
 											loading="lazy"
-											className="size-10 shrink-0 rounded-md border border-border bg-secondary object-cover"
+											className={`size-10 shrink-0 rounded-md border border-border bg-secondary object-cover ${
+												hidden ? "opacity-40" : ""
+											}`}
 										/>
 									)}
 									<div className="min-w-0">
-										<Link
-											href={`/admin/${collection}/${item.id}`}
-											className="font-medium text-foreground hover:underline line-clamp-1"
-										>
-											{title}
-										</Link>
+										<div className="flex items-center gap-2">
+											<Link
+												href={`/admin/${collection}/${item.id}`}
+												className={`font-medium hover:underline line-clamp-1 ${
+													hidden ? "text-muted-foreground" : "text-foreground"
+												}`}
+											>
+												{title}
+											</Link>
+											{hidden && <HiddenBadge />}
+										</div>
 										{meta && (
 											<div className="text-xs text-muted-foreground mt-0.5">
 												{meta}
@@ -99,6 +112,18 @@ export default async function CollectionListPage({
 									<Button asChild variant="outline" size="sm">
 										<Link href={`/admin/${collection}/${item.id}`}>Edit</Link>
 									</Button>
+									<form action={toggleCollectionItemVisibility}>
+										<input type="hidden" name="collection" value={collection} />
+										<input type="hidden" name="id" value={String(item.id)} />
+										<input
+											type="hidden"
+											name="hidden"
+											value={hidden ? "false" : "true"}
+										/>
+										<Button variant="outline" size="sm" type="submit">
+											{hidden ? "Unhide" : "Hide"}
+										</Button>
+									</form>
 									<form action={removeCollectionItem}>
 										<input type="hidden" name="collection" value={collection} />
 										<input type="hidden" name="id" value={String(item.id)} />

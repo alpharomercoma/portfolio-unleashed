@@ -56,9 +56,11 @@ export function getAllItems(key: string): Promise<CollectionItem[]> {
 }
 
 /**
- * Typed read: validate each item against `schema` so callers receive `T[]` instead
- * of the loose `CollectionItem[]`. Keeps the schema the single source of truth from
- * store to render (no `as unknown as` casts at call sites).
+ * Public typed read: validate each item against `schema` so callers receive `T[]`
+ * instead of the loose `CollectionItem[]`, and drop items flagged `hidden` so they
+ * never reach the live site. Keeps the schema the single source of truth from store
+ * to render (no `as unknown as` casts at call sites). Admin, which must show hidden
+ * items too, reads through `getAllItems` instead.
  */
 export async function getTypedItems<T>(
 	key: string,
@@ -67,7 +69,11 @@ export async function getTypedItems<T>(
 	const items = await getAllItems(key);
 	return items.flatMap((item) => {
 		const res = schema.safeParse(item);
-		return res.success ? [res.data] : [];
+		if (!res.success) return [];
+		// safeParse fills the `hidden` default, so legacy items missing the field
+		// read as visible. Hidden items exist only in the store and admin.
+		if ((res.data as { hidden?: boolean }).hidden) return [];
+		return [res.data];
 	});
 }
 
@@ -102,6 +108,25 @@ export async function removeItem(key: string, id: string): Promise<void> {
 	if (!redis) throw new Error("Collections store is not configured.");
 	await redis.del(ITEM_KEY(key, id));
 	await redis.srem(IDS_KEY(key), id);
+}
+
+/**
+ * Flip a single item's `hidden` flag, preserving every other field. Reads the raw
+ * stored record (not the cache) so a rapid toggle can't clobber a concurrent edit,
+ * re-validates through the schema, and writes it back. No-ops if the item is gone.
+ */
+export async function setItemHidden(
+	key: string,
+	id: string,
+	hidden: boolean,
+): Promise<void> {
+	const cfg = getCollection(key);
+	if (!cfg) throw new Error(`Unknown collection: ${key}`);
+	if (!redis) throw new Error("Collections store is not configured.");
+	const current = await redis.get<Record<string, unknown>>(ITEM_KEY(key, id));
+	if (!current) return;
+	const parsed = cfg.schema.parse({ ...current, hidden }) as CollectionItem;
+	await redis.set(ITEM_KEY(key, parsed.id), parsed);
 }
 
 /**

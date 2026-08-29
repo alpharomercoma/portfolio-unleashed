@@ -3,6 +3,14 @@ import { z } from "zod";
 // Flat, rarely-changing content types managed by the generic admin "collections"
 // framework. Talks are intentionally NOT here, they keep their bespoke model.
 
+// Visibility flag shared by every collection. Hidden items stay in the store (and
+// stay editable in admin) but are dropped from public reads (`getTypedItems`), so
+// you can pull something off the live site without deleting it. Toggled via its
+// own admin action, never the item form. Defaults false, so legacy records that
+// predate this field normalize forward on read (safeParse fills the default) — no
+// data migration is needed.
+const hiddenField = z.boolean().default(false);
+
 export const certificationSchema = z.object({
 	id: z.string().min(1),
 	title: z.string().min(1),
@@ -11,6 +19,7 @@ export const certificationSchema = z.object({
 	logo: z.string().default(""),
 	date: z.string().default(""), // ISO date "YYYY-MM-DD"
 	link: z.string().default(""),
+	hidden: hiddenField,
 });
 export type Certification = z.infer<typeof certificationSchema>;
 
@@ -30,6 +39,7 @@ export const awardSchema = z.object({
 	image: z.string().default(""),
 	context: z.string().default(""),
 	category: z.enum(AWARD_CATEGORIES).default("Recognition"),
+	hidden: hiddenField,
 });
 export type Award = z.infer<typeof awardSchema>;
 
@@ -39,6 +49,7 @@ export const recommendationSchema = z.object({
 	author: z.string().min(1),
 	role: z.string().default(""),
 	date: z.string().default(""), // ISO date "YYYY-MM-DD" the recommendation was given
+	hidden: hiddenField,
 });
 export type Recommendation = z.infer<typeof recommendationSchema>;
 
@@ -67,6 +78,7 @@ export const projectSchema = z.object({
 	// File name inside /public/projects (e.g. "acmx.png"), or a URL.
 	image: z.string().default(""),
 	order: orderField,
+	hidden: hiddenField,
 });
 export type Project = z.infer<typeof projectSchema>;
 
@@ -76,6 +88,7 @@ export const galleryImageSchema = z.object({
 	image: z.string().min(1),
 	title: z.string().default(""), // shown on hover
 	order: orderField,
+	hidden: hiddenField,
 });
 export type GalleryImage = z.infer<typeof galleryImageSchema>;
 
@@ -89,5 +102,6 @@ export const selectedWorkSchema = z.object({
 	href: z.string().default(""),
 	cta: z.string().default(""),
 	order: orderField,
+	hidden: hiddenField,
 });
 export type SelectedWork = z.infer<typeof selectedWorkSchema>;

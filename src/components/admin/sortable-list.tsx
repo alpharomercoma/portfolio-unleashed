@@ -22,8 +22,12 @@ import { Check, GripVertical, Loader2, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 
-import { reorderCollectionItems } from "@/app/admin/collection-actions";
-import { removeCollectionItem } from "@/app/admin/collection-actions";
+import {
+	removeCollectionItem,
+	reorderCollectionItems,
+	toggleCollectionItemVisibility,
+} from "@/app/admin/collection-actions";
+import { HiddenBadge } from "@/components/admin/hidden-badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +38,8 @@ export type SortableRowData = {
 	editHref: string;
 	/** Optional thumbnail URL shown to the left of the text. */
 	thumb?: string;
+	/** Hidden from the public site (still reorderable/editable here). */
+	hidden?: boolean;
 };
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
@@ -198,16 +204,25 @@ function SortableRow({
 						src={row.thumb}
 						alt=""
 						loading="lazy"
-						className="size-10 shrink-0 rounded-md border border-border bg-secondary object-cover"
+						className={cn(
+							"size-10 shrink-0 rounded-md border border-border bg-secondary object-cover",
+							row.hidden && "opacity-40",
+						)}
 					/>
 				)}
 				<div className="min-w-0">
-					<Link
-						href={row.editHref}
-						className="font-medium text-foreground hover:underline line-clamp-1"
-					>
-						{row.title}
-					</Link>
+					<div className="flex items-center gap-2">
+						<Link
+							href={row.editHref}
+							className={cn(
+								"font-medium hover:underline line-clamp-1",
+								row.hidden ? "text-muted-foreground" : "text-foreground",
+							)}
+						>
+							{row.title}
+						</Link>
+						{row.hidden && <HiddenBadge />}
+					</div>
 					{row.meta && (
 						<div className="text-xs text-muted-foreground mt-0.5">
 							{row.meta}
@@ -219,6 +234,18 @@ function SortableRow({
 				<Button asChild variant="outline" size="sm">
 					<Link href={row.editHref}>Edit</Link>
 				</Button>
+				<form action={toggleCollectionItemVisibility}>
+					<input type="hidden" name="collection" value={collectionKey} />
+					<input type="hidden" name="id" value={row.id} />
+					<input
+						type="hidden"
+						name="hidden"
+						value={row.hidden ? "false" : "true"}
+					/>
+					<Button variant="outline" size="sm" type="submit">
+						{row.hidden ? "Unhide" : "Hide"}
+					</Button>
+				</form>
 				<form action={removeCollectionItem}>
 					<input type="hidden" name="collection" value={collectionKey} />
 					<input type="hidden" name="id" value={row.id} />

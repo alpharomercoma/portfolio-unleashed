@@ -9,6 +9,7 @@ import {
 	getItem,
 	removeItem,
 	reorderItems,
+	setItemHidden,
 	upsertItem,
 } from "@/lib/collections/store";
 import { createLogger } from "@/lib/logger";
@@ -35,12 +36,21 @@ export async function saveCollectionItem(formData: FormData) {
 	const existingId = String(formData.get("id") ?? "").trim();
 	if (existingId) data.id = existingId;
 
-	// Reorderable collections drop the manual `order` input from the form, so it
-	// isn't in `data`. Without this, the zod `orderField` coerces the missing value
-	// to 0 and the edit would yank the item to the top. Preserve the stored order.
-	if (existingId && cfg.reorderable && data.order == null) {
-		const existing = await getItem(key, existingId);
-		if (existing?.order != null) data.order = existing.order;
+	// A couple of fields are managed outside the item form, so they're never in
+	// `formData` and must be carried over from the stored record on edit — otherwise
+	// the schema defaults would silently reset them:
+	//   • `order`  — reorderable collections drop the manual input (rewritten on drag);
+	//                without this the missing value coerces to 0 and yanks the item up.
+	//   • `hidden` — toggled by its own action; without this every save would unhide.
+	if (existingId) {
+		const needsOrder = cfg.reorderable && data.order == null;
+		const needsHidden = data.hidden == null;
+		if (needsOrder || needsHidden) {
+			const existing = await getItem(key, existingId);
+			if (needsOrder && existing?.order != null) data.order = existing.order;
+			if (needsHidden && existing?.hidden != null)
+				data.hidden = existing.hidden;
+		}
 	}
 
 	try {
@@ -67,6 +77,23 @@ export async function removeCollectionItem(formData: FormData) {
 	const id = String(formData.get("id") ?? "").trim();
 	if (id) {
 		await removeItem(key, id);
+		updateTag(collectionTag(key));
+		revalidatePath("/");
+		revalidatePath(`/admin/${key}`);
+	}
+	redirect(`/admin/${key}`);
+}
+
+// Hide or unhide a single item. `hidden` carries the target state ("true"/"false")
+// so the button is a plain form submit with no client JS. Hidden items disappear
+// from the public site but stay in admin, so this is a soft alternative to delete.
+export async function toggleCollectionItemVisibility(formData: FormData) {
+	await requireAdmin();
+	const key = String(formData.get("collection") ?? "").trim();
+	if (!getCollection(key)) redirect("/admin");
+	const id = String(formData.get("id") ?? "").trim();
+	if (id) {
+		await setItemHidden(key, id, String(formData.get("hidden")) === "true");
 		updateTag(collectionTag(key));
 		revalidatePath("/");
 		revalidatePath(`/admin/${key}`);
