@@ -74,11 +74,7 @@ export default async function GalleryPage() {
 			<section className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-24">
 				<div className="max-w-6xl mx-auto">
 					<header className="mb-12 sm:mb-14 max-w-3xl">
-						<span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-							<span aria-hidden className="size-1.5 rounded-full bg-lime" />
-							Gallery
-						</span>
-						<h1 className="display-xl mt-4">
+						<h1 className="display-xl">
 							Moments &amp; <span className="lime-mark">making</span>.
 						</h1>
 						<p className="lede mt-6">{DESCRIPTION}</p>

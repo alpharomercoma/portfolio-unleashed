@@ -1,16 +1,16 @@
 "use client";
 
 import { Quote } from "lucide-react";
-import { useEffect, useRef } from "react";
 
 import {
 	CarouselControls,
 	CarouselDots,
 	useCarousel,
 } from "@/components/ui/carousel";
+import { useReveal } from "@/hooks/use-reveal";
 import type { Recommendation } from "@/lib/collections/schema";
 
-const PER_PAGE = 4; // 2 columns x 2 rows
+const PER_PAGE = 2; // one row of two; four long quotes at once read as a wall
 
 function initials(name: string) {
 	return name
@@ -26,7 +26,7 @@ export function RecommendationsSection({
 }: {
 	recommendations: Recommendation[];
 }) {
-	const sectionRef = useRef<HTMLElement>(null);
+	const sectionRef = useReveal<HTMLElement>();
 	const {
 		currentPage,
 		totalPages,
@@ -37,22 +37,6 @@ export function RecommendationsSection({
 		stopAutoRotate,
 		isAutoRotating,
 	} = useCarousel(recommendations, PER_PAGE);
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add("animate-fade-up");
-					}
-				});
-			},
-			{ threshold: 0.1 },
-		);
-		const elements = sectionRef.current?.querySelectorAll(".animate-on-scroll");
-		elements?.forEach((el) => observer.observe(el));
-		return () => observer.disconnect();
-	}, []);
 
 	return (
 		<section
@@ -90,7 +74,9 @@ export function RecommendationsSection({
 							}}
 						>
 							<Quote className="size-5 text-foreground mb-4 shrink-0" />
-							<blockquote className="text-[15px] text-foreground leading-relaxed flex-1 line-clamp-5">
+							{/* Full quote, never clipped: a testimonial cut mid-sentence
+							    reads as broken, and the longest one is ~380 characters. */}
+							<blockquote className="text-[15px] text-foreground leading-relaxed flex-1">
 								{rec.quote}
 							</blockquote>
 							<figcaption className="flex items-center gap-3 mt-6 pt-5 border-t border-border">
@@ -98,10 +84,10 @@ export function RecommendationsSection({
 									{initials(rec.author)}
 								</span>
 								<span className="min-w-0">
-									<span className="block text-sm font-medium text-foreground truncate">
+									<span className="block text-sm font-medium text-foreground">
 										{rec.author}
 									</span>
-									<span className="block text-xs text-muted-foreground truncate">
+									<span className="block text-xs text-muted-foreground leading-snug">
 										{rec.role}
 									</span>
 								</span>

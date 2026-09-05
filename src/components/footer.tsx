@@ -6,18 +6,23 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 
 const footerLinks = {
+	// Mirrors the navbar (plus the two in-page sections worth deep-linking) so
+	// the site has one navigation taxonomy, not two.
 	explore: [
 		{ label: "Work", href: "/#work" },
 		{ label: "Projects", href: "/#projects" },
 		{ label: "Speaking", href: "/speaking" },
+		{ label: "Writing", href: "/blog" },
 		{ label: "About", href: "/about" },
 		{ label: "Gallery", href: "/gallery" },
 	],
-	resources: [
-		{ label: "Writing", href: "/blog" },
+	connect: [
+		{ label: "Book a call", href: "/#contact" },
+		{
+			label: "alpharomercoma@proton.me",
+			href: "mailto:alpharomercoma@proton.me",
+		},
 		{ label: "Recognition", href: "/#recognition" },
-		{ label: "Recommendations", href: "/#recommendations" },
-		{ label: "Get in touch", href: "/#contact" },
 	],
 	social: [
 		{
@@ -32,7 +37,7 @@ const footerLinks = {
 		},
 		{
 			icon: Youtube,
-			href: "http://youtube.com/@alpharomercoma",
+			href: "https://youtube.com/@alpharomercoma",
 			label: "YouTube",
 		},
 	],
@@ -52,9 +57,8 @@ export function Footer() {
 							Alpha Romer Coma
 						</Link>
 						<p className="text-sm text-muted-foreground mb-5 max-w-sm leading-relaxed">
-							AI/ML Engineer building intelligent systems that scale.
-							Researching multimodal AI with a $376,000 Google Cloud compute
-							grant.
+							Machine learning engineer working on multimodality and accelerated
+							computing, and teaching it from conference stages to classrooms.
 						</p>
 						<div className="flex items-center gap-2">
 							{footerLinks.social.map((social) => (
@@ -92,14 +96,14 @@ export function Footer() {
 
 					<div>
 						<h4 className="font-semibold text-foreground mb-4 text-sm">
-							Resources
+							Connect
 						</h4>
 						<ul className="space-y-2.5">
-							{footerLinks.resources.map((link) => (
+							{footerLinks.connect.map((link) => (
 								<li key={link.label}>
 									<Link
 										href={link.href}
-										className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+										className="text-sm text-muted-foreground hover:text-foreground transition-colors break-all"
 									>
 										{link.label}
 									</Link>

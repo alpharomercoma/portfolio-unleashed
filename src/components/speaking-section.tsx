@@ -2,10 +2,10 @@
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 
 import { TalkCard } from "@/components/speaking/talk-card";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/hooks/use-reveal";
 import type { Talk } from "@/lib/talks/schema";
 
 export function SpeakingSection({
@@ -15,23 +15,7 @@ export function SpeakingSection({
 	talks: Talk[];
 	total: number;
 }) {
-	const sectionRef = useRef<HTMLElement>(null);
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add("animate-fade-up");
-					}
-				});
-			},
-			{ threshold: 0.1 },
-		);
-		const elements = sectionRef.current?.querySelectorAll(".animate-on-scroll");
-		elements?.forEach((el) => observer.observe(el));
-		return () => observer.disconnect();
-	}, []);
+	const sectionRef = useReveal<HTMLElement>();
 
 	if (talks.length === 0) return null;
 
@@ -55,9 +39,9 @@ export function SpeakingSection({
 							className="animate-on-scroll opacity-0 lede mt-4"
 							style={{ animationDelay: "150ms" }}
 						>
-							{total}+ talks and workshops on AI, accelerated computing, and
-							developer tools at the Linux Foundation, Microsoft, Google, and
-							AWS community events.
+							{total} talks and workshops on AI, accelerated computing, and
+							developer tools, for the Linux Foundation and for Microsoft,
+							Google, and AWS community events.
 						</p>
 					</div>
 					<Button

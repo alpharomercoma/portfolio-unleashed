@@ -9,16 +9,12 @@ export function TalkCard({ talk }: { talk: Talk }) {
 	return (
 		<Link
 			href={`/speaking/${talk.slug}`}
-			className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-lime/70"
+			className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30"
 		>
-			{/* Brand lime glow, intensifies on hover */}
-			<span
-				aria-hidden
-				className="pointer-events-none absolute -right-10 -top-10 size-28 rounded-full bg-lime/25 blur-2xl transition-all duration-300 group-hover:bg-lime/50"
-			/>
-
+			{/* No per-card glow: six neon blurs in one grid read as noise. The lime
+			    category chip is the one chromatic note per card. */}
 			<div className="relative flex items-center justify-between gap-3 mb-5">
-				<span className="inline-flex items-center rounded-full bg-lime px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ink">
+				<span className="inline-flex items-center rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-ink">
 					{talk.category}
 				</span>
 				{year && (
@@ -28,7 +24,7 @@ export function TalkCard({ talk }: { talk: Talk }) {
 				)}
 			</div>
 
-			<h3 className="relative font-display text-xl font-semibold text-foreground leading-[1.15] tracking-tight">
+			<h3 className="relative font-display text-xl font-semibold text-foreground leading-[1.15] tracking-tight text-balance">
 				{talk.title}
 			</h3>
 			{talk.tagline && (

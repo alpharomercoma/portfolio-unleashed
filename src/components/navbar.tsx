@@ -20,6 +20,27 @@ export function Navbar() {
 	const [isVisible, setIsVisible] = useState(true);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const lastScrollY = useRef(0);
+	const navRef = useRef<HTMLElement>(null);
+
+	// Tapping anywhere outside the open mobile menu (or pressing Escape) closes
+	// it; before, the only way out was the toggle button.
+	useEffect(() => {
+		if (!isMobileMenuOpen) return;
+		const onPointer = (e: PointerEvent) => {
+			if (navRef.current && !navRef.current.contains(e.target as Node)) {
+				setIsMobileMenuOpen(false);
+			}
+		};
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key === "Escape") setIsMobileMenuOpen(false);
+		};
+		document.addEventListener("pointerdown", onPointer);
+		document.addEventListener("keydown", onKey);
+		return () => {
+			document.removeEventListener("pointerdown", onPointer);
+			document.removeEventListener("keydown", onKey);
+		};
+	}, [isMobileMenuOpen]);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -42,6 +63,7 @@ export function Navbar() {
 
 	return (
 		<nav
+			ref={navRef}
 			className={cn(
 				"fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out",
 				isScrolled

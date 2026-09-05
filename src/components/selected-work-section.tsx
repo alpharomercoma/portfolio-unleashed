@@ -4,7 +4,8 @@ import type { SelectedWork } from "@/lib/collections/schema";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+
+import { useReveal } from "@/hooks/use-reveal";
 
 // Resolve a stored image value: pass through absolute paths/URLs, otherwise
 // treat it as a file name in /public/featured.
@@ -14,7 +15,7 @@ function asset(value: string): string {
 
 function Tag({ label }: { label: string }) {
 	return (
-		<span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+		<span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
 			<span aria-hidden className="size-1.5 rounded-full bg-lime" />
 			{label}
 		</span>
@@ -22,25 +23,9 @@ function Tag({ label }: { label: string }) {
 }
 
 export function SelectedWorkSection({ items }: { items: SelectedWork[] }) {
-	const sectionRef = useRef<HTMLElement>(null);
+	const sectionRef = useReveal<HTMLElement>();
 	const lead = items[0];
 	const supporting = items.slice(1);
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add("animate-fade-up");
-					}
-				});
-			},
-			{ threshold: 0.1 },
-		);
-		const elements = sectionRef.current?.querySelectorAll(".animate-on-scroll");
-		elements?.forEach((el) => observer.observe(el));
-		return () => observer.disconnect();
-	}, []);
 
 	if (!lead) return null;
 

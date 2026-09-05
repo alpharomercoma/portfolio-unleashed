@@ -11,7 +11,9 @@ import type { Project } from "@/lib/collections/schema";
 import { ArrowUpRight, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useReveal } from "@/hooks/use-reveal";
 
 const ITEMS_PER_PAGE = 6;
 const AUTO_ROTATE_INTERVAL = 0; // disabled so tab switches feel intentional
@@ -30,7 +32,7 @@ function asset(value: string): string {
 }
 
 export function ProjectsSection({ projects }: { projects: Project[] }) {
-	const sectionRef = useRef<HTMLElement>(null);
+	const sectionRef = useReveal<HTMLElement>();
 	const [tab, setTab] = useState<Tab>("ml");
 	const ml = projects.filter((p) => p.category === "Machine Learning");
 	const swe = projects.filter((p) => p.category === "Software Engineering");
@@ -49,22 +51,6 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 	} = useCarousel(items, ITEMS_PER_PAGE, AUTO_ROTATE_INTERVAL || undefined);
 
 	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add("animate-fade-up");
-					}
-				});
-			},
-			{ threshold: 0.1 },
-		);
-		const elements = sectionRef.current?.querySelectorAll(".animate-on-scroll");
-		elements?.forEach((el) => observer.observe(el));
-		return () => observer.disconnect();
-	}, []);
-
-	useEffect(() => {
 		if (currentPage !== 0) goToPage(0);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tab]);
@@ -81,8 +67,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 						className="animate-on-scroll opacity-0 display-lg mb-5"
 						style={{ animationDelay: "100ms" }}
 					>
-						Things I&apos;ve <span className="lime-mark">built</span>, research
-						to production.
+						Things I&apos;ve built, research to production.
 					</h2>
 					<p
 						className="animate-on-scroll opacity-0 lede"
@@ -164,35 +149,24 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 								/>
 							</div>
 							<div className="flex flex-col flex-1 p-6">
-								<div className="flex items-start justify-between gap-3 mb-3">
-									<h3 className="font-display font-semibold text-foreground text-[17px] leading-snug tracking-tight">
-										{project.title}
-									</h3>
-									<ArrowUpRight className="h-4 w-4 text-muted-foreground shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-								</div>
+								{/* No arrow here: the card itself is not a link, only the
+								    two buttons below are. An arrow would promise a click
+								    that does nothing. */}
+								<h3 className="font-display font-semibold text-foreground text-[17px] leading-snug tracking-tight mb-3">
+									{project.title}
+								</h3>
 								<p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
 									{project.description}
 								</p>
-								<div className="flex flex-wrap gap-1.5 mb-5">
-									{project.metrics.map((metric) => (
-										<span
-											key={metric}
-											className="inline-flex items-center rounded-full bg-secondary text-muted-foreground text-[11px] font-medium px-2.5 py-1"
-										>
-											{metric}
-										</span>
-									))}
-								</div>
-								<div className="mt-auto flex items-center gap-2">
-									<Button variant="outline" size="sm" asChild>
-										<Link
-											href={project.github}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											<Github className="h-3.5 w-3.5" /> Code
-										</Link>
-									</Button>
+								{/* Metrics as one quiet line, not a row of chips; the demo
+								    button is the card's single filled action and the repo is
+								    a plain link beside it. */}
+								{project.metrics.length > 0 && (
+									<p className="text-xs text-muted-foreground mb-5">
+										{project.metrics.join(" · ")}
+									</p>
+								)}
+								<div className="mt-auto flex items-center gap-4">
 									<Button
 										size="sm"
 										className="bg-foreground text-background hover:bg-foreground/85"
@@ -207,6 +181,14 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
 											<ArrowUpRight className="h-3.5 w-3.5" />
 										</Link>
 									</Button>
+									<Link
+										href={project.github}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground"
+									>
+										<Github className="h-3.5 w-3.5" /> Code
+									</Link>
 								</div>
 							</div>
 						</article>

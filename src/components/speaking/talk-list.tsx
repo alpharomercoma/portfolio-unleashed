@@ -16,7 +16,7 @@ function metaLine(talk: Talk): string {
 }
 
 const chip =
-	"inline-flex items-center rounded-full bg-lime px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ink";
+	"inline-flex items-center rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-ink";
 
 /** Cover image with a branded fallback for talks that have no showcase image. */
 function TalkCover({

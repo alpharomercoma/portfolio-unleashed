@@ -44,5 +44,9 @@ export async function BlogSection() {
 			};
 		});
 
+	// No posts, no section. An empty "check back soon" box on the home page
+	// advertises absence; the Writing link in the nav still leads to /blog.
+	if (cards.length === 0) return null;
+
 	return <BlogSectionView posts={cards} />;
 }

@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+
+import { useReveal } from "@/hooks/use-reveal";
 
 export type BlogCard = {
 	slug: string;
@@ -22,23 +23,7 @@ type Props = {
 const MAX_LEAD = 3;
 
 export function BlogSectionView({ posts }: Props) {
-	const sectionRef = useRef<HTMLElement>(null);
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add("animate-fade-up");
-					}
-				});
-			},
-			{ threshold: 0.1 },
-		);
-		const elements = sectionRef.current?.querySelectorAll(".animate-on-scroll");
-		elements?.forEach((el) => observer.observe(el));
-		return () => observer.disconnect();
-	}, []);
+	const sectionRef = useReveal<HTMLElement>();
 
 	const lead = posts.slice(0, MAX_LEAD);
 	const more = posts.slice(MAX_LEAD);
@@ -144,14 +129,6 @@ export function BlogSectionView({ posts }: Props) {
 								</div>
 							</Link>
 						))}
-					</div>
-				)}
-
-				{posts.length === 0 && (
-					<div className="rounded-2xl border border-border bg-secondary p-10 text-center">
-						<p className="text-sm text-muted-foreground">
-							No published posts yet. Check back soon.
-						</p>
 					</div>
 				)}
 			</div>
