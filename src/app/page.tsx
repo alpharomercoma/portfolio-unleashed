@@ -19,6 +19,7 @@ import {
 	selectedWorkSchema,
 } from "@/lib/collections/schema";
 import { getTypedItems } from "@/lib/collections/store";
+import { computeStats } from "@/lib/talks/schema";
 import { getPublishedTalks } from "@/lib/talks/store";
 import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/seo";
 
@@ -71,7 +72,9 @@ export default async function Home() {
 		getTypedItems("selected-work", selectedWorkSchema),
 	]);
 	const featured = talks.filter((t) => t.featured);
-	const speakingTeaser = (featured.length > 0 ? featured : talks).slice(0, 6);
+	// One row of three on the home page; the full catalogue lives on /speaking.
+	const speakingTeaser = (featured.length > 0 ? featured : talks).slice(0, 3);
+	const { sessions } = computeStats(talks);
 
 	return (
 		<main className="min-h-screen bg-background">
@@ -82,7 +85,7 @@ export default async function Home() {
 				}}
 			/>
 			<Navbar />
-			<HeroSection />
+			<HeroSection stats={{ sessions }} />
 			<InitiativeSection />
 			<SelectedWorkSection items={selectedWork} />
 			<ProjectsSection projects={projects} />
