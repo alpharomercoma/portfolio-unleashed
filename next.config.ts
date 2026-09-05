@@ -29,6 +29,10 @@ const config = {
 		optimizePackageImports: ["react-icons", "lucide-react"],
 	},
 	images: {
+		// Dev only: some local resolvers (NAT64 / DNS64) map the Blob host to a
+		// synthesized address that Next's SSRF guard classifies as private, which
+		// 400s every remote image locally. Production keeps the guard.
+		dangerouslyAllowLocalIP: process.env.NODE_ENV !== "production",
 		remotePatterns: [
 			{
 				protocol: "https",

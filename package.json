@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"predev": "node scripts/typegen.mjs",
+		"predev": "node scripts/typegen.mjs && node -e \"require('fs').rmSync('public/sw.js',{force:true})\"",
 		"dev": "next --turbo",
 		"prebuild": "node scripts/typegen.mjs",
 		"build": "next build --webpack",
