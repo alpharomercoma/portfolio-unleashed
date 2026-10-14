@@ -15,6 +15,7 @@ const footerLinks = {
 		{ label: "Writing", href: "/blog" },
 		{ label: "About", href: "/about" },
 		{ label: "Gallery", href: "/gallery" },
+		{ label: "Resume", href: "/resume" },
 	],
 	connect: [
 		{ label: "Book a call", href: "/#contact" },
