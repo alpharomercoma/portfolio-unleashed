@@ -22,6 +22,9 @@ export const env = createEnv({
 		MISTRAL_MODEL_ID: z.string().min(1).optional(),
 		// Optional talk-draft provider id (defaults to "mistral").
 		TALK_DRAFTER: z.string().min(1).optional(),
+		// Shared with the alpharomercoma/resume CI, which calls
+		// /api/revalidate/resume after each release.
+		RESUME_REVALIDATE_SECRET: z.string().min(32).optional(),
 	},
 	client: {
 		NEXT_PUBLIC_API_URL: z.string().url().min(1).optional(),
@@ -49,6 +52,7 @@ export const env = createEnv({
 		MISTRAL_API_KEY: process.env.MISTRAL_API_KEY,
 		MISTRAL_MODEL_ID: process.env.MISTRAL_MODEL_ID,
 		TALK_DRAFTER: process.env.TALK_DRAFTER,
+		RESUME_REVALIDATE_SECRET: process.env.RESUME_REVALIDATE_SECRET,
 		NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN:
 			process.env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,
 		NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,

@@ -10,9 +10,12 @@ import { createLogger } from "@/lib/logger";
 export const RESUME_REPO_URL = "https://github.com/alpharomercoma/resume";
 export const RESUME_RELEASES_URL = `${RESUME_REPO_URL}/releases`;
 export const RESUME_FILENAME = "Alpha_Romer_Coma_CV";
+// Tags every release fetch, so /api/revalidate/resume can expire them at once.
+export const RESUME_TAG = "resume";
 
-// Keep in sync with `revalidate` in app/resume/page.tsx and the resume.* routes
-// (segment config must be a literal, so it can't import this).
+// Fallback refresh. Releases expire the cache immediately through
+// /api/revalidate/resume; keep in sync with `revalidate` in app/resume/page.tsx
+// and the resume.* routes (segment config must be a literal, so it can't import this).
 const REVALIDATE_SECONDS = 3600;
 
 const log = createLogger("resume");
@@ -29,7 +32,9 @@ export type ResumeVersion = z.infer<typeof versionSchema>;
 export async function fetchResumeAsset(name: string): Promise<Response | null> {
 	const url = `${RESUME_RELEASES_URL}/latest/download/${name}`;
 	try {
-		const res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
+		const res = await fetch(url, {
+			next: { revalidate: REVALIDATE_SECONDS, tags: [RESUME_TAG] },
+		});
 		if (res.ok) return res;
 		log.warn(`${name} returned ${res.status}`);
 	} catch (err) {
