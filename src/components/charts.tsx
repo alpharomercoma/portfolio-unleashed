@@ -61,39 +61,59 @@ export type ColumnDatum = { label: string; value: number; highlight?: boolean };
 export function Columns({
 	data,
 	tone = "deep",
+	fill = false,
 	className,
 }: {
 	data: ColumnDatum[];
 	tone?: "deep" | "light";
+	/** Grow to the height of the parent instead of a fixed one. */
+	fill?: boolean;
 	className?: string;
 }) {
 	const max = Math.max(...data.map((d) => d.value), 1);
 	return (
-		<ul className={cn("flex items-end gap-3", className)}>
+		<ul
+			className={cn(
+				"flex gap-3",
+				fill ? "flex-1 items-stretch" : "items-end",
+				className,
+			)}
+		>
 			{data.map((d) => (
 				<li key={d.label} className="flex min-w-0 flex-1 flex-col">
+					{/* The room on top is for the tallest column's number. */}
 					<span
 						className={cn(
-							"mb-1 text-center text-sm font-medium tabular-nums",
-							tone === "deep" ? "text-white" : "text-foreground",
+							"relative mt-6 block",
+							fill ? "min-h-20 flex-1" : "h-20",
 						)}
 					>
-						{d.value}
-					</span>
-					<span className="flex h-20 items-end" aria-hidden>
 						<span
-							className={cn(
-								"column-draw block w-full rounded-t-[0.25rem]",
-								d.highlight
-									? tone === "deep"
-										? "bg-white"
-										: "bg-brand"
-									: tone === "deep"
-										? "bg-bar"
-										: "bg-bar-light",
-							)}
+							className="absolute inset-x-0 bottom-0 block"
 							style={{ height: `${Math.max((d.value / max) * 100, 4)}%` }}
-						/>
+						>
+							<span
+								className={cn(
+									"absolute inset-x-0 bottom-full mb-1 text-center text-sm font-medium tabular-nums",
+									tone === "deep" ? "text-white" : "text-foreground",
+								)}
+							>
+								{d.value}
+							</span>
+							<span
+								aria-hidden
+								className={cn(
+									"column-draw block h-full w-full rounded-t-[0.25rem]",
+									d.highlight
+										? tone === "deep"
+											? "bg-white"
+											: "bg-brand"
+										: tone === "deep"
+											? "bg-bar"
+											: "bg-bar-light",
+								)}
+							/>
+						</span>
 					</span>
 					<span
 						className={cn(
