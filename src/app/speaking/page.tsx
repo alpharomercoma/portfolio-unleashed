@@ -110,7 +110,7 @@ export default async function SpeakingPage() {
 					aria-label="Speaking in numbers"
 					className="site-container mt-10 grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
 				>
-					<div className="surface-ink flex flex-col justify-between gap-10 rounded-[1.75rem] p-8 sm:p-10">
+					<div className="surface-ink flex flex-col gap-6 rounded-[1.75rem] p-6 sm:p-8">
 						<div>
 							<p className="finding">
 								{stats.attendees.toLocaleString("en-US")}
@@ -119,9 +119,10 @@ export default async function SpeakingPage() {
 								attendees across {stats.sessions} sessions
 							</p>
 						</div>
-						<div>
+						<div className="flex flex-1 flex-col">
 							<p className="mb-3 text-sm text-on-deep">Sessions by year</p>
 							<Columns
+								fill
 								data={byYear.map((y) => ({
 									label: y.year,
 									value: y.sessions,
@@ -130,7 +131,7 @@ export default async function SpeakingPage() {
 							/>
 						</div>
 					</div>
-					<div className="rounded-[1.75rem] border border-border p-8 sm:p-10">
+					<div className="rounded-[1.75rem] border border-border p-6 sm:p-8">
 						<p className="font-medium">Talks by topic</p>
 						<BarRows
 							className="mt-5"
