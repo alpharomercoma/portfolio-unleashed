@@ -89,6 +89,13 @@ function imageName(url: string): string {
 	return file.replace(/-[A-Za-z0-9]{20,}(\.\w+)$/, "$1");
 }
 
+async function fetchMedia(): Promise<MediaImage[]> {
+	const res = await fetch("/api/admin/media");
+	const data = await res.json();
+	if (!res.ok) throw new Error(data.error || "Failed to load images");
+	return data.images || [];
+}
+
 function PickerModal({
 	current,
 	onClose,
@@ -111,23 +118,24 @@ function PickerModal({
 	// unmounting an open dialog wouldn't.
 	const dismiss = () => dialog.current?.close();
 
-	const load = useCallback(async () => {
-		setLoading(true);
-		try {
-			const res = await fetch("/api/admin/media");
-			const data = await res.json();
-			if (!res.ok) throw new Error(data.error || "Failed to load images");
-			setImages(data.images || []);
-		} catch (e) {
-			setError((e as Error).message);
-		} finally {
-			setLoading(false);
-		}
-	}, []);
+	// State changes only once the request settles; `loading` already starts true.
+	const settle = useCallback(
+		(request: Promise<MediaImage[]>) =>
+			request
+				.then(setImages)
+				.catch((e: Error) => setError(e.message))
+				.finally(() => setLoading(false)),
+		[],
+	);
 
 	useEffect(() => {
-		void load();
-	}, [load]);
+		void settle(fetchMedia());
+	}, [settle]);
+
+	const reload = useCallback(async () => {
+		setLoading(true);
+		await settle(fetchMedia());
+	}, [settle]);
 
 	async function upload(file: File) {
 		setUploading(true);
@@ -157,7 +165,7 @@ function PickerModal({
 			}
 			const data = await res.json().catch(() => ({}));
 			if (!data.url) throw new Error("Upload failed. Please try again.");
-			await load();
+			await reload();
 			setSelected(data.url);
 			setUploaded(true);
 		} catch (e) {
@@ -186,7 +194,7 @@ function PickerModal({
 				throw new Error(d.error || "Delete failed");
 			}
 			if (selected === url) setSelected("");
-			await load();
+			await reload();
 		} catch (e) {
 			setError((e as Error).message);
 		}

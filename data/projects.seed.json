@@ -41,7 +41,7 @@
 			"*Snapdragon 8 Elite, ExecuTorch = 18 ms",
 			"Snapdragon 8 Elite, llama.cpp = 27 ms"
 		],
-		"shot": "openweights-screens.png",
+		"shot": "/projects/openweights-screens.png",
 		"shotAlt": "Two OpenWeights screens: Discover, a Hugging Face search with recommended ExecuTorch builds; and a chat with LFM2.5 1.2B that searches the web to answer whether to pack an umbrella in Tokyo tomorrow",
 		"shotKind": "wide"
 	},
@@ -86,7 +86,7 @@
 			"SM City Fairview = 739 listings"
 		],
 		"headline": "What is inside Philippine malls.",
-		"shot": "philippine-mall-explorer.png",
+		"shot": "/projects/philippine-mall-explorer.png",
 		"shotKind": "wide",
 		"shotAlt": "Philippine Mall Explorer: a map of the Philippines with clusters of malls, and a list of the properties with the most listings"
 	},
@@ -107,7 +107,7 @@
 		"finding": "0.41 s",
 		"findingNote": "to first token on the NPU, with Qwen3 1.7B on a Snapdragon 8 Elite Gen 5 and a ~700-token prompt",
 		"bars": ["*NPU = 0.41 s", "GPU = 1.0 s", "CPU = 2.0 s"],
-		"shot": "execuserve-screens.png",
+		"shot": "/projects/execuserve-screens.png",
 		"shotAlt": "Two ExecuServe screens: Hosting, showing the server running with qwen3-1.7b as a hosted model; and Chat, with a reply from qwen3-1.7b and its prefill and decode speed",
 		"shotKind": "wide"
 	},

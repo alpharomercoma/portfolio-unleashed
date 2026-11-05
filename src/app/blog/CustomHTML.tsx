@@ -2,7 +2,7 @@
 
 import moduleProps from "./moduleProps";
 import { stegaClean } from "next-sanity";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function CustomHTML({
 	className,
@@ -17,7 +17,6 @@ export default function CustomHTML({
 	} & Sanity.Module
 >) {
 	const ref = useRef<HTMLElement>(null);
-	const [firstRender, setFirstRender] = useState(true);
 
 	if (!html?.code) return null;
 
@@ -36,16 +35,13 @@ export default function CustomHTML({
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {
-		if (firstRender) {
-			setFirstRender(false);
-		} else {
-			const parsed = document
-				.createRange()
-				.createContextualFragment(stegaClean(html.code));
-
-			ref.current?.appendChild(parsed);
-		}
-	}, [firstRender, html.code]);
+		const section = ref.current;
+		if (!section) return;
+		section.appendChild(
+			document.createRange().createContextualFragment(stegaClean(html.code)),
+		);
+		return () => section.replaceChildren();
+	}, [html.code]);
 
 	return (
 		<section
