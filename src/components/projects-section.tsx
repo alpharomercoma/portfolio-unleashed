@@ -17,7 +17,7 @@ function ProjectLinks({
 }) {
 	const demoLabel = project.demoLabel || "Live demo";
 	const linkClass = cn(
-		"inline-flex min-h-10 items-center",
+		"inline-flex min-h-8 items-center",
 		onDark ? "on-color-link" : "text-link",
 	);
 	return (
@@ -93,7 +93,7 @@ function ProjectIntro({
 			)}
 			<h3
 				className={cn(
-					project.headline && "mt-2",
+					project.headline && "mt-1",
 					large ? "display-md" : "display-sm",
 				)}
 			>
@@ -147,23 +147,23 @@ function ProjectFeature({
 		<li className="grid overflow-hidden rounded-[1.75rem] border border-border [overflow-wrap:anywhere] lg:grid-cols-2">
 			<div
 				className={cn(
-					"flex flex-col p-6 sm:p-8",
+					"flex flex-col p-5 sm:p-6",
 					shot ? "bg-brand-wash pb-0 sm:pb-0" : "justify-center",
 					flip && "lg:order-2",
 				)}
 			>
 				<ProjectIntro project={project} large />
-				<p className="mt-2 text-muted-foreground">
+				<p className="mt-1 text-muted-foreground">
 					{firstSentence(project.description)}
 				</p>
-				<div className="mt-2">
+				<div className="mt-1">
 					<ProjectLinks project={project} />
 				</div>
 				{shot && (
 					// The top of the screen, running off the bottom of the card.
 					<div
 						className={cn(
-							"relative mt-5 w-full overflow-hidden rounded-t-[1.25rem] border border-b-0 border-border bg-white",
+							"relative mt-3 w-full overflow-hidden rounded-t-[1.25rem] border border-b-0 border-border bg-white",
 							wide ? "aspect-[5/2]" : "mx-auto aspect-[4/5] max-w-44",
 						)}
 					>
@@ -177,7 +177,7 @@ function ProjectFeature({
 					</div>
 				)}
 			</div>
-			<div className="surface-ink flex flex-col justify-center gap-5 p-6 sm:p-8">
+			<div className="surface-ink flex flex-col justify-center gap-4 p-5 sm:p-6">
 				<div>
 					<p className="finding">{project.finding}</p>
 					<p className="mt-1.5 max-w-md text-sm leading-snug text-on-deep">
