@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { BarRows, Columns } from "@/components/charts";
+import { PageHeader } from "@/components/page-header";
+import { SiteShell } from "@/components/site-shell";
 import { SpeakingIndex } from "@/components/speaking/speaking-index";
-import { computeStats } from "@/lib/talks/schema";
+import {
+	computeStats,
+	sessionsByYear,
+	talksByCategory,
+} from "@/lib/talks/schema";
 import { getPublishedTalks } from "@/lib/talks/store";
 
 import { SITE_URL } from "@/lib/seo";
+
+// Re-rendered daily, so a talk counts as delivered once its date passes.
+export const revalidate = 86400;
 const SPEAKING_DESCRIPTION =
 	"Talks and workshops on AI, accelerated computing, and developer tools, from PyTorch Conference Europe to community stages across the Philippines.";
 
@@ -49,16 +58,9 @@ export default async function SpeakingPage() {
 	const talks = await getPublishedTalks();
 	const stats = computeStats(talks);
 
-	const statItems = [
-		{ value: String(stats.talks), label: "Talks & workshops" },
-		{ value: String(stats.sessions), label: "Sessions delivered" },
-		{
-			value: `${stats.developersReached.toLocaleString()}+`,
-			label: "Developers reached",
-			lime: true,
-		},
-		{ value: String(stats.yearsSpeaking), label: "Years speaking" },
-	];
+	const byYear = sessionsByYear(talks);
+	const latestYear = byYear.at(-1)?.year;
+	const topics = talksByCategory(talks);
 
 	const jsonLd = {
 		"@context": "https://schema.org",
@@ -91,58 +93,75 @@ export default async function SpeakingPage() {
 	};
 
 	return (
-		<main className="min-h-screen bg-background">
+		<SiteShell>
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}
 			/>
-			<Navbar />
-			<section className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-14 sm:pb-16">
-				<div className="max-w-6xl mx-auto">
-					<h1 className="display-xl max-w-3xl">
-						Talks &amp; <span className="lime-mark">workshops</span>.
-					</h1>
-					<p className="lede mt-6 max-w-2xl">
-						From PyTorch Conference Europe to community stages across the
-						Philippines, sessions on AI, accelerated computing, and developer
-						tools.
-					</p>
+			<PageHeader title="Speaking.">
+				From PyTorch Conference Europe to community stages across the
+				Philippines.
+			</PageHeader>
 
-					<div className="mt-14 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 border-t border-foreground/15 pt-10">
-						{statItems.map((s) => (
-							<div key={s.label}>
-								<div className="font-display text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-foreground leading-none">
-									{s.lime ? (
-										<span className="lime-mark">{s.value}</span>
-									) : (
-										s.value
-									)}
-								</div>
-								<div className="mt-3 text-sm font-medium text-foreground">
-									{s.label}
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-			</section>
-
-			<section className="px-4 sm:px-6 lg:px-8 pt-14 sm:pt-16 pb-24 border-t border-border">
-				<div className="max-w-6xl mx-auto">
-					{talks.length > 0 ? (
-						<SpeakingIndex talks={talks} />
-					) : (
-						<div className="rounded-2xl border border-border bg-secondary p-10 text-center">
-							<p className="text-sm text-muted-foreground">
-								Talks are being published. Check back soon.
+			{talks.length > 0 && (
+				<section
+					aria-label="Speaking in numbers"
+					className="site-container mt-10 grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
+				>
+					<div className="surface-ink flex flex-col justify-between gap-10 rounded-[1.75rem] p-8 sm:p-10">
+						<div>
+							<p className="finding">
+								{stats.attendees.toLocaleString("en-US")}
+							</p>
+							<p className="mt-2 leading-snug text-on-deep">
+								attendees across {stats.sessions} sessions
 							</p>
 						</div>
-					)}
-				</div>
+						<div>
+							<p className="mb-3 text-sm text-on-deep">Sessions by year</p>
+							<Columns
+								data={byYear.map((y) => ({
+									label: y.year,
+									value: y.sessions,
+									highlight: y.year === latestYear,
+								}))}
+							/>
+						</div>
+					</div>
+					<div className="rounded-[1.75rem] border border-border p-8 sm:p-10">
+						<p className="font-medium">Talks by topic</p>
+						<BarRows
+							className="mt-5"
+							tone="light"
+							rows={topics.map((t, i) => ({
+								label: t.category,
+								value: t.talks,
+								display: String(t.talks),
+								highlight: i === 0,
+							}))}
+						/>
+					</div>
+				</section>
+			)}
+
+			<section
+				aria-label="All talks"
+				className="site-container pb-16 pt-12 lg:pb-24"
+			>
+				{talks.length > 0 ? (
+					<SpeakingIndex talks={talks} />
+				) : (
+					<p className="text-muted-foreground">
+						No talks are published yet. The{" "}
+						<Link href="/blog" className="text-link">
+							writing
+						</Link>{" "}
+						covers some of the same ground.
+					</p>
+				)}
 			</section>
-			<Footer />
-		</main>
+		</SiteShell>
 	);
 }

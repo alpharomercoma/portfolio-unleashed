@@ -1,0 +1,49 @@
+{
+	"summary": "ML engineer building on-device LLM inference, PyTorch LLM training and post-training, and GPU and AI accelerator benchmarks.",
+	"roles": [
+		{
+			"organization": "Experimental Machines",
+			"url": "https://experimentalmachines.org/",
+			"role": "Machine Learning Engineer",
+			"dates": "Aug 2026 to now",
+			"highlights": [
+				"Shipped **OpenWeights** to Google Play; its ExecuTorch LFM2.5 1.2B decodes **2.3× faster** than llama.cpp on Tensor G5.",
+				"Published **18 ExecuTorch LLMs (209 builds)** to Hugging Face for phone CPUs, GPUs, and Qualcomm and MediaTek NPUs.",
+				"Built **ExecuServe**, an OpenAI- and Anthropic-compatible phone server; Qwen3-1.7B first token took **0.41 s** on NPU, 2.0 s on CPU.",
+				"Merged a fix into **PyTorch ExecuTorch** that stops LFM2 models from carrying state into a new conversation.",
+				"Built KV cache prefix reuse on Android, cutting Qwen3-1.7B second-turn prefill from 5,852 to **215 ms** by reusing 1,192 tokens.",
+				"Measured 9 models across 9 CPU/GPU/NPU pairings on a Snapdragon 8 Elite Gen 5; NPU prefill ran **9.6–15.5×** the CPU on all 9.",
+				"Secured a **$2,000 compute grant** from Lambda for the team's GPU training and benchmarking work."
+			]
+		},
+		{
+			"organization": "ViableView",
+			"url": "https://www.viableview.com/",
+			"role": "Senior Data Engineer",
+			"dates": "Feb 2026 to now",
+			"highlights": [
+				"Designed an email-enrichment pipeline processing **2.6M records at 240K/day** and achieving **0.94 macro-F1** on validation.",
+				"Built ingestion for 2.7M registry records at 200K/day and an autoscaled multi-cloud pipeline validating 800K at 80K/day."
+			]
+		},
+		{
+			"organization": "Kollab",
+			"url": "https://www.kollab.com/",
+			"role": "Associate Cloud Engineer",
+			"dates": "Sep 2025 to Feb 2026",
+			"highlights": [
+				"Delivered a patient-search AI system for a Philippine hospital in **30 days** using Google Cloud, Vertex AI, and AlloyDB."
+			]
+		},
+		{
+			"organization": "Community",
+			"role": "PyTorch Ambassador, GitHub Campus Expert, AWS Community Builder",
+			"dates": "Dec 2024 to now",
+			"highlights": [
+				"Selected as a 2026 PyTorch Foundation Ambassador to run events, create content, and mentor PyTorch users in the Philippines.",
+				"Trained 4,000+ students and professionals in AI/ML, software engineering, and data engineering across 25+ talks.",
+				"Secured $30,000+ in sponsorships from GitHub, Tavily, and Vercel to support technology education across Luzon."
+			]
+		}
+	]
+}

@@ -1,202 +1,109 @@
-# Design System, alpharomer.com
+# Design system, alpharomer.com
 
-> Reference for the Nebius-inspired rebrand. Read this before changing visuals so
-> the site stays consistent. The goal: build rapport, showcase real achievements,
-> and make "book a call / get in touch" feel easy, never pushy.
+The site belongs to the same family as its two labs: **Experimental Machines**
+(cobalt) and **Experimental Intelligence** (violet). It has one colour, the indigo
+halfway between them, and borrows their type and layout.
 
-## 1. Direction
+Read this before changing visuals. Tokens live in `src/app/globals.css`, and
+`test/unit/contrast.test.ts` checks every colour pair against WCAG AA, so add new
+pairs there too.
 
-Bold lime on black and white, modeled on the current **Nebius homepage** (not the
-muted About page): a large flowing lime gradient hero, confident black headlines,
-dramatic full-bleed dark sections, and lime-tinted surfaces. Energetic, premium,
-and distinctive. The bar is a top-tier big-tech employee portfolio, never a
-generic minimal AI-startup template.
+## Principles
 
-**Tone:** precise, engineering-forward, confident. Let the work and the numbers
-talk. No hype words, no invented copy, no sections without real data.
+- **Few words.** One short sentence under a title at most. Cards carry a title and
+  a number, not a paragraph. Long copy lives on its own page; stored descriptions
+  show their first sentence (`firstSentence`) and quotes are never cut.
+- **Room.** Generous gaps between sections (`section-gap`) and inside cards.
+- **Flat colour.** No gradients, blurs, glows, or drop shadows.
+- **Findings first.** A number and one plain sentence, then a small chart, then
+  the title. If it can't be measured, say what it is in words.
+- **Only real data.** Every figure comes from a store (`talks`, the collections,
+  About) or is copied from the study it links to. Nothing is illustrative.
+- **Plain sentences.** Section titles are short and end in a full stop. Sentence
+  case, no all-caps labels, no hype.
+- **Only the charts move.** Bars draw in as they scroll into view, and not at all
+  for anyone asking for less motion. Everything else moves because someone did
+  something.
+- **Substance first.** Every section should say what was shipped, measured, or
+  said, with its number. Few words is not the same as saying nothing.
+- **Type leads.** The hero is the name and one plain line. No portraits or cards
+  in it, and no slogans: say what the thing is.
 
-**Lesson from v1:** copying the muted About page (flat white, lime as a tiny 10%
-dot, lots of gray) read as bland and generic. Use lime **boldly**.
+## Colour
 
-## 2. Color, black, white, and bold lime
+One colour, plus ink, white, and grey. There is no secondary colour and no accent:
+a chart's highlighted mark is white on ink and indigo on white.
 
-Three colors only. Lime is a **dominant brand color**, not a timid accent. Mix is
-roughly: white/off-white as the base canvas, ink for text and full dark sections,
-and lime used confidently as gradients, large fills, tinted surfaces, marker
-highlights, and the primary CTA.
+| Token                       | Value                 | Use                                              |
+| --------------------------- | --------------------- | ------------------------------------------------ |
+| `brand`                     | `#5342E5` indigo      | Hero, nav, primary buttons, contact field        |
+| `brand-strong`              | `#4232C8`             | Links and hover states on white                  |
+| `ink` / `foreground`        | `#16133A`             | Text and data panels. Never pure black           |
+| `muted-foreground`          | `#5A5A68`             | Secondary text                                   |
+| `brand-wash`                | `#F5F5F8`             | Tinted panels                                    |
+| `bar` / `bar-light`         | `#8F8FA6` / `#8B8B99` | Neutral chart marks on ink / on white            |
+| `on-brand` / `on-deep`      | `#EFEEFC` / `#D8D8E4` | Secondary text on the brand field / ink panels   |
+| `machines` / `intelligence` | `#2B44E6` / `#7B3FE4` | Only where a lab is named, matching its own site |
 
-| Role                 | Tokens                                                                                                                | Usage                                                                                        |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| **Base** (white)     | `background` `#FFFFFF`, `secondary`/`muted` `#F4F5F3`                                                                 | Page canvas, most cards                                                                      |
-| **Ink** (navy-black) | `foreground`/`ink` `#052B42` (Nebius navy, a "shade of black" — not pure #000); dark sections via `.dark` (`#0D0E10`) | Text, `bg-ink` panels, one or two full-bleed dark feature sections                           |
-| **Lime** (bold)      | `lime` **`#E0FF4F`**, `lime-soft` `#EAFF8C`, `lime-wash` `#F3FFCE`, `lime-strong` `#AACF1F`                           | Hero gradient field, the CTA field, lime-wash sections, marker highlights, primary CTA, tags |
+Use a `surface-*` class (`surface-brand`, `surface-ink`, `surface-machines`,
+`surface-intelligence`) for any coloured block. It sets the text colour and makes
+keyboard focus rings white. A white block inside one (a dialog) must set
+`--focus` back.
 
-**Lime rules (do not break):**
+## Type
 
-- Use lime **boldly**: the hero gradient (`.hero-lime-field`), a full lime CTA
-  panel, `bg-lime-wash` section surfaces, and `.lime-mark` keyword highlights are
-  all encouraged. It is the brand, not a garnish.
-- Lime is light, so **text/icons on lime must be ink** (`text-ink`), never white.
-  Verified WCAG AA: ink on `#E0FF4F` is ~15:1.
-- Never use `lime` or `lime-strong` as **text or meaningful icons on white** (they
-  fail contrast). For a lime word on a light surface, use `.lime-mark` (lime
-  background, ink text). On **dark** sections, `text-lime` is fine and pops.
-- Keep it to these three colors. Do not reintroduce the old multicolor.
+Inter Tight for display, Inter for reading, the same pair as the labs.
 
-Exact Nebius source values sampled from nebius.com: lime `#E0FF4F` (+ `#E8FF7E`),
-used as a `background` fill on the live site. We use neutral (hue-less) grays so
-lime is the only chromatic note.
+| Class        | Size                   | Use                        |
+| ------------ | ---------------------- | -------------------------- |
+| `wordmark`   | 40 to 88px             | The name in the hero, only |
+| `display-xl` | 32 to 44px, weight 500 | Page titles, the big quote |
+| `display-lg` | 28 to 36px, weight 400 | Section titles             |
+| `display-md` | 22 to 26px, weight 400 | Lead cards, subsections    |
+| `display-sm` | 20px, weight 400       | Card titles                |
+| `finding`    | 32 to 40px, tabular    | The number on a data panel |
+| `lede`       | 17px, line-height 1.6  | The sentence under a title |
 
-Tokens live in `src/app/globals.css` (`:root` light, `.dark` sections) and are the
-**only** place colors are defined. Components consume them through Tailwind
-utilities (`bg-background`, `text-foreground`, `bg-lime`, `bg-lime-wash`,
-`text-ink`, `text-muted-foreground`, `border-border`). Never hard-code a hex in a
-component.
+A step below the labs on purpose: the owner found their scale too big for a
+personal site. Count words as well as size: a tile is a number if it has one, a
+name, one line, and its links, nothing more.
 
-### Dark feature sections
+Running text stays within `measure` (62 characters).
 
-Wrap a section in `className="dark bg-background text-foreground"` and it flips to
-the ink palette using the same shadcn tokens; `text-lime` and `bg-lime` accents
-pop against it (e.g. the Speaking section, our "Built by builders" moment). Use
-one or two per page.
+## Layout
 
-### Accessibility (WCAG AA)
+- `site-container`: a 77rem column inside a 1 to 2rem gutter.
+- Cards: 28px radius (`rounded-[1.75rem]`), a 1px `border`, no shadow. Lead cards
+  split into a coloured panel and a white half; smaller ones stack the two.
+- Lists of equals sit under a 2px `brand` rule with no card around them.
+- Projects and data lead with what they measured. The first measured project opens
+  the section at full size on ink, with its bars on one scale. The next are
+  features: what it does, a real screen from the app, then its result and chart.
+  Screens fill their panel: a phone app shows two screens side by side, not one small
+  phone in empty space. Numbered tiles follow in one row, and anything else sits in a
+  short "Other projects" list that opens on request. Student projects stay hidden.
+- Recommendations are one voice at a time, large, on ink, with the row of names
+  above the quote: quotes differ in length, so below it they would move under the
+  finger.
+- The homepage runs Projects, Research, Speaking, Experience (opening on the two
+  lab cards), Certifications, recommendations, Data, Writing, Contact. A number sits
+  beside what it measures; there is no detached row of stats. Contact is a call
+  button and a short list of direct routes.
+- Experience comes from the resume YAML, two lines a role, skipping what the page
+  already told and any grant or sponsorship line.
+- Certifications show the four machine learning credentials, with the rest
+  behind a toggle. Logos are greyscale, as in the hero.
+- Pills for actions and chips, `text-link` for links in text.
 
-All body/secondary text must clear 4.5:1; `--muted-foreground` is `#52555B` for
-this. Icons that carry meaning must clear 3:1. Audit token pairs after any color
-change. Keyboard focus rings stay visible.
+## Components
 
-### Copy
+`SiteShell` (skip link, header, main, footer), `PageHeader`, `SectionHeader`,
+`BarRows` and `Columns` (`src/components/charts.tsx`: every value is printed as
+text, so bars are never the only carrier of a number).
 
-No em (—) or en (–) dashes anywhere in copy. Reword with commas, periods, or
-colons. (Hyphens and × are fine.)
+## Accessibility floor
 
-## 3. Typography
-
-| Role                            | Family                | Token / utility       | Notes                                               |
-| ------------------------------- | --------------------- | --------------------- | --------------------------------------------------- |
-| Display (h1–h4, section titles) | **Schibsted Grotesk** | `font-display`        | Tight tracking (−0.02 to −0.03em), weight 600–700   |
-| Body / UI                       | **Hanken Grotesk**    | `font-sans` (default) | 400/500/600, `leading-relaxed` for prose            |
-| Mono (stats, tags, dates)       | **Geist Mono**        | `font-mono`           | The "engineering" motif: numbers, tag labels, dates |
-
-Loaded via `next/font/google` in `src/app/layout.tsx`. Headings auto-use
-`font-display` and are **bold** (700) for energy. Helpers: `.display-xl/lg/md`,
-`.lede` (muted subtitle), `.lime-mark` (lime keyword highlight).
-
-Scale guide: hero `display-xl` (to `text-7xl`), section title `display-lg`,
-card/sub `display-md`. Body `text-base`/`text-lg`.
-
-**No uppercase mono "eyebrow" labels above headings** (a generic AI-template tic,
-removed in v2). The section is identified by its bold statement heading, often
-with a `.lime-mark` keyword.
-
-## 4. Spacing, borders, radius
-
-Consistency here is what separates polished from amateur, the brief called it
-out explicitly.
-
-- **Container:** `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8` (one container, reused).
-- **Section rhythm:** vertical padding `py-20 sm:py-24 lg:py-28`. Keep it uniform
-  section-to-section; alternate `bg-background` / `bg-secondary` for separation
-  rather than ad-hoc margins.
-- **Grid gaps:** `gap-4` (tight), `gap-6` (default cards), `gap-8` (lead layouts).
-  Pick one per grid; don't mix.
-- **Card padding:** `p-6` (default) → `p-8` (lead/feature).
-- **Borders:** 1px hairline only, `border border-border`. On dark, `border-white/10`.
-  No heavy/colored borders. Lime is never a border on light surfaces.
-- **Radius:** base `--radius` = `0.875rem`. Cards `rounded-2xl`/`rounded-3xl`,
-  buttons & tags **pill** (`rounded-full`), inputs `rounded-lg`. Be consistent
-  within a component group.
-- **Dividers:** prefer whitespace + a single `border-border` hairline over rules.
-
-## 5. Components (shadcn + Tailwind only)
-
-Build from the existing shadcn primitives in `src/components/ui/` (`button`,
-`badge`, `card`, `carousel`, `input`, …). No bespoke CSS rules, no inline
-`style={}` except genuinely dynamic values (e.g. an image aspect ratio).
-
-- **Buttons:** primary = lime pill, ink text (`bg-primary text-primary-foreground
-rounded-full`). Secondary = `variant="outline"` (ink border/text). Ghost for
-  tertiary. One primary action per view.
-- **Tags / category chips:** small pill, `border-border` + `text-muted-foreground`,
-  or ink-filled on dark. Used to label work (e.g. "Accelerated Computing").
-- **Cards:** white, hairline border, `rounded-2xl`, subtle hover lift
-  (`hover:-translate-y-0.5 transition` + `hover:border-foreground/20`). No drop
-  shadows heavier than `shadow-sm`.
-- **Stat block:** mono numerals, oversized, ink panel (`.dark`) with lime on the
-  single hero metric.
-
-## 6. Motion
-
-Restraint, one orchestrated entrance per section, no scattered micro-animations.
-Current implementation: a shared `IntersectionObserver` adds `.animate-fade-up`
-to elements marked `.animate-on-scroll opacity-0` as they enter view (staggered
-via `animationDelay`); card grids use the `fadeIn` keyframe on mount. Keyframes
-live in `globals.css`. `framer-motion` is installed and is the preferred tool for
-any richer/new motion. Keep the affiliations marquee subtle; respect
-`prefers-reduced-motion`.
-
-## 7. Section inventory (home)
-
-Lean, "big-tech minimal" order, every section earns its place with real data:
-
-1. **Navbar**, wordmark (ink + lime mark), anchors, one lime CTA.
-2. **Hero**, name + one-line positioning, primary CTA, mono stat block (one lime
-   metric), affiliations marquee.
-3. **Selected work**, _merged_ value-props + featured: 1 lead card + 3 supporting
-   cards, each tagged with a pillar (Multimodality / Accelerated Computing /
-   Community / Applied AI). Keeps the strongest real images.
-4. **Projects**, ML + software, carousel.
-5. **Speaking**, talks grid.
-6. **Writing**, latest posts (Sanity; empty-state safe).
-7. **Recognition**, _merged_ certifications + awards.
-8. **Recommendations**, short quote strip (compact, not a heavy section).
-9. **CTA**, "Book a call" + email, calm and non-pushy (reuses `calendar-modal`).
-10. **Footer**.
-
-Content guardrails: results-first (quantify with real numbers, $376K grant, 92%
-VLM accuracy, 25+ talks). Never fabricate metrics, logos, testimonials, or
-sections. If there's no data for a section, it doesn't exist.
-
-## 8. Responsive
-
-Breakpoints to verify every change at: **1440** (desktop), **768** (tablet),
-**375** (mobile). Single-column on mobile, 2–3 up on desktop. Tap targets ≥ 44px.
-Test with the Playwright CLI:
-
-```
-npx playwright screenshot --browser=chromium --viewport-size=1440,2400 --full-page http://localhost:3000 shot.png
-```
-
-## 9. Do / Don't
-
-**Do:** use lime boldly (gradient hero, lime CTA field, lime-wash sections, marker
-highlights); **vary** section surfaces and headers for rhythm (white, secondary,
-dark, lime-wash); single container; hairline borders; mono for numbers; quantify
-outcomes; one primary CTA per view; bold display headings.
-
-**Don't:** reintroduce the old blue/red/yellow/green multicolor; use lime or
-lime-strong as text/icons on white (fails contrast); add uppercase mono eyebrow
-labels; use a centered dark "let's build together" SaaS CTA; repeat one formulaic
-eyebrow + heading + grid rhythm; write filler copy or empty sections; use em/en
-dashes; mix radius/gap scales within a group.
-
-## 10. Speaking pages (`/speaking`)
-
-Talk-centric, text-forward (content is king), modeled on smatoto.dev but in our
-brand. Data lives in Upstash Redis (`src/lib/talks/store.ts`) with the committed
-`data/talks.seed.json` as fallback + seed source; managed via the authed `/admin`.
-
-- **Model:** a _talk_ (topic) has type, category, level, duration, language, tags,
-  abstract, outline, key takeaways, and an `events[]` array (each delivery:
-  organizer, date, venue, audience, slide/video links). One talk, many events.
-- **Index (`/speaking`):** stat band (talks, sessions, developers reached, years),
-  category filter chips, lean `TalkCard`s (lime category dot, mono meta).
-- **Detail (`/speaking/[slug]`):** statement title, metadata bar (hairline-divided
-  cells), tag chips, abstract, numbered outline, lime-dot key takeaways, slide
-  embed + open-in-new-tab, and a "Delivered N times" events table.
-- **Restraint:** lime only as the category dot, one stat highlight, and key-takeaway
-  bullets. No per-card imagery by default; showcase images are optional (Blob).
-- **Admin (`/admin`):** password + signed-cookie auth (`src/lib/auth.ts`,
-  `src/middleware.ts`); CRUD via server actions; line-based fields for arrays and a
-  JSON editor for events; optional image upload to Vercel Blob.
+WCAG 2.2 AA throughout: 4.5:1 text and 3:1 marks and control boundaries (tested),
+40px minimum targets, visible focus on every surface, no focus hidden under the
+sticky bar, a working page at 320px wide and 200% zoom, semantic tables and lists,
+native `dialog` for modals, and `prefers-reduced-motion` respected.

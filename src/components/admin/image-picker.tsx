@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, ImageIcon, Trash2, Upload, X } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Button } from "@/components/ui/button";
@@ -83,6 +83,12 @@ export function ImagePicker({
 	);
 }
 
+/** A readable name for a stored image, without the blob store's random suffix. */
+function imageName(url: string): string {
+	const file = decodeURIComponent(url.split("/").pop() ?? "image");
+	return file.replace(/-[A-Za-z0-9]{20,}(\.\w+)$/, "$1");
+}
+
 function PickerModal({
 	current,
 	onClose,
@@ -92,12 +98,18 @@ function PickerModal({
 	onClose: () => void;
 	onSelect: (url: string) => void;
 }) {
+	const titleId = useId();
 	const [images, setImages] = useState<MediaImage[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [uploading, setUploading] = useState(false);
+	const [uploaded, setUploaded] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [selected, setSelected] = useState(current);
 	const fileRef = useRef<HTMLInputElement>(null);
+	const dialog = useRef<HTMLDialogElement | null>(null);
+	// Closing through the dialog returns focus to the button that opened it; simply
+	// unmounting an open dialog wouldn't.
+	const dismiss = () => dialog.current?.close();
 
 	const load = useCallback(async () => {
 		setLoading(true);
@@ -117,20 +129,9 @@ function PickerModal({
 		void load();
 	}, [load]);
 
-	useEffect(() => {
-		const onKey = (e: KeyboardEvent) => {
-			if (e.key === "Escape") onClose();
-		};
-		document.addEventListener("keydown", onKey);
-		document.body.style.overflow = "hidden";
-		return () => {
-			document.removeEventListener("keydown", onKey);
-			document.body.style.overflow = "";
-		};
-	}, [onClose]);
-
 	async function upload(file: File) {
 		setUploading(true);
+		setUploaded(false);
 		setError(null);
 		try {
 			// Shrink large images client-side; oversized requests are rejected by the
@@ -158,6 +159,7 @@ function PickerModal({
 			if (!data.url) throw new Error("Upload failed. Please try again.");
 			await load();
 			setSelected(data.url);
+			setUploaded(true);
 		} catch (e) {
 			setError((e as Error).message);
 		} finally {
@@ -193,24 +195,34 @@ function PickerModal({
 	if (typeof document === "undefined") return null;
 
 	return createPortal(
-		<div
-			className="fixed inset-0 z-[100] grid place-items-center bg-ink/70 p-4"
-			onClick={onClose}
-			role="dialog"
-			aria-modal="true"
-			aria-label="Image library"
+		// A native modal dialog: focus stays inside and returns to the opener when it
+		// closes. The ref opens it as soon as it mounts.
+		<dialog
+			ref={(d) => {
+				dialog.current = d;
+				if (d && !d.open) d.showModal();
+			}}
+			aria-labelledby={titleId}
+			onClose={onClose}
+			onClick={(e) => {
+				if (e.target === e.currentTarget) dismiss();
+			}}
+			className="m-0 h-dvh max-h-none w-screen max-w-none place-items-center bg-ink/70 p-4 text-foreground open:grid [--focus:var(--brand-strong)]"
 		>
 			<div
 				className="w-full max-w-3xl max-h-[85vh] flex flex-col rounded-2xl border border-border bg-background shadow-xl"
 				onClick={(e) => e.stopPropagation()}
 			>
 				<header className="flex items-center justify-between gap-3 border-b border-border px-5 py-4">
-					<h2 className="font-display text-lg font-semibold tracking-tight">
+					<h2
+						id={titleId}
+						className="font-display text-lg font-semibold tracking-tight"
+					>
 						Image library
 					</h2>
 					<button
 						type="button"
-						onClick={onClose}
+						onClick={dismiss}
 						aria-label="Close"
 						className="rounded-md p-1 text-muted-foreground hover:bg-secondary hover:text-foreground"
 					>
@@ -253,7 +265,21 @@ function PickerModal({
 						</Button>
 						<span>or drag and drop</span>
 					</div>
-					{error && <p className="mt-2 text-sm text-destructive">{error}</p>}
+					{error && (
+						<p role="alert" className="mt-2 text-sm text-destructive">
+							{error}
+						</p>
+					)}
+					{/* Stays mounted, so a screen reader hears each change. */}
+					<p role="status" className="sr-only">
+						{uploading
+							? "Uploading image"
+							: loading
+								? "Loading images"
+								: uploaded
+									? "Image uploaded"
+									: ""}
+					</p>
 				</div>
 
 				<div className="flex-1 overflow-y-auto p-5">
@@ -267,18 +293,20 @@ function PickerModal({
 						<div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
 							{images.map((img) => {
 								const on = selected === img.url;
+								const name = imageName(img.url);
 								return (
 									<div
 										key={img.url}
 										className={`group relative aspect-square overflow-hidden rounded-lg border-2 bg-secondary transition-colors ${
-											on ? "border-lime" : "border-border"
+											on ? "border-brand" : "border-border"
 										}`}
 									>
 										<button
 											type="button"
 											onClick={() => setSelected(img.url)}
 											className="absolute inset-0"
-											aria-label="Select image"
+											aria-label={`Select ${name}`}
+											aria-pressed={on}
 										>
 											{/* eslint-disable-next-line @next/next/no-img-element */}
 											<img
@@ -288,15 +316,15 @@ function PickerModal({
 											/>
 										</button>
 										{on && (
-											<span className="absolute left-1.5 top-1.5 rounded-full bg-lime p-0.5 text-ink">
+											<span className="absolute left-1.5 top-1.5 rounded-full bg-brand p-0.5 text-white">
 												<Check className="size-3.5" />
 											</span>
 										)}
 										<button
 											type="button"
 											onClick={() => remove(img.url)}
-											aria-label="Delete image"
-											className="absolute right-1.5 top-1.5 rounded-full bg-background/90 p-1 opacity-0 transition-opacity group-hover:opacity-100"
+											aria-label={`Delete ${name}`}
+											className="absolute right-1 top-1 inline-flex size-8 items-center justify-center rounded-full bg-background"
 										>
 											<Trash2 className="size-3.5 text-destructive" />
 										</button>
@@ -312,26 +340,32 @@ function PickerModal({
 						type="button"
 						variant="ghost"
 						size="sm"
-						onClick={() => onSelect("")}
+						onClick={() => {
+							onSelect("");
+							dismiss();
+						}}
 					>
 						Clear selection
 					</Button>
 					<div className="flex items-center gap-2">
-						<Button type="button" variant="outline" size="sm" onClick={onClose}>
+						<Button type="button" variant="outline" size="sm" onClick={dismiss}>
 							Cancel
 						</Button>
 						<Button
 							type="button"
 							size="sm"
 							disabled={!selected}
-							onClick={() => onSelect(selected)}
+							onClick={() => {
+								onSelect(selected);
+								dismiss();
+							}}
 						>
 							Use image
 						</Button>
 					</div>
 				</footer>
 			</div>
-		</div>,
+		</dialog>,
 		document.body,
 	);
 }

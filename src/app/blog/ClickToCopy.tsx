@@ -15,10 +15,12 @@ export default function ClickToCopy({
 				if (typeof window === "undefined" || !value) return;
 				navigator.clipboard.writeText(value);
 			}}
-			title="Click to copy"
+			type="button"
+			title="Copy code"
+			aria-label="Copy code"
 			{...props}
 		>
-			{children || <VscCopy />}
+			{children || <VscCopy aria-hidden />}
 		</button>
 	);
 }

@@ -71,6 +71,17 @@ export function AdminShell({
 		return () => document.removeEventListener("keydown", onKey);
 	}, []);
 
+	// Past the breakpoint the drawer is hidden by CSS, but a hidden modal dialog
+	// still blocks the page, so close it for real.
+	useEffect(() => {
+		const desktop = window.matchMedia("(min-width: 64rem)");
+		const onChange = () => {
+			if (desktop.matches) setDrawerOpen(false);
+		};
+		desktop.addEventListener("change", onChange);
+		return () => desktop.removeEventListener("change", onChange);
+	}, []);
+
 	// Lock body scroll while the drawer is open.
 	useEffect(() => {
 		if (!drawerOpen) return;
@@ -126,18 +137,22 @@ export function AdminShell({
 				>
 					<Logo size={18} title={null} />
 					<span>
-						Alpha<span className="text-lime-strong">/admin</span>
+						Alpha<span className="text-brand-strong">/admin</span>
 					</span>
 				</Link>
 			</header>
 
 			{/* Mobile/tablet: off-canvas drawer */}
 			{drawerOpen && (
-				<div
-					className="fixed inset-0 z-40 lg:hidden"
-					role="dialog"
-					aria-modal="true"
+				// A native modal dialog, so focus can't leave it and the page behind is
+				// inert. The ref opens it as soon as it mounts.
+				<dialog
+					ref={(d) => {
+						if (d && !d.open) d.showModal();
+					}}
 					aria-label="Admin navigation"
+					onClose={() => setDrawerOpen(false)}
+					className="m-0 h-dvh max-h-none w-screen max-w-none bg-transparent p-0 text-foreground [--focus:var(--brand-strong)] lg:hidden"
 				>
 					<button
 						type="button"
@@ -159,7 +174,7 @@ export function AdminShell({
 							"motion-safe:animate-in motion-safe:slide-in-from-left motion-safe:duration-200",
 						)}
 					/>
-				</div>
+				</dialog>
 			)}
 
 			<main className="min-w-0 flex-1 px-4 py-10 sm:px-6 lg:px-8">

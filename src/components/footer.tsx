@@ -1,134 +1,83 @@
-"use client";
-
 import { Github, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 
 import { Logo } from "@/components/logo";
 
-const footerLinks = {
-	// Mirrors the navbar (plus the two in-page sections worth deep-linking) so
-	// the site has one navigation taxonomy, not two.
-	explore: [
-		{ label: "Work", href: "/#work" },
-		{ label: "Projects", href: "/#projects" },
-		{ label: "Speaking", href: "/speaking" },
-		{ label: "Writing", href: "/blog" },
-		{ label: "About", href: "/about" },
-		{ label: "Gallery", href: "/gallery" },
-		{ label: "Resume", href: "/resume" },
-	],
-	connect: [
-		{ label: "Book a call", href: "/#contact" },
-		{
-			label: "alpharomercoma@proton.me",
-			href: "mailto:alpharomercoma@proton.me",
-		},
-		{ label: "Recognition", href: "/#recognition" },
-	],
-	social: [
-		{
-			icon: Github,
-			href: "https://github.com/alpharomercoma",
-			label: "GitHub",
-		},
-		{
-			icon: Linkedin,
-			href: "https://linkedin.com/in/alpharomercoma",
-			label: "LinkedIn",
-		},
-		{
-			icon: Youtube,
-			href: "https://youtube.com/@alpharomercoma",
-			label: "YouTube",
-		},
-	],
-};
+const EMAIL = "alpharomercoma@proton.me";
+
+const links = [
+	{ label: "Work", href: "/#work" },
+	{ label: "Research", href: "/#research" },
+	{ label: "Speaking", href: "/speaking" },
+	{ label: "Writing", href: "/blog" },
+	{ label: "About", href: "/about" },
+	{ label: "Gallery", href: "/gallery" },
+	{ label: "Resume", href: "/resume" },
+	{ label: "Privacy", href: "/privacy" },
+];
+
+const social = [
+	{ icon: Github, href: "https://github.com/alpharomercoma", label: "GitHub" },
+	{
+		icon: Linkedin,
+		href: "https://linkedin.com/in/alpharomercoma",
+		label: "LinkedIn",
+	},
+	{
+		icon: Youtube,
+		href: "https://youtube.com/@alpharomercoma",
+		label: "YouTube",
+	},
+];
 
 export function Footer() {
 	return (
-		<footer className="px-4 sm:px-6 pb-8">
-			<div className="max-w-6xl mx-auto">
-				<div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-t border-border">
-					<div className="col-span-2">
-						<Link
-							href="/"
-							className="flex items-center gap-2 font-display text-xl font-semibold text-foreground mb-3 tracking-tight w-fit"
-						>
-							<Logo size={22} title={null} />
-							Alpha Romer Coma
-						</Link>
-						<p className="text-sm text-muted-foreground mb-5 max-w-sm leading-relaxed">
-							Machine learning engineer working on multimodality and accelerated
-							computing, and teaching it from conference stages to classrooms.
-						</p>
-						<div className="flex items-center gap-2">
-							{footerLinks.social.map((social) => (
+		<footer className="border-t border-border">
+			<div className="site-container grid gap-8 py-12 lg:grid-cols-[auto_1fr] lg:items-center">
+				<Link
+					href="/"
+					className="inline-flex h-10 w-fit items-center gap-2.5 rounded-full font-display text-xl font-medium tracking-tight"
+				>
+					<Logo size={28} title={null} />
+					Alpha Romer Coma
+				</Link>
+
+				<nav aria-label="Footer" className="lg:justify-self-end">
+					<ul className="-mx-2 flex flex-wrap gap-x-1 gap-y-1 text-sm">
+						{links.map((l) => (
+							<li key={l.href}>
 								<Link
-									key={social.label}
-									href={social.href}
-									className="p-2.5 bg-secondary border border-border text-muted-foreground hover:bg-foreground hover:text-background hover:border-foreground transition-colors rounded-full"
+									href={l.href}
+									className="inline-flex h-10 items-center rounded-full px-2 font-medium hover:underline hover:underline-offset-4"
+								>
+									{l.label}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</nav>
+
+				<a href={`mailto:${EMAIL}`} className="text-link w-fit text-sm">
+					{EMAIL}
+				</a>
+
+				<div className="flex items-center gap-4 text-sm text-muted-foreground lg:justify-self-end">
+					<ul className="flex items-center gap-1">
+						{social.map((s) => (
+							<li key={s.label}>
+								<a
+									href={s.href}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label={social.label}
+									aria-label={s.label}
+									className="inline-flex size-10 items-center justify-center rounded-full text-foreground hover:bg-accent"
 								>
-									<social.icon className="h-4 w-4" />
-								</Link>
-							))}
-						</div>
-					</div>
-
-					<div>
-						<h4 className="font-semibold text-foreground mb-4 text-sm">
-							Explore
-						</h4>
-						<ul className="space-y-2.5">
-							{footerLinks.explore.map((link) => (
-								<li key={link.label}>
-									<Link
-										href={link.href}
-										className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-									>
-										{link.label}
-									</Link>
-								</li>
-							))}
-						</ul>
-					</div>
-
-					<div>
-						<h4 className="font-semibold text-foreground mb-4 text-sm">
-							Connect
-						</h4>
-						<ul className="space-y-2.5">
-							{footerLinks.connect.map((link) => (
-								<li key={link.label}>
-									<Link
-										href={link.href}
-										className="text-sm text-muted-foreground hover:text-foreground transition-colors break-all"
-									>
-										{link.label}
-									</Link>
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
-
-				<div className="border-t border-border py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-					<p className="text-xs text-muted-foreground">
-						© {new Date().getFullYear()} Alpha Romer Coma. All rights reserved.
-					</p>
-					<div className="flex items-center gap-4">
-						<Link
-							href="/privacy"
-							className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-						>
-							Privacy
-						</Link>
-						<p className="text-xs text-muted-foreground">
-							Built with Next.js & Vercel
-						</p>
-					</div>
+									<s.icon className="size-[1.125rem]" aria-hidden />
+								</a>
+							</li>
+						))}
+					</ul>
+					<span>© {new Date().getFullYear()}</span>
 				</div>
 			</div>
 		</footer>

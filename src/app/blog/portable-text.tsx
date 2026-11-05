@@ -31,7 +31,7 @@ export default function Content({
 						h5: (node) => <AnchoredHeading as="h5" {...node} />,
 						h6: (node) => <AnchoredHeading as="h6" {...node} />,
 						blockquote: ({ children }) => (
-							<blockquote className="border-l-2 pl-4">
+							<blockquote className="border-l-2 border-brand pl-4 text-muted-foreground">
 								<p>{children}</p>
 							</blockquote>
 						),

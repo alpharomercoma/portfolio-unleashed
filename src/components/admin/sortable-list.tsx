@@ -40,6 +40,8 @@ export type SortableRowData = {
 	thumb?: string;
 	/** Hidden from the public site (still reorderable/editable here). */
 	hidden?: boolean;
+	/** Stored revision this row was rendered at (absent without a store). */
+	rev?: number;
 };
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
@@ -89,10 +91,22 @@ export function SortableList({
 		setRows(next); // optimistic
 		setStatus("saving");
 		startTransition(async () => {
+			const revs = Object.fromEntries(
+				next.flatMap((r) => (r.rev == null ? [] : [[r.id, r.rev]])),
+			);
 			const res = await reorderCollectionItems(
 				collectionKey,
 				next.map((r) => r.id),
+				Object.keys(revs).length === next.length ? revs : undefined,
 			);
+			if (res.ok) {
+				// Every moved item got a new revision; keep them for the next drag.
+				setRows((cur) =>
+					cur.map((r) =>
+						r.id in res.revs ? { ...r, rev: res.revs[r.id] } : r,
+					),
+				);
+			}
 			setStatus(res.ok ? "saved" : "error");
 		});
 	}
@@ -135,25 +149,27 @@ export function SortableList({
 }
 
 function SaveIndicator({ status }: { status: SaveStatus }) {
-	if (status === "idle") return null;
-	if (status === "saving")
-		return (
-			<span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-				<Loader2 className="size-3.5 animate-spin" />
-				Saving…
-			</span>
-		);
-	if (status === "saved")
-		return (
-			<span className="inline-flex items-center gap-1.5 text-xs text-lime-strong">
-				<Check className="size-3.5" />
-				Saved
-			</span>
-		);
+	// Always mounted, so a screen reader announces each change.
 	return (
-		<span className="inline-flex items-center gap-1.5 text-xs text-destructive">
-			<TriangleAlert className="size-3.5" />
-			Couldn’t save order
+		<span role="status" className="inline-flex items-center gap-1.5 text-xs">
+			{status === "saving" && (
+				<span className="inline-flex items-center gap-1.5 text-muted-foreground">
+					<Loader2 className="size-3.5 animate-spin" aria-hidden />
+					Saving…
+				</span>
+			)}
+			{status === "saved" && (
+				<span className="inline-flex items-center gap-1.5 text-brand-strong">
+					<Check className="size-3.5" aria-hidden />
+					Saved
+				</span>
+			)}
+			{status === "error" && (
+				<span className="inline-flex items-center gap-1.5 text-destructive">
+					<TriangleAlert className="size-3.5" aria-hidden />
+					Couldn’t save order
+				</span>
+			)}
 		</span>
 	);
 }
@@ -237,6 +253,9 @@ function SortableRow({
 				<form action={toggleCollectionItemVisibility}>
 					<input type="hidden" name="collection" value={collectionKey} />
 					<input type="hidden" name="id" value={row.id} />
+					{row.rev != null && (
+						<input type="hidden" name="rev" value={row.rev} />
+					)}
 					<input
 						type="hidden"
 						name="hidden"
@@ -249,6 +268,9 @@ function SortableRow({
 				<form action={removeCollectionItem}>
 					<input type="hidden" name="collection" value={collectionKey} />
 					<input type="hidden" name="id" value={row.id} />
+					{row.rev != null && (
+						<input type="hidden" name="rev" value={row.rev} />
+					)}
 					<Button variant="outline" size="sm" type="submit">
 						Delete
 					</Button>

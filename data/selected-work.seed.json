@@ -11,7 +11,7 @@
 	},
 	{
 		"id": "micromarc-vlm",
-		"title": "MicroMARC: a 92%-accurate vision-language model",
+		"title": "Micromarc: a 92%-accurate vision-language model",
 		"tag": "Multimodality",
 		"description": "Visual-Qwen VLM that flags cognitively-degrading short-form video, fine-tuned on a 6,000-row multimodal dataset under a $376,000 Google Cloud compute grant.",
 		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/thesis-zbRtJst9BAVRBvfcjias2zbnbitQDe.png",
@@ -27,7 +27,8 @@
 		"image": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/naipdc-oK8zDXpgLlVmo0phfxNtnN5xK40b5Y.jpg",
 		"href": "https://alpharomer.com/blog/crafting-the-winning-prompt-of-national-ai-prompt-design-challenge",
 		"cta": "",
-		"order": 30
+		"order": 30,
+		"hidden": true
 	},
 	{
 		"id": "github-universe-25-recap",

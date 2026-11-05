@@ -1,12 +1,28 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
 import { CalendarModal } from "./calendar-modal";
 
 const EMAIL = "alpharomercoma@proton.me";
+
+const routes = [
+	{ label: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
+	{ label: "Resume", value: "alpharomer.com/resume", href: "/resume" },
+	{
+		label: "GitHub",
+		value: "alpharomercoma",
+		href: "https://github.com/alpharomercoma",
+	},
+	{
+		label: "LinkedIn",
+		value: "alpharomercoma",
+		href: "https://linkedin.com/in/alpharomercoma",
+	},
+];
 
 export function CtaSection() {
 	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -14,49 +30,55 @@ export function CtaSection() {
 	return (
 		<section
 			id="contact"
-			className="px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-28"
+			aria-labelledby="contact-title"
+			className="surface-brand py-12 lg:py-16"
 		>
-			<div className="max-w-6xl mx-auto">
-				<div className="relative overflow-hidden rounded-[2rem] bg-lime text-ink px-6 sm:px-12 lg:px-16 py-14 sm:py-20">
-					<div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 lg:items-start">
-						<div>
-							{/* The heading names the three reasons someone is here, so the
-							    right visitor recognises themselves instead of reading a
-							    generic invitation. */}
-							<h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[0.98] tracking-[-0.035em] text-ink text-balance">
-								Hiring, collaborating, or looking for a speaker?
-							</h2>
-						</div>
-						<div className="w-full">
-							<p className="text-ink/80 leading-relaxed mb-6 max-w-sm">
-								I&apos;m open to full-time ML roles, research collaborations,
-								and speaking invitations, especially in multimodal AI and
-								accelerated computing.
-							</p>
-							<div className="flex flex-col gap-3 max-w-sm">
-								<Button
-									size="lg"
-									className="w-full bg-ink text-lime hover:bg-ink/90"
-									onClick={() => setIsCalendarOpen(true)}
-								>
-									Book a call
-									<ArrowRight className="h-4 w-4" />
-								</Button>
-								<Button
-									asChild
-									size="lg"
-									variant="outline"
-									className="w-full border-ink/30 text-ink hover:bg-ink hover:text-lime hover:border-ink"
-								>
-									<Link href={`mailto:${EMAIL}`}>
-										<Mail className="h-4 w-4" />
-										Send an email
-									</Link>
-								</Button>
-							</div>
-						</div>
-					</div>
+			<div className="site-container grid gap-8 lg:grid-cols-2 lg:gap-16">
+				<div>
+					<h2 id="contact-title" className="display-lg">
+						Get in touch.
+					</h2>
+					<p className="mt-2 text-on-brand">
+						For roles, research, and speaking.
+					</p>
+					<Button
+						type="button"
+						variant="on-color"
+						className="mt-6"
+						onClick={() => setIsCalendarOpen(true)}
+					>
+						Book a call
+					</Button>
 				</div>
+				<ul className="border-b border-white/30">
+					{routes.map((r) => (
+						<li
+							key={r.label}
+							className="flex flex-wrap items-center justify-between gap-x-6 border-t border-white/30 py-2.5"
+						>
+							<span className="text-sm text-on-brand">{r.label}</span>
+							{r.href.startsWith("/") ? (
+								<Link
+									href={r.href}
+									className="on-color-link inline-flex min-h-8 items-center font-medium"
+								>
+									{r.value}
+								</Link>
+							) : (
+								<a
+									href={r.href}
+									{...(r.href.startsWith("http") && {
+										target: "_blank",
+										rel: "noopener noreferrer",
+									})}
+									className="on-color-link inline-flex min-h-8 items-center font-medium [overflow-wrap:anywhere]"
+								>
+									{r.value}
+								</a>
+							)}
+						</li>
+					))}
+				</ul>
 			</div>
 			<CalendarModal
 				isOpen={isCalendarOpen}

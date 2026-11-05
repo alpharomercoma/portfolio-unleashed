@@ -6,14 +6,14 @@ import { urlForImage } from "@/sanity/lib/utils";
 // Number of latest posts to pull from Sanity. Sanity CDN + the sanityFetch
 // ISR helper revalidate this every 60s, so publishing a post on Sanity
 // surfaces it here without a rebuild. Newest auto-adds, oldest rolls off.
-const LIMIT = 6;
+const LIMIT = 3;
 
 function formatDate(iso: string) {
-	const d = new Date(iso);
-	return d.toLocaleDateString("en-US", {
-		month: "short",
+	return new Date(iso).toLocaleDateString("en-GB", {
 		day: "numeric",
+		month: "long",
 		year: "numeric",
+		timeZone: "UTC",
 	});
 }
 

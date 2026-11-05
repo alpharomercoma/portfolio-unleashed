@@ -45,7 +45,7 @@ export default async function AdminHub() {
 					<Link
 						key={s.href}
 						href={s.href}
-						className="group flex flex-col rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-lime/70"
+						className="group flex flex-col rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand"
 					>
 						<div className="flex items-baseline justify-between gap-3">
 							<h2 className="font-display text-lg font-semibold tracking-tight">

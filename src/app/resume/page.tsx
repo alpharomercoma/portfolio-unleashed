@@ -1,11 +1,11 @@
 import { format } from "date-fns";
-import { Download, ExternalLink, History } from "lucide-react";
+import { Download } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 
-import { Footer } from "@/components/footer";
 import { Markdown } from "@/components/markdown";
-import { Navbar } from "@/components/navbar";
+import { PageHeader } from "@/components/page-header";
+import { SiteShell } from "@/components/site-shell";
 import { Button } from "@/components/ui/button";
 import {
 	getResumeMarkdown,
@@ -42,96 +42,87 @@ export default async function ResumePage() {
 	]);
 
 	return (
-		<main className="min-h-screen bg-background">
-			<Navbar />
-			<section className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-24">
-				<div className="max-w-4xl mx-auto">
-					<header>
-						<h1 className="display-xl">
-							<span className="lime-mark">Resume</span>.
-						</h1>
-						<p className="lede mt-6">
-							One page, versioned in Git, and regenerated whenever something
-							changes.
-						</p>
-						{version && (
-							<p className="mt-3 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-								Updated {format(new Date(version.publishedAt), "MMMM d, yyyy")}{" "}
-								· {version.version}
-							</p>
-						)}
-						<div className="mt-8 flex flex-wrap items-center gap-3">
-							<Button asChild size="lg">
-								<a href="/resume.pdf" download={`${RESUME_FILENAME}.pdf`}>
-									<Download className="h-4 w-4" />
-									Download PDF
-								</a>
-							</Button>
-							<Button asChild size="lg" variant="outline">
-								<a href="/resume.pdf" target="_blank" rel="noopener">
-									<ExternalLink className="h-4 w-4" />
-									Open PDF
-								</a>
-							</Button>
-							<Button asChild size="lg" variant="outline">
-								<a
-									href={RESUME_RELEASES_URL}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<History className="h-4 w-4" />
-									Version history
-								</a>
-							</Button>
-						</div>
-					</header>
+		<SiteShell>
+			<PageHeader
+				title="Resume."
+				meta={
+					version && (
+						<>
+							Updated {format(new Date(version.publishedAt), "d MMMM yyyy")},
+							version {version.version}
+						</>
+					)
+				}
+			>
+				One page, versioned in Git, and regenerated whenever something changes.
+			</PageHeader>
 
-					{version ? (
-						<a
-							href="/resume.pdf"
-							target="_blank"
-							rel="noopener"
-							className="mt-12 block overflow-hidden rounded-lg border border-border bg-white shadow-sm transition-shadow hover:shadow-lg"
-						>
-							{/* Unoptimized: the PNG is already sized for the page, and the
-							    version query busts caches whenever a new release lands. */}
-							<Image
-								src={`/resume.png?v=${version.version}`}
-								alt="Alpha Romer Coma's resume. A text version follows below."
-								width={1191}
-								height={1684}
-								unoptimized
-								priority
-								className="h-auto w-full"
-							/>
+			<div className="site-container mt-8 pb-16 lg:pb-24">
+				<div className="flex flex-wrap items-center gap-3">
+					<Button asChild size="lg">
+						<a href="/resume.pdf" download={`${RESUME_FILENAME}.pdf`}>
+							<Download aria-hidden />
+							Download PDF
 						</a>
-					) : (
-						<p className="mt-12 rounded-lg border border-border p-6 text-muted-foreground">
-							The resume preview is unavailable right now. The latest PDF is
-							always on{" "}
-							<a
-								href={RESUME_RELEASES_URL}
-								className="font-medium text-foreground underline decoration-lime/70 underline-offset-4"
-							>
-								GitHub
-							</a>
-							.
-						</p>
-					)}
-
-					{markdown && (
-						<details className="mt-10 rounded-lg border border-border p-6">
-							<summary className="cursor-pointer font-medium">
-								Text version
-							</summary>
-							<div className="mt-4">
-								<Markdown>{markdown}</Markdown>
-							</div>
-						</details>
-					)}
+					</Button>
+					<Button asChild size="lg" variant="outline">
+						<a href="/resume.pdf" target="_blank" rel="noopener">
+							Open PDF
+						</a>
+					</Button>
+					<Button asChild size="lg" variant="outline">
+						<a
+							href={RESUME_RELEASES_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Version history
+						</a>
+					</Button>
 				</div>
-			</section>
-			<Footer />
-		</main>
+
+				{version ? (
+					<a
+						href="/resume.pdf"
+						target="_blank"
+						rel="noopener"
+						aria-label="Open the resume PDF"
+						className="mt-10 block max-w-4xl overflow-hidden rounded-[1.25rem] border border-border bg-white"
+					>
+						{/* Unoptimized: the PNG is already sized for the page, and the
+						    version query busts caches whenever a new release lands. */}
+						<Image
+							src={`/resume.png?v=${version.version}`}
+							alt="Alpha Romer Coma's resume. A text version follows below."
+							width={1191}
+							height={1684}
+							unoptimized
+							priority
+							className="h-auto w-full"
+						/>
+					</a>
+				) : (
+					<p className="mt-10 max-w-2xl text-muted-foreground">
+						The resume preview is unavailable right now. The latest PDF is
+						always on{" "}
+						<a href={RESUME_RELEASES_URL} className="text-link">
+							GitHub
+						</a>
+						.
+					</p>
+				)}
+
+				{markdown && (
+					<details className="mt-10 max-w-4xl rounded-[1.25rem] border border-border p-6">
+						<summary className="cursor-pointer font-medium">
+							Text version
+						</summary>
+						<div className="mt-4">
+							<Markdown>{markdown}</Markdown>
+						</div>
+					</details>
+				)}
+			</div>
+		</SiteShell>
 	);
 }

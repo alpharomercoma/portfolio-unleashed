@@ -20,6 +20,8 @@ type Row = {
 	date: string;
 	venue: string;
 	audienceSize: string;
+	slideUrl: string;
+	videoUrl: string;
 };
 
 function toRow(e: Partial<TalkEvent>, key: number): Row {
@@ -32,6 +34,8 @@ function toRow(e: Partial<TalkEvent>, key: number): Row {
 		date: e.date ?? "",
 		venue: e.venue ?? "",
 		audienceSize: e.audienceSize != null ? String(e.audienceSize) : "",
+		slideUrl: e.slideUrl ?? "",
+		videoUrl: e.videoUrl ?? "",
 	};
 }
 
@@ -44,7 +48,9 @@ function isActive(r: Row): boolean {
 		r.organizerLogo ||
 		r.date ||
 		r.venue ||
-		r.audienceSize,
+		r.audienceSize ||
+		r.slideUrl ||
+		r.videoUrl,
 	);
 }
 
@@ -57,6 +63,8 @@ function serialize(rows: Row[]): string {
 		date: r.date,
 		venue: r.venue.trim(),
 		audienceSize: Number(r.audienceSize) || 0,
+		slideUrl: r.slideUrl.trim(),
+		videoUrl: r.videoUrl.trim(),
 	}));
 	return JSON.stringify(events);
 }
@@ -196,6 +204,36 @@ export function TalkEventsEditor({
 										placeholder="Station F, Paris"
 										onChange={(e) =>
 											update(row._key, { venue: e.target.value })
+										}
+									/>
+								</div>
+
+								<div className="space-y-1.5">
+									<Label htmlFor={`evt-slides-${row._key}`}>
+										This session&apos;s slides
+									</Label>
+									<Input
+										id={`evt-slides-${row._key}`}
+										type="url"
+										value={row.slideUrl}
+										placeholder="https://..."
+										onChange={(e) =>
+											update(row._key, { slideUrl: e.target.value })
+										}
+									/>
+								</div>
+
+								<div className="space-y-1.5">
+									<Label htmlFor={`evt-video-${row._key}`}>
+										This session&apos;s video
+									</Label>
+									<Input
+										id={`evt-video-${row._key}`}
+										type="url"
+										value={row.videoUrl}
+										placeholder="https://..."
+										onChange={(e) =>
+											update(row._key, { videoUrl: e.target.value })
 										}
 									/>
 								</div>

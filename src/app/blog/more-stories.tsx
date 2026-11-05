@@ -1,47 +1,61 @@
 import Link from "next/link";
 
-import Avatar from "./avatar";
 import CoverImage from "./cover-image";
 import DateComponent from "./date";
 
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { moreStoriesQuery } from "@/sanity/lib/queries";
 
-export default async function MoreStories(params: {
+export default async function MoreStories({
+	skip,
+	limit,
+	title,
+	columns = 3,
+	className,
+}: {
 	skip: string;
 	limit: number;
+	title: string;
+	columns?: 2 | 3;
+	className?: string;
 }) {
-	const data = await sanityFetch({ query: moreStoriesQuery, params });
+	const data = await sanityFetch({
+		query: moreStoriesQuery,
+		params: { skip, limit },
+	});
+	// Nothing else to read, so no heading promising more.
+	if (!data?.length) return null;
 
 	return (
-		<>
-			<div className="mb-32 grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32">
-				{/* eslint-disable @typescript-eslint/no-explicit-any */}
-				{data?.map((post: any) => {
-					const { _id, title, slug, coverImage, excerpt, author } = post;
-					return (
-						<article key={_id}>
-							<Link href={`/blog/${slug}`} className="group mb-5 block">
-								<CoverImage image={coverImage} priority={false} />
-							</Link>
-							<h3 className="text-balance mb-3 text-3xl leading-snug">
-								<Link href={`/blog/${slug}`} className="hover:underline">
-									{title}
-								</Link>
-							</h3>
-							<div className="mb-4 text-lg">
-								<DateComponent dateString={post.date} />
-							</div>
-							{excerpt && (
-								<p className="text-pretty mb-4 text-lg leading-relaxed">
-									{excerpt}
-								</p>
-							)}
-							{author && <Avatar name={author.name} picture={author.picture} />}
-						</article>
-					);
-				})}
+		<aside className={className}>
+			<div className="site-container">
+				<h2 className="display-md">{title}</h2>
+				<ul
+					className={`mt-6 grid gap-x-6 gap-y-10 sm:grid-cols-2 ${columns === 3 ? "lg:grid-cols-3" : ""}`}
+				>
+					{/* eslint-disable @typescript-eslint/no-explicit-any */}
+					{data?.map((post: any) => {
+						const { _id, title, slug, coverImage } = post;
+						return (
+							<li key={_id}>
+								<article>
+									<div className="overflow-hidden rounded-2xl border border-border bg-secondary">
+										<CoverImage image={coverImage} priority={false} />
+									</div>
+									<p className="mt-4 text-sm text-muted-foreground">
+										<DateComponent dateString={post.date} />
+									</p>
+									<h3 className="display-sm mt-1.5">
+										<Link href={`/blog/${slug}`} className="text-link">
+											{title}
+										</Link>
+									</h3>
+								</article>
+							</li>
+						);
+					})}
+				</ul>
 			</div>
-		</>
+		</aside>
 	);
 }

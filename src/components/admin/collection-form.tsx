@@ -17,6 +17,7 @@ export function CollectionForm({
 	fields,
 	collectionKey,
 	item,
+	rev,
 	labelSingular,
 	listHref,
 	error,
@@ -24,6 +25,8 @@ export function CollectionForm({
 	fields: FieldConfig[];
 	collectionKey: string;
 	item?: Record<string, unknown>;
+	/** Stored revision the form was opened at; the save is rejected if it moved. */
+	rev?: number;
 	labelSingular: string;
 	listHref: string;
 	error?: string;
@@ -46,6 +49,7 @@ export function CollectionForm({
 			{item?.id != null && (
 				<input type="hidden" name="id" defaultValue={String(item.id)} />
 			)}
+			{rev != null && <input type="hidden" name="rev" value={rev} />}
 
 			<div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-5">
 				{fields.map((field) => {

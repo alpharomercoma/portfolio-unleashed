@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 
-import { Footer } from "@/components/footer";
 import { GalleryGrid } from "@/components/gallery/gallery-grid";
-import { Navbar } from "@/components/navbar";
+import { PageHeader } from "@/components/page-header";
+import { SiteShell } from "@/components/site-shell";
 import { galleryImageSchema } from "@/lib/collections/schema";
 import { getTypedItems } from "@/lib/collections/store";
 
 import { SITE_URL } from "@/lib/seo";
-const DESCRIPTION =
-	"A visual log of talks, hackathons, and the things I build.";
+const DESCRIPTION = "Talks, travel, and art I like.";
 
 export const metadata: Metadata = {
 	title: "Gallery | Alpha Romer Coma",
@@ -62,43 +61,27 @@ export default async function GalleryPage() {
 	};
 
 	return (
-		<main className="min-h-screen bg-background">
+		<SiteShell>
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}
 			/>
-			<Navbar />
-
-			<section className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-24">
-				<div className="max-w-6xl mx-auto">
-					<header className="mb-12 sm:mb-14 max-w-3xl">
-						<h1 className="display-xl">
-							Moments &amp; <span className="lime-mark">making</span>.
-						</h1>
-						<p className="lede mt-6">{DESCRIPTION}</p>
-					</header>
-
-					{images.length > 0 ? (
-						<GalleryGrid
-							images={images.map((g) => ({
-								id: g.id,
-								image: g.image,
-								title: g.title,
-							}))}
-						/>
-					) : (
-						<div className="rounded-2xl border border-border bg-secondary p-10 text-center">
-							<p className="text-sm text-muted-foreground">
-								No images yet. Add some from the admin dashboard.
-							</p>
-						</div>
-					)}
-				</div>
-			</section>
-
-			<Footer />
-		</main>
+			<PageHeader title="Gallery.">{DESCRIPTION}</PageHeader>
+			<div className="site-container mt-10 pb-16 lg:pb-24">
+				{images.length > 0 ? (
+					<GalleryGrid
+						images={images.map((g) => ({
+							id: g.id,
+							image: g.image,
+							title: g.title,
+						}))}
+					/>
+				) : (
+					<p className="text-muted-foreground">No photos are published yet.</p>
+				)}
+			</div>
+		</SiteShell>
 	);
 }

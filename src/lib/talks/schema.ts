@@ -40,6 +40,9 @@ export const talkEventSchema = z.object({
 	date: z.string().min(1).max(40), // ISO date "YYYY-MM-DD"
 	venue: z.string().max(200).default(""),
 	audienceSize: z.number().int().nonnegative().max(100_000_000).default(0),
+	// This session's own deck and recording, when they differ from the talk's.
+	slideUrl: z.string().max(2000).default(""),
+	videoUrl: z.string().max(2000).default(""),
 });
 
 export const talkSchema = z.object({
@@ -78,7 +81,7 @@ export type Talk = z.infer<typeof talkSchema>;
 export type SpeakingStats = {
 	talks: number;
 	sessions: number;
-	developersReached: number;
+	attendees: number;
 	yearsSpeaking: number;
 };
 
@@ -89,6 +92,14 @@ export function slugify(input: string): string {
 		.replace(/[^a-z0-9]+/g, "-")
 		.replace(/^-+|-+$/g, "")
 		.slice(0, 80);
+}
+
+/** An event counts as delivered once its date has passed. */
+export function isDelivered(
+	event: TalkEvent,
+	today: string = new Date().toISOString().slice(0, 10),
+): boolean {
+	return event.date <= today;
 }
 
 /** Latest event date for a talk (ISO string), or "" if none. */
@@ -104,15 +115,43 @@ export function sortTalksByRecency(talks: Talk[]): Talk[] {
 }
 
 export function computeStats(talks: Talk[]): SpeakingStats {
-	const sessions = talks.reduce((n, t) => n + t.events.length, 0);
-	const developersReached = talks.reduce(
-		(n, t) => n + t.events.reduce((s, e) => s + (e.audienceSize || 0), 0),
-		0,
+	const delivered = talks.flatMap((t) =>
+		t.events.filter((e) => isDelivered(e)),
 	);
-	const years = talks
-		.flatMap((t) => t.events.map((e) => Number(e.date.slice(0, 4))))
+	const sessions = delivered.length;
+	const attendees = delivered.reduce((s, e) => s + (e.audienceSize || 0), 0);
+	const years = delivered
+		.map((e) => Number(e.date.slice(0, 4)))
 		.filter((y) => Number.isFinite(y) && y > 2000);
 	const yearsSpeaking =
 		years.length > 0 ? Math.max(...years) - Math.min(...years) + 1 : 0;
-	return { talks: talks.length, sessions, developersReached, yearsSpeaking };
+	return { talks: talks.length, sessions, attendees, yearsSpeaking };
+}
+
+/** Sessions delivered per calendar year, oldest first. */
+export function sessionsByYear(
+	talks: Talk[],
+): { year: string; sessions: number }[] {
+	const counts = new Map<string, number>();
+	for (const t of talks) {
+		for (const e of t.events.filter((e) => isDelivered(e))) {
+			const year = e.date.slice(0, 4);
+			if (/^\d{4}$/.test(year)) counts.set(year, (counts.get(year) ?? 0) + 1);
+		}
+	}
+	return [...counts.entries()]
+		.sort(([a], [b]) => a.localeCompare(b))
+		.map(([year, sessions]) => ({ year, sessions }));
+}
+
+/** Published talks per category, most first (ties alphabetical). */
+export function talksByCategory(
+	talks: Talk[],
+): { category: string; talks: number }[] {
+	const counts = new Map<string, number>();
+	for (const t of talks)
+		counts.set(t.category, (counts.get(t.category) ?? 0) + 1);
+	return [...counts.entries()]
+		.map(([category, n]) => ({ category, talks: n }))
+		.sort((a, b) => b.talks - a.talks || a.category.localeCompare(b.category));
 }

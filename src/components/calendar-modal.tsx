@@ -1,8 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+"use client";
+
 import { X } from "lucide-react";
+import { useEffect, useId, useRef } from "react";
+
 import { Button } from "@/components/ui/button";
 
+// A native modal dialog: the browser supplies the focus trap, Escape, the inert
+// background, and returning focus to the button that opened it.
 export function CalendarModal({
 	isOpen,
 	onClose,
@@ -10,91 +14,50 @@ export function CalendarModal({
 	isOpen: boolean;
 	onClose: () => void;
 }) {
-	const [showContent, setShowContent] = useState(false);
+	const ref = useRef<HTMLDialogElement>(null);
+	const titleId = useId();
 
 	useEffect(() => {
-		if (!isOpen) return;
-		document.body.style.overflow = "hidden";
-		let raf2 = 0;
-		const raf1 = requestAnimationFrame(() => {
-			raf2 = requestAnimationFrame(() => setShowContent(true));
-		});
-		return () => {
-			cancelAnimationFrame(raf1);
-			cancelAnimationFrame(raf2);
-			document.body.style.overflow = "";
-			// Reset the enter animation so the next open starts hidden.
-			setShowContent(false);
-		};
+		const dialog = ref.current;
+		if (!dialog) return;
+		if (isOpen && !dialog.open) dialog.showModal();
+		if (!isOpen && dialog.open) dialog.close();
 	}, [isOpen]);
 
-	const handleClose = useCallback(() => {
-		setShowContent(false);
-		setTimeout(() => onClose(), 300);
-	}, [onClose]);
-
-	useEffect(() => {
-		const handleEscape = (e: KeyboardEvent) => {
-			if (e.key === "Escape" && isOpen) handleClose();
-		};
-		window.addEventListener("keydown", handleEscape);
-		return () => window.removeEventListener("keydown", handleEscape);
-	}, [isOpen, handleClose]);
-
-	if (!isOpen) return null;
-
-	// Render in a portal so it isn't trapped under parent stacking contexts (e.g. navbar z-index).
-	return createPortal(
-		<div className="fixed inset-0 z-9999">
-			<div
-				className={`fixed inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-300 ${
-					showContent ? "opacity-100" : "opacity-0"
-				}`}
-				onClick={handleClose}
-			/>
-
-			<div
-				className={`fixed top-4 left-4 right-4 z-10 flex items-center justify-between transition-all duration-300 ${
-					showContent ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
-				}`}
-			>
-				<div className="flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-xl">
-					<span className="font-semibold text-gray-900 text-sm sm:text-base">
-						Book an appointment
-					</span>
-				</div>
-				<Button
-					variant="outline"
-					size="icon"
-					className="h-10 w-10 rounded-full bg-white shadow-xl border-0"
-					onClick={handleClose}
-					aria-label="Close booking modal"
-				>
-					<X className="h-5 w-5" />
-				</Button>
-			</div>
-
-			<div
-				className={`fixed inset-0 flex items-center justify-center p-4 sm:p-8 pt-20 pb-4 transition-all duration-500 ${
-					showContent ? "opacity-100 scale-100" : "opacity-0 scale-95"
-				}`}
-			>
-				<div
-					className="w-full h-full max-w-[1000px] bg-white shadow-2xl rounded-lg overflow-hidden"
-					style={{ maxHeight: "calc(100vh - 100px)" }}
-					onClick={(e) => e.stopPropagation()}
-				>
+	return (
+		<dialog
+			ref={ref}
+			aria-labelledby={titleId}
+			onClose={onClose}
+			// A click on the backdrop lands on the dialog element itself.
+			onClick={(e) => {
+				if (e.target === e.currentTarget) e.currentTarget.close();
+			}}
+			className="m-auto h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-5xl overflow-hidden rounded-[1.5rem] bg-white p-0 text-foreground [--focus:var(--brand-strong)] backdrop:bg-ink/70"
+		>
+			{isOpen && (
+				<div className="flex h-full flex-col">
+					<div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3">
+						<h2 id={titleId} className="display-sm">
+							Book a call
+						</h2>
+						<Button
+							type="button"
+							variant="ghost"
+							size="icon"
+							aria-label="Close"
+							onClick={() => ref.current?.close()}
+						>
+							<X aria-hidden />
+						</Button>
+					</div>
 					<iframe
-						title="Google Calendar Appointment Scheduling"
+						title="Google Calendar appointment booking"
 						src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ30FwNt-TOS_CvDfH860NacWYekx4QjEz9bhS1lt6DFVMssfagz7PO6xrPp94daAK_dw3nQEg1D?gv=true"
-						style={{ border: 0 }}
-						width="100%"
-						height="100%"
-						loading="lazy"
+						className="w-full flex-1 border-0"
 					/>
 				</div>
-			</div>
-		</div>,
-		document.body,
+			)}
+		</dialog>
 	);
 }

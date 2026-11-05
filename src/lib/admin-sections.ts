@@ -48,12 +48,13 @@ const ABOUT: AdminSection = {
 };
 
 export const ADMIN_SECTIONS: AdminSection[] = [
+	collectionSection("research"),
 	collectionSection("selected-work"),
 	collectionSection("projects"),
 	TALKS,
-	collectionSection("awards"),
-	collectionSection("certifications"),
 	collectionSection("recommendations"),
 	ABOUT,
+	collectionSection("certifications"),
 	collectionSection("gallery"),
+	collectionSection("awards"),
 ];

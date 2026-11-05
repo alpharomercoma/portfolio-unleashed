@@ -6,24 +6,18 @@ import remarkGfm from "remark-gfm";
 // without relying on a typography plugin.
 export function Markdown({ children }: { children: string }) {
 	return (
-		<div className="space-y-6 text-lg leading-relaxed text-foreground/90">
+		<div className="space-y-6 text-lg leading-[1.75]">
 			<ReactMarkdown
 				remarkPlugins={[remarkGfm]}
 				components={{
 					h1: ({ children }) => (
-						<h2 className="font-display text-3xl font-bold tracking-tight text-foreground mt-12 mb-2">
-							{children}
-						</h2>
+						<h2 className="display-md mb-2 mt-12">{children}</h2>
 					),
 					h2: ({ children }) => (
-						<h2 className="font-display text-2xl font-bold tracking-tight text-foreground mt-10 mb-2">
-							{children}
-						</h2>
+						<h2 className="display-md mb-2 mt-10">{children}</h2>
 					),
 					h3: ({ children }) => (
-						<h3 className="font-display text-xl font-semibold tracking-tight text-foreground mt-8 mb-2">
-							{children}
-						</h3>
+						<h3 className="display-sm mb-2 mt-8">{children}</h3>
 					),
 					p: ({ children }) => <p>{children}</p>,
 					a: ({ href, children }) => (
@@ -31,18 +25,16 @@ export function Markdown({ children }: { children: string }) {
 							href={href}
 							target={href?.startsWith("http") ? "_blank" : undefined}
 							rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-							className="font-medium text-foreground underline decoration-lime/70 underline-offset-4 hover:decoration-lime"
+							className="text-link"
 						>
 							{children}
 						</a>
 					),
 					strong: ({ children }) => (
-						<strong className="font-semibold text-foreground">
-							{children}
-						</strong>
+						<strong className="font-semibold">{children}</strong>
 					),
 					ul: ({ children }) => (
-						<ul className="list-disc pl-6 space-y-2 marker:text-lime-strong">
+						<ul className="list-disc pl-6 space-y-2 marker:text-brand">
 							{children}
 						</ul>
 					),
@@ -52,12 +44,12 @@ export function Markdown({ children }: { children: string }) {
 						</ol>
 					),
 					blockquote: ({ children }) => (
-						<blockquote className="border-l-2 border-lime pl-5 text-muted-foreground italic">
+						<blockquote className="border-l-2 border-brand pl-5 text-muted-foreground">
 							{children}
 						</blockquote>
 					),
 					code: ({ children }) => (
-						<code className="rounded bg-secondary px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
+						<code className="rounded bg-secondary px-1.5 py-0.5 font-mono text-[0.85em]">
 							{children}
 						</code>
 					),

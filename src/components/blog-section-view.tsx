@@ -1,11 +1,8 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useReveal } from "@/hooks/use-reveal";
+import { SectionHeader } from "@/components/section-header";
+import { Button } from "@/components/ui/button";
 
 export type BlogCard = {
 	slug: string;
@@ -16,122 +13,48 @@ export type BlogCard = {
 	coverAlt: string;
 };
 
-type Props = {
-	posts: BlogCard[];
-};
-
-const MAX_LEAD = 3;
-
-export function BlogSectionView({ posts }: Props) {
-	const sectionRef = useReveal<HTMLElement>();
-
-	const lead = posts.slice(0, MAX_LEAD);
-	const more = posts.slice(MAX_LEAD);
-
+export function BlogSectionView({ posts }: { posts: BlogCard[] }) {
 	return (
 		<section
-			ref={sectionRef}
 			id="blog"
-			className="py-20 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-border"
+			aria-labelledby="blog-title"
+			className="site-container section-gap pb-16 lg:pb-24"
 		>
-			<div className="max-w-6xl mx-auto">
-				<div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
-					<div className="max-w-3xl">
-						<h2
-							className="animate-on-scroll opacity-0 display-lg mb-4"
-							style={{ animationDelay: "100ms" }}
-						>
-							Long-form on AI, engineering, and career.
-						</h2>
-						<p
-							className="animate-on-scroll opacity-0 lede"
-							style={{ animationDelay: "150ms" }}
-						>
-							Technique breakdowns, research playbooks, and candid notes from my
-							path through student, engineer, and researcher.
-						</p>
-					</div>
-					<Button
-						variant="outline"
-						size="sm"
-						className="animate-on-scroll opacity-0 shrink-0"
-						style={{ animationDelay: "200ms" }}
-						asChild
-					>
-						<Link href="/blog">
-							All posts
-							<ArrowRight className="h-3.5 w-3.5" />
-						</Link>
+			<SectionHeader
+				id="blog-title"
+				title="Writing."
+				action={
+					<Button asChild>
+						<Link href="/blog">All posts</Link>
 					</Button>
-				</div>
+				}
+			>
+				Notes on machine learning, software, university, and travel.
+			</SectionHeader>
 
-				{lead.length > 0 && (
-					<div className="grid md:grid-cols-3 gap-5 mb-10">
-						{lead.map((post, index) => (
-							<Link
-								key={post.slug}
-								href={`/blog/${post.slug}`}
-								className="animate-on-scroll opacity-0 rounded-3xl overflow-hidden group block bg-card border border-border transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25"
-								style={{ animationDelay: `${(index + 1) * 50}ms` }}
-							>
-								<div className="relative aspect-[16/10] overflow-hidden bg-muted border-b border-border">
-									{post.coverImage ? (
-										<Image
-											src={post.coverImage}
-											alt={post.coverAlt}
-											fill
-											className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
-											sizes="(max-width: 768px) 100vw, 33vw"
-										/>
-									) : null}
-								</div>
-								<div className="p-6">
-									<h3 className="font-display font-semibold text-foreground text-[17px] leading-snug tracking-tight mb-2.5">
-										{post.title}
-									</h3>
-									<p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">
-										{post.excerpt}
-									</p>
-									<div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
-										<span>{post.date}</span>
-										<span className="inline-flex items-center gap-1 font-medium text-foreground opacity-70 group-hover:opacity-100 transition-opacity">
-											Read <ArrowRight className="h-3 w-3" />
-										</span>
-									</div>
-								</div>
+			<ul className="grid gap-8 md:grid-cols-3 md:gap-6">
+				{posts.map((post) => (
+					<li key={post.slug} className="flex flex-col">
+						<div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-secondary">
+							{post.coverImage && (
+								<Image
+									src={post.coverImage}
+									alt=""
+									fill
+									sizes="(min-width: 768px) 26rem, 100vw"
+									className="object-cover"
+								/>
+							)}
+						</div>
+						<p className="mt-4 text-sm text-muted-foreground">{post.date}</p>
+						<h3 className="display-sm mt-1.5">
+							<Link href={`/blog/${post.slug}`} className="text-link">
+								{post.title}
 							</Link>
-						))}
-					</div>
-				)}
-
-				{more.length > 0 && (
-					<div className="grid md:grid-cols-3 gap-3">
-						{more.map((post, index) => (
-							<Link
-								key={post.slug}
-								href={`/blog/${post.slug}`}
-								className="animate-on-scroll opacity-0 group flex items-start gap-4 p-5 rounded-2xl bg-secondary border border-border hover:border-foreground/25 transition-colors"
-								style={{ animationDelay: `${(index + 4) * 50}ms` }}
-							>
-								<span
-									aria-hidden
-									className="mt-1 flex h-8 w-8 items-center justify-center rounded-lg bg-card border border-border shrink-0"
-								>
-									<span className="size-1.5 rounded-full bg-lime" />
-								</span>
-								<div className="min-w-0 flex-1">
-									<h4 className="font-medium text-foreground text-sm leading-snug mb-1 group-hover:opacity-70 transition-opacity line-clamp-2">
-										{post.title}
-									</h4>
-									<div className="text-xs text-muted-foreground">
-										{post.date}
-									</div>
-								</div>
-							</Link>
-						))}
-					</div>
-				)}
-			</div>
+						</h3>
+					</li>
+				))}
+			</ul>
 		</section>
 	);
 }

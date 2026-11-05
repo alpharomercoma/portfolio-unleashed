@@ -2,6 +2,7 @@
 
 import {
 	BadgeCheck,
+	Bot,
 	Circle,
 	FolderKanban,
 	Images,
@@ -37,6 +38,7 @@ const ICONS: Record<string, LucideIcon> = {
 	"/admin/recommendations": Quote,
 	"/admin/about": User,
 	"/admin/gallery": Images,
+	"/admin/agents": Bot,
 };
 const iconFor = (href: string) => ICONS[href] ?? Circle;
 
@@ -80,13 +82,14 @@ export function AdminSidebar({
 				<Link
 					href="/admin"
 					onClick={onNavigate}
-					aria-label="Admin home"
+					// Only when the name is hidden; otherwise the visible text is the name.
+					aria-label={collapsed ? "Alpha admin home" : undefined}
 					className="flex items-center gap-2 font-display text-sm font-bold tracking-tight"
 				>
 					<Logo size={20} title={null} />
 					{!collapsed && (
 						<span>
-							Alpha<span className="text-lime-strong">/admin</span>
+							Alpha<span className="text-brand-strong">/admin</span>
 						</span>
 					)}
 				</Link>

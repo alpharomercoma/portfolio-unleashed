@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { PageHeader } from "@/components/page-header";
+import { SiteShell } from "@/components/site-shell";
 
 const DESCRIPTION = "How alpharomer.com and the Alpha app handle your data.";
 
@@ -30,7 +30,7 @@ function Section({
 	return (
 		<section className="mt-10">
 			<h2 className="display-md mb-3">{title}</h2>
-			<div className="space-y-3 text-muted-foreground leading-relaxed">
+			<div className="space-y-3 leading-relaxed text-muted-foreground">
 				{children}
 			</div>
 		</section>
@@ -39,20 +39,12 @@ function Section({
 
 export default function PrivacyPage() {
 	return (
-		<main className="min-h-screen bg-background">
-			<Navbar />
-			<section className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-24">
-				<div className="max-w-3xl mx-auto">
-					<header>
-						<h1 className="display-xl">
-							Privacy <span className="lime-mark">policy</span>.
-						</h1>
-						<p className="lede mt-6">{DESCRIPTION}</p>
-						<p className="mt-3 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-							Last updated: June 15, 2026
-						</p>
-					</header>
-
+		<SiteShell>
+			<PageHeader title="Privacy policy." meta="Last updated: 15 June 2026">
+				{DESCRIPTION}
+			</PageHeader>
+			<div className="site-container pb-16 lg:pb-24">
+				<div className="measure">
 					<Section title="Overview">
 						<p>
 							This policy covers the website{" "}
@@ -145,18 +137,14 @@ export default function PrivacyPage() {
 					<Section title="Contact">
 						<p>
 							Questions about this policy? Email{" "}
-							<a
-								href="mailto:alpharomercoma@proton.me"
-								className="text-foreground underline underline-offset-4 hover:opacity-80"
-							>
+							<a href="mailto:alpharomercoma@proton.me" className="text-link">
 								alpharomercoma@proton.me
 							</a>
 							.
 						</p>
 					</Section>
 				</div>
-			</section>
-			<Footer />
-		</main>
+			</div>
+		</SiteShell>
 	);
 }

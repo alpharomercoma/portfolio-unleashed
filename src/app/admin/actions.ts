@@ -4,8 +4,9 @@ import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { ZodError } from "zod";
 
+import { WriteConflictError } from "@/lib/content/revisions";
 import { requireAdmin } from "@/lib/session";
-import { parseLines } from "@/lib/utils";
+import { editPreconditions, parseLines, parseRev } from "@/lib/utils";
 import {
 	type Talk,
 	TYPES_WITHOUT_LEVEL,
@@ -18,6 +19,9 @@ import {
 	getTalk,
 	upsertTalk,
 } from "@/lib/talks/store";
+
+const CONFLICT_MESSAGE =
+	"This talk changed since you opened it (another tab, or an agent). Reload to see the latest version, then reapply your edits.";
 
 export async function saveTalk(formData: FormData) {
 	await requireAdmin();
@@ -91,8 +95,20 @@ export async function saveTalk(formData: FormData) {
 	};
 
 	try {
-		await upsertTalk(talk);
+		await upsertTalk(
+			talk,
+			submittedSlug ? editPreconditions(formData) : { mustExist: false },
+		);
 	} catch (err) {
+		if (err instanceof WriteConflictError) {
+			const message =
+				err.reason === "exists"
+					? `A talk with the slug "${slug}" already exists. Edit that one, or change the title.`
+					: CONFLICT_MESSAGE;
+			redirect(
+				`/admin/talks/${submittedSlug || "new"}?error=${encodeURIComponent(message)}`,
+			);
+		}
 		// Schema validation (size caps, enums, slug format) rejected the input.
 		// Surface a friendly message; never leak the raw issue list.
 		if (err instanceof ZodError) {
@@ -116,7 +132,27 @@ export async function removeTalk(formData: FormData) {
 	await requireAdmin();
 	const slug = String(formData.get("slug") ?? "").trim();
 	if (slug) {
-		await storeDelete(slug);
+		try {
+			// The row carries the revision it was listed at: never delete a newer
+			// version than the one the owner looked at.
+			await storeDelete(slug, {
+				keepIndexNonEmpty: true,
+				expectedRev: parseRev(formData.get("rev")),
+			});
+		} catch (err) {
+			if (!(err instanceof WriteConflictError)) throw err;
+			if (err.reason === "conflict") {
+				redirect(
+					`/admin/talks?error=${encodeURIComponent("That talk changed since this list loaded (another tab, or an agent). Review it, then try again.")}`,
+				);
+			}
+			if (err.reason === "last") {
+				redirect(
+					`/admin/talks?error=${encodeURIComponent("Can't delete the last one: an empty section makes the site fall back to the original seed content. Set it to draft instead.")}`,
+				);
+			}
+			// Otherwise it's already gone (a double submit, or deleted elsewhere).
+		}
 		updateTag(TALKS_TAG);
 		revalidatePath("/speaking");
 		revalidatePath("/admin");

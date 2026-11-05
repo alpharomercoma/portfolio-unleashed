@@ -25,6 +25,12 @@ export const env = createEnv({
 		// Shared with the alpharomercoma/resume CI, which calls
 		// /api/revalidate/resume after each release.
 		RESUME_REVALIDATE_SECRET: z.string().min(32).optional(),
+		// Agent API (/api/agent/v1): JSON array of hashed, scoped agent tokens.
+		// Mint entries with `pnpm agent token mint`. Validated in src/lib/agent.
+		AGENT_TOKENS: z.string().min(1).optional(),
+		// "1" or "true" refuses every agent write (reads keep working). Kept a
+		// free string so a typo can't fail the build; see the route for parsing.
+		AGENT_API_READ_ONLY: z.string().optional(),
 	},
 	client: {
 		NEXT_PUBLIC_API_URL: z.string().url().min(1).optional(),
@@ -53,6 +59,8 @@ export const env = createEnv({
 		MISTRAL_MODEL_ID: process.env.MISTRAL_MODEL_ID,
 		TALK_DRAFTER: process.env.TALK_DRAFTER,
 		RESUME_REVALIDATE_SECRET: process.env.RESUME_REVALIDATE_SECRET,
+		AGENT_TOKENS: process.env.AGENT_TOKENS,
+		AGENT_API_READ_ONLY: process.env.AGENT_API_READ_ONLY,
 		NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN:
 			process.env.NEXT_PUBLIC_SANITY_STUDIO_PREVIEW_ORIGIN,
 		NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,

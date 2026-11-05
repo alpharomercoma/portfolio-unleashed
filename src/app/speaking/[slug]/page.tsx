@@ -1,20 +1,26 @@
-import { format, parseISO } from "date-fns";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { SiteImage } from "@/components/site-image";
+import { SiteShell } from "@/components/site-shell";
+import { SlidesEmbed } from "@/components/speaking/slides-embed";
+import { longDate } from "@/components/speaking/talk-meta";
 import {
 	type Talk,
+	type TalkEvent,
+	isDelivered,
 	latestEventDate,
 	sortTalksByRecency,
 } from "@/lib/talks/schema";
+import { toEmbedUrl } from "@/lib/talks/embed";
 import { getPublishedTalks, getTalk } from "@/lib/talks/store";
 
 type Props = { params: Promise<{ slug: string }> };
+
+// Re-rendered daily, so an event moves from upcoming to delivered once it passes.
+export const revalidate = 86400;
 
 // Canonical origin; matches the root layout's metadataBase so canonical,
 // OpenGraph, and JSON-LD URLs all agree.
@@ -79,34 +85,42 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	};
 }
 
-function fmtDate(iso: string): string {
-	try {
-		return format(parseISO(iso), "MMM d, yyyy");
-	} catch {
-		return iso;
-	}
-}
-
-// Build an embeddable URL for Canva / Google Slides decks.
-function toEmbedUrl(url: string): string | null {
-	if (!url) return null;
-	if (url.includes("canva.com/design")) {
-		return url.includes("?") ? `${url}&embed` : `${url}?embed`;
-	}
-	if (url.includes("docs.google.com/presentation")) {
-		return url.replace(/\/(edit|view|pub).*$/, "/embed");
-	}
-	return null;
-}
-
-function MetaCell({ label, value }: { label: string; value: string }) {
+/** This session's own deck and recording, skipping a repeat of the talk's deck. */
+function SessionLinks({
+	event,
+	primarySlideUrl,
+	talkVideoUrl,
+}: {
+	event: TalkEvent;
+	primarySlideUrl?: string;
+	talkVideoUrl?: string;
+}) {
+	const links = [
+		{
+			label: "Slides",
+			href: event.slideUrl === primarySlideUrl ? "" : event.slideUrl,
+		},
+		{
+			label: "Video",
+			href: event.videoUrl === talkVideoUrl ? "" : event.videoUrl,
+		},
+	].filter((l) => /^https?:\/\//.test(l.href));
+	if (links.length === 0) return null;
 	return (
-		<div className="bg-card px-4 py-4">
-			<dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-				{label}
-			</dt>
-			<dd className="mt-1.5 text-sm font-medium text-foreground">{value}</dd>
-		</div>
+		<span className="mt-1 flex gap-3">
+			{links.map((l) => (
+				<a
+					key={l.label}
+					href={l.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label={`${l.label} from ${event.eventName}`}
+					className="text-link inline-flex min-h-10 items-center"
+				>
+					{l.label}
+				</a>
+			))}
+		</span>
 	);
 }
 
@@ -117,6 +131,8 @@ export default async function TalkPage({ params }: Props) {
 	if (!talk || talk.status !== "published") notFound();
 
 	const events = [...talk.events].sort((a, b) => b.date.localeCompare(a.date));
+	const delivered = events.filter((e) => isDelivered(e));
+	const upcoming = events.filter((e) => !isDelivered(e));
 	const embed = toEmbedUrl(talk.primarySlideUrl ?? "");
 
 	// "More talks" = a few other published talks by recency.
@@ -125,7 +141,7 @@ export default async function TalkPage({ params }: Props) {
 		.slice(0, 3);
 
 	const talkUrl = `${SITE_URL}/speaking/${talk.slug}`;
-	const ogImageUrl = `${SITE_URL}${talk.showcaseImage || DEFAULT_OG}`;
+	const ogImageUrl = new URL(talk.showcaseImage || DEFAULT_OG, SITE_URL).href;
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@graph": [
@@ -192,8 +208,15 @@ export default async function TalkPage({ params }: Props) {
 		],
 	};
 
+	const facts = [
+		{ label: "Type", value: talk.type },
+		{ label: "Category", value: talk.category },
+		...(talk.level ? [{ label: "Level", value: talk.level }] : []),
+		{ label: "Duration", value: `${talk.durationMinutes} minutes` },
+	];
+
 	return (
-		<main className="min-h-screen bg-background">
+		<SiteShell>
 			<script
 				type="application/ld+json"
 				// JSON-LD: escape "<" so no field value can close the <script> tag.
@@ -201,212 +224,234 @@ export default async function TalkPage({ params }: Props) {
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}
 			/>
-			<Navbar />
 
-			<article className="px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 lg:pt-40 pb-20">
-				<div className="max-w-4xl mx-auto">
-					<Link
-						href="/speaking"
-						className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-					>
-						<ArrowLeft className="size-4" />
-						All talks
-					</Link>
+			<article className="site-container pb-16 pt-8 lg:pb-24 lg:pt-10">
+				<Link
+					href="/speaking"
+					className="-ml-1 inline-flex min-h-10 items-center gap-1.5 rounded-full px-1 text-sm font-medium hover:underline hover:underline-offset-4"
+				>
+					<ArrowLeft className="size-4" aria-hidden />
+					All talks
+				</Link>
 
-					<header className="mt-8">
-						<span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-							<span aria-hidden className="size-1.5 rounded-full bg-lime" />
-							{talk.category}
-						</span>
-						<h1 className="display-lg mt-4">{talk.title}</h1>
-						{talk.tagline && <p className="lede mt-5">{talk.tagline}</p>}
-					</header>
+				<header className="mt-4 max-w-4xl">
+					<h1 className="display-xl">{talk.title}</h1>
+					{talk.tagline && <p className="lede mt-5">{talk.tagline}</p>}
+				</header>
 
-					{talk.showcaseImage && (
-						<div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border bg-secondary mt-10">
-							<Image
-								src={talk.showcaseImage}
-								alt={`${talk.title} title slide`}
-								fill
-								sizes="(max-width: 896px) 100vw, 896px"
-								className="object-cover"
-								priority
-							/>
-						</div>
-					)}
-
-					{/* Metadata bar */}
-					<dl
-						className={`mt-10 grid grid-cols-2 sm:grid-cols-3 ${
-							talk.level ? "lg:grid-cols-4" : "lg:grid-cols-3"
-						} gap-px rounded-2xl overflow-hidden border border-border bg-border`}
-					>
-						<MetaCell label="Type" value={talk.type} />
-						<MetaCell label="Category" value={talk.category} />
-						{talk.level && <MetaCell label="Level" value={talk.level} />}
-						<MetaCell label="Duration" value={`${talk.durationMinutes} min`} />
-					</dl>
-
-					{talk.tags.length > 0 && (
-						<div className="mt-6 flex flex-wrap gap-2">
-							{talk.tags.map((tag) => (
-								<span
-									key={tag}
-									className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground"
-								>
-									{tag}
-								</span>
+				<div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16">
+					<aside className="lg:sticky lg:top-24 lg:col-start-2 lg:row-start-1 lg:self-start">
+						<dl className="grid grid-cols-2 gap-x-6 gap-y-4 border-t-2 border-brand pt-4 lg:grid-cols-1">
+							{facts.map((f) => (
+								<div key={f.label}>
+									<dt className="text-sm text-muted-foreground">{f.label}</dt>
+									<dd className="font-medium">{f.value}</dd>
+								</div>
 							))}
-						</div>
-					)}
-
-					{talk.abstract && (
-						<section className="mt-12">
-							<h2 className="display-md mb-4">Abstract</h2>
-							<p className="text-base sm:text-lg text-foreground/90 leading-relaxed">
-								{talk.abstract}
-							</p>
-						</section>
-					)}
-
-					{talk.outline.length > 0 && (
-						<section className="mt-12">
-							<h2 className="display-md mb-5">Outline</h2>
-							<ol className="space-y-3">
-								{talk.outline.map((item, i) => (
-									<li key={item} className="flex gap-4">
-										<span className="font-mono text-sm text-muted-foreground tabular-nums pt-0.5">
-											{String(i + 1).padStart(2, "0")}
-										</span>
-										<span className="text-base text-foreground/90 leading-relaxed">
-											{item}
-										</span>
-									</li>
-								))}
-							</ol>
-						</section>
-					)}
-
-					{talk.keyTakeaways.length > 0 && (
-						<section className="mt-12">
-							<h2 className="display-md mb-5">Key takeaways</h2>
-							<ul className="space-y-3">
-								{talk.keyTakeaways.map((item) => (
-									<li key={item} className="flex gap-3">
-										<span
-											aria-hidden
-											className="mt-2 size-1.5 shrink-0 rounded-full bg-lime"
-										/>
-										<span className="text-base text-foreground/90 leading-relaxed">
-											{item}
-										</span>
+						</dl>
+						{talk.tags.length > 0 && (
+							<ul className="mt-6 flex flex-wrap gap-1.5">
+								{talk.tags.map((tag) => (
+									<li
+										key={tag}
+										className="rounded-full border border-input px-2.5 py-0.5 text-xs text-muted-foreground"
+									>
+										{tag}
 									</li>
 								))}
 							</ul>
-						</section>
-					)}
+						)}
+					</aside>
+					<div className="min-w-0 lg:col-start-1 lg:row-start-1">
+						{talk.showcaseImage && (
+							<div className="relative aspect-video overflow-hidden rounded-[1.75rem] border border-border bg-secondary">
+								<SiteImage
+									src={talk.showcaseImage}
+									alt={`Title slide of ${talk.title}`}
+									fill
+									sizes="(min-width: 1024px) 54rem, 100vw"
+									className="object-cover"
+									priority
+								/>
+							</div>
+						)}
 
-					{/* Slides */}
-					{talk.primarySlideUrl && (
-						<section className="mt-12">
-							<div className="flex items-center justify-between gap-4 mb-5">
-								<h2 className="display-md">Slides</h2>
+						{talk.abstract && (
+							<section className="mt-12 measure">
+								<h2 className="display-md">Abstract</h2>
+								<p className="mt-4 text-lg leading-[1.75]">{talk.abstract}</p>
+							</section>
+						)}
+
+						{talk.outline.length > 0 && (
+							<section className="mt-12 measure">
+								<h2 className="display-md">Outline</h2>
+								<ol className="mt-4 list-decimal space-y-2 pl-6 leading-relaxed marker:text-muted-foreground">
+									{talk.outline.map((item) => (
+										<li key={item}>{item}</li>
+									))}
+								</ol>
+							</section>
+						)}
+
+						{talk.keyTakeaways.length > 0 && (
+							<section className="mt-12 measure">
+								<h2 className="display-md">Key takeaways</h2>
+								<ul className="mt-4 list-disc space-y-2 pl-6 leading-relaxed marker:text-brand">
+									{talk.keyTakeaways.map((item) => (
+										<li key={item}>{item}</li>
+									))}
+								</ul>
+							</section>
+						)}
+
+						{talk.videoUrl && (
+							<p className="mt-12">
 								<a
-									href={talk.primarySlideUrl}
+									href={talk.videoUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:gap-2.5 transition-all"
+									className="text-link inline-flex min-h-10 items-center gap-1.5 font-medium"
 								>
-									Open in new tab
-									<ExternalLink className="size-4" />
+									Watch the recording
+									<ArrowUpRight className="size-4" aria-hidden />
 								</a>
-							</div>
-							{embed ? (
-								<div className="relative aspect-video overflow-hidden rounded-2xl border border-border bg-muted">
-									<iframe
-										src={embed}
-										title={`${talk.title} slides`}
-										loading="lazy"
-										allowFullScreen
-										className="absolute inset-0 h-full w-full"
-									/>
-								</div>
-							) : null}
-						</section>
-					)}
+							</p>
+						)}
 
-					{/* Events table */}
-					{events.length > 0 && (
-						<section className="mt-14">
-							<h2 className="display-md mb-5">
-								Delivered{" "}
-								{events.length === 1 ? "once" : `${events.length} times`}
-							</h2>
-							<div className="overflow-hidden rounded-2xl border border-border">
-								<div className="hidden sm:grid grid-cols-[1.4fr_1fr_auto_auto] gap-4 px-5 py-3 bg-secondary font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-									<span>Event</span>
-									<span>Organizer</span>
-									<span className="text-right">Date</span>
-									<span className="text-right">Reach</span>
+						{talk.primarySlideUrl && (
+							<section className="mt-12">
+								<div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+									<h2 className="display-md">Slides</h2>
+									<a
+										href={talk.primarySlideUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-link inline-flex min-h-10 items-center gap-1.5 text-sm font-medium"
+									>
+										Open the slides
+										<ArrowUpRight className="size-4" aria-hidden />
+									</a>
 								</div>
-								<ul className="divide-y divide-border">
-									{events.map((e) => (
-										<li
-											key={e.id}
-											className="grid grid-cols-1 sm:grid-cols-[1.4fr_1fr_auto_auto] gap-1 sm:gap-4 px-5 py-4 sm:items-center"
-										>
-											<span className="min-w-0">
-												<span className="block text-sm font-medium text-foreground">
-													{e.eventName}
-												</span>
-												{e.venue && (
-													<span className="block text-xs text-muted-foreground">
-														{e.venue}
-													</span>
-												)}
-											</span>
-											<span className="text-sm text-muted-foreground">
-												{e.organizerName}
-											</span>
-											<span className="font-mono text-xs text-muted-foreground tabular-nums sm:text-right">
-												{fmtDate(e.date)}
-											</span>
-											<span className="font-mono text-xs text-muted-foreground tabular-nums sm:text-right">
-												{e.audienceSize > 0 ? `${e.audienceSize}` : "n/a"}
+								{embed && (
+									<SlidesEmbed src={embed} title={`${talk.title} slides`} />
+								)}
+							</section>
+						)}
+
+						{upcoming.length > 0 && (
+							<section className="mt-12">
+								<h2 className="display-md">Upcoming</h2>
+								<ul className="mt-4 divide-y divide-border border-y border-border">
+									{upcoming.map((e) => (
+										<li key={e.id} className="py-3">
+											<span className="block font-medium">{e.eventName}</span>
+											<span className="block text-sm text-muted-foreground">
+												{[e.venue, longDate(e.date)].filter(Boolean).join(", ")}
 											</span>
 										</li>
 									))}
 								</ul>
-							</div>
-						</section>
-					)}
+							</section>
+						)}
+
+						{delivered.length > 0 && (
+							<section className="mt-12">
+								<h2 className="display-md">
+									Delivered{" "}
+									{delivered.length === 1
+										? "once"
+										: `${delivered.length} times`}
+								</h2>
+								<table className="mt-4 w-full border-collapse text-left text-sm">
+									<thead>
+										<tr className="border-b-2 border-brand">
+											<th scope="col" className="py-2 pr-4 font-medium">
+												Event
+											</th>
+											<th
+												scope="col"
+												className="hidden py-2 pr-4 font-medium sm:table-cell"
+											>
+												Organizer
+											</th>
+											<th scope="col" className="py-2 pr-4 font-medium">
+												Date
+											</th>
+											<th scope="col" className="py-2 text-right font-medium">
+												Reach
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{delivered.map((e) => (
+											<tr
+												key={e.id}
+												className="border-b border-border align-top"
+											>
+												<td className="py-3 pr-4">
+													<span className="block font-medium">
+														{e.eventName}
+													</span>
+													{e.venue && (
+														<span className="block text-muted-foreground">
+															{e.venue}
+														</span>
+													)}
+													<span className="block text-muted-foreground sm:hidden">
+														{e.organizerName}
+													</span>
+													<SessionLinks
+														event={e}
+														primarySlideUrl={talk.primarySlideUrl}
+														talkVideoUrl={talk.videoUrl}
+													/>
+												</td>
+												<td className="hidden py-3 pr-4 text-muted-foreground sm:table-cell">
+													{e.organizerName}
+												</td>
+												<td className="py-3 pr-4 tabular-nums text-muted-foreground">
+													{longDate(e.date)}
+												</td>
+												<td className="py-3 text-right tabular-nums text-muted-foreground">
+													{e.audienceSize > 0
+														? e.audienceSize.toLocaleString("en-US")
+														: "Not recorded"}
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</section>
+						)}
+					</div>
 				</div>
 			</article>
 
 			{more.length > 0 && (
-				<section className="px-4 sm:px-6 lg:px-8 py-16 border-t border-border bg-secondary">
-					<div className="max-w-6xl mx-auto">
-						<h2 className="display-md mb-8">More talks</h2>
-						<div className="grid sm:grid-cols-3 gap-6">
+				<section
+					aria-labelledby="more-talks"
+					className="bg-brand-wash py-12 lg:py-16"
+				>
+					<div className="site-container">
+						<h2 id="more-talks" className="display-md">
+							More talks
+						</h2>
+						<ul className="mt-6 grid gap-6 sm:grid-cols-3">
 							{more.map((t: Talk) => (
-								<Link
-									key={t.slug}
-									href={`/speaking/${t.slug}`}
-									className="group flex flex-col rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/25"
-								>
-									<span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-										{t.category}
-									</span>
-									<h3 className="font-display text-base font-semibold text-foreground leading-snug tracking-tight mt-3">
-										{t.title}
+								<li key={t.slug} className="border-t-2 border-brand pt-4">
+									<p className="text-sm text-muted-foreground">{t.category}</p>
+									<h3 className="display-sm mt-1.5">
+										<Link href={`/speaking/${t.slug}`} className="text-link">
+											{t.title}
+										</Link>
 									</h3>
-								</Link>
+								</li>
 							))}
-						</div>
+						</ul>
 					</div>
 				</section>
 			)}
-			<Footer />
-		</main>
+		</SiteShell>
 	);
 }

@@ -35,7 +35,7 @@ function parseLinks(text: string): ReactNode[] {
 				href={url}
 				target="_blank"
 				rel="noopener noreferrer"
-				className="text-blue-600 underline hover:text-blue-800"
+				className="text-link"
 			>
 				{linkText}
 			</a>,
@@ -122,22 +122,32 @@ function parseCell(content: string): ReactNode {
 	);
 }
 
+/** A label from the table's own headers, for the focusable scroll area around it. */
+function tableLabel(cells: string[] = []): string {
+	const headers = cells
+		.map((cell) => cell.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").trim())
+		.filter(Boolean);
+	return headers.length > 0 ? `Table: ${headers.join(", ")}` : "Table";
+}
+
 export default function Table({ value }: { value?: TableValue }) {
 	if (!value?.rows?.length) return null;
 
 	const [headerRow, ...bodyRows] = value.rows;
 
 	return (
-		<div className="my-6 overflow-x-auto">
+		<div
+			className="my-6 overflow-x-auto"
+			role="group"
+			aria-label={tableLabel(headerRow?.cells)}
+			tabIndex={0}
+		>
 			<table className="w-full border-collapse text-left text-sm">
 				{headerRow && (
 					<thead>
-						<tr className="border-b-2 border-gray-300 bg-gray-50">
+						<tr className="border-b-2 border-brand">
 							{headerRow.cells.map((cell, cellIndex) => (
-								<th
-									key={cellIndex}
-									className="px-4 py-3 font-semibold text-gray-900"
-								>
+								<th key={cellIndex} className="px-4 py-3 font-medium">
 									{parseCell(cell)}
 								</th>
 							))}
@@ -146,12 +156,9 @@ export default function Table({ value }: { value?: TableValue }) {
 				)}
 				<tbody>
 					{bodyRows.map((row) => (
-						<tr
-							key={row._key}
-							className="border-b border-gray-200 hover:bg-gray-50"
-						>
+						<tr key={row._key} className="border-b border-border">
 							{row.cells.map((cell, cellIndex) => (
-								<td key={cellIndex} className="px-4 py-3 text-gray-700">
+								<td key={cellIndex} className="px-4 py-3 text-muted-foreground">
 									{parseCell(cell)}
 								</td>
 							))}

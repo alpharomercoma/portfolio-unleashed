@@ -32,8 +32,8 @@ the package id:
 | Short name                   | `Alpha` (default)                                                 |
 | **Application ID / package** | **type `com.alpharomer.app`** (default would be `com.alpharomer`) |
 | Display mode                 | `standalone` (default)                                            |
-| Status bar / theme color     | `#E0FF4F` (default, lime)                                         |
-| Splash screen color          | `#E0FF4F` (default, lime)                                         |
+| Status bar / theme color     | `#5342E5` (default, indigo)                                       |
+| Splash screen color          | `#5342E5` (default, indigo)                                       |
 | Navigation bar color         | `#052B42` (navy)                                                  |
 | Icon URL                     | `https://alpharomer.com/web-app-manifest-512x512.png` (default)   |
 | Maskable icon URL            | same (default)                                                    |

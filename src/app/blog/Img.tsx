@@ -5,7 +5,7 @@ import {
 	type UseNextSanityImageOptions,
 } from "next-sanity-image";
 import { preload } from "react-dom";
-import { urlFor } from "./image";
+import { urlFor } from "./sanity-image";
 
 const SIZES = [
 	120, 240, 360, 480, 640, 720, 800, 880, 960, 1280, 1440, 1600, 1800, 2000,

@@ -1,32 +1,20 @@
 import { Analytics } from "@vercel/analytics/react";
-import type { Metadata } from "next";
-import {
-	Geist_Mono,
-	Hanken_Grotesk,
-	Schibsted_Grotesk,
-} from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Inter_Tight } from "next/font/google";
 import "./globals.css";
 
 import { SITE_URL } from "@/lib/seo";
 
-// Display: a geometric grotesque with editorial character for headlines.
-const schibsted = Schibsted_Grotesk({
+// The labs' type system: Inter Tight for display, Inter for reading.
+const interTight = Inter_Tight({
 	subsets: ["latin"],
-	variable: "--font-schibsted",
+	variable: "--font-inter-tight",
 	display: "swap",
 });
 
-// Body / UI: a clean humanist grotesque tuned for reading.
-const hanken = Hanken_Grotesk({
+const inter = Inter({
 	subsets: ["latin"],
-	variable: "--font-hanken",
-	display: "swap",
-});
-
-// Mono: used for the stats / code "engineering" motif.
-const geistMono = Geist_Mono({
-	subsets: ["latin"],
-	variable: "--font-geist-mono",
+	variable: "--font-inter",
 	display: "swap",
 });
 
@@ -35,7 +23,7 @@ export const metadata: Metadata = {
 	title: "Alpha Romer Coma | Machine Learning Engineer",
 	applicationName: "Alpha",
 	description:
-		"Machine learning engineer focused on multimodality and accelerated computing. PyTorch Conference Europe 2026 speaker, backed by a $376K Google Cloud compute grant.",
+		"Machine learning engineer working with on-device LLMs and AI accelerators.",
 	authors: { name: "Alpha Romer Coma", url: SITE_URL },
 	category: "Technology",
 	classification: "Technology",
@@ -65,12 +53,12 @@ export const metadata: Metadata = {
 		creator: "@alpharomercoma",
 		title: "Alpha Romer Coma | Machine Learning Engineer",
 		description:
-			"Multimodality and accelerated computing. PyTorch Conference Europe 2026 speaker, backed by a $376K Google Cloud compute grant.",
+			"Machine learning engineer working with on-device LLMs and AI accelerators.",
 		images: "/og.png",
 	},
 	openGraph: {
 		description:
-			"Machine learning engineer focused on multimodality and accelerated computing. PyTorch Conference Europe 2026 speaker, backed by a $376K Google Cloud compute grant.",
+			"Machine learning engineer working with on-device LLMs and AI accelerators.",
 		title: "Alpha Romer Coma | Machine Learning Engineer",
 		type: "website",
 		locale: "en_US",
@@ -92,6 +80,10 @@ export const metadata: Metadata = {
 	},
 };
 
+export const viewport: Viewport = {
+	themeColor: "#5342e5",
+};
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -100,7 +92,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${schibsted.variable} ${hanken.variable} ${geistMono.variable} font-sans antialiased`}
+				className={`${interTight.variable} ${inter.variable} font-sans antialiased`}
 			>
 				{children}
 				<Analytics />

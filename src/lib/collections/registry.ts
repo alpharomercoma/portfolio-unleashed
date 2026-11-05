@@ -7,6 +7,7 @@ import certSeed from "../../../data/certifications.seed.json";
 import gallerySeed from "../../../data/gallery.seed.json";
 import projectSeed from "../../../data/projects.seed.json";
 import recommendationSeed from "../../../data/recommendations.seed.json";
+import researchSeed from "../../../data/research.seed.json";
 import selectedWorkSeed from "../../../data/selected-work.seed.json";
 import {
 	AWARD_CATEGORIES,
@@ -16,12 +17,14 @@ import {
 	PROJECT_CATEGORIES,
 	type Project,
 	type Recommendation,
+	type ResearchStudy,
 	type SelectedWork,
 	awardSchema,
 	certificationSchema,
 	galleryImageSchema,
 	projectSchema,
 	recommendationSchema,
+	researchStudySchema,
 	selectedWorkSchema,
 } from "./schema";
 
@@ -59,7 +62,7 @@ export type CollectionConfig<T extends { id: string } = { id: string }> = {
 	seed: T[];
 	// When true, the admin list is a drag-to-reorder sortable list and the manual
 	// `order` field is dropped from the form (order is rewritten on drop). Only set
-	// on collections sorted by `byOrderAsc`. This is config, not schema — the
+	// on collections sorted by `order` first. This is config, not schema — the
 	// `order: number` field stays in the data.
 	reorderable?: boolean;
 };
@@ -68,7 +71,7 @@ const certifications: CollectionConfig<Certification> = {
 	key: "certifications",
 	labelSingular: "Certification",
 	labelPlural: "Certifications",
-	description: "Cloud, ML, and security credentials shown in Recognition.",
+	description: "Cloud, ML, and security credentials shown in Certifications.",
 	schema: certificationSchema,
 	idFrom: (d) => slugify(d.title ?? ""),
 	fields: [
@@ -98,7 +101,7 @@ const awards: CollectionConfig<Award> = {
 	key: "awards",
 	labelSingular: "Award",
 	labelPlural: "Awards",
-	description: "Honors and competition results shown in Recognition.",
+	description: "Honors and competition results shown in Certifications.",
 	schema: awardSchema,
 	idFrom: (d) => slugify(d.title ?? ""),
 	fields: [
@@ -149,8 +152,11 @@ const recommendations: CollectionConfig<Recommendation> = {
 		{ name: "role", label: "Role", kind: "text" },
 		{ name: "date", label: "Date given", kind: "date" },
 	],
-	// Newest-first by the date the recommendation was given.
-	sort: (items) => [...items].sort((a, b) => byDateDesc(a.date, b.date)),
+	// Dragged into order in the admin, the first being the one the homepage opens on.
+	// Records never reordered are all 0, and fall back to newest first.
+	sort: (items) =>
+		[...items].sort((a, b) => a.order - b.order || byDateDesc(a.date, b.date)),
+	reorderable: true,
 	summary: (r) => ({
 		title: r.author,
 		meta: r.date ? `${r.role} · ${r.date}` : r.role,
@@ -168,7 +174,7 @@ const selectedWork: CollectionConfig<SelectedWork> = {
 	labelSingular: "Highlight",
 	labelPlural: "Selected work",
 	description:
-		"The lead + supporting highlights in the homepage Selected Work section.",
+		"Kept with the record; the homepage no longer has a Selected work section.",
 	schema: selectedWorkSchema,
 	idFrom: (d) => slugify(d.title ?? ""),
 	fields: [
@@ -212,7 +218,7 @@ const projects: CollectionConfig<Project> = {
 	labelSingular: "Project",
 	labelPlural: "Projects",
 	description:
-		"ML and software engineering work shown in the Projects carousel.",
+		"Rows on the homepage: the Data category lists under Data, the rest under Projects.",
 	schema: projectSchema,
 	idFrom: (d) => slugify(d.title ?? ""),
 	fields: [
@@ -223,20 +229,54 @@ const projects: CollectionConfig<Project> = {
 			kind: "select",
 			options: PROJECT_CATEGORIES,
 		},
+		{
+			name: "org",
+			label: "Built at",
+			kind: "text",
+			placeholder: "Experimental Machines",
+			help: "Shown under the title. Leave empty for your own projects.",
+		},
+		{
+			name: "headline",
+			label: "Headline",
+			kind: "text",
+			full: true,
+			help: "What it does, in one plain line.",
+		},
+		{
+			name: "finding",
+			label: "Result",
+			kind: "text",
+			placeholder: "e.g. 0.41 s",
+			help: "A measured number. With chart rows, the project gets a full feature; the first of those opens the section.",
+		},
+		{
+			name: "findingNote",
+			label: "Result, in a sentence",
+			kind: "textarea",
+			full: true,
+		},
+		{
+			name: "bars",
+			label: "Chart rows",
+			kind: "list",
+			full: true,
+			help: 'One per line, as "Label = 42 ms". Start a line with * to highlight it.',
+		},
 		{ name: "description", label: "Description", kind: "textarea", full: true },
 		{
 			name: "tags",
 			label: "Tags",
 			kind: "list",
 			full: true,
-			help: "One per line. Tech/topic chips.",
+			help: "One per line. Kept with the record; not shown on the site.",
 		},
 		{
 			name: "metrics",
 			label: "Metrics",
 			kind: "list",
 			full: true,
-			help: "One per line. Shown as pills on the card.",
+			help: "One per line. Kept with the record; not shown on the site.",
 		},
 		{
 			name: "github",
@@ -263,13 +303,32 @@ const projects: CollectionConfig<Project> = {
 			label: "Image",
 			kind: "image",
 			full: true,
-			help: "Upload or choose from the image library.",
+			help: "Kept with the record; not shown on the site.",
+		},
+		{
+			name: "shot",
+			label: "App screenshot",
+			kind: "image",
+			full: true,
+			help: "A real screen from the project. With a result, it gets the project a full feature.",
+		},
+		{
+			name: "shotAlt",
+			label: "What the screenshot shows",
+			kind: "textarea",
+			full: true,
+		},
+		{
+			name: "shotKind",
+			label: "Screenshot shape",
+			kind: "select",
+			options: ["phone", "wide"],
 		},
 	],
 	sort: byOrderAsc,
 	summary: (p) => ({ title: p.title, meta: p.category }),
 	reorderable: true,
-	seed: projectSeed as Project[],
+	seed: projectSeed as unknown as Project[],
 };
 
 const gallery: CollectionConfig<GalleryImage> = {
@@ -307,26 +366,81 @@ const gallery: CollectionConfig<GalleryImage> = {
 	seed: gallerySeed as GalleryImage[],
 };
 
-// Ordered to match the homepage section flow (Selected Work, Projects, then
-// Recognition = Awards before Certifications, then Recommendations), with the
-// standalone Gallery last.
+const research: CollectionConfig<ResearchStudy> = {
+	key: "research",
+	labelSingular: "Study",
+	labelPlural: "Research",
+	description:
+		"Experimental Machines studies in the homepage Research section. The first is the lead card; the first four are shown.",
+	schema: researchStudySchema,
+	idFrom: (d) => slugify(d.title ?? ""),
+	fields: [
+		{ name: "title", label: "Title", kind: "text", required: true, full: true },
+		{
+			name: "finding",
+			label: "Finding",
+			kind: "text",
+			required: true,
+			placeholder: "e.g. 42%",
+		},
+		{
+			name: "when",
+			label: "When",
+			kind: "text",
+			placeholder: "e.g. GGUF, October 2026",
+		},
+		{
+			name: "findingNote",
+			label: "Finding, in a sentence",
+			kind: "textarea",
+			full: true,
+		},
+		{ name: "summary", label: "Summary", kind: "textarea", full: true },
+		{
+			name: "href",
+			label: "Study URL",
+			kind: "text",
+			full: true,
+			placeholder: "https://experimentalmachines.org/research/...",
+		},
+		{
+			name: "bars",
+			label: "Chart rows",
+			kind: "list",
+			full: true,
+			help: 'One per line, as "Label = 42%". Start a line with * to highlight it.',
+		},
+	],
+	sort: byOrderAsc,
+	summary: (r) => ({ title: r.title, meta: r.finding }),
+	reorderable: true,
+	seed: researchSeed as ResearchStudy[],
+};
+
+// Ordered to match the homepage section flow (Research, Selected Work, Projects,
+// Recommendations, Certifications), with the standalone Gallery next and Awards
+// last: they stay editable but no public page shows them.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const COLLECTIONS: Record<string, CollectionConfig<any>> = {
+	research,
 	"selected-work": selectedWork,
 	projects,
-	awards,
-	certifications,
 	recommendations,
+	certifications,
 	gallery,
+	awards,
 };
 
 export const COLLECTION_KEYS = Object.keys(COLLECTIONS);
 
+// Own-property lookups only: `key in COLLECTIONS` / `COLLECTIONS[key]` would
+// resolve inherited names, so "/admin/constructor" or "toString" would return
+// Object.prototype members instead of null.
 export function isCollectionKey(key: string): boolean {
-	return key in COLLECTIONS;
+	return Object.hasOwn(COLLECTIONS, key);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getCollection(key: string): CollectionConfig<any> | null {
-	return COLLECTIONS[key] ?? null;
+	return isCollectionKey(key) ? COLLECTIONS[key] : null;
 }

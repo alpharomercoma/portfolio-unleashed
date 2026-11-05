@@ -10,18 +10,33 @@
 	@apply my-6;
 }
 
+.richtext {
+	line-height: 1.75;
+	/* Commands and paths in running text wrap instead of widening the page. */
+	overflow-wrap: anywhere;
+}
+
+.richtext h2,
+.richtext h3,
+.richtext h4 {
+	letter-spacing: -0.02em;
+	scroll-margin-top: 5.5rem;
+}
+
 .richtext h2 {
-	@apply text-3xl mt-12 mb-4 leading-snug;
+	@apply text-3xl mt-12 mb-4 leading-snug font-normal;
 }
 
 .richtext h3 {
-	@apply text-2xl mt-8 mb-4 leading-snug;
+	@apply text-2xl mt-8 mb-4 leading-snug font-normal;
 }
 
 .richtext h4 {
-	@apply text-xl mt-6 mb-4 leading-snug;
+	@apply text-xl mt-6 mb-4 leading-snug font-normal;
 }
 
 .richtext a {
-	@apply underline;
+	color: var(--brand-strong);
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
 }

@@ -1,12 +1,12 @@
 import { AboutForm } from "@/components/admin/about-form";
-import { getAbout, isAboutStoreConfigured } from "@/lib/about/store";
+import { getAboutForEdit, isAboutStoreConfigured } from "@/lib/about/store";
 
 export default async function AdminAboutPage({
 	searchParams,
 }: {
 	searchParams: Promise<{ error?: string; saved?: string }>;
 }) {
-	const about = await getAbout();
+	const { about, rev } = await getAboutForEdit();
 	const { error, saved } = await searchParams;
 
 	return (
@@ -25,7 +25,13 @@ export default async function AdminAboutPage({
 				</p>
 			)}
 
-			<AboutForm about={about} error={error} saved={Boolean(saved)} />
+			<AboutForm
+				key={rev ?? "unstored"}
+				about={about}
+				rev={rev}
+				error={error}
+				saved={Boolean(saved)}
+			/>
 		</div>
 	);
 }

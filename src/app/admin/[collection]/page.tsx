@@ -10,20 +10,23 @@ import { SortableList } from "@/components/admin/sortable-list";
 import { Button } from "@/components/ui/button";
 import { getCollection } from "@/lib/collections/registry";
 import {
-	getAllItems,
+	getItemsForAdmin,
 	isCollectionsStoreConfigured,
 } from "@/lib/collections/store";
 
 export default async function CollectionListPage({
 	params,
+	searchParams,
 }: {
 	params: Promise<{ collection: string }>;
+	searchParams: Promise<{ error?: string }>;
 }) {
 	const { collection } = await params;
+	const { error } = await searchParams;
 	const cfg = getCollection(collection);
 	if (!cfg) notFound();
 
-	const items = await getAllItems(collection);
+	const items = await getItemsForAdmin(collection);
 	// Collections with an image field get a small thumbnail beside each row.
 	const imageField = cfg.fields.find((f) => f.kind === "image")?.name;
 	const thumbOf = (item: Record<string, unknown>) =>
@@ -45,6 +48,12 @@ export default async function CollectionListPage({
 				</Button>
 			</header>
 
+			{error && (
+				<p className="mb-6 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+					{error}
+				</p>
+			)}
+
 			{!isCollectionsStoreConfigured && (
 				<p className="mb-6 rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-muted-foreground">
 					Upstash Redis is not configured, so changes will not persist. Showing
@@ -64,6 +73,7 @@ export default async function CollectionListPage({
 							editHref: `/admin/${collection}/${item.id}`,
 							thumb: thumbOf(item),
 							hidden: Boolean(item.hidden),
+							rev: item._rev,
 						};
 					})}
 				/>
@@ -115,6 +125,9 @@ export default async function CollectionListPage({
 									<form action={toggleCollectionItemVisibility}>
 										<input type="hidden" name="collection" value={collection} />
 										<input type="hidden" name="id" value={String(item.id)} />
+										{item._rev != null && (
+											<input type="hidden" name="rev" value={item._rev} />
+										)}
 										<input
 											type="hidden"
 											name="hidden"
@@ -127,6 +140,9 @@ export default async function CollectionListPage({
 									<form action={removeCollectionItem}>
 										<input type="hidden" name="collection" value={collection} />
 										<input type="hidden" name="id" value={String(item.id)} />
+										{item._rev != null && (
+											<input type="hidden" name="rev" value={item._rev} />
+										)}
 										<Button variant="outline" size="sm" type="submit">
 											Delete
 										</Button>
