@@ -1,5 +1,13 @@
 [
 	{
+		"id": "pytorch-certified-associate",
+		"title": "PyTorch Certified Associate (PTCA)",
+		"issuer": "PyTorch",
+		"logo": "/affiliations/pytorch.png",
+		"date": "2026-10-10",
+		"link": "https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/31baf194-fb27-425d-9db8-58ca8a362c5c-alpha-romer-coma-7e12c937-7cfa-49bf-8096-1ce19196b9d1-certificate.pdf"
+	},
+	{
 		"id": "javascript-algorithms-and-data-structures",
 		"title": "JavaScript Algorithms and Data Structures",
 		"issuer": "FreeCodeCamp",

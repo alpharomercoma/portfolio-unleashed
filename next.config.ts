@@ -2,6 +2,8 @@ import withSerwistInit from "@serwist/next";
 import { execFileSync } from "node:child_process";
 import { NextConfig } from "next";
 
+import { REMOTE_IMAGE_HOSTS } from "./src/lib/image-hosts";
+
 // A revision versions the precached offline page so a new deploy busts it.
 let revision: string;
 try {
@@ -33,16 +35,10 @@ const config = {
 		// synthesized address that Next's SSRF guard classifies as private, which
 		// 400s every remote image locally. Production keeps the guard.
 		dangerouslyAllowLocalIP: process.env.NODE_ENV !== "production",
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "cdn.sanity.io",
-			},
-			{
-				protocol: "https",
-				hostname: "*.public.blob.vercel-storage.com",
-			},
-		],
+		remotePatterns: REMOTE_IMAGE_HOSTS.map((hostname) => ({
+			protocol: "https" as const,
+			hostname,
+		})),
 	},
 	turbopack: {},
 	// Baseline security headers on every response. No strict CSP: a nonce CSP

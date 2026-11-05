@@ -31,10 +31,13 @@ type DraftState =
 
 export function TalkForm({
 	talk,
+	rev,
 	error,
 	aiEnabled = false,
 }: {
 	talk?: Talk;
+	/** Stored revision the form was opened at; the save is rejected if it moved. */
+	rev?: number;
 	error?: string;
 	aiEnabled?: boolean;
 }) {
@@ -117,11 +120,12 @@ export function TalkForm({
 			)}
 			<input type="hidden" name="slug" defaultValue={t?.slug ?? ""} />
 			<input type="hidden" name="createdAt" defaultValue={t?.createdAt ?? ""} />
+			{rev != null && <input type="hidden" name="rev" value={rev} />}
 
 			{/* AI draft panel */}
-			<div className="rounded-xl border border-lime/40 bg-lime/5 p-4">
+			<div className="rounded-xl border border-border bg-brand-wash p-4">
 				<div className="flex items-center gap-2">
-					<Sparkles className="size-4 text-lime-strong" />
+					<Sparkles className="size-4 text-brand-strong" />
 					<h2 className="text-sm font-semibold text-foreground">
 						Draft from slides
 					</h2>
@@ -173,7 +177,7 @@ export function TalkForm({
 					<p className="mt-2 text-xs text-destructive">{draft.message}</p>
 				)}
 				{draft.kind === "done" && (
-					<p className="mt-2 text-xs text-lime-strong">
+					<p className="mt-2 text-xs text-brand-strong">
 						Drafted from your slides — review the fields below, then Save. Saved
 						as a draft until you publish.
 					</p>

@@ -29,7 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		{ url: `${SITE_URL}/resume`, changeFrequency: "monthly", priority: 0.7 },
 	];
 
-	const talks = await getPublishedTalks().catch(() => []);
+	// Not caught: on an outage the previous sitemap stays up, with the talks in it.
+	const talks = await getPublishedTalks();
 	const talkRoutes: MetadataRoute.Sitemap = talks.map((t) => ({
 		url: `${SITE_URL}/speaking/${t.slug}`,
 		lastModified: toDate(t.updatedAt) ?? toDate(latestEventDate(t)),

@@ -41,13 +41,11 @@ export async function sanityFetch<const QueryString extends string>({
 		return null;
 	}
 	const perspective =
-		_perspective || (await draftMode()).isEnabled
-			? "previewDrafts"
-			: "published";
+		_perspective ??
+		((await draftMode()).isEnabled ? "previewDrafts" : "published");
 	const stega =
-		_stega ||
-		perspective === "previewDrafts" ||
-		process.env.VERCEL_ENV === "preview";
+		_stega ??
+		(perspective === "previewDrafts" || process.env.VERCEL_ENV === "preview");
 	try {
 		if (perspective === "previewDrafts") {
 			return await client.fetch(query, await params, {

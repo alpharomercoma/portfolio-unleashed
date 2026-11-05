@@ -1,10 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { cn } from "@/lib/utils";
+import { SiteImage } from "@/components/site-image";
+import { TalkRow } from "@/components/speaking/talk-card";
+import { lastGiven } from "@/components/speaking/talk-meta";
 import type { Talk } from "@/lib/talks/schema";
-import { FeaturedTalk, TalkRow } from "./talk-list";
+import { cn } from "@/lib/utils";
 
 export function SpeakingIndex({ talks }: { talks: Talk[] }) {
 	const categories = useMemo(
@@ -14,57 +17,77 @@ export function SpeakingIndex({ talks }: { talks: Talk[] }) {
 	const [active, setActive] = useState("All");
 	const filtered =
 		active === "All" ? talks : talks.filter((t) => t.category === active);
-	// Lead with an image-backed talk so the hero never falls back to a blank
-	// placeholder; the rest keep their chronological order.
+	// Lead with a talk that has a cover, so the top card is never an empty box.
 	const lead = filtered.find((t) => t.showcaseImage) ?? filtered[0];
 	const rest = filtered.filter((t) => t !== lead);
 
 	return (
 		<>
-			<div
-				role="tablist"
-				aria-label="Filter talks by category"
-				className="flex flex-wrap gap-2 mb-12"
-			>
-				{categories.map((c) => {
-					const on = c === active;
-					return (
-						<button
-							key={c}
-							type="button"
-							role="tab"
-							aria-selected={on}
-							onClick={() => setActive(c)}
-							className={cn(
-								"rounded-full px-4 h-9 text-sm font-medium transition-all border",
-								on
-									? "bg-foreground text-background border-foreground"
-									: "bg-background text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground",
-							)}
-						>
-							{c}
-						</button>
-					);
-				})}
-			</div>
-
-			{lead ? (
-				<>
-					<FeaturedTalk talk={lead} />
-					{rest.length > 0 && (
-						<div className="mt-14 sm:mt-16 divide-y divide-border border-t border-border">
-							{rest.map((t) => (
-								<TalkRow key={t.slug} talk={t} />
-							))}
-						</div>
-					)}
-				</>
-			) : (
-				<div className="rounded-2xl border border-border bg-secondary p-10 text-center">
-					<p className="text-sm text-muted-foreground">
-						No talks in this category yet.
-					</p>
+			<fieldset className="min-w-0">
+				<legend className="sr-only">Filter talks by category</legend>
+				<div className="flex flex-wrap gap-2">
+					{categories.map((c) => {
+						const on = c === active;
+						return (
+							<button
+								key={c}
+								type="button"
+								aria-pressed={on}
+								onClick={() => setActive(c)}
+								className={cn(
+									"h-10 rounded-full border px-4 text-sm font-medium transition-colors",
+									on
+										? "border-brand bg-brand text-white"
+										: "border-input text-foreground hover:bg-accent",
+								)}
+							>
+								{c}
+							</button>
+						);
+					})}
 				</div>
+			</fieldset>
+			<p role="status" className="mt-4 text-sm text-muted-foreground">
+				{filtered.length} {filtered.length === 1 ? "talk" : "talks"}
+				{active === "All" ? "" : ` in ${active}`}
+			</p>
+
+			{lead && (
+				<article className="mt-8 grid overflow-hidden rounded-[1.75rem] border border-border lg:grid-cols-[1.1fr_1fr]">
+					<div className="relative aspect-video bg-secondary">
+						{lead.showcaseImage && (
+							<SiteImage
+								src={lead.showcaseImage}
+								alt=""
+								fill
+								priority
+								sizes="(min-width: 1024px) 40rem, 100vw"
+								className="object-cover"
+							/>
+						)}
+					</div>
+					<div className="flex flex-col justify-center p-8 sm:p-10">
+						<p className="text-sm text-muted-foreground">{lastGiven(lead)}</p>
+						<h2 className="display-md mt-3">
+							<Link href={`/speaking/${lead.slug}`} className="text-link">
+								{lead.title}
+							</Link>
+						</h2>
+						{lead.tagline && (
+							<p className="mt-4 text-muted-foreground">{lead.tagline}</p>
+						)}
+					</div>
+				</article>
+			)}
+
+			{rest.length > 0 && (
+				<ul className="mt-10 grid gap-x-12 lg:grid-cols-2">
+					{rest.map((t) => (
+						<li key={t.slug} className="border-t border-border">
+							<TalkRow talk={t} headingLevel="h2" showTagline />
+						</li>
+					))}
+				</ul>
 			)}
 		</>
 	);

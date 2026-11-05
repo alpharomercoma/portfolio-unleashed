@@ -6,8 +6,9 @@ import Avatar from "./avatar";
 import CoverImage from "./cover-image";
 import DateComponent from "./date";
 import MoreStories from "./more-stories";
-import Onboarding from "./onboarding";
 
+import { PageHeader } from "@/components/page-header";
+import { firstSentence } from "@/lib/utils";
 import type { HeroQueryResult } from "../../../sanity.types";
 import { SITE_NAME } from "@/lib/seo";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -51,29 +52,31 @@ function HeroPost({
 	"title" | "coverImage" | "date" | "excerpt" | "author" | "slug"
 >) {
 	return (
-		<article className="mt-24">
-			<Link className="group mb-8 block md:mb-16" href={`/blog/${slug}`}>
-				<CoverImage image={coverImage} priority />
-			</Link>
-			<div className="mb-20 md:mb-28 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
-				<div>
-					<h3 className="text-pretty mb-4 text-4xl leading-tight lg:text-6xl">
-						<Link href={`/blog/${slug}`} className="hover:underline">
-							{title}
-						</Link>
-					</h3>
-					<div className="mb-4 text-lg md:mb-0">
-						<DateComponent dateString={date} />
+		<article className="grid overflow-hidden rounded-[1.75rem] border border-border lg:grid-cols-[1.1fr_1fr]">
+			<div className="bg-secondary">
+				<CoverImage
+					image={coverImage}
+					priority
+					className="lg:h-full lg:object-cover"
+				/>
+			</div>
+			<div className="flex flex-col justify-center p-8 sm:p-10">
+				<p className="text-sm text-muted-foreground">
+					<DateComponent dateString={date} />
+				</p>
+				<h2 className="display-md mt-3">
+					<Link href={`/blog/${slug}`} className="text-link">
+						{title}
+					</Link>
+				</h2>
+				{excerpt && (
+					<p className="mt-4 text-muted-foreground">{firstSentence(excerpt)}</p>
+				)}
+				{author && (
+					<div className="mt-5">
+						<Avatar name={author.name} picture={author.picture} />
 					</div>
-				</div>
-				<div>
-					{excerpt && (
-						<p className="text-pretty mb-4 text-lg leading-relaxed">
-							{excerpt}
-						</p>
-					)}
-					{author && <Avatar name={author.name} picture={author.picture} />}
-				</div>
+				)}
 			</div>
 		</article>
 	);
@@ -82,29 +85,34 @@ function HeroPost({
 export default async function Page() {
 	const heroPost = await sanityFetch({ query: heroQuery });
 	return (
-		<div className="container mx-auto px-5">
-			{heroPost ? (
-				<HeroPost
-					title={heroPost.title}
-					slug={heroPost.slug}
-					coverImage={heroPost.coverImage}
-					excerpt={heroPost.excerpt}
-					date={heroPost.date}
-					author={heroPost.author}
-				/>
-			) : (
-				<Onboarding />
-			)}
+		<>
+			<PageHeader title="Writing.">
+				Notes on machine learning, software, university, and travel.
+			</PageHeader>
+			<div className="site-container mt-10 pb-16 lg:pb-24">
+				{heroPost ? (
+					<HeroPost
+						title={heroPost.title}
+						slug={heroPost.slug}
+						coverImage={heroPost.coverImage}
+						excerpt={heroPost.excerpt}
+						date={heroPost.date}
+						author={heroPost.author}
+					/>
+				) : (
+					<p className="text-muted-foreground">No posts are published yet.</p>
+				)}
+			</div>
 			{heroPost?._id && (
-				<aside>
-					<h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-						More Stories
-					</h2>
-					<Suspense>
-						<MoreStories skip={heroPost._id} limit={100} />
-					</Suspense>
-				</aside>
+				<Suspense>
+					<MoreStories
+						skip={heroPost._id}
+						limit={100}
+						title="More posts"
+						className="pb-16 lg:pb-24"
+					/>
+				</Suspense>
 			)}
-		</div>
+		</>
 	);
 }

@@ -1,13 +1,10 @@
 import React from "react";
 
-export default function RootLayout({
+// The root layout owns <html> and <body>; a second pair here is invalid HTML.
+export default function StudioLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en">
-			<body>{children}</body>
-		</html>
-	);
+	return <>{children}</>;
 }

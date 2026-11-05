@@ -1,0 +1,46 @@
+[
+	{
+		"id": "prefill-decode",
+		"title": "Prefill and decode on CPU, GPU and NPU",
+		"finding": "9 of 9",
+		"findingNote": "models were fastest with NPU prefill",
+		"when": "2 to 4 November 2026",
+		"summary": "Which processor should prefill and which should decode: nine models, every pairing, on a Snapdragon 8 Elite Gen 5.",
+		"href": "https://experimentalmachines.org/research/prefill-decode/",
+		"bars": [],
+		"order": 10
+	},
+	{
+		"id": "local-copilot",
+		"title": "When is local Copilot worth it?",
+		"finding": "42%",
+		"findingNote": "of 24 real tasks with Qwen3.6 on an RTX 4090, against 92% on Copilot Pro+ Auto",
+		"when": "GGUF, October 2026",
+		"summary": "The same Copilot CLI agent on the same real tasks: open-weight GGUF models on an RTX 4090 and a MacBook Air M5, against hosted Copilot.",
+		"href": "https://experimentalmachines.org/research/local-copilot/",
+		"bars": ["Pro+, Auto = 92%", "Gemma 4, 4090 = 58%", "*Qwen3.6, 4090 = 42%"],
+		"order": 20
+	},
+	{
+		"id": "trainium-inferentia",
+		"title": "Llama 3.1 8B on AWS Trainium and Inferentia",
+		"finding": "63 to 71 ms",
+		"findingNote": "per token on Inferentia2 from 1 to 32 streams, while throughput grows 26×",
+		"when": "ASICs, July and August 2026",
+		"summary": "A fine-tune on Trainium, served on Inferentia2, measured beside an MI300X and an H200.",
+		"href": "https://experimentalmachines.org/research/trainium-inferentia/",
+		"bars": ["1 stream = 63 ms", "8 streams = 65 ms", "*32 streams = 71 ms"],
+		"order": 30
+	},
+	{
+		"id": "mi300x-h200",
+		"title": "MI300X against H200",
+		"finding": "1.84×",
+		"findingNote": "the H200's KV cache on an MI300X with 70 GB of weights loaded, from 1.36× the memory",
+		"when": "Hardware, July 2026",
+		"summary": "One AMD Instinct MI300X against one NVIDIA H200, inference and training, on the same vLLM and PyTorch versions.",
+		"href": "https://experimentalmachines.org/research/mi300x-h200/",
+		"bars": ["*MI300X = 102.25 GiB", "H200 = 55.60 GiB"],
+		"order": 40
+	}
+]

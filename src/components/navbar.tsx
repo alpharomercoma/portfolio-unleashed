@@ -1,171 +1,85 @@
 "use client";
 
-import { Logo } from "@/components/logo";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { LOGO_BRAND, LOGO_WHITE, Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 
 const navItems = [
 	{ label: "Work", href: "/#work" },
+	{ label: "Research", href: "/#research" },
 	{ label: "Speaking", href: "/speaking" },
 	{ label: "Writing", href: "/blog" },
 	{ label: "About", href: "/about" },
 	{ label: "Gallery", href: "/gallery" },
+	{ label: "Resume", href: "/resume" },
 ];
 
+function NavLinks({ pathname }: { pathname: string }) {
+	return (
+		<ul className="flex items-center gap-1">
+			{navItems.map((item) => {
+				const current =
+					!item.href.includes("#") && pathname.startsWith(item.href);
+				return (
+					<li key={item.href} className="shrink-0">
+						<Link
+							href={item.href}
+							aria-current={current ? "page" : undefined}
+							className={cn(
+								"inline-flex h-10 items-center rounded-full px-3 text-[0.9375rem] font-medium text-white underline-offset-[0.4em] decoration-1 hover:underline",
+								current && "underline decoration-2",
+							)}
+						>
+							{item.label}
+						</Link>
+					</li>
+				);
+			})}
+		</ul>
+	);
+}
+
+// The same bar on every page, as on the labs' sites: the brand field, the links,
+// and one white pill. It sticks only where there is height to spare; on a phone
+// its two rows would take an eighth of the screen.
 export function Navbar() {
-	const [isScrolled, setIsScrolled] = useState(false);
-	const [isVisible, setIsVisible] = useState(true);
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const lastScrollY = useRef(0);
-	const navRef = useRef<HTMLElement>(null);
-
-	// Tapping anywhere outside the open mobile menu (or pressing Escape) closes
-	// it; before, the only way out was the toggle button.
-	useEffect(() => {
-		if (!isMobileMenuOpen) return;
-		const onPointer = (e: PointerEvent) => {
-			if (navRef.current && !navRef.current.contains(e.target as Node)) {
-				setIsMobileMenuOpen(false);
-			}
-		};
-		const onKey = (e: KeyboardEvent) => {
-			if (e.key === "Escape") setIsMobileMenuOpen(false);
-		};
-		document.addEventListener("pointerdown", onPointer);
-		document.addEventListener("keydown", onKey);
-		return () => {
-			document.removeEventListener("pointerdown", onPointer);
-			document.removeEventListener("keydown", onKey);
-		};
-	}, [isMobileMenuOpen]);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			const currentScrollY = window.scrollY;
-
-			if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-				setIsVisible(false);
-				setIsMobileMenuOpen(false);
-			} else {
-				setIsVisible(true);
-			}
-
-			setIsScrolled(currentScrollY > 50);
-			lastScrollY.current = currentScrollY;
-		};
-
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
+	const pathname = usePathname();
 
 	return (
-		<nav
-			ref={navRef}
-			className={cn(
-				"fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out",
-				isScrolled
-					? "w-[92%] max-w-3xl lg:max-w-4xl bg-background/90 backdrop-blur-lg shadow-lg border border-border"
-					: "w-[92%] max-w-3xl lg:max-w-5xl bg-background/70 backdrop-blur-md border border-border/50",
-				isVisible
-					? "translate-y-0 opacity-100"
-					: "-translate-y-[150%] opacity-0",
-			)}
-			style={{ borderRadius: "9999px" }}
-		>
-			<div className="px-5 sm:px-6 lg:px-8 py-3 sm:py-3.5 lg:py-4 flex items-center justify-between gap-4">
+		<header className="surface-brand z-50 lg:sticky lg:top-0">
+			<div className="site-container flex h-16 items-center gap-6">
 				<Link
 					href="/"
-					className="flex items-center gap-2 font-display text-lg lg:text-xl font-semibold text-foreground hover:opacity-80 transition-opacity shrink-0 tracking-tight"
 					aria-label="Alpha Romer Coma, home"
+					className="inline-flex h-10 shrink-0 items-center gap-2.5 rounded-full font-display text-lg font-semibold tracking-tight"
 				>
-					<Logo size={22} title={null} />
+					<Logo size={28} tile={LOGO_WHITE} mark={LOGO_BRAND} title={null} />
 					Alpha
 				</Link>
 
-				<div className="hidden lg:flex items-center gap-1">
-					{navItems.map((item) => (
-						<Link
-							key={item.label}
-							href={item.href}
-							className="px-3 xl:px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full"
-						>
-							{item.label}
-						</Link>
-					))}
-				</div>
+				<nav aria-label="Primary" className="hidden lg:block">
+					<NavLinks pathname={pathname} />
+				</nav>
 
-				<div className="hidden lg:flex items-center shrink-0">
-					<Button asChild size="sm">
-						<Link href="/#contact">
-							Let&apos;s talk
-							<ArrowUpRight className="h-4 w-4" />
-						</Link>
-					</Button>
-				</div>
-
-				<Button
-					variant="ghost"
-					size="icon"
-					className="lg:hidden h-10 w-10 relative bg-transparent text-foreground hover:bg-secondary"
-					onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-					aria-label="Toggle menu"
-					aria-expanded={isMobileMenuOpen}
-				>
-					<Menu
-						className={cn(
-							"h-5 w-5 absolute transition-all duration-300",
-							isMobileMenuOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100",
-						)}
-					/>
-					<X
-						className={cn(
-							"h-5 w-5 absolute transition-all duration-300",
-							isMobileMenuOpen
-								? "rotate-0 opacity-100"
-								: "-rotate-90 opacity-0",
-						)}
-					/>
+				<Button asChild size="default" variant="on-color" className="ml-auto">
+					<Link href="/#contact">Get in touch</Link>
 				</Button>
 			</div>
 
-			<div
-				className={cn(
-					"lg:hidden absolute top-full left-0 right-0 mt-3 bg-background/95 backdrop-blur-lg border border-border rounded-2xl shadow-lg overflow-hidden transition-all duration-300 ease-out",
-					isMobileMenuOpen
-						? "opacity-100 translate-y-0 max-h-[500px] p-4"
-						: "opacity-0 -translate-y-2 max-h-0 p-0 pointer-events-none",
-				)}
+			{/* Only one of the two navs is ever displayed. */}
+			<nav
+				aria-label="Main"
+				className="nav-scroll overflow-x-auto border-t border-white/25 lg:hidden"
 			>
-				<div className="flex flex-col gap-1.5">
-					{navItems.map((item, index) => (
-						<Link
-							key={item.label}
-							href={item.href}
-							className={cn(
-								"px-4 py-3 text-base text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-all duration-200",
-								isMobileMenuOpen
-									? "translate-x-0 opacity-100"
-									: "-translate-x-4 opacity-0",
-							)}
-							style={{
-								transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : "0ms",
-							}}
-							onClick={() => setIsMobileMenuOpen(false)}
-						>
-							{item.label}
-						</Link>
-					))}
-					<Button asChild size="lg" className="w-full mt-2">
-						<Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)}>
-							Let&apos;s talk
-							<ArrowUpRight className="h-4 w-4" />
-						</Link>
-					</Button>
+				<div className="site-container py-1">
+					<div className="-mx-3 w-max">
+						<NavLinks pathname={pathname} />
+					</div>
 				</div>
-			</div>
-		</nav>
+			</nav>
+		</header>
 	);
 }

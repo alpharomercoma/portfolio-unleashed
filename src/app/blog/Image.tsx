@@ -16,19 +16,19 @@ export default function Image({
 			style={{ float: stegaClean(value.float) }}
 		>
 			<Img
-				className="mx-auto max-h-svh w-auto bg-neutral-50 text-[0px]"
+				className="mx-auto max-h-svh w-auto bg-secondary text-[0px]"
 				image={value}
 				imageWidth={1500}
 			/>
 
 			{value.caption && (
-				<figcaption className="text-balance px-4 text-sm italic text-neutral-500">
+				<figcaption className="text-balance px-4 text-sm text-muted-foreground">
 					{value.caption}
 
 					{value.source && (
 						<>
 							{" ("}
-							<a href={value.source} className="image-source link">
+							<a href={value.source} className="text-link">
 								Source
 							</a>
 							{")"}

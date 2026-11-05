@@ -71,8 +71,8 @@
 		{ "name": "Writing", "short_name": "Writing", "url": "/blog" },
 		{ "name": "Gallery", "short_name": "Gallery", "url": "/gallery" }
 	],
-	"theme_color": "#e0ff4f",
-	"background_color": "#e0ff4f",
+	"theme_color": "#5342e5",
+	"background_color": "#5342e5",
 	"dir": "ltr",
 	"display": "standalone",
 	"display_override": [

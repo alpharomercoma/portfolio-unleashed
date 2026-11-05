@@ -49,6 +49,27 @@ const gslides = (id) => `https://docs.google.com/presentation/d/${id}/edit`;
 // One entry per talk. events[] carries each delivery.
 const TALKS = [
 	{
+		title: "When the KV Cache Cannot Roll Back",
+		tagline:
+			"How a phone skips re-reading a 2,050-token agent prompt, built twice because the app's two runtimes have different cache constraints.",
+		type: "Talk",
+		category: "Accelerated Computing",
+		durationMinutes: 20,
+		featured: true,
+		tags: ["ExecuTorch", "KV cache", "Android"],
+		abstract:
+			"Prefix reuse on Android, presented with Arjhine Ty. Reusing 1,192 tokens takes Qwen3-1.7B on ExecuTorch from a 5,852 ms first turn to 215 ms on the second.",
+		needsReview: false,
+		events: [
+			{
+				eventName: "PyTorch Day Japan",
+				organizerName: "PyTorch Foundation",
+				date: "2026-12-10",
+				venue: "Tokyo",
+			},
+		],
+	},
+	{
 		title: "De-mystifying PyTorch for ASICs",
 		tagline:
 			"When, and why, to move your model development onto AI accelerators.",
@@ -82,7 +103,7 @@ const TALKS = [
 			{
 				eventName: "PyTorch Conference Europe 2026",
 				organizerName: "Linux Foundation",
-				date: "2026-04-07",
+				date: "2026-04-08",
 				venue: "Station F, Paris, France",
 				audienceSize: 100,
 				slideUrl: gslides("1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc"),
@@ -293,7 +314,8 @@ const TALKS = [
 	{
 		title:
 			"Open Source Series: Licensing, Version Control, Contributing, and Beyond",
-		tagline: "Everything a first-time open-source contributor needs for Hacktoberfest.",
+		tagline:
+			"Everything a first-time open-source contributor needs for Hacktoberfest.",
 		type: "Workshop",
 		category: "Open Source",
 		level: "Intermediate",
@@ -588,7 +610,8 @@ const TALKS = [
 	},
 	{
 		title: "Online Safety in the Age of AI",
-		tagline: "Staying safe as a student when AI is in every classroom and feed.",
+		tagline:
+			"Staying safe as a student when AI is in every classroom and feed.",
 		type: "Talk",
 		category: "AI & ML",
 		level: "Foundational",
@@ -658,7 +681,8 @@ const TALKS = [
 	},
 	{
 		title: "Introduction to GitHub Copilot and AI Development",
-		tagline: "A hands-on intro to coding with Copilot, from autocomplete to agent.",
+		tagline:
+			"A hands-on intro to coding with Copilot, from autocomplete to agent.",
 		type: "Talk",
 		category: "Developer Tools",
 		level: "Foundational",
@@ -729,7 +753,8 @@ const TALKS = [
 	},
 	{
 		title: "The Filipino Dream in Tech",
-		tagline: "Why tech is one of the best industries for Filipino students to enter.",
+		tagline:
+			"Why tech is one of the best industries for Filipino students to enter.",
 		type: "Talk",
 		category: "Career",
 		level: "Foundational",
@@ -768,9 +793,16 @@ function build() {
 	return TALKS.map((t) => {
 		const slug = slugify(t.title);
 		// Auto-wire a cover if a title-slide image exists in public/talks/covers/.
-		const coverFile = path.join(root, "public", "talks", "covers", `${slug}.jpg`);
+		const coverFile = path.join(
+			root,
+			"public",
+			"talks",
+			"covers",
+			`${slug}.jpg`,
+		);
 		const showcaseImage =
-			t.showcaseImage ?? (existsSync(coverFile) ? `/talks/covers/${slug}.jpg` : "");
+			t.showcaseImage ??
+			(existsSync(coverFile) ? `/talks/covers/${slug}.jpg` : "");
 		return {
 			slug,
 			title: t.title,
@@ -808,6 +840,38 @@ function build() {
 	});
 }
 
+// One atomic step per record, mirroring src/lib/content/revisions.ts: keep the
+// previous version in history, write the record, index it, bump its revision
+// and stamp who wrote it. Separate commands would let an agent write that read
+// the old revision land in between and overwrite the reseeded record.
+const SEED_SCRIPT = `
+local old = redis.call('GET', KEYS[1])
+local cur = tonumber(redis.call('GET', KEYS[3]) or '0') or 0
+if old and string.sub(old, 1, 1) == '{' then
+  local meta = redis.call('GET', KEYS[4])
+  if not meta or string.sub(meta, 1, 1) ~= '{' then meta = 'null' end
+  redis.call('LPUSH', KEYS[5], '{"rev":' .. cur .. ',"meta":' .. meta .. ',"replacedAt":' .. ARGV[3] .. ',"replacedBy":' .. ARGV[4] .. ',"value":' .. old .. '}')
+  redis.call('LTRIM', KEYS[5], 0, 24)
+end
+redis.call('SET', KEYS[1], ARGV[1])
+redis.call('SADD', KEYS[2], ARGV[2])
+redis.call('SET', KEYS[4], '{"at":' .. ARGV[3] .. ',"by":' .. ARGV[4] .. '}')
+return redis.call('INCR', KEYS[3])
+`;
+
+async function seedRecord(redis, key, indexKey, id, value, scriptName) {
+	await redis.eval(
+		SEED_SCRIPT,
+		[key, indexKey, `rev:${key}`, `meta:${key}`, `hist:${key}`],
+		[
+			JSON.stringify(value),
+			id,
+			JSON.stringify(new Date().toISOString()),
+			JSON.stringify({ type: "script", name: scriptName }),
+		],
+	);
+}
+
 async function main() {
 	const talks = build();
 	const outPath = path.join(root, "data", "talks.seed.json");
@@ -819,8 +883,7 @@ async function main() {
 		)} events) to data/talks.seed.json`,
 	);
 
-	const url =
-		process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+	const url = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
 	const token =
 		process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
 	if (!url || !token) {
@@ -832,8 +895,14 @@ async function main() {
 	const { Redis } = await import("@upstash/redis");
 	const redis = new Redis({ url, token });
 	for (const talk of talks) {
-		await redis.set(`talk:${talk.slug}`, talk);
-		await redis.sadd("talks:slugs", talk.slug);
+		await seedRecord(
+			redis,
+			`talk:${talk.slug}`,
+			"talks:slugs",
+			talk.slug,
+			talk,
+			"seed-talks",
+		);
 	}
 	console.log(`[seed-talks] seeded ${talks.length} talks into Upstash.`);
 }

@@ -1,12 +1,10 @@
-import "../globals.css";
-
 import type { Metadata } from "next";
 import { toPlainText, type PortableTextBlock } from "next-sanity";
 import { VisualEditing } from "next-sanity/visual-editing";
-import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
+import { preconnect } from "react-dom";
 
-import { Navbar } from "@/components/navbar";
+import { SiteShell } from "@/components/site-shell";
 import { SITE_URL } from "@/lib/seo";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -46,41 +44,30 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-const inter = Inter({
-	variable: "--font-inter",
-	subsets: ["latin"],
-	display: "swap",
-});
-
-export default async function RootLayout({
+export default async function BlogLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	// Every cover image on these pages comes from here.
+	preconnect("https://cdn.sanity.io");
 	const data = await sanityFetch({ query: settingsQuery });
 	const footer = data?.footer || [];
 	const { isEnabled: isDraftMode } = await draftMode();
 
 	return (
-		<html lang="en" className={`${inter.variable} bg-white text-black`}>
-			<body>
-				<Navbar />
-				<section className="min-h-screen">
-					{isDraftMode && <AlertBanner />}
-					<main>{children}</main>
-					<footer className="bg-accent-1 border-accent-2 border-t">
-						<div className="container mx-auto px-5">
-							{footer.length > 0 && (
-								<PortableText
-									className="prose-sm text-pretty bottom-0 w-full max-w-none bg-white py-12 text-center md:py-20"
-									value={footer as PortableTextBlock[]}
-								/>
-							)}
-						</div>
-					</footer>
-				</section>
-				{isDraftMode && <VisualEditing />}
-			</body>
-		</html>
+		<SiteShell>
+			{isDraftMode && <AlertBanner />}
+			{children}
+			{footer.length > 0 && (
+				<div className="site-container border-t border-border py-10">
+					<PortableText
+						className="measure text-sm text-muted-foreground"
+						value={footer as PortableTextBlock[]}
+					/>
+				</div>
+			)}
+			{isDraftMode && <VisualEditing />}
+		</SiteShell>
 	);
 }

@@ -1,27 +1,29 @@
 import type { Metadata } from "next";
 
 import { BlogSection } from "@/components/blog-section";
+import { CertificationsSection } from "@/components/certifications-section";
 import { CtaSection } from "@/components/cta-section";
-import { Footer } from "@/components/footer";
+import { ExperienceSection } from "@/components/experience-section";
 import { HeroSection } from "@/components/hero-section";
-import { InitiativeSection } from "@/components/initiative-section";
-import { Navbar } from "@/components/navbar";
-import { ProjectsSection } from "@/components/projects-section";
-import { RecognitionSection } from "@/components/recognition-section";
+import { DataSection, ProjectsSection } from "@/components/projects-section";
 import { RecommendationsSection } from "@/components/recommendations-section";
-import { SelectedWorkSection } from "@/components/selected-work-section";
+import { ResearchSection } from "@/components/research-section";
+import { SiteShell } from "@/components/site-shell";
 import { SpeakingSection } from "@/components/speaking-section";
 import {
-	awardSchema,
 	certificationSchema,
 	projectSchema,
 	recommendationSchema,
-	selectedWorkSchema,
+	researchStudySchema,
 } from "@/lib/collections/schema";
 import { getTypedItems } from "@/lib/collections/store";
-import { computeStats } from "@/lib/talks/schema";
+import { getResumeProfile } from "@/lib/resume";
+import { sortTalksByRecency } from "@/lib/talks/schema";
 import { getPublishedTalks } from "@/lib/talks/store";
 import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/seo";
+
+// Re-rendered daily, so a talk counts as delivered once its date passes.
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
 	alternates: { canonical: "/" },
@@ -56,45 +58,44 @@ const jsonLd = {
 };
 
 export default async function Home() {
-	const [
-		talks,
-		awards,
-		certifications,
-		recommendations,
-		projects,
-		selectedWork,
-	] = await Promise.all([
-		getPublishedTalks(),
-		getTypedItems("awards", awardSchema),
-		getTypedItems("certifications", certificationSchema),
-		getTypedItems("recommendations", recommendationSchema),
-		getTypedItems("projects", projectSchema),
-		getTypedItems("selected-work", selectedWorkSchema),
-	]);
+	const [talks, recommendations, projects, research, certifications, profile] =
+		await Promise.all([
+			getPublishedTalks(),
+			getTypedItems("recommendations", recommendationSchema),
+			getTypedItems("projects", projectSchema),
+			getTypedItems("research", researchStudySchema),
+			getTypedItems("certifications", certificationSchema),
+			getResumeProfile(),
+		]);
 	const featured = talks.filter((t) => t.featured);
-	// One row of three on the home page; the full catalogue lives on /speaking.
-	const speakingTeaser = (featured.length > 0 ? featured : talks).slice(0, 3);
-	const { sessions } = computeStats(talks);
+	// The full catalogue lives on /speaking.
+	const speakingTeaser = sortTalksByRecency(
+		featured.length > 0 ? featured : talks,
+	).slice(0, 3);
 
 	return (
-		<main className="min-h-screen bg-background">
+		<SiteShell>
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}
 			/>
-			<Navbar />
-			<HeroSection stats={{ sessions }} />
-			<InitiativeSection />
-			<SelectedWorkSection items={selectedWork} />
-			<ProjectsSection projects={projects} />
-			<SpeakingSection talks={speakingTeaser} total={talks.length} />
-			<BlogSection />
-			<RecognitionSection awards={awards} certifications={certifications} />
+			<HeroSection />
+			{/* On wrappers, so the nav's links still land if a collection is empty. */}
+			<div id="work">
+				<ProjectsSection projects={projects} />
+			</div>
+			<div id="research">
+				<ResearchSection studies={research} />
+			</div>
+			<SpeakingSection talks={speakingTeaser} all={talks} />
+			<ExperienceSection roles={profile.roles} />
+			<CertificationsSection certifications={certifications} />
 			<RecommendationsSection recommendations={recommendations} />
+			<DataSection projects={projects} />
+			<BlogSection />
 			<CtaSection />
-			<Footer />
-		</main>
+		</SiteShell>
 	);
 }

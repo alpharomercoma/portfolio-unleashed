@@ -16,7 +16,7 @@ export default async function NewTalkPage({
 }) {
 	const sp = await searchParams;
 	return (
-		<main className="min-h-screen bg-background px-4 sm:px-6 lg:px-8 py-12">
+		<div className="py-2">
 			<div className="max-w-2xl mx-auto">
 				<Link
 					href="/admin"
@@ -27,6 +27,6 @@ export default async function NewTalkPage({
 				<h1 className="display-md mt-6 mb-8">New talk</h1>
 				<TalkForm error={sp.error} aiEnabled={Boolean(env.MISTRAL_API_KEY)} />
 			</div>
-		</main>
+		</div>
 	);
 }

@@ -19,10 +19,14 @@ export default function AnchoredHeading({
 			{children}
 
 			<a
-				className="anim-fade-to-r ml-2 !no-underline group-target:inline-block md:hidden md:group-hover:inline-block"
+				className="ml-2 !no-underline opacity-0 focus:opacity-100 group-hover:opacity-100 group-target:opacity-100"
 				href={`#${id}`}
+				aria-label="Link to this section"
 			>
-				<VscLink className="inline-block align-baseline text-[smaller]" />
+				<VscLink
+					className="inline-block align-baseline text-[smaller]"
+					aria-hidden
+				/>
 			</a>
 		</Tag>
 	);

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Logo } from "@/components/logo";
+import { LOGO_BRAND, LOGO_WHITE, Logo } from "@/components/logo";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
 	title: "Offline",
@@ -11,24 +12,16 @@ export const metadata: Metadata = {
 
 export default function OfflinePage() {
 	return (
-		<main className="min-h-screen grid place-items-center bg-background px-6 text-center">
+		<main className="surface-brand grid min-h-svh place-items-center px-6">
 			<div className="max-w-md">
-				<div className="mx-auto mb-8 w-fit">
-					<Logo size={56} />
-				</div>
-				<h1 className="display-lg">
-					You&apos;re <span className="lime-mark">offline</span>.
-				</h1>
-				<p className="lede mt-6">
-					This page isn&apos;t available without a connection. Reconnect and try
-					again, the rest of the site will be right here.
+				<Logo size={56} tile={LOGO_WHITE} mark={LOGO_BRAND} />
+				<h1 className="display-xl mt-8">You&apos;re offline.</h1>
+				<p className="mt-5 text-lg leading-[1.75] text-on-brand">
+					This page isn&apos;t saved on this device. Reconnect, then try again.
 				</p>
-				<Link
-					href="/"
-					className="mt-8 inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
-				>
-					Back to home
-				</Link>
+				<Button asChild size="lg" variant="on-color" className="mt-8">
+					<Link href="/">Go to the home page</Link>
+				</Button>
 			</div>
 		</main>
 	);

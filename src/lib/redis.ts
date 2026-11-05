@@ -17,3 +17,15 @@ export function createRedis(): Redis | null {
 	const creds = getRedisCreds();
 	return creds ? new Redis(creds) : null;
 }
+
+/**
+ * A configured store that can't be read. In production this rethrows instead of
+ * letting the caller fall back to its seed: that result would be cached until the
+ * next write, and the seed isn't what's live. A failed revalidation keeps the last
+ * good page up and retries. The exception is right after a save, which expires the
+ * cache at once: that page shows the error page until the store is back, which beats
+ * wrong content that stays. Elsewhere the seed keeps local work going.
+ */
+export function failReadInProduction(error: unknown): void {
+	if (process.env.NODE_ENV === "production") throw error;
+}

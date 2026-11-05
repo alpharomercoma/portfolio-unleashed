@@ -4,6 +4,18 @@
 	counter-reset: step;
 	counter-increment: step 0;
 
+	/* A long line scrolls inside the block; the page never widens. Shiki makes the
+	   pre focusable, so this works from the keyboard too. */
+	& :global(pre) {
+		/* The syntax theme keeps its text colours; the block is the site's ink. */
+		background-color: var(--ink) !important;
+		overflow-x: auto;
+		padding: 1rem;
+		border-radius: 0.75rem;
+		font-size: 0.875rem;
+		line-height: 1.6;
+	}
+
 	& :global(.line)::before {
 		content: counter(step);
 		counter-increment: step;
@@ -12,7 +24,7 @@
 		display: inline-block;
 		text-align: right;
 		font-variant: tabular-nums;
-		opacity: 0.2;
+		color: #9a9ab0; /* 4.5:1 on the ink block */
 	}
 }
 
@@ -25,6 +37,6 @@
 		z-index: 0;
 		inset-block: -2px;
 		inset-inline: -1.6ch -0.5ch;
-		@apply rounded-r border-l-4 border-green-400 bg-green-400/20;
+		@apply rounded-r border-l-4 border-white/70 bg-white/5;
 	}
 }

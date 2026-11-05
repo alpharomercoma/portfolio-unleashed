@@ -11,6 +11,7 @@ export const metadata: Metadata = { title: "Admin", robots: { index: false } };
 const navItems: AdminNavItem[] = [
 	{ label: "Overview", href: "/admin" },
 	...ADMIN_SECTIONS.map((s) => ({ label: s.label, href: s.href })),
+	{ label: "Agents", href: "/admin/agents" },
 ];
 
 export default async function AdminLayout({

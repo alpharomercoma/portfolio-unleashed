@@ -102,53 +102,42 @@ export default async function PostPage({ params }: Props) {
 	};
 
 	return (
-		<div className="container mx-auto px-5">
+		<>
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
 				}}
 			/>
-			<article>
-				<h1 className="mt-24 text-balance mb-12 text-6xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
-					{post.title}
-				</h1>
-				<div className="hidden md:mb-12 md:block">
-					{post.author && (
-						<Avatar name={post.author.name} picture={post.author.picture} />
-					)}
-				</div>
-				<div className="mb-8 sm:mx-0 md:mb-16">
-					<CoverImage image={post.coverImage} priority />
-				</div>
-				<div className="mx-auto max-w-2xl">
-					<div className="mb-6 block md:hidden">
+			<article className="site-container pb-16 pt-12 lg:pb-20 lg:pt-16">
+				<div className="mx-auto max-w-3xl">
+					<h1 className="display-xl">{post.title}</h1>
+					<div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
 						{post.author && (
 							<Avatar name={post.author.name} picture={post.author.picture} />
 						)}
-					</div>
-					<div className="mb-6 text-lg">
-						<div className="mb-4 text-lg">
-							<DateComponent dateString={post.date} />
-						</div>
+						<DateComponent dateString={post.date} />
 					</div>
 				</div>
-				{post.content?.length && (
+				<div className="mx-auto mt-10 max-w-5xl overflow-hidden rounded-[1.75rem] border border-border">
+					<CoverImage image={post.coverImage} priority />
+				</div>
+				{(post.content?.length ?? 0) > 0 && (
 					<PortableText
-						className="mx-auto max-w-2xl"
+						className="mt-10 max-w-[68ch]"
 						value={post.content as PortableTextBlock[]}
 					/>
 				)}
 			</article>
-			<aside>
-				<hr className="border-accent-2 mb-24 mt-28" />
-				<h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-					Recent Stories
-				</h2>
-				<Suspense>
-					<MoreStories skip={post._id} limit={2} />
-				</Suspense>
-			</aside>
-		</div>
+			<Suspense>
+				<MoreStories
+					skip={post._id}
+					limit={2}
+					title="Recent posts"
+					columns={2}
+					className="bg-brand-wash py-12 lg:py-16"
+				/>
+			</Suspense>
+		</>
 	);
 }

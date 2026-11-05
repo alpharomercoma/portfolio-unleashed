@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import "@uiw/react-md-editor/markdown-editor.css";
 
@@ -15,10 +15,13 @@ const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 export function AboutForm({
 	about,
+	rev,
 	error,
 	saved,
 }: {
 	about: About;
+	/** Stored revision the form was opened at; the save is rejected if it moved. */
+	rev?: number;
 	error?: string;
 	saved?: boolean;
 }) {
@@ -28,6 +31,25 @@ export function AboutForm({
 	const [uploadError, setUploadError] = useState<string | null>(null);
 	const wrapRef = useRef<HTMLDivElement>(null);
 	const fileRef = useRef<HTMLInputElement>(null);
+
+	// The toolbar's buttons carry the names; the editor declares their icons as images
+	// with none, and it loads and re-renders on its own, so watch for them.
+	useEffect(() => {
+		const root = wrapRef.current;
+		if (!root) return;
+		const quiet = () => {
+			root
+				.querySelectorAll('.w-md-editor-toolbar svg[role="img"]')
+				.forEach((svg) => {
+					svg.removeAttribute("role");
+					svg.setAttribute("aria-hidden", "true");
+				});
+		};
+		quiet();
+		const observer = new MutationObserver(quiet);
+		observer.observe(root, { childList: true, subtree: true });
+		return () => observer.disconnect();
+	}, []);
 
 	function insertAtCursor(text: string) {
 		const ta = wrapRef.current?.querySelector("textarea");
@@ -96,7 +118,7 @@ export function AboutForm({
 	return (
 		<form action={saveAboutAction} className="space-y-6 max-w-3xl">
 			{saved && (
-				<p className="rounded-lg border border-lime/50 bg-lime/15 px-4 py-3 text-sm text-foreground">
+				<p className="rounded-lg border border-border bg-brand-wash px-4 py-3 text-sm text-foreground">
 					Saved. The public About page has been updated.
 				</p>
 			)}
@@ -163,6 +185,7 @@ export function AboutForm({
 					/>
 				</div>
 				<input type="hidden" name="body" value={body} />
+				{rev != null && <input type="hidden" name="rev" value={rev} />}
 				<p className="text-xs text-muted-foreground">
 					Supports markdown (headings, bold, lists, quotes, links). Drag, paste,
 					or use Upload image to add pictures.

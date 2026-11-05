@@ -1,5 +1,6 @@
 import { codeToHtml, splitLines } from "shiki";
 import ClickToCopy from "./ClickToCopy";
+import { CODE_COLOR_REPLACEMENTS } from "./code-colors";
 import css from "./Code.module.css";
 import { cn } from "@/lib/utils";
 import { stegaClean } from "next-sanity";
@@ -17,8 +18,10 @@ export default async function Code({
 	if (!value?.code) return null;
 
 	const html = await codeToHtml(stegaClean(value.code), {
-		lang: value.language,
+		// ANSI output brings its own colours, which no theme setting can keep readable.
+		lang: value.language === "ansi" ? "text" : value.language,
 		theme: "dark-plus",
+		colorReplacements: CODE_COLOR_REPLACEMENTS,
 		decorations: value.highlightedLines
 			?.map((row) => ({
 				row,
@@ -33,12 +36,10 @@ export default async function Code({
 	});
 
 	return (
-		<article className="group relative !mb-2 !mt-6 rounded bg-ink/5">
+		<article className="relative !mb-2 !mt-6">
 			{value.filename && (
-				<div className="-mb-1 rounded-t bg-[#1E1E1E]/90 px-2 py-1 font-mono text-xs text-canvas">
-					<span className="inline-block rounded-t border-b border-blue-400 bg-[#1E1E1E] px-3 py-2">
-						📁 {value.filename}
-					</span>
+				<div className="rounded-t-xl border-b border-white/25 bg-ink px-4 py-2.5 font-mono text-xs text-white">
+					{value.filename}
 				</div>
 			)}
 
@@ -48,8 +49,8 @@ export default async function Code({
 				<ClickToCopy
 					value={stegaClean(value.code)}
 					className={cn(
-						"anim-fade-to-l absolute right-0 top-0 m-1 hidden rounded p-[.3em] text-lg text-white",
-						"hover:bg-white/10 active:scale-95 active:bg-white/20 group-hover:block",
+						"absolute right-0 top-0 m-1 inline-flex size-9 items-center justify-center rounded text-lg text-white [--focus:#ffffff]",
+						"hover:bg-white/10 active:bg-white/20",
 					)}
 				/>
 			</div>

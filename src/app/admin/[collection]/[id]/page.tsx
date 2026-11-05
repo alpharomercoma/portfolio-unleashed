@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { CollectionForm } from "@/components/admin/collection-form";
 import { getCollection } from "@/lib/collections/registry";
-import { getItem } from "@/lib/collections/store";
+import { getItemForEdit } from "@/lib/collections/store";
 
 export default async function EditCollectionItemPage({
 	params,
@@ -16,8 +16,9 @@ export default async function EditCollectionItemPage({
 	const cfg = getCollection(collection);
 	if (!cfg) notFound();
 
-	const item = await getItem(collection, id);
-	if (!item) notFound();
+	const loaded = await getItemForEdit(collection, id);
+	if (!loaded) notFound();
+	const { item, rev } = loaded;
 
 	const { error } = await searchParams;
 	const { title } = cfg.summary(item);
@@ -31,10 +32,14 @@ export default async function EditCollectionItemPage({
 				/ Edit
 			</nav>
 			<h1 className="display-md mb-8 line-clamp-1">{title}</h1>
+			{/* Keyed by revision: after a conflict the form remounts with the
+			    latest content instead of pairing stale edits with a new rev. */}
 			<CollectionForm
+				key={rev ?? "unstored"}
 				fields={cfg.fields}
 				collectionKey={collection}
 				item={item}
+				rev={rev}
 				labelSingular={cfg.labelSingular}
 				listHref={`/admin/${collection}`}
 				error={error}

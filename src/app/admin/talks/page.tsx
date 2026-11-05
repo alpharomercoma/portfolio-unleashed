@@ -2,10 +2,15 @@ import Link from "next/link";
 
 import { removeTalk } from "@/app/admin/actions";
 import { Button } from "@/components/ui/button";
-import { getAllTalks, isStoreConfigured } from "@/lib/talks/store";
+import { getTalksForAdmin, isStoreConfigured } from "@/lib/talks/store";
 
-export default async function AdminTalksPage() {
-	const talks = await getAllTalks();
+export default async function AdminTalksPage({
+	searchParams,
+}: {
+	searchParams: Promise<{ error?: string }>;
+}) {
+	const talks = await getTalksForAdmin();
+	const { error } = await searchParams;
 
 	return (
 		<div>
@@ -21,6 +26,12 @@ export default async function AdminTalksPage() {
 					<Link href="/admin/talks/new">New talk</Link>
 				</Button>
 			</header>
+
+			{error && (
+				<p className="mb-6 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+					{error}
+				</p>
+			)}
 
 			{!isStoreConfigured && (
 				<p className="mb-6 rounded-lg border border-border bg-secondary px-4 py-3 text-sm text-muted-foreground">
@@ -56,7 +67,7 @@ export default async function AdminTalksPage() {
 										{t.title}
 									</Link>
 									{t.status === "draft" && (
-										<span className="inline-flex shrink-0 items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-600 dark:text-amber-400">
+										<span className="inline-flex shrink-0 items-center rounded-full border border-input bg-secondary px-2 py-0.5 text-xs font-medium text-foreground">
 											Draft
 										</span>
 									)}
@@ -75,6 +86,9 @@ export default async function AdminTalksPage() {
 							</Button>
 							<form action={removeTalk}>
 								<input type="hidden" name="slug" value={t.slug} />
+								{t._rev != null && (
+									<input type="hidden" name="rev" value={t._rev} />
+								)}
 								<Button variant="outline" size="sm" type="submit">
 									Delete
 								</Button>

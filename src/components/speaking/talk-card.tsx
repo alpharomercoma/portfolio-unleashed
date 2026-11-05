@@ -1,50 +1,52 @@
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-import { type Talk, latestEventDate } from "@/lib/talks/schema";
+import { SiteImage } from "@/components/site-image";
+import { lastGiven } from "@/components/speaking/talk-meta";
+import type { Talk } from "@/lib/talks/schema";
+import { cn } from "@/lib/utils";
 
-export function TalkCard({ talk }: { talk: Talk }) {
-	const sessions = talk.events.length;
-	const year = latestEventDate(talk).slice(0, 4);
+/** A talk as one row: cover, where it was given, title, and, if there's room, tagline. */
+export function TalkRow({
+	talk,
+	headingLevel: Heading = "h3",
+	showTagline = false,
+	showCover = true,
+}: {
+	talk: Talk;
+	headingLevel?: "h2" | "h3";
+	showTagline?: boolean;
+	showCover?: boolean;
+}) {
+	const cover = showCover && Boolean(talk.showcaseImage);
 	return (
-		<Link
-			href={`/speaking/${talk.slug}`}
-			className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30"
+		<article
+			className={cn(
+				"grid items-center gap-4 py-7",
+				cover && "sm:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] sm:gap-7",
+			)}
 		>
-			{/* No per-card glow: six neon blurs in one grid read as noise. The lime
-			    category chip is the one chromatic note per card. */}
-			<div className="relative flex items-center justify-between gap-3 mb-5">
-				<span className="inline-flex items-center rounded-full bg-lime px-2.5 py-1 text-[11px] font-semibold text-ink">
-					{talk.category}
-				</span>
-				{year && (
-					<span className="font-mono text-xs text-muted-foreground tabular-nums">
-						{year}
-					</span>
+			{cover && (
+				<div className="relative aspect-video overflow-hidden rounded-2xl border border-border bg-secondary">
+					<SiteImage
+						src={talk.showcaseImage}
+						alt=""
+						fill
+						sizes="(min-width: 640px) 13rem, 100vw"
+						className="object-cover"
+					/>
+				</div>
+			)}
+			<div className="min-w-0">
+				<p className="text-sm text-muted-foreground">{lastGiven(talk)}</p>
+				<Heading className="display-sm mt-1.5">
+					<Link href={`/speaking/${talk.slug}`} className="text-link">
+						{talk.title}
+					</Link>
+				</Heading>
+				{showTagline && talk.tagline && (
+					<p className="mt-2 text-muted-foreground">{talk.tagline}</p>
 				)}
 			</div>
-
-			<h3 className="relative font-display text-xl font-semibold text-foreground leading-[1.15] tracking-tight text-balance">
-				{talk.title}
-			</h3>
-			{talk.tagline && (
-				<p className="relative mt-2.5 text-sm text-muted-foreground leading-relaxed line-clamp-2 flex-1">
-					{talk.tagline}
-				</p>
-			)}
-
-			<div className="relative mt-6 flex items-center justify-between gap-3 pt-4 border-t border-border">
-				<span className="font-mono text-[11px] text-muted-foreground">
-					{[
-						talk.type,
-						talk.level,
-						`${sessions} ${sessions === 1 ? "session" : "sessions"}`,
-					]
-						.filter(Boolean)
-						.join(" · ")}
-				</span>
-				<ArrowUpRight className="size-4 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-			</div>
-		</Link>
+		</article>
 	);
 }

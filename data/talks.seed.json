@@ -1,5 +1,37 @@
 [
 	{
+		"slug": "when-the-kv-cache-cannot-roll-back",
+		"title": "When the KV Cache Cannot Roll Back",
+		"tagline": "How a phone skips re-reading a 2,050-token agent prompt, built twice because the app's two runtimes have different cache constraints.",
+		"type": "Talk",
+		"category": "Accelerated Computing",
+		"durationMinutes": 20,
+		"tags": ["ExecuTorch", "KV cache", "Android"],
+		"abstract": "Prefix reuse on Android, presented with Arjhine Ty. Reusing 1,192 tokens takes Qwen3-1.7B on ExecuTorch from a 5,852 ms first turn to 215 ms on the second.",
+		"outline": [],
+		"keyTakeaways": [],
+		"featured": true,
+		"status": "published",
+		"showcaseImage": "",
+		"primarySlideUrl": "",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "pytorch-day-japan-2026",
+				"eventName": "PyTorch Day Japan",
+				"organizerName": "PyTorch Foundation",
+				"organizerLogo": "",
+				"date": "2026-12-10",
+				"venue": "Tokyo",
+				"audienceSize": 0,
+				"slideUrl": "",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "",
+		"updatedAt": ""
+	},
+	{
 		"slug": "de-mystifying-pytorch-for-asics",
 		"title": "De-mystifying PyTorch for ASICs",
 		"tagline": "When, and why, to move your model development onto AI accelerators.",
@@ -35,7 +67,7 @@
 				"eventName": "PyTorch Conference Europe 2026",
 				"organizerName": "Linux Foundation",
 				"organizerLogo": "",
-				"date": "2026-04-07",
+				"date": "2026-04-08",
 				"venue": "Station F, Paris, France",
 				"audienceSize": 100
 			},
