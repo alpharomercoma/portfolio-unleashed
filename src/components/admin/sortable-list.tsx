@@ -54,14 +54,17 @@ export function SortableList({
 	items: SortableRowData[];
 }) {
 	const [rows, setRows] = useState(items);
+	const [syncedItems, setSyncedItems] = useState(items);
 	const [status, setStatus] = useState<SaveStatus>("idle");
 	const [, startTransition] = useTransition();
 
 	// Keep local order in sync if the server sends a fresh list (e.g. after an
 	// add/delete revalidation), but don't clobber an in-flight optimistic move.
-	useEffect(() => {
+	// Adjusted during render, as React recommends for state derived from props.
+	if (items !== syncedItems) {
+		setSyncedItems(items);
 		setRows(items);
-	}, [items]);
+	}
 
 	// Fade the "Saved" pill back to idle.
 	useEffect(() => {
