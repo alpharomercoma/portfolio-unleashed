@@ -20,11 +20,20 @@ export function latestEvent(talk: Talk): TalkEvent | null {
 	);
 }
 
-/** Where and when a talk was last given: "Station F, Paris, 7 April 2026". */
+/** Where and when a talk was given: "PyTorch Conference Europe 2026, 8 April 2026". */
 export function lastGiven(talk: Talk): string {
 	const e = latestEvent(talk);
-	if (!e) return "";
-	return [e.venue, longDate(e.date)].filter(Boolean).join(", ");
+	return e ? `${e.eventName}, ${longDate(e.date)}` : "";
+}
+
+/** A talk's deck and recording, or its only session's if it has none of its own. */
+export function talkLinks(talk: Talk): { slides: string; video: string } {
+	const only = talk.events.length === 1 ? talk.events[0] : null;
+	const web = (url?: string) => (url && /^https?:\/\//.test(url) ? url : "");
+	return {
+		slides: talk.primarySlideUrl || web(only?.slideUrl),
+		video: talk.videoUrl || web(only?.videoUrl),
+	};
 }
 
 /**

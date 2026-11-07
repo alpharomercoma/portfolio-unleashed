@@ -5,23 +5,13 @@ import { lastGiven } from "@/components/speaking/talk-meta";
 import type { Talk } from "@/lib/talks/schema";
 import { cn } from "@/lib/utils";
 
-/** A talk as one row: cover, where it was given, title, and, if there's room, tagline. */
-export function TalkRow({
-	talk,
-	headingLevel: Heading = "h3",
-	showTagline = false,
-	showCover = true,
-}: {
-	talk: Talk;
-	headingLevel?: "h2" | "h3";
-	showTagline?: boolean;
-	showCover?: boolean;
-}) {
-	const cover = showCover && Boolean(talk.showcaseImage);
+/** One catalogue entry: its cover, where and when it was given, and its title. */
+export function TalkRow({ talk }: { talk: Talk }) {
+	const cover = Boolean(talk.showcaseImage);
 	return (
 		<article
 			className={cn(
-				"grid items-center gap-4 py-7",
+				"grid items-center gap-4 py-6",
 				cover && "sm:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] sm:gap-7",
 			)}
 		>
@@ -38,14 +28,11 @@ export function TalkRow({
 			)}
 			<div className="min-w-0">
 				<p className="text-sm text-muted-foreground">{lastGiven(talk)}</p>
-				<Heading className="display-sm mt-1.5">
+				<h3 className="display-sm mt-1.5">
 					<Link href={`/speaking/${talk.slug}`} className="text-link">
 						{talk.title}
 					</Link>
-				</Heading>
-				{showTagline && talk.tagline && (
-					<p className="mt-2 text-muted-foreground">{talk.tagline}</p>
-				)}
+				</h3>
 			</div>
 		</article>
 	);

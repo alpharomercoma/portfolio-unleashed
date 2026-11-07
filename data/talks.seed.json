@@ -13,14 +13,11 @@
 		"featured": true,
 		"status": "published",
 		"showcaseImage": "",
-		"primarySlideUrl": "",
-		"videoUrl": "",
 		"events": [
 			{
 				"id": "pytorch-day-japan-2026",
 				"eventName": "PyTorch Day Japan",
 				"organizerName": "PyTorch Foundation",
-				"organizerLogo": "",
 				"date": "2026-12-10",
 				"venue": "Tokyo",
 				"audienceSize": 0,
@@ -28,8 +25,587 @@
 				"videoUrl": ""
 			}
 		],
-		"createdAt": "",
-		"updatedAt": ""
+		"createdAt": "2026-11-05T02:22:47.826Z",
+		"updatedAt": "2026-11-05T02:22:48.183Z"
+	},
+	{
+		"tagline": "A Git and GitHub workshop where attendees deploy a site and open a pull request.",
+		"durationMinutes": 0,
+		"abstract": "An online Git and GitHub workshop for FEU Tech students. It starts with version control, commits, branches, merge conflicts, and remotes. Then a 60-minute lab: personalize a website and deploy it to GitHub Pages, change it on a branch, and open a pull request to a class wall.",
+		"outline": [
+			"Why version control",
+			"Git basics: init, add, commit, log",
+			"Branches and merging",
+			"Merge conflicts",
+			"Remotes: clone, pull, push",
+			"Contributing with forks and pull requests",
+			"Lab 1: deploy a personal website to GitHub Pages",
+			"Lab 2: change it on a branch",
+			"Lab 3: open a pull request to the class wall"
+		],
+		"keyTakeaways": [
+			"Start with a repo and commit small, clear steps",
+			"Use one branch per feature and keep main working",
+			"Review each other's pull requests before you merge"
+		],
+		"tags": ["Git", "GitHub", "Version Control", "GitHub Pages", "Workshop"],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/gitting-ready.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1dUXWxDmYo0iTy-FwoMTk-p1leRWeNMKWBcGv6PnoRkM/edit",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "gitting-ready",
+		"title": "GITting Ready",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 120,
+				"slideUrl": "https://docs.google.com/presentation/d/1dUXWxDmYo0iTy-FwoMTk-p1leRWeNMKWBcGv6PnoRkM/edit",
+				"videoUrl": "",
+				"id": "gitting-ready-1",
+				"eventName": "GitHub @ FEU Tech AITS",
+				"organizerName": "FEU Tech Alliance of Information Technology Students",
+				"date": "2026-11-06",
+				"venue": "Online"
+			}
+		]
+	},
+	{
+		"slug": "when-is-local-copilot-worth-it-three-open-weight-coders-vs-copilot-out-of-the-bo",
+		"title": "When is local Copilot worth it? Three open-weight coders vs. Copilot out of the box",
+		"tagline": "",
+		"type": "Talk",
+		"category": "Community",
+		"level": "Foundational",
+		"durationMinutes": 15,
+		"tags": [],
+		"abstract": "This session compares three open-weight coding models running locally on an RTX 4090 and Apple M5 with GitHub Copilot’s default agent mode. Attendees will examine benchmark results from real repository tasks and receive a reproducible method for deciding when local inference provides practical value.",
+		"outline": [
+			"What Copilot BYOK changes and what it does not cover",
+			"Benchmark design, repository tasks, models, and hardware",
+			"Results across latency, tool use, and task completion",
+			"Workload patterns that favor local models or GitHub Copilot",
+			"Reproducing the comparison on your own repositories"
+		],
+		"keyTakeaways": [
+			"A repeatable benchmark method for comparing local coding models with GitHub Copilot on real repositories.",
+			"A workload decision matrix showing when local inference, Copilot out of the box, or Copilot BYOK is the better fit.",
+			"Measured results for time to first token, tool call accuracy, and task completion across an RTX 4090, Apple M5, and GitHub Copilot.",
+			"A clear account of which Copilot capabilities BYOK does not replace, including code completion, embeddings, and repository indexing.",
+			"A practical method for testing the same models and metrics on your own codebase."
+		],
+		"featured": true,
+		"status": "published",
+		"showcaseImage": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1786269012493-07_alpha-romer-coma_light-2_1785426657524001GVrS-U6ugzCpGcBxUhgAypayuTLU4UvscYW.png",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1n0wCEUsScQFMbWIhfk1OVai1pNZ781RLG7GZejQHK4A/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "when-is-local-copilot-worth-it-three-open-weight-coders-vs-copilot-out-of-1",
+				"eventName": "GitHub Universe",
+				"organizerName": "GitHub",
+				"organizerLogo": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/github-9bRkrWo2NgVDsjWp4yNvNm5Oj3ukV0.png",
+				"date": "2026-10-28",
+				"venue": "Fort Mason, San Francisco",
+				"audienceSize": 100,
+				"slideUrl": "https://docs.google.com/presentation/d/1n0wCEUsScQFMbWIhfk1OVai1pNZ781RLG7GZejQHK4A/edit"
+			}
+		],
+		"createdAt": "2026-08-09T09:58:19.451Z",
+		"updatedAt": "2026-08-09T09:58:19.451Z"
+	},
+	{
+		"tagline": "Building scraping pipelines that hold up against bot defenses at scale.",
+		"durationMinutes": 60,
+		"abstract": "Modern web scraping requires navigating strict bot defense systems like Akamai and reCAPTCHA. Extracting data reliably at scale demands an architecture that accurately mimics human behavior for automated problem resolution. This session outlines the technical requirements for building resilient, high throughput scraping pipelines capable of operating undetected over time.",
+		"outline": [
+			"Execution pipelines: headless and headed Chrome with Xvfb, direct API requests, extension-based scrapers, and frameworks like Playwright, Patchright, and curl_cffi",
+			"Browser searching with locally hosted services like DuckDuckGo search and SearXNG",
+			"Automated verification: audio pipelines with ffmpeg, Faster Whisper, and Google STT, and visual models like CLIP",
+			"Data extraction with OCR engines like PyMuPDF, Tesseract, and RapidOCR",
+			"Digital identities: residential proxy rotation, browser fingerprints, and session trust-building",
+			"Scaling from a single worker to multi-threaded concurrency and multi-VM deployments",
+			"A practice target website to compete on after the session"
+		],
+		"keyTakeaways": [],
+		"tags": [
+			"web scraping",
+			"Playwright",
+			"curl_cffi",
+			"proxies",
+			"OCR",
+			"bot evasion"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "",
+		"primarySlideUrl": "",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "navigating-the-grey-softcon-2026",
+		"title": "Navigating the Grey: Scaling from Single Worker to Multi-VM Undetectable Scrapers",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Intermediate",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 100,
+				"slideUrl": "",
+				"videoUrl": "",
+				"id": "navigating-the-grey-softcon-2026-1",
+				"eventName": "SOFTCON 2026",
+				"organizerName": "Philippine Software Industry Association",
+				"date": "2026-10-27",
+				"venue": "Online"
+			}
+		]
+	},
+	{
+		"tagline": "Scraping the store directories of Philippine malls in Python, from the first request to a 53-mall run.",
+		"durationMinutes": 30,
+		"abstract": "A talk built on scraping the store directories of Philippine malls. It shows the three places data can live (static HTML, a JavaScript page, the page's own API), takes a 53-mall run from 32.5 s to 2.0 s with asyncio and one process per core, then covers rate limits, proxies, monitoring that fails loudly, and how to decide which barriers to stop at.",
+		"outline": [
+			"What a web scraper is and where it sits in the data value chain",
+			"Three doors to the data: static HTML, a JavaScript page, the page's own API",
+			"Reading robots.txt before the page",
+			"Where the time goes: sync, async, threads, and processes across 53 malls",
+			"Rate limits and getting more per request",
+			"What a site can see: IP, JavaScript, and proxies",
+			"Containerizing the browser stack",
+			"PengePassportPH: built-in limits and a canary that fails loudly",
+			"Navigating the grey: what a barrier protects and who pays"
+		],
+		"keyTakeaways": [
+			"Look before you scrape: the page's own API, then the HTML, then a browser",
+			"Overlap the waiting, then use every core: asyncio for the waiting, one process per core for the parsing",
+			"They set the bar: start low, back off on errors and Retry-After, and get more per request",
+			"Fail loudly: a 200 can mean no, so check every answer and run a check on a schedule",
+			"In the grey, ask who pays: what does the barrier protect, and would you sign your name to it?"
+		],
+		"tags": ["web scraping", "Python", "Playwright", "asyncio", "proxies"],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/navigating-the-grey-resilient-python-scrapers.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1mI8LanGjCL8X_7j0wZfaR8GiDC_h2tZWt3owU8XsbTw/edit",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "navigating-the-grey-resilient-python-scrapers",
+		"title": "Navigating the Grey: Building Resilient Python Scrapers That Survive at Scale",
+		"type": "Talk",
+		"category": "Developer Tools",
+		"level": "Intermediate",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 30,
+				"slideUrl": "https://docs.google.com/presentation/d/1mI8LanGjCL8X_7j0wZfaR8GiDC_h2tZWt3owU8XsbTw/edit",
+				"videoUrl": "",
+				"id": "navigating-the-grey-resilient-python-scrapers-1",
+				"eventName": "PyCon Davao 2026",
+				"organizerName": "DurianPy",
+				"date": "2026-10-17",
+				"venue": "Ateneo de Davao University, Davao City"
+			}
+		]
+	},
+	{
+		"slug": "beyond-gpus-production-llms-on-aws-trainium-inferentia",
+		"title": "Beyond GPUs:  Production LLMs on AWS Trainium & Inferentia",
+		"tagline": "",
+		"type": "Talk",
+		"category": "Community",
+		"level": "Intermediate",
+		"durationMinutes": 60,
+		"tags": [],
+		"abstract": "This session evaluates AWS Trainium and Inferentia through a reproducible production pipeline. It covers LoRA fine tuning, vLLM serving, multimodal workloads, quantization, speculative decoding, retrieval augmented generation, cost comparisons, and documented failures to help teams determine when AWS Neuron silicon fits their workloads.",
+		"outline": [
+			"Why and when to consider AWS silicon instead of GPUs",
+			"Provisioning Trainium and Inferentia with AWS CDK",
+			"Fine tuning an 8B model with LoRA and publishing it to Amazon S3",
+			"Serving models with vLLM and testing advanced inference techniques",
+			"Reviewing multimodal workloads, retrieval augmented generation, and documented failures",
+			"Comparing costs and applying a production workload decision framework"
+		],
+		"keyTakeaways": [
+			"Identify which training and inference workloads fit Trainium and Inferentia.",
+			"Compare Neuron instance costs with equivalent GPU deployments.",
+			"Understand the practical limits of model support, compilation, quantization, and serving.",
+			"Reuse an AWS CDK pipeline and runbooks for fine tuning, artifact storage, and deployment."
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1786283164780-AWS-ngotL2HmEXebH2y0VnXA1VUAagpJyU.png",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1ya_FQCdA86mOHMK_VsPfgzmaG3NsbloIkc4ye1r2Ltc/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "beyond-gpus-production-llms-on-aws-trainium-inferentia-1",
+				"eventName": "AWS Community Day Philippines 2026",
+				"organizerName": "AWS User Group Philippines",
+				"organizerLogo": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1786283342794-aws-user-group-philippines-logo-rGsV6u2ruyaYiGBx8HLo0WOaFLZqf2.webp",
+				"date": "2026-09-22",
+				"venue": "AWS Office PH",
+				"audienceSize": 100,
+				"slideUrl": "https://docs.google.com/presentation/d/1ya_FQCdA86mOHMK_VsPfgzmaG3NsbloIkc4ye1r2Ltc/edit"
+			}
+		],
+		"createdAt": "2026-08-09T13:50:45.910Z",
+		"updatedAt": "2026-08-09T13:52:31.310Z"
+	},
+	{
+		"slug": "openai-codex-for-cs-it-mma-and-engineering",
+		"title": "OpenAI Codex for CS, IT, MMA, and Engineering",
+		"tagline": "Student Case Study for FEU Tech's Grand OpenAI Launch",
+		"type": "Talk",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"durationMinutes": 60,
+		"tags": [
+			"OpenAI Codex",
+			"CAD",
+			"CLI",
+			"Electrical Engineering",
+			"Mechanical Engineering",
+			"Computer Engineering",
+			"Computer Science",
+			"Multimedia Arts",
+			"Information Technology"
+		],
+		"abstract": "This talk shows how to use the OpenAI Codex CLI to generate CAD models, electrical schematics, mechanical designs, and software code from plain language prompts. It walks through installing the tool, adding plugins, and applying it to engineering disciplines like civil, electrical, mechanical, and computer engineering. The session also covers integrating Codex with multimedia arts and computer science workflows.",
+		"outline": [
+			"Introduction to OpenAI Codex CLI and installation",
+			"Codex Skills and Plugins for CAD and engineering tasks",
+			"Case study: Smart home design with Codex",
+			"Codex for Civil Engineering: floor plans and structural elements",
+			"Codex for Electrical Engineering: wiring diagrams and load schedules",
+			"Codex for Mechanical Engineering: generator design and cutaway views",
+			"Codex for Electronics Engineering: sensor schematics and BOMs",
+			"Codex for Computer Engineering: motion sensors and system logic",
+			"Codex for Computer Science: training a Tagalog intent model",
+			"Codex for Multimedia Arts: Figma to code workflows",
+			"Codex for Information Technology: web and mobile app development",
+			"Open-ended prompts and project ideas for the audience"
+		],
+		"keyTakeaways": [
+			"How to install and run the OpenAI Codex CLI on Windows, macOS, and Linux.",
+			"Using Codex Skills and Plugins to generate CAD models and engineering diagrams from text.",
+			"Examples of Codex applied to civil, electrical, mechanical, and electronics engineering tasks.",
+			"Integrating Codex with computer science workflows like training a Tagalog intent model.",
+			"Connecting Codex outputs to multimedia arts and IT development pipelines."
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1782823421133-OpenAI-for-CS--IT--MMA----Engineering-nFQ5uAT6r5XfML9dVRouAocKr4ffFd.png",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1hJoKmLZMRPZgQxMNFHcRoYmJOtDmTV5EjTnbLeNoBLE/edit?usp=sharing",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "openai-codex-for-cs-it-mma-and-engineering-1",
+				"eventName": "AI Campus Launch: Learn SMART, AIM Higher",
+				"organizerName": "FEU Institute of Technology",
+				"organizerLogo": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1782741320615-FEU_Tech_official_seal-SdLUYiXb3IEKKNLTv15GGxQuVGkCg4.png",
+				"date": "2026-06-25",
+				"venue": "FEU Auditorium",
+				"audienceSize": 2000,
+				"slideUrl": "",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-29T13:56:16.379Z",
+		"updatedAt": "2026-06-30T12:48:10.015Z"
+	},
+	{
+		"slug": "from-zero-to-trainium-your-first-model-on-awss-pytorch-stack",
+		"title": "From Zero to Trainium: Your First Model on AWS's PyTorch Stack",
+		"tagline": "Provision Trainium, port a model, and train it in under an hour.",
+		"type": "Talk",
+		"category": "Accelerated Computing",
+		"level": "Intermediate",
+		"durationMinutes": 10,
+		"tags": ["AWS", "Trainium", "PyTorch", "Neuron"],
+		"abstract": "A quick-start on AWS's native PyTorch stack: provisioning a Trainium instance, porting a model with the Neuron SDK, and running your first training job in under an hour.",
+		"outline": [
+			"What Trainium is and when to reach for it",
+			"Provisioning a Trainium instance",
+			"Porting a PyTorch model with Neuron",
+			"Running and verifying your first training job"
+		],
+		"keyTakeaways": [
+			"Trainium is approachable from standard PyTorch",
+			"The Neuron SDK handles most of the porting work"
+		],
+		"featured": false,
+		"status": "draft",
+		"showcaseImage": "",
+		"primarySlideUrl": "",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "from-zero-to-trainium-your-first-model-on-awss-pytorch-stack-1",
+				"eventName": "AWS Community Day Philippines 2026",
+				"organizerName": "AWS Cloud Clubs Philippines",
+				"organizerLogo": "",
+				"date": "2026-06-20",
+				"venue": "AWS Office Philippines",
+				"audienceSize": 50
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "from-spark-to-system-turning-ideas-into-cloud-driven-real-world-solutions",
+		"title": "From Spark to System: Turning Ideas into Cloud-Driven Real-World Solutions",
+		"tagline": "Compare cloud options and pick the right one for your project.",
+		"type": "Talk",
+		"category": "Cloud Computing",
+		"level": "Foundational",
+		"durationMinutes": 60,
+		"tags": [
+			"Cloud Computing",
+			"VPS",
+			"Hyperscalers",
+			"NeoClouds",
+			"AWS",
+			"GCP",
+			"Azure",
+			"LLM"
+		],
+		"abstract": "This talk walks through choosing cloud platforms for real workloads. It contrasts traditional VPS, hyperscalers, and NeoClouds. Three case studies show how to size and price servers for a Minecraft host, a personal dev machine, and a university application. The session also covers cloud roles, architecture diagrams, and free training resources.",
+		"outline": [
+			"Cloud concepts and tools overview",
+			"Roles in cloud computing",
+			"Traditional VPS vs. hyperscalers vs. NeoClouds",
+			"Case study: Minecraft server on OVHCloud",
+			"Case study: Personal dev machine on OVHCloud",
+			"Case study: University application on AWS/GCP",
+			"Estimating costs and designing architectures",
+			"Learning resources and certifications"
+		],
+		"keyTakeaways": [
+			"Cloud choices split into VPS, hyperscalers, and NeoClouds with different trade-offs.",
+			"A VPS gives root access and predictable pricing but requires manual scaling.",
+			"Hyperscalers offer managed services and pay-as-you-go billing across global regions.",
+			"NeoClouds provide GPU rentals by the hour for AI training and inference.",
+			"Free credits and certifications are available to start building on major clouds."
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1781536581312-gdg_pup-G06H0oUw6BR6IH2fckLHBwDq8EpeWJ.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1zJZ443NBloyZBk1no_saJx8WSYTLynpzRWQRlclqSMU/edit?usp=sharing",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "from-spark-to-system-turning-ideas-into-cloud-driven-real-world-solutions-1",
+				"eventName": "CUMULUS: Innovation rises into the cloud and becomes real-world deployments",
+				"organizerName": "Google Developer Groups on Campus PUP",
+				"organizerLogo": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1781536750517-gdg_pup_logo-JL2a2R1eJgA0SXEFbD8YkVosvDPwpJ.jpg",
+				"date": "2026-06-13",
+				"venue": "PUP Manila",
+				"audienceSize": 30,
+				"slideUrl": "https://docs.google.com/presentation/d/1zJZ443NBloyZBk1no_saJx8WSYTLynpzRWQRlclqSMU/edit?usp=sharing",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-15T15:20:00.304Z",
+		"updatedAt": "2026-06-15T15:20:00.304Z"
+	},
+	{
+		"slug": "navigating-the-grey",
+		"title": "Navigating the Grey: Scaling from Single Worker to Multi-VM Undetectable Scrapers",
+		"tagline": "From single scripts to multi-VM fleets: practical techniques to scale undetectable scrapers.",
+		"type": "Talk",
+		"category": "Developer Tools",
+		"level": "Intermediate",
+		"durationMinutes": 120,
+		"tags": [
+			"web scraping",
+			"Playwright",
+			"curl_cffi",
+			"CAPTCHA",
+			"proxies",
+			"OCR",
+			"asynchronous",
+			"bot evasion"
+		],
+		"abstract": "A practical guide to scaling web scrapers from a single worker to multi-VM fleets. Covers execution models, scraping frameworks, headed vs headless trade-offs, bot evasion techniques, and real-world challenges like CAPTCHAs and geo-blocking. Includes code samples and a hands-on challenge with seven progressively difficult targets.",
+		"outline": [
+			"Execution Models",
+			"Scraping Frameworks",
+			"Headed vs Headless",
+			"Extension & API Scraping",
+			"Agentic Scraping",
+			"OCR Extraction",
+			"Paid Web Searching",
+			"Bot Evasion Techniques",
+			"Scraping at Scale",
+			"Scraping Legalities",
+			"Q&A Session"
+		],
+		"keyTakeaways": [
+			"Compare synchronous vs asynchronous scraping and when to use each",
+			"Choose the right scraping framework for your workload (Requests, Scrapy, Playwright, curl_cffi)",
+			"Apply bot evasion techniques: fingerprints, proxies, cookie prewarming, and human-like behavior",
+			"Scale scrapers across multiple VMs while balancing concurrency, success rate, and cost",
+			"Navigate legal and technical obstacles like CAPTCHAs, geo-blocking, and rate limits"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1781535344458-undetectable_scrapers-seloJDIKgwBqHA7sTeL5OaNzcoJg2V.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1Bp73VWNjWDIE3NsbzhH8OrECkbnSnuFfJrIOCoAMl98/edit?usp=sharing",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "navigating-the-grey-1",
+				"eventName": "DataMasters Episode 7",
+				"organizerName": "Data Engineering Pilipinas",
+				"organizerLogo": "https://gw1pmyfb0lmlyzwi.public.blob.vercel-storage.com/media/1781536418818-dep-L2BZEUkCmEvNVcbuZsv09SyBU9ectf.png",
+				"date": "2026-06-06",
+				"venue": "Discord",
+				"audienceSize": 20,
+				"slideUrl": "https://docs.google.com/presentation/d/1Bp73VWNjWDIE3NsbzhH8OrECkbnSnuFfJrIOCoAMl98/edit?usp=sharing",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-15T11:17:39.499Z",
+		"updatedAt": "2026-06-15T15:14:29.418Z"
+	},
+	{
+		"tagline": "The PyTorch Conference Europe talk, extended for a community study group.",
+		"durationMinutes": 0,
+		"abstract": "The PyTorch Conference Europe talk, extended for a community study group. It covers how ASICs and the XLA and Neuron compilers work, PyTorch/XLA on Google TPU and TorchNeuronX on AWS Trainium, the compiler tax, common ASIC errors, and migration notes. It adds where to get TPUs, the Paris experience, and how to speak at Linux Foundation events.",
+		"outline": [
+			"Deep learning computations and how ASICs and XLA work",
+			"Google TPU with PyTorch/XLA",
+			"AWS Trainium with TorchNeuronX",
+			"Performance analysis and the compiler tax",
+			"Common ASIC errors",
+			"Migration notes",
+			"Where to get TPUs and how to apply to the TPU Research Cloud",
+			"The PyTorch Conference Europe experience and speaking at Linux Foundation events"
+		],
+		"keyTakeaways": [
+			"PyTorch stays the standard framework, and ASICs are building on top of it",
+			"Moving to TPU or Trainium means learning new compile semantics and op coverage gaps"
+		],
+		"tags": ["PyTorch", "TPU", "Trainium", "ASICs"],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/de-mystifying-pytorch-for-asics-ai-study-group.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "de-mystifying-pytorch-for-asics-ai-study-group",
+		"title": "De-mystifying PyTorch for ASICs",
+		"type": "Talk",
+		"category": "Accelerated Computing",
+		"level": "Intermediate",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 20,
+				"slideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
+				"videoUrl": "",
+				"id": "de-mystifying-pytorch-for-asics-ai-study-group-1",
+				"eventName": "AI Study Group 2026",
+				"organizerName": "Data Engineering Pilipinas",
+				"date": "2026-05-09",
+				"venue": "Online"
+			}
+		]
+	},
+	{
+		"slug": "introduction-to-github-copilot-and-ai-development",
+		"title": "Introduction to GitHub Copilot and AI Development",
+		"tagline": "A hands-on intro to coding with Copilot, from autocomplete to agent.",
+		"type": "Talk",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"durationMinutes": 30,
+		"tags": ["GitHub Copilot", "AI", "Developer Tools"],
+		"abstract": "A hands-on introduction to GitHub Copilot: installing it in VS Code, the CLI versus the GUI, the four permission modes (interactive, plan, YOLO, autopilot) and the 'permission fatigue' trade-off, plus core capabilities like web search, image input, and the commit generator.",
+		"outline": [
+			"What Copilot is, and installing it in VS Code",
+			"Copilot CLI vs GUI",
+			"The four permission modes: interactive, plan, YOLO, autopilot",
+			"Capabilities: web search, image input, commit generator",
+			"Hands-on demo"
+		],
+		"keyTakeaways": [
+			"Match the Copilot mode to your trust level (interactive to autopilot)",
+			"The CLI brings Copilot to the terminal across Linux, macOS, and Windows",
+			"Copilot can search the web, read images, and draft your commits"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/introduction-to-github-copilot-and-ai-development.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1diyWyjbFnMRDKm07uJaCz1TL6kR-IKeDuZosOebusq4/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "introduction-to-github-copilot-and-ai-development-1",
+				"eventName": "Sparkpoint 2026",
+				"organizerName": "Microsoft Student Community NU Laguna",
+				"organizerLogo": "",
+				"date": "2026-05-02",
+				"venue": "National University Laguna",
+				"audienceSize": 50,
+				"slideUrl": "https://docs.google.com/presentation/d/1diyWyjbFnMRDKm07uJaCz1TL6kR-IKeDuZosOebusq4/edit",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "frontiers-of-modern-ai-multimodality-and-accelerated-computing",
+		"title": "Frontiers of Modern AI: Multimodality and Accelerated Computing",
+		"tagline": "A tour of the two frontiers defining where AI is going.",
+		"type": "Talk",
+		"category": "AI & ML",
+		"level": "Intermediate",
+		"durationMinutes": 120,
+		"tags": ["Multimodality", "Accelerated Computing", "TPU", "H100", "VLM"],
+		"abstract": "A guided tour of the two frontiers shaping modern AI: multimodal fusion architectures that combine text, vision, and audio, and the accelerator stack (H100, TPU v6e, Trainium) that makes training them possible.",
+		"outline": [
+			"Why multimodality and accelerated computing are converging",
+			"Multimodal fusion architectures in brief",
+			"The accelerator stack: H100, TPU v6e, Trainium",
+			"What this means for the next generation of models"
+		],
+		"keyTakeaways": [
+			"Capability gains now come from both data modality and hardware",
+			"Knowing your accelerator options is a research advantage"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/frontiers-of-modern-ai-multimodality-and-accelerated-computing.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "frontiers-of-modern-ai-multimodality-and-accelerated-computing-1",
+				"eventName": "EDiTH Episode 9",
+				"organizerName": "FEU Institute of Technology",
+				"organizerLogo": "",
+				"date": "2026-04-10",
+				"venue": "FEU Institute of Technology",
+				"audienceSize": 100,
+				"slideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
 	},
 	{
 		"slug": "de-mystifying-pytorch-for-asics",
@@ -66,23 +642,439 @@
 				"id": "de-mystifying-pytorch-for-asics-1",
 				"eventName": "PyTorch Conference Europe 2026",
 				"organizerName": "Linux Foundation",
-				"organizerLogo": "",
 				"date": "2026-04-08",
 				"venue": "Station F, Paris, France",
-				"audienceSize": 100
-			},
+				"audienceSize": 100,
+				"slideUrl": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit"
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-11-05T02:22:48.540Z"
+	},
+	{
+		"slug": "git-and-github-foundations",
+		"title": "Git & GitHub Foundations Workshop",
+		"tagline": "A hands-on path from your first commit to a confident GitHub workflow.",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"durationMinutes": 120,
+		"tags": ["Git", "GitHub", "Version Control", "Workshop", "Certification"],
+		"abstract": "A foundational, hands-on workshop on Git and GitHub: the core commands, the commit workflow, branching, pull requests, and the GitHub features that get you job-ready, including the path to the free-for-students GitHub Foundations certification and the Student Developer Pack.",
+		"outline": [
+			"Git vs GitHub, and why version control matters",
+			"Fundamental commands: init, add, commit, push, pull, clone",
+			"Anatomy of a commit and .gitignore",
+			"Branching, forking, merge vs rebase",
+			"Pull requests and GitHub Flow",
+			"Certification path and the Student Developer Pack",
+			"Deploying a personal website with GitHub Pages"
+		],
+		"keyTakeaways": [
+			"A clean commit workflow is the foundation of collaboration",
+			"GitHub Flow is a simple, CI/CD-friendly branching model",
+			"Students can get GitHub Foundations certified for free"
+		],
+		"featured": true,
+		"status": "published",
+		"showcaseImage": "/talks/covers/git-and-github-foundations.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw/edit",
+		"videoUrl": "",
+		"events": [
 			{
-				"id": "de-mystifying-pytorch-for-asics-2",
-				"eventName": "AI Study Group 2026",
-				"organizerName": "Data Engineering Pilipinas",
-				"organizerLogo": "",
-				"date": "2026-05-09",
-				"venue": "Online",
-				"audienceSize": 20
+				"id": "git-and-github-foundations-4",
+				"eventName": "Git and GitHub Workshop",
+				"organizerName": "JBECP, JRU Chapter",
+				"date": "2026-03-05",
+				"venue": "Jose Rizal University",
+				"audienceSize": 50,
+				"slideUrl": "https://docs.google.com/presentation/d/1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw/edit"
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
 		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "online-safety-in-the-age-of-ai",
+		"title": "Online Safety in the Age of AI",
+		"tagline": "Staying safe as a student when AI is in every classroom and feed.",
+		"type": "Talk",
+		"category": "AI & ML",
+		"level": "Foundational",
+		"durationMinutes": 60,
+		"tags": ["AI Safety", "Cybersecurity", "Students", "Prompt Injection"],
+		"abstract": "Navigating AI safely as a student: LLM hallucinations, deepfakes, and fake documents; how to make (and therefore recognize) AI-generated images and edits; the tells that give AI images away; and what the privacy policies of major AI companies actually say, with the ethical considerations for NGO use.",
+		"outline": [
+			"Hallucinations, deepfakes, and fake documents",
+			"Creating your own AI images and edits",
+			"Emerging dangers in the age of AI",
+			"Recognizing AI-generated content (hands, textures, physics)",
+			"Privacy policies of AI companies"
+		],
+		"keyTakeaways": [
+			"Hallucinations range from fact-mixed to pure fabrication, so verify",
+			"Spot AI images by hands, plastic textures, and physics violations",
+			"Read an AI tool's privacy policy before you feed it your data"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/online-safety-in-the-age-of-ai.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "online-safety-in-the-age-of-ai-1",
+				"eventName": "Ctrl + Prompt",
+				"organizerName": "FEU Tech ACM Student Chapter",
+				"organizerLogo": "",
+				"date": "2026-01-08",
+				"venue": "FEU Institute of Technology",
+				"audienceSize": 20,
+				"slideUrl": "https://docs.google.com/presentation/d/1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E/edit",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "product-building-with-ai",
+		"title": "Product Building with AI",
+		"tagline": "Going from idea to a shipped product using today's AI toolchain.",
+		"type": "Workshop",
+		"category": "AI & ML",
+		"level": "Advanced",
+		"durationMinutes": 100,
+		"tags": ["AI", "Product", "v0", "Vercel", "Workshop"],
+		"abstract": "A hands-on workshop, delivered to ~700 attendees at the Philippine Innovation Conference, on building real products with AI. Covers what makes a 'product', the levels and categories of AI, and the generative-AI toolchain, then a live case study building and deploying a hotel booking site and an employee management system with v0 and Vercel, plus the pitfalls of AI-assisted development.",
+		"outline": [
+			"What 'product' means: solving real problems, not clever demos",
+			"Levels and categories of AI",
+			"Generative-AI tools for product building",
+			"Case study: building products with v0",
+			"Deploying products with Vercel",
+			"Pitfalls of using AI in development"
+		],
+		"keyTakeaways": [
+			"Build for a real problem; most startups fail solving ones no one has",
+			"v0 plus Vercel takes an idea to a deployed product fast",
+			"Know the pitfalls (POC purgatory, evaluation) before you ship"
+		],
+		"featured": true,
+		"status": "published",
+		"showcaseImage": "/talks/covers/product-building-with-ai.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1pQ5gzJtaP9tqAYS1ISIJ79EDVy6LHiWtXpgEOHvfQuo/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "product-building-with-ai-1",
+				"eventName": "Philippine Innovation Conference 2025",
+				"organizerName": "OpenVerse",
+				"organizerLogo": "",
+				"date": "2025-11-21",
+				"venue": "University of Batangas",
+				"audienceSize": 700,
+				"slideUrl": "https://docs.google.com/presentation/d/1pQ5gzJtaP9tqAYS1ISIJ79EDVy6LHiWtXpgEOHvfQuo/edit",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "github-universe-25-recap-ai-edition",
+		"title": "GitHub Universe '25 Recap: AI Edition",
+		"tagline": "The launches from GitHub Universe 2025, unpacked for builders.",
+		"type": "Talk",
+		"category": "Developer Tools",
+		"level": "Intermediate",
+		"durationMinutes": 30,
+		"tags": ["GitHub", "Copilot", "AI", "GitHub Models"],
+		"abstract": "A fast recap of GitHub Universe 2025's AI launches, delivered for the Microsoft Azure Community: Agent HQ, Copilot Plan Mode, custom agents, MCP server integrations, the Copilot CLI, background agents, and Copilot code review, plus GitHub Spark and the Octoverse 2025 report.",
+		"outline": [
+			"Agent HQ, now available in VS Code",
+			"Copilot Plan Mode and background agents",
+			"Custom agents (name, tools, models, prompts, MCP servers)",
+			"MCP server integrations and the Copilot CLI",
+			"Copilot code review",
+			"Bonus: GitHub Spark, Student Developer Pack, Octoverse 2025"
+		],
+		"keyTakeaways": [
+			"Copilot is moving from autocomplete to an agent platform (Agent HQ)",
+			"Custom agents plus MCP servers let you tailor Copilot to your stack",
+			"The Copilot CLI brings agents to the terminal; Spark generates micro-apps"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/github-universe-25-recap-ai-edition.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "github-universe-25-recap-ai-edition-1",
+				"eventName": "az:Repo: The Code and Cloud Agentic Workshop",
+				"organizerName": "Microsoft Azure Community",
+				"organizerLogo": "",
+				"date": "2025-11-14",
+				"venue": "Microsoft Office Philippines",
+				"audienceSize": 100,
+				"slideUrl": "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "g-trends-a-developers-guide-to-googles-next-gen-toolkit",
+		"title": "G-Trends: A Developer's Guide to Google's Next-Gen Toolkit",
+		"tagline": "The Google developer tools powering the next tech era.",
+		"type": "Talk",
+		"category": "Developer Tools",
+		"level": "Intermediate",
+		"durationMinutes": 30,
+		"tags": ["Google", "Gemini", "Developer Tools", "Cloud"],
+		"abstract": "A guided tour of Google's next-generation developer toolkit and how to fold it into your workflow: the free 1-year Google AI Pro for students, the Gemini and Gemma model families, running and fine-tuning models locally (Ollama, AI Edge, Unsloth), and AI-driven development with Google AI Studio and Firebase Studio.",
+		"outline": [
+			"Free Google AI Pro for students (1 year)",
+			"The Gemini and Gemma model families",
+			"Running models locally and offline (Ollama, Gemma, AI Edge)",
+			"Fine-tuning Gemma with Unsloth, and specialized models (MedGemma)",
+			"AI-driven development: Google AI Studio and Firebase Studio",
+			"Certifications and recommendations"
+		],
+		"keyTakeaways": [
+			"Students get a free year of Google AI Pro and the Student Developer Pack",
+			"You can run Gemma locally and offline with Ollama and AI Edge",
+			"AI Studio and Firebase Studio make 'vibe coding' fast and free"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/g-trends-a-developers-guide-to-googles-next-gen-toolkit.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1Vafm3hrMy7Cs2Df_S_LJkFtQmtMSGq49UpfwWjAezsY/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "g-trends-a-developers-guide-to-googles-next-gen-toolkit-1",
+				"eventName": "InSession 2025",
+				"organizerName": "Google Developer Group on Campus - TUP Manila",
+				"organizerLogo": "",
+				"date": "2025-11-06",
+				"venue": "TUP Manila",
+				"audienceSize": 100,
+				"slideUrl": "https://docs.google.com/presentation/d/1Vafm3hrMy7Cs2Df_S_LJkFtQmtMSGq49UpfwWjAezsY/edit",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "internship-employability-resume-linkedin-github-and-beyond",
+		"title": "Internship Employability: Resume, LinkedIn, GitHub, and Beyond",
+		"tagline": "An opinionated playbook for landing your first tech internship.",
+		"type": "Talk",
+		"category": "Career",
+		"level": "Foundational",
+		"durationMinutes": 60,
+		"tags": ["Career", "Resume", "LinkedIn", "Interviews", "Internship"],
+		"abstract": "A candid, opinionated session on getting hired: building an ATS-friendly resume, using LinkedIn and GitHub to stand out, navigating interview stages, reading company culture, negotiating an offer, and the mindset that ties it together.",
+		"outline": [
+			"What a resume is actually for (ATS + the human)",
+			"Resume do's and don'ts, with real examples rated",
+			"LinkedIn and GitHub wins for job-seekers",
+			"Interview stages and where to apply for the best odds",
+			"Evaluating offers and negotiating (carefully)"
+		],
+		"keyTakeaways": [
+			"One page, single column, quantified bullets, clickable links",
+			"A job is a two-way street, evaluate setup, growth, and alignment",
+			"Direct applications beat one-click apply for response rate"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/internship-employability-resume-linkedin-github-and-beyond.jpg",
+		"primarySlideUrl": "https://www.canva.com/design/DAG3vgFTIRw/lX11R-l5WCG5HWNGph9WKA/view",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "internship-employability-resume-linkedin-github-and-beyond-1",
+				"eventName": "DEPLOY():",
+				"organizerName": "FEU Tech ACM Student Chapter",
+				"organizerLogo": "",
+				"date": "2025-11-05",
+				"venue": "Online",
+				"audienceSize": 40,
+				"slideUrl": "https://www.canva.com/design/DAG3vgFTIRw/lX11R-l5WCG5HWNGph9WKA/view",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "open-source-series-licensing-version-control-contributing-and-beyond",
+		"title": "Open Source Series: Licensing, Version Control, Contributing, and Beyond",
+		"tagline": "Everything a first-time open-source contributor needs for Hacktoberfest.",
+		"type": "Workshop",
+		"category": "Open Source",
+		"level": "Intermediate",
+		"durationMinutes": 120,
+		"tags": ["Open Source", "Hacktoberfest", "Licensing", "Git", "GitHub"],
+		"abstract": "A Hacktoberfest workshop covering the full open-source on-ramp: what open source and Hacktoberfest are, software licensing, version control with Git and GitHub, and how to make your first contributions, plus the GitHub Student Developer Pack.",
+		"outline": [
+			"Hacktoberfest and the open-source ecosystem",
+			"Software licensing, what you can and can't do",
+			"Version control with Git and GitHub",
+			"Forking, branching, and contributing via pull requests",
+			"Claiming the GitHub Student Developer Pack"
+		],
+		"keyTakeaways": [
+			"A license is what makes code legally usable, choose deliberately",
+			"Contributing is a workflow (fork, branch, PR) anyone can learn",
+			"The Student Developer Pack is a huge, free head start"
+		],
+		"featured": true,
+		"status": "published",
+		"showcaseImage": "/talks/covers/open-source-series-licensing-version-control-contributing-and-beyond.jpg",
+		"primarySlideUrl": "https://www.canva.com/design/DAG3MtSllRU/ALPO2D_8PBPXoApxNW17zQ/view",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "open-source-series-licensing-version-control-contributing-and-beyond-1",
+				"eventName": "Hacktoberfest 2025",
+				"organizerName": "PSITE DFCAMCLP-Chapter",
+				"organizerLogo": "",
+				"date": "2025-10-30",
+				"venue": "National University Las Piñas",
+				"audienceSize": 100,
+				"slideUrl": "https://www.canva.com/design/DAG3MtSllRU/ALPO2D_8PBPXoApxNW17zQ/view",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"tagline": "",
+		"durationMinutes": 0,
+		"abstract": "A foundational workshop on Git and GitHub: the core commands, the commit workflow, branching, and pull requests.",
+		"outline": [],
+		"keyTakeaways": [],
+		"tags": ["Git", "GitHub", "Workshop"],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "",
+		"primarySlideUrl": "",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "lets-git-ready-from-commit-to-career",
+		"title": "Let's Git Ready: From Commit to Career",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 100,
+				"slideUrl": "",
+				"videoUrl": "",
+				"id": "lets-git-ready-from-commit-to-career-1",
+				"eventName": "Let's Git Ready: From Commit to Career",
+				"organizerName": "Association of Computer Science Students - PNC",
+				"date": "2025-10-24",
+				"venue": "Online"
+			}
+		]
+	},
+	{
+		"slug": "supercharge-your-ml-research-with-googles-tpu-research-cloud",
+		"title": "Supercharge Your ML Research with Google's TPU Research Cloud",
+		"tagline": "Architecture, access, and training on TPU pods, backed by a $376K compute grant.",
+		"type": "Talk",
+		"category": "Accelerated Computing",
+		"level": "Advanced",
+		"durationMinutes": 30,
+		"tags": ["TPU", "Google Cloud", "TRC", "JAX", "ML Research"],
+		"abstract": "How to access and use Google's TPU Research Cloud to run serious ML research for free. Covers TPU architecture (TensorCores, MXUs, systolic arrays, ICI/OCS torus topology) versus GPUs and competitors, training with PyTorch/XLA on MNIST, the TRC application process, and a live demo spinning up a TPU VM, with the cost math behind a ~$376,000 grant.",
+		"outline": [
+			"Tensors, operations, and matrix multiplication",
+			"TPU architecture (TensorCores, MXUs, systolic arrays) vs GPU and competitors",
+			"Reduced precision: bfloat16 vs float32",
+			"Model training with PyTorch/XLA on MNIST",
+			"TPU Research Cloud: how to apply and gain access",
+			"Live demo: spinning up a TPU VM on GCP"
+		],
+		"keyTakeaways": [
+			"TRC grants free access to 1,000+ Cloud TPUs for accepted researchers",
+			"A v4-64 for 5 months is roughly $376K of compute",
+			"bfloat16 for matmul plus float32 accumulation is the precision sweet spot",
+			"You can provision a TPU VM in minutes with one gcloud command"
+		],
+		"featured": true,
+		"status": "published",
+		"showcaseImage": "/talks/covers/supercharge-your-ml-research-with-googles-tpu-research-cloud.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4/edit",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "supercharge-your-ml-research-with-googles-tpu-research-cloud-2",
+				"eventName": "SOFTCON 2025",
+				"organizerName": "SOFTCON 2025",
+				"date": "2025-10-17",
+				"venue": "Online",
+				"audienceSize": 120,
+				"slideUrl": "https://docs.google.com/presentation/d/1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4/edit"
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"tagline": "How TPUs work, how they compare, and how to get free access to them.",
+		"durationMinutes": 0,
+		"abstract": "How to get free access to Cloud TPUs through Google's TPU Research Cloud. It covers tensors and matrix multiplication, TPU architecture from systolic arrays to racks, training on MNIST across CPU, GPU, and TPU, where to get TPUs for free, how to apply to the program, and what that access would otherwise cost.",
+		"outline": [
+			"Tensors and matrix multiplication",
+			"TPU architecture: chips, TensorCores, MXUs, and systolic arrays",
+			"How TPUs connect: racks, ICI, and OCS",
+			"TPU v4 against the NVIDIA A100",
+			"Training on MNIST: CPU, GPU, and TPU",
+			"Where to get TPUs: Colab and Kaggle",
+			"TPU Research Cloud: how to apply"
+		],
+		"keyTakeaways": [
+			"TPU v4 beats the NVIDIA A100 on training speed and power use",
+			"TPUs work with the major deep learning frameworks",
+			"Applying to the TPU Research Cloud can save thousands of dollars in compute"
+		],
+		"tags": ["TPU", "Google Cloud", "TRC", "PyTorch/XLA", "ML Research"],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/boost-ml-research-with-tpu-research-cloud.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1TZMmXumbaCf4PEIHcNVOuhwniLFJyOvLjPoZrnanb78/edit",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "boost-ml-research-with-tpu-research-cloud",
+		"title": "Boost ML Research with TPU Research Cloud",
+		"type": "Talk",
+		"category": "Accelerated Computing",
+		"level": "Advanced",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 120,
+				"slideUrl": "https://docs.google.com/presentation/d/1TZMmXumbaCf4PEIHcNVOuhwniLFJyOvLjPoZrnanb78/edit",
+				"videoUrl": "",
+				"id": "boost-ml-research-with-tpu-research-cloud-1",
+				"eventName": "DevFest 2025",
+				"organizerName": "GDG Cloud Manila",
+				"date": "2025-10-13",
+				"venue": "LaunchGarage"
+			}
+		]
 	},
 	{
 		"slug": "foundations-of-multimodal-ai-fusions-architectures-and-beyond",
@@ -129,251 +1121,9 @@
 				"organizerLogo": "",
 				"date": "2025-07-14",
 				"venue": "Online",
-				"audienceSize": 40
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "supercharge-your-ml-research-with-googles-tpu-research-cloud",
-		"title": "Supercharge Your ML Research with Google's TPU Research Cloud",
-		"tagline": "Architecture, access, and training on TPU pods, backed by a $376K compute grant.",
-		"type": "Talk",
-		"category": "Accelerated Computing",
-		"level": "Advanced",
-		"durationMinutes": 30,
-		"tags": ["TPU", "Google Cloud", "TRC", "JAX", "ML Research"],
-		"abstract": "How to access and use Google's TPU Research Cloud to run serious ML research for free. Covers TPU architecture (TensorCores, MXUs, systolic arrays, ICI/OCS torus topology) versus GPUs and competitors, training with PyTorch/XLA on MNIST, the TRC application process, and a live demo spinning up a TPU VM, with the cost math behind a ~$376,000 grant.",
-		"outline": [
-			"Tensors, operations, and matrix multiplication",
-			"TPU architecture (TensorCores, MXUs, systolic arrays) vs GPU and competitors",
-			"Reduced precision: bfloat16 vs float32",
-			"Model training with PyTorch/XLA on MNIST",
-			"TPU Research Cloud: how to apply and gain access",
-			"Live demo: spinning up a TPU VM on GCP"
-		],
-		"keyTakeaways": [
-			"TRC grants free access to 1,000+ Cloud TPUs for accepted researchers",
-			"A v4-64 for 5 months is roughly $376K of compute",
-			"bfloat16 for matmul plus float32 accumulation is the precision sweet spot",
-			"You can provision a TPU VM in minutes with one gcloud command"
-		],
-		"featured": true,
-		"status": "published",
-		"showcaseImage": "/talks/covers/supercharge-your-ml-research-with-googles-tpu-research-cloud.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4/edit",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "supercharge-your-ml-research-with-googles-tpu-research-cloud-1",
-				"eventName": "DevFest 2025",
-				"organizerName": "GDG Cloud Manila",
-				"organizerLogo": "",
-				"date": "2025-10-13",
-				"venue": "LaunchGarage",
-				"audienceSize": 120
-			},
-			{
-				"id": "supercharge-your-ml-research-with-googles-tpu-research-cloud-2",
-				"eventName": "SOFTCON 2025",
-				"organizerName": "SOFTCON 2025",
-				"organizerLogo": "",
-				"date": "2025-10-17",
-				"venue": "Online",
-				"audienceSize": 120
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "git-and-github-foundations",
-		"title": "Git and GitHub Foundations",
-		"tagline": "A hands-on path from your first commit to a confident GitHub workflow.",
-		"type": "Workshop",
-		"category": "Developer Tools",
-		"level": "Foundational",
-		"durationMinutes": 120,
-		"tags": ["Git", "GitHub", "Version Control", "Workshop", "Certification"],
-		"abstract": "A foundational, hands-on workshop on Git and GitHub: the core commands, the commit workflow, branching, pull requests, and the GitHub features that get you job-ready, including the path to the free-for-students GitHub Foundations certification and the Student Developer Pack.",
-		"outline": [
-			"Git vs GitHub, and why version control matters",
-			"Fundamental commands: init, add, commit, push, pull, clone",
-			"Anatomy of a commit and .gitignore",
-			"Branching, forking, merge vs rebase",
-			"Pull requests and GitHub Flow",
-			"Certification path and the Student Developer Pack"
-		],
-		"keyTakeaways": [
-			"A clean commit workflow is the foundation of collaboration",
-			"GitHub Flow is a simple, CI/CD-friendly branching model",
-			"Students can get GitHub Foundations certified for free"
-		],
-		"featured": true,
-		"status": "published",
-		"showcaseImage": "/talks/covers/git-and-github-foundations.jpg",
-		"primarySlideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "git-and-github-foundations-1",
-				"eventName": "Revival X: Git Grimoire",
-				"organizerName": "FEU Tech ACM Student Chapter",
-				"organizerLogo": "",
-				"date": "2025-01-24",
-				"venue": "FEU Institute of Technology",
-				"audienceSize": 30
-			},
-			{
-				"id": "git-and-github-foundations-2",
-				"eventName": "Get Ready to Git Started with GitHub",
-				"organizerName": "Polytechnic University of the Philippines",
-				"organizerLogo": "",
-				"date": "2025-02-26",
-				"venue": "Online",
-				"audienceSize": 100
-			},
-			{
-				"id": "git-and-github-foundations-3",
-				"eventName": "Let's Git Ready: From Commit to Career",
-				"organizerName": "Association of Computer Science Students - PNC",
-				"organizerLogo": "",
-				"date": "2025-10-24",
-				"venue": "Online",
-				"audienceSize": 100
-			},
-			{
-				"id": "git-and-github-foundations-4",
-				"eventName": "Git and GitHub Workshop",
-				"organizerName": "JBECP, JRU Chapter",
-				"organizerLogo": "",
-				"date": "2026-03-05",
-				"venue": "Jose Rizal University",
-				"audienceSize": 50
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "practical-github-advanced-use-cases",
-		"title": "Practical GitHub: Advanced Use Cases",
-		"tagline": "Branching strategies, Codespaces, Actions, and Copilot for real projects.",
-		"type": "Workshop",
-		"category": "Developer Tools",
-		"level": "Intermediate",
-		"durationMinutes": 120,
-		"tags": ["GitHub", "Actions", "Codespaces", "Copilot", "CI/CD"],
-		"abstract": "Beyond the basics: the GitHub features that level up personal and industry projects. Compares branching strategies, then works through real use cases of Codespaces, GitHub Actions (CI/CD), Copilot (editor, terminal, and web), and GitHub Models.",
-		"outline": [
-			"Branching strategies compared (Git Flow, GitHub Flow, trunk-based)",
-			"GitHub Codespaces: your free cloud dev environment",
-			"GitHub Actions: client- and server-side validation, CI/CD",
-			"GitHub Copilot in the editor, terminal, and on the web",
-			"Bonus: GitHub Models for free AI experimentation"
-		],
-		"keyTakeaways": [
-			"Pick a branching strategy that matches team size and release cadence",
-			"Actions + Husky catch problems before they reach main",
-			"Codespaces gives you a disposable, full-power dev machine for free"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/practical-github-advanced-use-cases.jpg",
-		"primarySlideUrl": "https://www.canva.com/design/DAGfkJiDlTU/-5yJxltDAmR2lSMGxLgtTg/view",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "practical-github-advanced-use-cases-1",
-				"eventName": "7th Software Engineering Day",
-				"organizerName": "Polytechnic University of the Philippines",
-				"organizerLogo": "",
-				"date": "2025-05-06",
-				"venue": "Online",
-				"audienceSize": 150
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "open-source-series-licensing-version-control-contributing-and-beyond",
-		"title": "Open Source Series: Licensing, Version Control, Contributing, and Beyond",
-		"tagline": "Everything a first-time open-source contributor needs for Hacktoberfest.",
-		"type": "Workshop",
-		"category": "Open Source",
-		"level": "Intermediate",
-		"durationMinutes": 120,
-		"tags": ["Open Source", "Hacktoberfest", "Licensing", "Git", "GitHub"],
-		"abstract": "A Hacktoberfest workshop covering the full open-source on-ramp: what open source and Hacktoberfest are, software licensing, version control with Git and GitHub, and how to make your first contributions, plus the GitHub Student Developer Pack.",
-		"outline": [
-			"Hacktoberfest and the open-source ecosystem",
-			"Software licensing, what you can and can't do",
-			"Version control with Git and GitHub",
-			"Forking, branching, and contributing via pull requests",
-			"Claiming the GitHub Student Developer Pack"
-		],
-		"keyTakeaways": [
-			"A license is what makes code legally usable, choose deliberately",
-			"Contributing is a workflow (fork, branch, PR) anyone can learn",
-			"The Student Developer Pack is a huge, free head start"
-		],
-		"featured": true,
-		"status": "published",
-		"showcaseImage": "/talks/covers/open-source-series-licensing-version-control-contributing-and-beyond.jpg",
-		"primarySlideUrl": "https://www.canva.com/design/DAG3MtSllRU/ALPO2D_8PBPXoApxNW17zQ/view",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "open-source-series-licensing-version-control-contributing-and-beyond-1",
-				"eventName": "Hacktoberfest 2025",
-				"organizerName": "PSITE DFCAMCLP-Chapter",
-				"organizerLogo": "",
-				"date": "2025-10-30",
-				"venue": "National University Las Piñas",
-				"audienceSize": 100
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "internship-employability-resume-linkedin-github-and-beyond",
-		"title": "Internship Employability: Resume, LinkedIn, GitHub, and Beyond",
-		"tagline": "An opinionated playbook for landing your first tech internship.",
-		"type": "Talk",
-		"category": "Career",
-		"level": "Foundational",
-		"durationMinutes": 60,
-		"tags": ["Career", "Resume", "LinkedIn", "Interviews", "Internship"],
-		"abstract": "A candid, opinionated session on getting hired: building an ATS-friendly resume, using LinkedIn and GitHub to stand out, navigating interview stages, reading company culture, negotiating an offer, and the mindset that ties it together.",
-		"outline": [
-			"What a resume is actually for (ATS + the human)",
-			"Resume do's and don'ts, with real examples rated",
-			"LinkedIn and GitHub wins for job-seekers",
-			"Interview stages and where to apply for the best odds",
-			"Evaluating offers and negotiating (carefully)"
-		],
-		"keyTakeaways": [
-			"One page, single column, quantified bullets, clickable links",
-			"A job is a two-way street, evaluate setup, growth, and alignment",
-			"Direct applications beat one-click apply for response rate"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/internship-employability-resume-linkedin-github-and-beyond.jpg",
-		"primarySlideUrl": "https://www.canva.com/design/DAG3vgFTIRw/lX11R-l5WCG5HWNGph9WKA/view",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "internship-employability-resume-linkedin-github-and-beyond-1",
-				"eventName": "DEPLOY():",
-				"organizerName": "FEU Tech ACM Student Chapter",
-				"organizerLogo": "",
-				"date": "2025-11-05",
-				"venue": "Online",
-				"audienceSize": 40
+				"audienceSize": 40,
+				"slideUrl": "https://www.canva.com/design/DAGsYa9Ivhw/F8zdWJRzINK8vPgjArJ7Dw/view",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -414,11 +1164,145 @@
 				"organizerLogo": "",
 				"date": "2025-06-13",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 20
+				"audienceSize": 20,
+				"slideUrl": "https://www.canva.com/design/DAGqHG1iTqc/47m0L7mWC7q24rOU5kQzeQ/view",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
 		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "practical-github-advanced-use-cases",
+		"title": "Practical GitHub: Advanced Use Cases",
+		"tagline": "Branching strategies, Codespaces, Actions, and Copilot for real projects.",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Intermediate",
+		"durationMinutes": 120,
+		"tags": ["GitHub", "Actions", "Codespaces", "Copilot", "CI/CD"],
+		"abstract": "Beyond the basics: the GitHub features that level up personal and industry projects. Compares branching strategies, then works through real use cases of Codespaces, GitHub Actions (CI/CD), Copilot (editor, terminal, and web), and GitHub Models.",
+		"outline": [
+			"Branching strategies compared (Git Flow, GitHub Flow, trunk-based)",
+			"GitHub Codespaces: your free cloud dev environment",
+			"GitHub Actions: client- and server-side validation, CI/CD",
+			"GitHub Copilot in the editor, terminal, and on the web",
+			"Bonus: GitHub Models for free AI experimentation"
+		],
+		"keyTakeaways": [
+			"Pick a branching strategy that matches team size and release cadence",
+			"Actions + Husky catch problems before they reach main",
+			"Codespaces gives you a disposable, full-power dev machine for free"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/practical-github-advanced-use-cases.jpg",
+		"primarySlideUrl": "https://www.canva.com/design/DAGfkJiDlTU/-5yJxltDAmR2lSMGxLgtTg/view",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "practical-github-advanced-use-cases-1",
+				"eventName": "7th Software Engineering Day",
+				"organizerName": "Polytechnic University of the Philippines",
+				"organizerLogo": "",
+				"date": "2025-05-06",
+				"venue": "Online",
+				"audienceSize": 150,
+				"slideUrl": "https://www.canva.com/design/DAGfkJiDlTU/-5yJxltDAmR2lSMGxLgtTg/view",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"tagline": "Git and GitHub from setup to advanced use, for PUP students with or without experience.",
+		"durationMinutes": 120,
+		"abstract": "A foundational online workshop for PUP CS and IT students and GDG on Campus members, with or without prior experience. It covers Git and GitHub setup, commits, branching, merge vs rebase, pull requests, using GitHub in organization and school projects, and branching strategies.",
+		"outline": [
+			"Git vs GitHub",
+			"Setting up Git, GitHub, and SSH",
+			"Commits and commit messages",
+			"Branching, merge vs rebase, and pull requests",
+			"Using GitHub in organization and school projects",
+			"GitHub Copilot",
+			"Branching strategies: Git Flow, GitLab Flow, trunk-based development, GitHub Flow",
+			"Recommendations and certification vouchers"
+		],
+		"keyTakeaways": [],
+		"tags": ["Git", "GitHub", "Version Control", "Workshop"],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/git-started-with-github.jpg",
+		"primarySlideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "git-started-with-github",
+		"title": "Git Started with GitHub: Foundational Dev Workshop",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 100,
+				"slideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
+				"videoUrl": "",
+				"id": "git-started-with-github-1",
+				"eventName": "Get Ready to Git Started with GitHub",
+				"organizerName": "Polytechnic University of the Philippines",
+				"date": "2025-02-26",
+				"venue": "Online"
+			}
+		]
+	},
+	{
+		"tagline": "Preparing FEU Tech students for the GitHub Foundations exam.",
+		"durationMinutes": 0,
+		"abstract": "A practical workshop for FEU Tech CS and IT students, with or without prior experience, preparing for the GitHub Foundations certification. It works through the exam's seven domains, setting up a GitHub profile, using GitHub in school projects, and industry practices.",
+		"outline": [
+			"GitHub certification exams and why to take one",
+			"Introduction to Git and GitHub",
+			"Working with GitHub repositories",
+			"Collaboration features",
+			"Modern development",
+			"Project management",
+			"Privacy, security, and administration",
+			"Benefits of the GitHub community",
+			"Using GitHub in school projects"
+		],
+		"keyTakeaways": [
+			"A GitHub certification validates your knowledge and can go on your portfolio, resume, and LinkedIn",
+			"The exam is 75 multiple-choice questions in 2 hours, with no penalty for wrong answers",
+			"The certification is valid for 3 years"
+		],
+		"tags": ["Git", "GitHub", "Certification", "Workshop"],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/get-certified-with-github.jpg",
+		"primarySlideUrl": "https://www.canva.com/design/DAGSHoSgVYE/o8DVbBqk80T00npdVFSs2g/view",
+		"videoUrl": "",
+		"createdAt": "2026-11-07T00:00:00.000Z",
+		"updatedAt": "2026-11-07T00:00:00.000Z",
+		"slug": "get-certified-with-github",
+		"title": "Get Certified with GitHub: Certification Training Workshop",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"events": [
+			{
+				"organizerLogo": "",
+				"audienceSize": 30,
+				"slideUrl": "https://www.canva.com/design/DAGSHoSgVYE/o8DVbBqk80T00npdVFSs2g/view",
+				"videoUrl": "",
+				"id": "get-certified-with-github-1",
+				"eventName": "Revival X: Git Grimoire",
+				"organizerName": "FEU Tech ACM Student Chapter",
+				"date": "2025-01-24",
+				"venue": "FEU Institute of Technology"
+			}
+		]
 	},
 	{
 		"slug": "demonstrating-websites-and-internal-data-handling",
@@ -455,332 +1339,9 @@
 				"organizerLogo": "",
 				"date": "2025-01-07",
 				"venue": "FEU Institute of Technology",
-				"audienceSize": 20
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "frontiers-of-modern-ai-multimodality-and-accelerated-computing",
-		"title": "Frontiers of Modern AI: Multimodality and Accelerated Computing",
-		"tagline": "A tour of the two frontiers defining where AI is going.",
-		"type": "Talk",
-		"category": "AI & ML",
-		"level": "Intermediate",
-		"durationMinutes": 120,
-		"tags": ["Multimodality", "Accelerated Computing", "TPU", "H100", "VLM"],
-		"abstract": "A guided tour of the two frontiers shaping modern AI: multimodal fusion architectures that combine text, vision, and audio, and the accelerator stack (H100, TPU v6e, Trainium) that makes training them possible.",
-		"outline": [
-			"Why multimodality and accelerated computing are converging",
-			"Multimodal fusion architectures in brief",
-			"The accelerator stack: H100, TPU v6e, Trainium",
-			"What this means for the next generation of models"
-		],
-		"keyTakeaways": [
-			"Capability gains now come from both data modality and hardware",
-			"Knowing your accelerator options is a research advantage"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/frontiers-of-modern-ai-multimodality-and-accelerated-computing.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "frontiers-of-modern-ai-multimodality-and-accelerated-computing-1",
-				"eventName": "EDiTH Episode 9",
-				"organizerName": "FEU Institute of Technology",
-				"organizerLogo": "",
-				"date": "2026-04-10",
-				"venue": "FEU Institute of Technology",
-				"audienceSize": 100
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "product-building-with-ai",
-		"title": "Product Building with AI",
-		"tagline": "Going from idea to a shipped product using today's AI toolchain.",
-		"type": "Workshop",
-		"category": "AI & ML",
-		"level": "Advanced",
-		"durationMinutes": 100,
-		"tags": ["AI", "Product", "v0", "Vercel", "Workshop"],
-		"abstract": "A hands-on workshop, delivered to ~700 attendees at the Philippine Innovation Conference, on building real products with AI. Covers what makes a 'product', the levels and categories of AI, and the generative-AI toolchain, then a live case study building and deploying a hotel booking site and an employee management system with v0 and Vercel, plus the pitfalls of AI-assisted development.",
-		"outline": [
-			"What 'product' means: solving real problems, not clever demos",
-			"Levels and categories of AI",
-			"Generative-AI tools for product building",
-			"Case study: building products with v0",
-			"Deploying products with Vercel",
-			"Pitfalls of using AI in development"
-		],
-		"keyTakeaways": [
-			"Build for a real problem; most startups fail solving ones no one has",
-			"v0 plus Vercel takes an idea to a deployed product fast",
-			"Know the pitfalls (POC purgatory, evaluation) before you ship"
-		],
-		"featured": true,
-		"status": "published",
-		"showcaseImage": "/talks/covers/product-building-with-ai.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/1pQ5gzJtaP9tqAYS1ISIJ79EDVy6LHiWtXpgEOHvfQuo/edit",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "product-building-with-ai-1",
-				"eventName": "Philippine Innovation Conference 2025",
-				"organizerName": "OpenVerse",
-				"organizerLogo": "",
-				"date": "2025-11-21",
-				"venue": "University of Batangas",
-				"audienceSize": 700
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "github-universe-25-recap-ai-edition",
-		"title": "GitHub Universe '25 Recap: AI Edition",
-		"tagline": "The launches from GitHub Universe 2025, unpacked for builders.",
-		"type": "Talk",
-		"category": "Developer Tools",
-		"level": "Intermediate",
-		"durationMinutes": 30,
-		"tags": ["GitHub", "Copilot", "AI", "GitHub Models"],
-		"abstract": "A fast recap of GitHub Universe 2025's AI launches, delivered for the Microsoft Azure Community: Agent HQ, Copilot Plan Mode, custom agents, MCP server integrations, the Copilot CLI, background agents, and Copilot code review, plus GitHub Spark and the Octoverse 2025 report.",
-		"outline": [
-			"Agent HQ, now available in VS Code",
-			"Copilot Plan Mode and background agents",
-			"Custom agents (name, tools, models, prompts, MCP servers)",
-			"MCP server integrations and the Copilot CLI",
-			"Copilot code review",
-			"Bonus: GitHub Spark, Student Developer Pack, Octoverse 2025"
-		],
-		"keyTakeaways": [
-			"Copilot is moving from autocomplete to an agent platform (Agent HQ)",
-			"Custom agents plus MCP servers let you tailor Copilot to your stack",
-			"The Copilot CLI brings agents to the terminal; Spark generates micro-apps"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/github-universe-25-recap-ai-edition.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/1V4pM8MyWvL7RDXvM-_AKTCWY1SrnylaAmJcO-tjsS94/edit",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "github-universe-25-recap-ai-edition-1",
-				"eventName": "az:Repo: The Code and Cloud Agentic Workshop",
-				"organizerName": "Microsoft Azure Community",
-				"organizerLogo": "",
-				"date": "2025-11-14",
-				"venue": "Microsoft Office Philippines",
-				"audienceSize": 100
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "g-trends-a-developers-guide-to-googles-next-gen-toolkit",
-		"title": "G-Trends: A Developer's Guide to Google's Next-Gen Toolkit",
-		"tagline": "The Google developer tools powering the next tech era.",
-		"type": "Talk",
-		"category": "Developer Tools",
-		"level": "Intermediate",
-		"durationMinutes": 30,
-		"tags": ["Google", "Gemini", "Developer Tools", "Cloud"],
-		"abstract": "A guided tour of Google's next-generation developer toolkit and how to fold it into your workflow: the free 1-year Google AI Pro for students, the Gemini and Gemma model families, running and fine-tuning models locally (Ollama, AI Edge, Unsloth), and AI-driven development with Google AI Studio and Firebase Studio.",
-		"outline": [
-			"Free Google AI Pro for students (1 year)",
-			"The Gemini and Gemma model families",
-			"Running models locally and offline (Ollama, Gemma, AI Edge)",
-			"Fine-tuning Gemma with Unsloth, and specialized models (MedGemma)",
-			"AI-driven development: Google AI Studio and Firebase Studio",
-			"Certifications and recommendations"
-		],
-		"keyTakeaways": [
-			"Students get a free year of Google AI Pro and the Student Developer Pack",
-			"You can run Gemma locally and offline with Ollama and AI Edge",
-			"AI Studio and Firebase Studio make 'vibe coding' fast and free"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/g-trends-a-developers-guide-to-googles-next-gen-toolkit.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/1Vafm3hrMy7Cs2Df_S_LJkFtQmtMSGq49UpfwWjAezsY/edit",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "g-trends-a-developers-guide-to-googles-next-gen-toolkit-1",
-				"eventName": "InSession 2025",
-				"organizerName": "Google Developer Group on Campus - TUP Manila",
-				"organizerLogo": "",
-				"date": "2025-11-06",
-				"venue": "TUP Manila",
-				"audienceSize": 100
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "online-safety-in-the-age-of-ai",
-		"title": "Online Safety in the Age of AI",
-		"tagline": "Staying safe as a student when AI is in every classroom and feed.",
-		"type": "Talk",
-		"category": "AI & ML",
-		"level": "Foundational",
-		"durationMinutes": 60,
-		"tags": ["AI Safety", "Cybersecurity", "Students", "Prompt Injection"],
-		"abstract": "Navigating AI safely as a student: LLM hallucinations, deepfakes, and fake documents; how to make (and therefore recognize) AI-generated images and edits; the tells that give AI images away; and what the privacy policies of major AI companies actually say, with the ethical considerations for NGO use.",
-		"outline": [
-			"Hallucinations, deepfakes, and fake documents",
-			"Creating your own AI images and edits",
-			"Emerging dangers in the age of AI",
-			"Recognizing AI-generated content (hands, textures, physics)",
-			"Privacy policies of AI companies"
-		],
-		"keyTakeaways": [
-			"Hallucinations range from fact-mixed to pure fabrication, so verify",
-			"Spot AI images by hands, plastic textures, and physics violations",
-			"Read an AI tool's privacy policy before you feed it your data"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/online-safety-in-the-age-of-ai.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/1DTv2zeT8myufqUtGj-eS5dnzN3obDTXtop6af8Lm72E/edit",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "online-safety-in-the-age-of-ai-1",
-				"eventName": "Ctrl + Prompt",
-				"organizerName": "FEU Tech ACM Student Chapter",
-				"organizerLogo": "",
-				"date": "2026-01-08",
-				"venue": "FEU Institute of Technology",
-				"audienceSize": 20
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "from-zero-to-trainium-your-first-model-on-awss-pytorch-stack",
-		"title": "From Zero to Trainium: Your First Model on AWS's PyTorch Stack",
-		"tagline": "Provision Trainium, port a model, and train it in under an hour.",
-		"type": "Talk",
-		"category": "Accelerated Computing",
-		"level": "Intermediate",
-		"durationMinutes": 10,
-		"tags": ["AWS", "Trainium", "PyTorch", "Neuron"],
-		"abstract": "A quick-start on AWS's native PyTorch stack: provisioning a Trainium instance, porting a model with the Neuron SDK, and running your first training job in under an hour.",
-		"outline": [
-			"What Trainium is and when to reach for it",
-			"Provisioning a Trainium instance",
-			"Porting a PyTorch model with Neuron",
-			"Running and verifying your first training job"
-		],
-		"keyTakeaways": [
-			"Trainium is approachable from standard PyTorch",
-			"The Neuron SDK handles most of the porting work"
-		],
-		"featured": false,
-		"status": "draft",
-		"showcaseImage": "",
-		"primarySlideUrl": "",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "from-zero-to-trainium-your-first-model-on-awss-pytorch-stack-1",
-				"eventName": "AWS Community Day Philippines 2026",
-				"organizerName": "AWS Cloud Clubs Philippines",
-				"organizerLogo": "",
-				"date": "2026-06-20",
-				"venue": "AWS Office Philippines",
-				"audienceSize": 50
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "introduction-to-github-copilot-and-ai-development",
-		"title": "Introduction to GitHub Copilot and AI Development",
-		"tagline": "A hands-on intro to coding with Copilot, from autocomplete to agent.",
-		"type": "Talk",
-		"category": "Developer Tools",
-		"level": "Foundational",
-		"durationMinutes": 30,
-		"tags": ["GitHub Copilot", "AI", "Developer Tools"],
-		"abstract": "A hands-on introduction to GitHub Copilot: installing it in VS Code, the CLI versus the GUI, the four permission modes (interactive, plan, YOLO, autopilot) and the 'permission fatigue' trade-off, plus core capabilities like web search, image input, and the commit generator.",
-		"outline": [
-			"What Copilot is, and installing it in VS Code",
-			"Copilot CLI vs GUI",
-			"The four permission modes: interactive, plan, YOLO, autopilot",
-			"Capabilities: web search, image input, commit generator",
-			"Hands-on demo"
-		],
-		"keyTakeaways": [
-			"Match the Copilot mode to your trust level (interactive to autopilot)",
-			"The CLI brings Copilot to the terminal across Linux, macOS, and Windows",
-			"Copilot can search the web, read images, and draft your commits"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/introduction-to-github-copilot-and-ai-development.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/1diyWyjbFnMRDKm07uJaCz1TL6kR-IKeDuZosOebusq4/edit",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "introduction-to-github-copilot-and-ai-development-1",
-				"eventName": "Sparkpoint 2026",
-				"organizerName": "Microsoft Student Community NU Laguna",
-				"organizerLogo": "",
-				"date": "2026-05-02",
-				"venue": "National University Laguna",
-				"audienceSize": 50
-			}
-		],
-		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
-	},
-	{
-		"slug": "initiatives-at-feu-tech-acm",
-		"title": "Initiatives at FEU Tech ACM",
-		"tagline": "Building ACM-X and the community initiatives behind it.",
-		"type": "Talk",
-		"category": "Community",
-		"level": "Foundational",
-		"durationMinutes": 30,
-		"tags": ["Community", "Leadership", "ACM-X", "Student Org"],
-		"abstract": "An inside look at the initiatives built for the FEU Tech ACM Student Chapter, including Project ACM-X, a cross-platform app with a dashboard, forum, undertaking generator, notifications, and more, and the Beyond Campus Initiative.",
-		"outline": [
-			"The problems student orgs face at scale",
-			"Project ACM-X and its feature set",
-			"The build roadmap and rollout",
-			"The ACM Beyond Campus Initiative"
-		],
-		"keyTakeaways": [
-			"Small automations save thousands of student-hours per year",
-			"Community tooling is a force multiplier for student orgs"
-		],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "/talks/covers/initiatives-at-feu-tech-acm.jpg",
-		"primarySlideUrl": "https://www.canva.com/design/DAF-vkkrquk/l98xZeGkXN9ULHIIz38GjA/view",
-		"videoUrl": "",
-		"events": [
-			{
-				"id": "initiatives-at-feu-tech-acm-1",
-				"eventName": "Into the Code: F++ 4.0 Day 1",
-				"organizerName": "FEU Tech ACM Student Chapter",
-				"organizerLogo": "",
-				"date": "2024-04-20",
-				"venue": "FEU Institute of Technology",
-				"audienceSize": 100
+				"audienceSize": 20,
+				"slideUrl": "https://www.canva.com/design/DAGbBFeOF8Y/rqAdKRR_ScEbVmp6HJzOJQ/view",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
@@ -819,7 +1380,50 @@
 				"organizerLogo": "",
 				"date": "2024-04-22",
 				"venue": "Valenzuela National High School",
-				"audienceSize": 50
+				"audienceSize": 50,
+				"slideUrl": "https://www.canva.com/design/DAF_ciFtU9o/_WSNwT2EvG-RRcZn0dVbxw/view",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-06-14T00:00:00.000Z",
+		"updatedAt": "2026-06-14T00:00:00.000Z"
+	},
+	{
+		"slug": "initiatives-at-feu-tech-acm",
+		"title": "Initiatives at FEU Tech ACM",
+		"tagline": "Building ACM-X and the community initiatives behind it.",
+		"type": "Talk",
+		"category": "Community",
+		"level": "Foundational",
+		"durationMinutes": 30,
+		"tags": ["Community", "Leadership", "ACM-X", "Student Org"],
+		"abstract": "An inside look at the initiatives built for the FEU Tech ACM Student Chapter, including Project ACM-X, a cross-platform app with a dashboard, forum, undertaking generator, notifications, and more, and the Beyond Campus Initiative.",
+		"outline": [
+			"The problems student orgs face at scale",
+			"Project ACM-X and its feature set",
+			"The build roadmap and rollout",
+			"The ACM Beyond Campus Initiative"
+		],
+		"keyTakeaways": [
+			"Small automations save thousands of student-hours per year",
+			"Community tooling is a force multiplier for student orgs"
+		],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/initiatives-at-feu-tech-acm.jpg",
+		"primarySlideUrl": "https://www.canva.com/design/DAF-vkkrquk/l98xZeGkXN9ULHIIz38GjA/view",
+		"videoUrl": "",
+		"events": [
+			{
+				"id": "initiatives-at-feu-tech-acm-1",
+				"eventName": "Into the Code: F++ 4.0 Day 1",
+				"organizerName": "FEU Tech ACM Student Chapter",
+				"organizerLogo": "",
+				"date": "2024-04-20",
+				"venue": "FEU Institute of Technology",
+				"audienceSize": 100,
+				"slideUrl": "https://www.canva.com/design/DAF-vkkrquk/l98xZeGkXN9ULHIIz38GjA/view",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",

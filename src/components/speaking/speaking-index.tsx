@@ -1,14 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { SiteImage } from "@/components/site-image";
 import { TalkRow } from "@/components/speaking/talk-card";
-import { lastGiven } from "@/components/speaking/talk-meta";
-import type { Talk } from "@/lib/talks/schema";
+import { type Talk, talksByYear } from "@/lib/talks/schema";
 import { cn } from "@/lib/utils";
 
+/** The full catalogue, one entry per talk, by year. */
 export function SpeakingIndex({ talks }: { talks: Talk[] }) {
 	const categories = useMemo(
 		() => ["All", ...Array.from(new Set(talks.map((t) => t.category))).sort()],
@@ -17,9 +15,6 @@ export function SpeakingIndex({ talks }: { talks: Talk[] }) {
 	const [active, setActive] = useState("All");
 	const filtered =
 		active === "All" ? talks : talks.filter((t) => t.category === active);
-	// Lead with a talk that has a cover, so the top card is never an empty box.
-	const lead = filtered.find((t) => t.showcaseImage) ?? filtered[0];
-	const rest = filtered.filter((t) => t !== lead);
 
 	return (
 		<>
@@ -52,43 +47,20 @@ export function SpeakingIndex({ talks }: { talks: Talk[] }) {
 				{active === "All" ? "" : ` in ${active}`}
 			</p>
 
-			{lead && (
-				<article className="mt-8 grid overflow-hidden rounded-[1.75rem] border border-border lg:grid-cols-[1.1fr_1fr]">
-					<div className="relative aspect-video bg-secondary">
-						{lead.showcaseImage && (
-							<SiteImage
-								src={lead.showcaseImage}
-								alt=""
-								fill
-								priority
-								sizes="(min-width: 1024px) 40rem, 100vw"
-								className="object-cover"
-							/>
-						)}
-					</div>
-					<div className="flex flex-col justify-center p-8 sm:p-10">
-						<p className="text-sm text-muted-foreground">{lastGiven(lead)}</p>
-						<h2 className="display-md mt-3">
-							<Link href={`/speaking/${lead.slug}`} className="text-link">
-								{lead.title}
-							</Link>
-						</h2>
-						{lead.tagline && (
-							<p className="mt-4 text-muted-foreground">{lead.tagline}</p>
-						)}
-					</div>
-				</article>
-			)}
-
-			{rest.length > 0 && (
-				<ul className="mt-10 grid gap-x-12 lg:grid-cols-2">
-					{rest.map((t) => (
-						<li key={t.slug} className="border-t border-border">
-							<TalkRow talk={t} headingLevel="h2" showTagline />
-						</li>
-					))}
-				</ul>
-			)}
+			{talksByYear(filtered).map(({ year, talks: group }) => (
+				<section key={year} aria-labelledby={`talks-${year}`} className="mt-10">
+					<h2 id={`talks-${year}`} className="display-md">
+						{year}
+					</h2>
+					<ul className="mt-4 grid gap-x-12 lg:grid-cols-2">
+						{group.map((t) => (
+							<li key={t.slug} className="border-t border-border">
+								<TalkRow talk={t} />
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
 		</>
 	);
 }
