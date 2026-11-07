@@ -6,7 +6,11 @@ import { notFound } from "next/navigation";
 import { SiteImage } from "@/components/site-image";
 import { SiteShell } from "@/components/site-shell";
 import { SlidesEmbed } from "@/components/speaking/slides-embed";
-import { longDate } from "@/components/speaking/talk-meta";
+import {
+	lastGiven,
+	longDate,
+	talkLinks,
+} from "@/components/speaking/talk-meta";
 import {
 	type Talk,
 	type TalkEvent,
@@ -133,7 +137,12 @@ export default async function TalkPage({ params }: Props) {
 	const events = [...talk.events].sort((a, b) => b.date.localeCompare(a.date));
 	const delivered = events.filter((e) => isDelivered(e));
 	const upcoming = events.filter((e) => !isDelivered(e));
-	const embed = toEmbedUrl(talk.primarySlideUrl ?? "");
+	// Usually one session, told with the talk's own facts. Only a repeat of the
+	// same deck needs a list of where it was given.
+	const session = events.length === 1 ? events[0] : null;
+	const given = lastGiven(talk);
+	const links = talkLinks(talk);
+	const embed = toEmbedUrl(links.slides);
 
 	// "More talks" = a few other published talks by recency.
 	const more = sortTalksByRecency(await getPublishedTalks())
@@ -209,10 +218,25 @@ export default async function TalkPage({ params }: Props) {
 	};
 
 	const facts = [
+		...(session
+			? [
+					{ label: "Organizer", value: session.organizerName },
+					...(session.venue ? [{ label: "Venue", value: session.venue }] : []),
+					...(session.audienceSize > 0
+						? [
+								{
+									label: "Attendees",
+									value: session.audienceSize.toLocaleString("en-US"),
+								},
+							]
+						: []),
+				]
+			: []),
 		{ label: "Type", value: talk.type },
-		{ label: "Category", value: talk.category },
 		...(talk.level ? [{ label: "Level", value: talk.level }] : []),
-		{ label: "Duration", value: `${talk.durationMinutes} minutes` },
+		...(talk.durationMinutes > 0
+			? [{ label: "Duration", value: `${talk.durationMinutes} minutes` }]
+			: []),
 	];
 
 	return (
@@ -235,12 +259,22 @@ export default async function TalkPage({ params }: Props) {
 				</Link>
 
 				<header className="mt-4 max-w-4xl">
+					{given && (
+						<p className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+							{session && upcoming.length > 0 && (
+								<span className="rounded-full bg-brand px-2.5 py-0.5 font-medium text-white">
+									Upcoming
+								</span>
+							)}
+							{given}
+						</p>
+					)}
 					<h1 className="display-xl">{talk.title}</h1>
 					{talk.tagline && <p className="lede mt-5">{talk.tagline}</p>}
 				</header>
 
 				<div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16">
-					<aside className="lg:sticky lg:top-24 lg:col-start-2 lg:row-start-1 lg:self-start">
+					<div className="lg:sticky lg:top-24 lg:col-start-2 lg:row-start-1 lg:self-start">
 						<dl className="grid grid-cols-2 gap-x-6 gap-y-4 border-t-2 border-brand pt-4 lg:grid-cols-1">
 							{facts.map((f) => (
 								<div key={f.label}>
@@ -261,7 +295,7 @@ export default async function TalkPage({ params }: Props) {
 								))}
 							</ul>
 						)}
-					</aside>
+					</div>
 					<div className="min-w-0 lg:col-start-1 lg:row-start-1">
 						{talk.showcaseImage && (
 							<div className="relative aspect-video overflow-hidden rounded-[1.75rem] border border-border bg-secondary">
@@ -305,10 +339,10 @@ export default async function TalkPage({ params }: Props) {
 							</section>
 						)}
 
-						{talk.videoUrl && (
+						{links.video && (
 							<p className="mt-12">
 								<a
-									href={talk.videoUrl}
+									href={links.video}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="text-link inline-flex min-h-10 items-center gap-1.5 font-medium"
@@ -319,12 +353,12 @@ export default async function TalkPage({ params }: Props) {
 							</p>
 						)}
 
-						{talk.primarySlideUrl && (
+						{links.slides && (
 							<section className="mt-12">
 								<div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
 									<h2 className="display-md">Slides</h2>
 									<a
-										href={talk.primarySlideUrl}
+										href={links.slides}
 										target="_blank"
 										rel="noopener noreferrer"
 										className="text-link inline-flex min-h-10 items-center gap-1.5 text-sm font-medium"
@@ -339,7 +373,7 @@ export default async function TalkPage({ params }: Props) {
 							</section>
 						)}
 
-						{upcoming.length > 0 && (
+						{!session && upcoming.length > 0 && (
 							<section className="mt-12">
 								<h2 className="display-md">Upcoming</h2>
 								<ul className="mt-4 divide-y divide-border border-y border-border">
@@ -355,7 +389,7 @@ export default async function TalkPage({ params }: Props) {
 							</section>
 						)}
 
-						{delivered.length > 0 && (
+						{!session && delivered.length > 0 && (
 							<section className="mt-12">
 								<h2 className="display-md">
 									Delivered{" "}

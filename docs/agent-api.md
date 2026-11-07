@@ -91,6 +91,10 @@ All paths are under `/api/agent/v1`. Resources: `talks`, `about`, `research`,
 `selected-work`, `projects`, `recommendations`, `gallery`, `awards`,
 `certifications`. Awards and selected work stay editable, but no public page shows them.
 
+A `talks` record is one deck, and `/speaking` lists one entry per record. `events`
+says where that deck was given, usually once. A record whose events point at
+different decks is refused: give the other deck its own talk.
+
 | Method & path                  | Does                                                           |
 | ------------------------------ | -------------------------------------------------------------- |
 | `GET /`                        | Your token's scopes, the rules, and a JSON Schema per resource |

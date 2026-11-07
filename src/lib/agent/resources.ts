@@ -102,8 +102,14 @@ export type Adapter = {
 		input: Rec,
 		ctx: { id?: string; current: Rec | null; siblings: Row[] },
 	): Rec;
-	/** Rules spanning fields, checked on the final record of every agent write. */
-	crossIssues?(record: Rec): { path: string; message: string }[];
+	/**
+	 * Rules spanning fields, checked on the final record of every agent write.
+	 * `before` is the version the store already accepted, if any.
+	 */
+	crossIssues?(
+		record: Rec,
+		before: Rec | null,
+	): { path: string; message: string }[];
 	write(record: Rec, opts: WriteOptions): Promise<{ record: Rec; rev: number }>;
 	remove?(id: string, opts: WriteOptions): Promise<number>;
 	reorder?(
@@ -177,7 +183,7 @@ const talks: Adapter = {
 	name: "talks",
 	kind: "collection",
 	description:
-		"Talks, workshops, keynotes, and podcasts on /speaking. One talk has many events.",
+		"Talks, workshops, keynotes, and podcasts on /speaking. A talk is one deck, given at one or more events; a different deck is a different talk.",
 	idField: "slug",
 	lifecycle: { field: "status", draftValue: "draft" },
 	liveRule: 'status === "published"',
@@ -232,10 +238,7 @@ const talks: Adapter = {
 		rec.events = withEventIds(String(rec.slug), rec.events);
 		return rec;
 	},
-	crossIssues: (rec) =>
-		talkCrossIssues(rec as { type?: string; level?: string }).map(
-			(message) => ({ path: "level", message }),
-		),
+	crossIssues: (rec, before) => talkCrossIssues(rec, before),
 	async write(record, opts) {
 		const res = await upsertTalk(record as Talk, opts);
 		return { record: res.talk as Rec, rev: res.rev };

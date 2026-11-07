@@ -51,7 +51,7 @@ export const talkInput = z.strictObject({
 	durationMinutes: z
 		.number()
 		.int()
-		.min(1)
+		.min(0)
 		.max(24 * 60)
 		.optional(),
 	tags: lineList(30, 60).optional(),
@@ -85,18 +85,56 @@ export const talkInput = z.strictObject({
 		.optional(),
 });
 
-/** Rules that span fields, checked on the merged record. */
-export function talkCrossIssues(talk: {
-	type?: string;
-	level?: string;
-}): string[] {
+type TalkDecks = {
+	primarySlideUrl?: string;
+	events?: { slideUrl?: string }[];
+};
+
+/** What identifies a deck: its id, however the link to it is written. */
+function deckKey(url: string): string {
+	const id = url.match(
+		/(?:canva\.com\/design|docs\.google\.com\/presentation\/d(?:\/e)?)\/([^/?#]+)/,
+	);
+	return id ? id[1] : url;
+}
+
+/** The decks a talk points at. Two links to one deck count once. */
+function decksOf(talk: TalkDecks): Set<string> {
+	return new Set(
+		[talk.primarySlideUrl, ...(talk.events ?? []).map((e) => e.slideUrl)]
+			.filter((url): url is string => Boolean(url))
+			.map(deckKey),
+	);
+}
+
+/**
+ * Rules that span fields, checked on the merged record. `before` is what the store
+ * already holds: only a write that brings in another deck can bundle, so an older
+ * bundled record can still be edited, unpublished, or split.
+ */
+export function talkCrossIssues(
+	talk: TalkDecks & { type?: string; level?: string },
+	before?: TalkDecks | null,
+): { path: string; message: string }[] {
+	const issues: { path: string; message: string }[] = [];
 	if (
 		talk.level &&
 		TYPES_WITHOUT_LEVEL.includes(talk.type as (typeof TALK_TYPES)[number])
 	) {
-		return [`a ${talk.type} has no level; remove "level"`];
+		issues.push({
+			path: "level",
+			message: `a ${talk.type} has no level; remove "level"`,
+		});
 	}
-	return [];
+	const decks = decksOf(talk);
+	const known = before ? decksOf(before) : new Set<string>();
+	if (decks.size > 1 && [...decks].some((deck) => !known.has(deck))) {
+		issues.push({
+			path: "events",
+			message: "a talk has one deck; give a different deck its own talk",
+		});
+	}
+	return issues;
 }
 
 export const aboutInput = z.strictObject({

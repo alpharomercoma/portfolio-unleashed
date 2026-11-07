@@ -400,11 +400,13 @@ async function commit(
 		);
 	}
 	// Cross-field rules on the final record, whatever produced it (create, PUT,
-	// merge patch with removals, or revert). The owner's dashboard is exempt.
+	// merge patch with removals, or revert). The owner's dashboard is exempt. A
+	// revert restores a version the store already held, so it is its own "before".
+	const before = action.startsWith("revert:") ? parsed.record : current.record;
 	const cross =
 		ctx.actor?.type === "admin"
 			? []
-			: (adapter.crossIssues?.(parsed.record) ?? []);
+			: (adapter.crossIssues?.(parsed.record, before) ?? []);
 	if (cross.length) throw validationError(cross);
 	const changed = changedFields(current.record, parsed.record);
 	const base = {

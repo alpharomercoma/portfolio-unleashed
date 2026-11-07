@@ -28,6 +28,16 @@ A `research` entry shows its `finding` first; `bars` holds its chart rows as
 `"Label = 42%"`, with a leading `*` on the row the finding is about. Copy these
 numbers from the study and never estimate them.
 
+A `talks` record is one deck, and /speaking lists one entry per record. Give every
+deck its own record under the deck's own title, even when it reworks an earlier
+talk; the API refuses a record whose events point at different decks. `events`
+normally holds one session, and gets a second only when the same deck is given
+again. Take dates and titles from the deck or the event's own page. Leave out what
+you can't source: an empty `venue`, `audienceSize`, or `durationMinutes` isn't
+shown. Check a Google deck is shared by link before linking it, or the embed shows
+a sign-in wall. Covers go in `public/talks/covers/`, so a new one needs a deploy
+before a record can point at it.
+
 Before writing a resource for the first time, run `pnpm agent schema <resource>`
 for the exact fields. Unknown fields are rejected.
 

@@ -404,6 +404,12 @@ describe("validation guardrails", () => {
 		expect(ok.status).toBe(201);
 	});
 
+	it("takes a talk with no recorded duration", async () => {
+		const ok = await create({ ...DRAFT_TALK, title: "No Duration Known" });
+		expect(ok.status).toBe(201);
+		expect(ok.body.data.durationMinutes).toBe(0);
+	});
+
 	it("rejects invisible and control characters, and bad shapes", async () => {
 		for (const body of [
 			{ ...DRAFT_TALK, title: "Hello‮evil" },
@@ -415,6 +421,17 @@ describe("validation guardrails", () => {
 			{ ...DRAFT_TALK, durationMinutes: "60" },
 			{ ...DRAFT_TALK, durationMinutes: 1e308 },
 			{ ...DRAFT_TALK, durationMinutes: 1.5 },
+			{ ...DRAFT_TALK, durationMinutes: -1 },
+			{
+				...DRAFT_TALK,
+				primarySlideUrl: "https://docs.google.com/presentation/d/a/edit",
+				events: [
+					{
+						...DRAFT_TALK.events[0],
+						slideUrl: "https://docs.google.com/presentation/d/b/edit",
+					},
+				],
+			},
 			{ ...DRAFT_TALK, tags: ["a", "A"] },
 			{ ...DRAFT_TALK, type: "Podcast", level: "Advanced" },
 			{
@@ -932,6 +949,44 @@ describe("review regressions (Codex round 1)", () => {
 			actor: { type: "admin" },
 		});
 		expect(WriteConflictError).toBeTruthy();
+	});
+
+	it("keeps an older bundled talk editable, splittable, and revertable", async () => {
+		const slug = "git-and-github-foundations";
+		const cur = (await h.call("GET", `/talks/${slug}`)).body.data;
+		const deck = (id: string) =>
+			`https://docs.google.com/presentation/d/${id}/edit`;
+		const session = { ...cur.events[0], slideUrl: deck("a") };
+		// Saved before the rule: two decks on one talk.
+		await upsertTalk(
+			{
+				...cur,
+				primarySlideUrl: deck("a"),
+				events: [session, { ...session, id: "second", slideUrl: deck("b") }],
+			},
+			{ mustExist: true, expectedRev: 0 },
+		);
+		const edit = await h.call("PATCH", `/talks/${slug}`, {
+			ifMatch: 1,
+			body: { tagline: "An edit that adds no deck" },
+		});
+		expect(edit.status).toBe(200);
+		const third = await h.call("PATCH", `/talks/${slug}`, {
+			ifMatch: 2,
+			body: { primarySlideUrl: deck("c") },
+		});
+		expect(third.status).toBe(422);
+		const split = await h.call("PATCH", `/talks/${slug}`, {
+			ifMatch: 2,
+			body: { events: [session] },
+		});
+		expect(split.status).toBe(200);
+		const back = await h.call("POST", `/talks/${slug}/revert`, {
+			ifMatch: 3,
+			body: { rev: 2 },
+		});
+		expect(back.status).toBe(200);
+		expect(back.body.data.events).toHaveLength(2);
 	});
 
 	it("won't let agents revert to a version that fails today's guardrails", async () => {

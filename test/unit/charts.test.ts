@@ -1,15 +1,21 @@
 import { describe, expect, it } from "vitest";
 
 import { chartRows, parseBar } from "@/components/charts";
+import { talkLinks } from "@/components/speaking/talk-meta";
+import { talkCrossIssues } from "@/lib/agent/schemas";
 import { isChartable } from "@/lib/chart-rows";
 import {
 	computeStats,
 	sessionsByYear,
 	talkEventSchema,
+	talkSchema,
 	talksByCategory,
+	talksByYear,
 } from "@/lib/talks/schema";
 import type { Talk } from "@/lib/talks/schema";
 import { firstSentence } from "@/lib/utils";
+
+import talksSeed from "../../data/talks.seed.json";
 
 describe("parseBar", () => {
 	it("reads a label, a printed value, and the number behind the bar", () => {
@@ -166,5 +172,144 @@ describe("isChartable", () => {
 	it("refuses rows the page would silently leave out", () => {
 		expect(isChartable(["A = 1 ms", "B = unavailable"])).toBe(false);
 		expect(isChartable(["A = 900 ms", "B = 1.2 s"])).toBe(false);
+	});
+});
+
+describe("the talk catalogue", () => {
+	const dated = (slug: string, ...dates: string[]) =>
+		talkSchema.parse({
+			slug,
+			title: slug,
+			events: dates.map((date, i) => ({
+				id: `${slug}-${i}`,
+				eventName: "Event",
+				organizerName: "Org",
+				date,
+			})),
+		});
+
+	it("groups talks by year, newest year and newest talk first", () => {
+		const groups = talksByYear([
+			dated("old", "2024-04-20"),
+			dated("mid", "2026-01-08"),
+			dated("new", "2026-11-06"),
+		]);
+		expect(groups.map((g) => [g.year, g.talks.map((t) => t.slug)])).toEqual([
+			["2026", ["new", "mid"]],
+			["2024", ["old"]],
+		]);
+	});
+
+	it("files a talk under its latest session, and an undated one last", () => {
+		const groups = talksByYear([
+			dated("none"),
+			dated("twice", "2025-01-01", "2026-01-01"),
+		]);
+		expect(groups.map((g) => g.year)).toEqual(["2026", "Undated"]);
+	});
+
+	it("doesn't claim a duration nobody recorded", () => {
+		expect(dated("a", "2026-01-01").durationMinutes).toBe(0);
+	});
+
+	it("refuses two decks on one talk, and allows a deck given twice", () => {
+		const session = (slideUrl?: string) => ({ slideUrl });
+		const a = "https://docs.google.com/presentation/d/a/edit";
+		const b = "https://docs.google.com/presentation/d/b/edit";
+		const paths = (...args: Parameters<typeof talkCrossIssues>) =>
+			talkCrossIssues(...args).map((i) => i.path);
+		expect(paths({ primarySlideUrl: a, events: [session(b)] })).toEqual([
+			"events",
+		]);
+		expect(paths({ events: [session(a), session(b)] })).toEqual(["events"]);
+		expect(
+			paths({ primarySlideUrl: a, events: [session(a), session(a)] }),
+		).toEqual([]);
+		expect(
+			paths({ primarySlideUrl: a, events: [session(""), session()] }),
+		).toEqual([]);
+	});
+
+	it("counts two links to one deck once", () => {
+		const a = "https://docs.google.com/presentation/d/a/edit";
+		expect(
+			talkCrossIssues({
+				primarySlideUrl: a,
+				events: [{ slideUrl: `${a}?usp=sharing` }],
+			}),
+		).toEqual([]);
+		const canva = "https://www.canva.com/design/DAGSHoSgVYE/token/view";
+		expect(
+			talkCrossIssues({
+				primarySlideUrl: canva,
+				events: [{ slideUrl: `${canva}?embed` }],
+			}),
+		).toEqual([]);
+		expect(
+			talkCrossIssues({
+				primarySlideUrl: canva,
+				events: [
+					{ slideUrl: "https://www.canva.com/design/DAGgCsmcztc/t/view" },
+				],
+			}).map((i) => i.path),
+		).toEqual(["events"]);
+	});
+
+	it("lets an older bundle be edited or split, but adds no deck to it", () => {
+		const deck = (id: string) =>
+			`https://docs.google.com/presentation/d/${id}/edit`;
+		const bundled = {
+			primarySlideUrl: deck("a"),
+			events: [{ slideUrl: deck("a") }, { slideUrl: deck("b") }],
+		};
+		expect(talkCrossIssues(bundled, bundled)).toEqual([]);
+		expect(
+			talkCrossIssues(
+				{ primarySlideUrl: deck("a"), events: [{ slideUrl: deck("a") }] },
+				bundled,
+			),
+		).toEqual([]);
+		expect(
+			talkCrossIssues(
+				{
+					...bundled,
+					events: [{ slideUrl: deck("c") }, { slideUrl: deck("b") }],
+				},
+				bundled,
+			).map((i) => i.path),
+		).toEqual(["events"]);
+	});
+
+	it("takes the deck and recording from a talk's only session", () => {
+		const deck = "https://docs.google.com/presentation/d/a/edit";
+		const video = "https://youtu.be/a";
+		const session = {
+			id: "e",
+			eventName: "Event",
+			organizerName: "Org",
+			date: "2026-01-01",
+			slideUrl: deck,
+			videoUrl: video,
+		};
+		const talk = (events: (typeof session)[]) =>
+			talkSchema.parse({ slug: "a", title: "A", events });
+		expect(talkLinks(talk([session]))).toEqual({ slides: deck, video });
+		// With several sessions, the table lists each session's own links.
+		expect(talkLinks(talk([session, { ...session, id: "f" }]))).toEqual({
+			slides: "",
+			video: "",
+		});
+		expect(
+			talkLinks(talk([{ ...session, slideUrl: "javascript:alert(1)" }])).slides,
+		).toBe("");
+	});
+
+	it("seeds a valid catalogue, with one deck per talk", () => {
+		const slugs = talksSeed.map((t) => t.slug);
+		expect(new Set(slugs).size).toBe(slugs.length);
+		for (const raw of talksSeed) {
+			const talk = talkSchema.parse(raw);
+			expect(talkCrossIssues(talk), talk.slug).toEqual([]);
+		}
 	});
 });

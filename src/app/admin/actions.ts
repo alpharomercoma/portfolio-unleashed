@@ -79,7 +79,7 @@ export async function saveTalk(formData: FormData) {
 		type,
 		category: String(formData.get("category") ?? "Community").trim(),
 		level,
-		durationMinutes: Number(formData.get("durationMinutes") ?? 60) || 60,
+		durationMinutes: Number(formData.get("durationMinutes")) || 0,
 		tags: parseLines(formData.get("tags")),
 		abstract: String(formData.get("abstract") ?? "").trim(),
 		outline: parseLines(formData.get("outline")),

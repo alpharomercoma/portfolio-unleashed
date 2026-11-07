@@ -272,7 +272,8 @@ export function TalkForm({
 						id="durationMinutes"
 						name="durationMinutes"
 						type="number"
-						defaultValue={t?.durationMinutes ?? 60}
+						min={0}
+						defaultValue={t?.durationMinutes || ""}
 					/>
 				</div>
 				<div className="space-y-2">

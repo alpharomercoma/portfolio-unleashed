@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-// A talk is a topic (abstract, outline, takeaways, metadata). It is delivered at
-// one or more events. Modeled on smatoto.dev: one talk -> many events.
+// A talk is one deck: its own title, abstract, outline, and slides. /speaking lists
+// one entry per talk. `events` says where that deck was given, usually once. A
+// reworked or retitled deck is a new talk, even on the same topic.
 
 export const TALK_TYPES = ["Talk", "Workshop", "Keynote", "Podcast"] as const;
 export const TALK_LEVELS = [
@@ -57,7 +58,8 @@ export const talkSchema = z.object({
 	category: z.string().max(80).default("Community"),
 	// Optional: podcasts and other conversational formats carry no level.
 	level: z.enum(TALK_LEVELS).optional(),
-	durationMinutes: z.number().int().positive().max(100_000).default(60),
+	// 0 means not recorded, and the page leaves it out.
+	durationMinutes: z.number().int().nonnegative().max(100_000).default(0),
 	tags: z.array(z.string().max(100)).max(50).default([]),
 	abstract: z.string().max(6000).default(""),
 	outline: z.array(z.string().max(500)).max(100).default([]),
@@ -112,6 +114,16 @@ export function sortTalksByRecency(talks: Talk[]): Talk[] {
 	return [...talks].sort((a, b) =>
 		latestEventDate(b).localeCompare(latestEventDate(a)),
 	);
+}
+
+/** The catalogue: talks grouped by the year they were given, newest year first. */
+export function talksByYear(talks: Talk[]): { year: string; talks: Talk[] }[] {
+	const years = new Map<string, Talk[]>();
+	for (const talk of sortTalksByRecency(talks)) {
+		const year = latestEventDate(talk).slice(0, 4) || "Undated";
+		years.set(year, [...(years.get(year) ?? []), talk]);
+	}
+	return [...years].map(([year, group]) => ({ year, talks: group }));
 }
 
 export function computeStats(talks: Talk[]): SpeakingStats {

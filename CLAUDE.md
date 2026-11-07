@@ -72,7 +72,7 @@ Content lives in **Upstash Redis** (talks, collections, about) and **Sanity** (b
 src/
   app/
     (marketing)/         # /, /about, /gallery, /privacy
-    speaking/            # /speaking + /speaking/[slug] — one talk → many events; draft/published status
+    speaking/            # /speaking + /speaking/[slug] — one entry per deck, by year; draft/published status
     blog/  studio/       # Sanity-backed blog + embedded Studio
     admin/               # dashboard; *-actions.ts server actions (talks, auth, collections, talk-ai)
     api/admin/{upload,media}   # Blob upload + media library (session-gated)
