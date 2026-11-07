@@ -29,8 +29,14 @@
 		"updatedAt": "2026-11-05T02:22:48.183Z"
 	},
 	{
+		"slug": "gitting-ready",
+		"title": "GITting Ready",
 		"tagline": "A Git and GitHub workshop where attendees deploy a site and open a pull request.",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
 		"durationMinutes": 0,
+		"tags": ["Git", "GitHub", "Version Control", "GitHub Pages", "Workshop"],
 		"abstract": "An online Git and GitHub workshop for FEU Tech students. It starts with version control, commits, branches, merge conflicts, and remotes. Then a 60-minute lab: personalize a website and deploy it to GitHub Pages, change it on a branch, and open a pull request to a class wall.",
 		"outline": [
 			"Why version control",
@@ -48,32 +54,24 @@
 			"Use one branch per feature and keep main working",
 			"Review each other's pull requests before you merge"
 		],
-		"tags": ["Git", "GitHub", "Version Control", "GitHub Pages", "Workshop"],
 		"featured": false,
 		"status": "published",
 		"showcaseImage": "/talks/covers/gitting-ready.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1dUXWxDmYo0iTy-FwoMTk-p1leRWeNMKWBcGv6PnoRkM/edit",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
-		"slug": "gitting-ready",
-		"title": "GITting Ready",
-		"type": "Workshop",
-		"category": "Developer Tools",
-		"level": "Foundational",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 120,
-				"slideUrl": "https://docs.google.com/presentation/d/1dUXWxDmYo0iTy-FwoMTk-p1leRWeNMKWBcGv6PnoRkM/edit",
-				"videoUrl": "",
 				"id": "gitting-ready-1",
 				"eventName": "GitHub @ FEU Tech AITS",
 				"organizerName": "FEU Tech Alliance of Information Technology Students",
 				"date": "2026-11-06",
-				"venue": "Online"
+				"venue": "Online",
+				"audienceSize": 120,
+				"slideUrl": "https://docs.google.com/presentation/d/1dUXWxDmYo0iTy-FwoMTk-p1leRWeNMKWBcGv6PnoRkM/edit",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:04.961Z",
+		"updatedAt": "2026-11-07T08:31:05.602Z"
 	},
 	{
 		"slug": "when-is-local-copilot-worth-it-three-open-weight-coders-vs-copilot-out-of-the-bo",
@@ -113,26 +111,21 @@
 				"date": "2026-10-28",
 				"venue": "Fort Mason, San Francisco",
 				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/1n0wCEUsScQFMbWIhfk1OVai1pNZ781RLG7GZejQHK4A/edit"
+				"slideUrl": "https://docs.google.com/presentation/d/1n0wCEUsScQFMbWIhfk1OVai1pNZ781RLG7GZejQHK4A/edit",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-08-09T09:58:19.451Z",
-		"updatedAt": "2026-08-09T09:58:19.451Z"
+		"updatedAt": "2026-11-07T08:31:15.051Z"
 	},
 	{
+		"slug": "navigating-the-grey-softcon-2026",
+		"title": "Navigating the Grey: Scaling from Single Worker to Multi-VM Undetectable Scrapers",
 		"tagline": "Building scraping pipelines that hold up against bot defenses at scale.",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Intermediate",
 		"durationMinutes": 60,
-		"abstract": "Modern web scraping requires navigating strict bot defense systems like Akamai and reCAPTCHA. Extracting data reliably at scale demands an architecture that accurately mimics human behavior for automated problem resolution. This session outlines the technical requirements for building resilient, high throughput scraping pipelines capable of operating undetected over time.",
-		"outline": [
-			"Execution pipelines: headless and headed Chrome with Xvfb, direct API requests, extension-based scrapers, and frameworks like Playwright, Patchright, and curl_cffi",
-			"Browser searching with locally hosted services like DuckDuckGo search and SearXNG",
-			"Automated verification: audio pipelines with ffmpeg, Faster Whisper, and Google STT, and visual models like CLIP",
-			"Data extraction with OCR engines like PyMuPDF, Tesseract, and RapidOCR",
-			"Digital identities: residential proxy rotation, browser fingerprints, and session trust-building",
-			"Scaling from a single worker to multi-threaded concurrency and multi-VM deployments",
-			"A practice target website to compete on after the session"
-		],
-		"keyTakeaways": [],
 		"tags": [
 			"web scraping",
 			"Playwright",
@@ -141,35 +134,50 @@
 			"OCR",
 			"bot evasion"
 		],
+		"abstract": "Modern web scraping requires navigating strict bot defense systems like Akamai and reCAPTCHA. Extracting data reliably at scale demands an architecture that accurately mimics human behavior for automated problem resolution. This session outlines the technical requirements for building resilient, high throughput scraping pipelines capable of operating undetected over time.",
+		"outline": [
+			"Building: where the data lives, from static HTML and Playwright to the page's own API",
+			"Renting or running search and scraping, and levels of OCR",
+			"Performance: sync and async, concurrency and parallelism, threads, processes, and the GIL",
+			"Scaling out: one job queue, containers, and a Terraform-managed fleet of VMs",
+			"Surviving: robots.txt, rate limits, reading failures, and a canary that fails loudly",
+			"Undetected: what a site checks, stealth browsers, proxies and IP reputation, extension scraping, burner emails, and CAPTCHA solvers",
+			"The greynet challenge: a practice target website"
+		],
+		"keyTakeaways": [
+			"Building: look before you scrape, trying the page's own API, then the HTML, then a browser",
+			"Performance: overlap the waiting, use processes for parsing, then scale out with one image, one queue, and many VMs",
+			"Surviving: start low, back off on 429, and check the content, because a 200 can mean no",
+			"Undetected: every layer must agree, with a clean IP, a real browser, and a human pace"
+		],
 		"featured": false,
 		"status": "published",
-		"showcaseImage": "",
-		"primarySlideUrl": "",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
-		"slug": "navigating-the-grey-softcon-2026",
-		"title": "Navigating the Grey: Scaling from Single Worker to Multi-VM Undetectable Scrapers",
-		"type": "Workshop",
-		"category": "Developer Tools",
-		"level": "Intermediate",
+		"showcaseImage": "/talks/covers/navigating-the-grey-softcon-2026.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1w7ooa2p-DrycfKC0ddJa3Ja8ZRHh5PFccPEm6WwGq38/edit",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 100,
-				"slideUrl": "",
-				"videoUrl": "",
 				"id": "navigating-the-grey-softcon-2026-1",
 				"eventName": "SOFTCON 2026",
 				"organizerName": "Philippine Software Industry Association",
 				"date": "2026-10-27",
-				"venue": "Online"
+				"venue": "Online",
+				"audienceSize": 100,
+				"slideUrl": "https://docs.google.com/presentation/d/1w7ooa2p-DrycfKC0ddJa3Ja8ZRHh5PFccPEm6WwGq38/edit",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:06.098Z",
+		"updatedAt": "2026-11-07T08:53:25.042Z"
 	},
 	{
+		"slug": "navigating-the-grey-resilient-python-scrapers",
+		"title": "Navigating the Grey: Building Resilient Python Scrapers That Survive at Scale",
 		"tagline": "Scraping the store directories of Philippine malls in Python, from the first request to a 53-mall run.",
+		"type": "Talk",
+		"category": "Developer Tools",
+		"level": "Intermediate",
 		"durationMinutes": 30,
+		"tags": ["web scraping", "Python", "Playwright", "asyncio", "proxies"],
 		"abstract": "A talk built on scraping the store directories of Philippine malls. It shows the three places data can live (static HTML, a JavaScript page, the page's own API), takes a 53-mall run from 32.5 s to 2.0 s with asyncio and one process per core, then covers rate limits, proxies, monitoring that fails loudly, and how to decide which barriers to stop at.",
 		"outline": [
 			"What a web scraper is and where it sits in the data value chain",
@@ -189,32 +197,24 @@
 			"Fail loudly: a 200 can mean no, so check every answer and run a check on a schedule",
 			"In the grey, ask who pays: what does the barrier protect, and would you sign your name to it?"
 		],
-		"tags": ["web scraping", "Python", "Playwright", "asyncio", "proxies"],
 		"featured": false,
 		"status": "published",
 		"showcaseImage": "/talks/covers/navigating-the-grey-resilient-python-scrapers.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1mI8LanGjCL8X_7j0wZfaR8GiDC_h2tZWt3owU8XsbTw/edit",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
-		"slug": "navigating-the-grey-resilient-python-scrapers",
-		"title": "Navigating the Grey: Building Resilient Python Scrapers That Survive at Scale",
-		"type": "Talk",
-		"category": "Developer Tools",
-		"level": "Intermediate",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 30,
-				"slideUrl": "https://docs.google.com/presentation/d/1mI8LanGjCL8X_7j0wZfaR8GiDC_h2tZWt3owU8XsbTw/edit",
-				"videoUrl": "",
 				"id": "navigating-the-grey-resilient-python-scrapers-1",
 				"eventName": "PyCon Davao 2026",
 				"organizerName": "DurianPy",
 				"date": "2026-10-17",
-				"venue": "Ateneo de Davao University, Davao City"
+				"venue": "Ateneo de Davao University, Davao City",
+				"audienceSize": 30,
+				"slideUrl": "https://docs.google.com/presentation/d/1mI8LanGjCL8X_7j0wZfaR8GiDC_h2tZWt3owU8XsbTw/edit",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:07.067Z",
+		"updatedAt": "2026-11-07T08:31:07.603Z"
 	},
 	{
 		"slug": "beyond-gpus-production-llms-on-aws-trainium-inferentia",
@@ -254,11 +254,51 @@
 				"date": "2026-09-22",
 				"venue": "AWS Office PH",
 				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/1ya_FQCdA86mOHMK_VsPfgzmaG3NsbloIkc4ye1r2Ltc/edit"
+				"slideUrl": "https://docs.google.com/presentation/d/1ya_FQCdA86mOHMK_VsPfgzmaG3NsbloIkc4ye1r2Ltc/edit",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-08-09T13:50:45.910Z",
-		"updatedAt": "2026-08-09T13:52:31.310Z"
+		"updatedAt": "2026-11-07T08:31:15.546Z"
+	},
+	{
+		"slug": "openai-for-cs-it-mma-engineering-innovation-day",
+		"title": "OpenAI for CS, IT, MMA, & Engineering",
+		"tagline": "Codex and ChatGPT across every program, built around one smart home case study.",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
+		"durationMinutes": 0,
+		"tags": ["OpenAI", "Codex", "ChatGPT", "Prompt Engineering", "Workshop"],
+		"abstract": "A session at FEU Institute of Technology's Innovation Day on using OpenAI tools across computer science, information technology, multimedia arts, and engineering. It covers the levels of AI, generative AI for product building, and prompt engineering, then applies Codex to a smart home case study that draws on every program, with a portfolio workshop in ChatGPT.",
+		"outline": [
+			"Levels and categories of AI",
+			"Generative AI for product building",
+			"Installing Codex CLI, with skills and plugins",
+			"Smart home case study: civil, electrical, mechanical, electronics, and computer engineering",
+			"Codex for computer science, multimedia arts, and information technology",
+			"Prompt engineering: zero-shot, few-shot, chain of thought, and meta prompting",
+			"Portfolio workshop with ChatGPT"
+		],
+		"keyTakeaways": [],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "/talks/covers/openai-for-cs-it-mma-engineering-innovation-day.jpg",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1SGhps61akACEdu4ef2dGud9iCaog3KhIB8vCstawoQo/edit",
+		"events": [
+			{
+				"id": "openai-for-cs-it-mma-engineering-innovation-day-1",
+				"eventName": "Innovation Day: AI Launchpad",
+				"organizerName": "FEU Institute of Technology",
+				"date": "2026-07-18",
+				"venue": "FEU Institute of Technology, Manila",
+				"audienceSize": 30,
+				"slideUrl": "https://docs.google.com/presentation/d/1SGhps61akACEdu4ef2dGud9iCaog3KhIB8vCstawoQo/edit",
+				"videoUrl": ""
+			}
+		],
+		"createdAt": "2026-11-07T08:53:23.523Z",
+		"updatedAt": "2026-11-07T08:53:24.093Z"
 	},
 	{
 		"slug": "openai-codex-for-cs-it-mma-and-engineering",
@@ -479,8 +519,14 @@
 		"updatedAt": "2026-06-15T15:14:29.418Z"
 	},
 	{
+		"slug": "de-mystifying-pytorch-for-asics-ai-study-group",
+		"title": "De-mystifying PyTorch for ASICs",
 		"tagline": "The PyTorch Conference Europe talk, extended for a community study group.",
+		"type": "Talk",
+		"category": "Accelerated Computing",
+		"level": "Intermediate",
 		"durationMinutes": 0,
+		"tags": ["PyTorch", "TPU", "Trainium", "ASICs"],
 		"abstract": "The PyTorch Conference Europe talk, extended for a community study group. It covers how ASICs and the XLA and Neuron compilers work, PyTorch/XLA on Google TPU and TorchNeuronX on AWS Trainium, the compiler tax, common ASIC errors, and migration notes. It adds where to get TPUs, the Paris experience, and how to speak at Linux Foundation events.",
 		"outline": [
 			"Deep learning computations and how ASICs and XLA work",
@@ -496,32 +542,24 @@
 			"PyTorch stays the standard framework, and ASICs are building on top of it",
 			"Moving to TPU or Trainium means learning new compile semantics and op coverage gaps"
 		],
-		"tags": ["PyTorch", "TPU", "Trainium", "ASICs"],
 		"featured": false,
 		"status": "published",
 		"showcaseImage": "/talks/covers/de-mystifying-pytorch-for-asics-ai-study-group.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
-		"slug": "de-mystifying-pytorch-for-asics-ai-study-group",
-		"title": "De-mystifying PyTorch for ASICs",
-		"type": "Talk",
-		"category": "Accelerated Computing",
-		"level": "Intermediate",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 20,
-				"slideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
-				"videoUrl": "",
 				"id": "de-mystifying-pytorch-for-asics-ai-study-group-1",
 				"eventName": "AI Study Group 2026",
 				"organizerName": "Data Engineering Pilipinas",
 				"date": "2026-05-09",
-				"venue": "Online"
+				"venue": "Online",
+				"audienceSize": 20,
+				"slideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:11.661Z",
+		"updatedAt": "2026-11-07T08:31:12.639Z"
 	},
 	{
 		"slug": "introduction-to-github-copilot-and-ai-development",
@@ -569,27 +607,28 @@
 	{
 		"slug": "frontiers-of-modern-ai-multimodality-and-accelerated-computing",
 		"title": "Frontiers of Modern AI: Multimodality and Accelerated Computing",
-		"tagline": "A tour of the two frontiers defining where AI is going.",
+		"tagline": "Foundations of Multimodal AI and De-mystifying PyTorch for ASICs, combined into one session.",
 		"type": "Talk",
 		"category": "AI & ML",
 		"level": "Intermediate",
 		"durationMinutes": 120,
 		"tags": ["Multimodality", "Accelerated Computing", "TPU", "H100", "VLM"],
-		"abstract": "A guided tour of the two frontiers shaping modern AI: multimodal fusion architectures that combine text, vision, and audio, and the accelerator stack (H100, TPU v6e, Trainium) that makes training them possible.",
+		"abstract": "Two earlier talks combined into one session, reusing their slides: Foundations of Multimodal AI and De-mystifying PyTorch for ASICs. The first half covers multimodal fusion architectures that combine text, vision, and audio. The second covers the accelerators that train them, including H100, TPU v6e, and Trainium. The slides here are the multimodal half; the accelerator half has its own entry.",
 		"outline": [
-			"Why multimodality and accelerated computing are converging",
-			"Multimodal fusion architectures in brief",
-			"The accelerator stack: H100, TPU v6e, Trainium",
-			"What this means for the next generation of models"
+			"Multimodality and fusion techniques",
+			"Multimodal models, datasets, training, and evaluation",
+			"How ASICs and XLA work",
+			"Google TPU and AWS Trainium with PyTorch",
+			"Performance, the compiler tax, and common ASIC errors"
 		],
 		"keyTakeaways": [
-			"Capability gains now come from both data modality and hardware",
-			"Knowing your accelerator options is a research advantage"
+			"Multimodal work is moving toward reasoning, multilingual, mobile-first, embedding, and RAG models",
+			"PyTorch stays the standard framework, and ASICs are building on top of it"
 		],
 		"featured": false,
 		"status": "published",
 		"showcaseImage": "/talks/covers/frontiers-of-modern-ai-multimodality-and-accelerated-computing.jpg",
-		"primarySlideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
+		"primarySlideUrl": "https://docs.google.com/presentation/d/1Y9aEIYOH4kII2bZbRozImrNcXjVey7UF-3koMrHRheo/edit",
 		"videoUrl": "",
 		"events": [
 			{
@@ -600,12 +639,12 @@
 				"date": "2026-04-10",
 				"venue": "FEU Institute of Technology",
 				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/11Yb8gllp48PWzvoU3Vm22ibUUEJTK7qxswhkkFZKhQE/edit",
+				"slideUrl": "https://docs.google.com/presentation/d/1Y9aEIYOH4kII2bZbRozImrNcXjVey7UF-3koMrHRheo/edit",
 				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
+		"updatedAt": "2026-11-07T08:53:25.594Z"
 	},
 	{
 		"slug": "de-mystifying-pytorch-for-asics",
@@ -645,11 +684,12 @@
 				"date": "2026-04-08",
 				"venue": "Station F, Paris, France",
 				"audienceSize": 100,
-				"slideUrl": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit"
+				"slideUrl": "https://docs.google.com/presentation/d/1sEqxCAIanj4RxWn3quSA1JZQFzoUjaiRmUxyBjahKmc/edit",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-11-05T02:22:48.540Z"
+		"updatedAt": "2026-11-07T08:31:14.596Z"
 	},
 	{
 		"slug": "git-and-github-foundations",
@@ -688,11 +728,12 @@
 				"date": "2026-03-05",
 				"venue": "Jose Rizal University",
 				"audienceSize": 50,
-				"slideUrl": "https://docs.google.com/presentation/d/1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw/edit"
+				"slideUrl": "https://docs.google.com/presentation/d/1NkZ__hvRhYn7IHl_Jmo14K3OwfJp7YPvfsCRCvdeUvw/edit",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
+		"updatedAt": "2026-11-07T08:31:13.571Z"
 	},
 	{
 		"slug": "online-safety-in-the-age-of-ai",
@@ -956,37 +997,34 @@
 		"updatedAt": "2026-06-14T00:00:00.000Z"
 	},
 	{
-		"tagline": "",
-		"durationMinutes": 0,
-		"abstract": "A foundational workshop on Git and GitHub: the core commands, the commit workflow, branching, and pull requests.",
-		"outline": [],
-		"keyTakeaways": [],
-		"tags": ["Git", "GitHub", "Workshop"],
-		"featured": false,
-		"status": "published",
-		"showcaseImage": "",
-		"primarySlideUrl": "",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
 		"slug": "lets-git-ready-from-commit-to-career",
 		"title": "Let's Git Ready: From Commit to Career",
+		"tagline": "",
 		"type": "Workshop",
 		"category": "Developer Tools",
 		"level": "Foundational",
+		"durationMinutes": 0,
+		"tags": ["Git", "GitHub", "Workshop"],
+		"abstract": "A foundational workshop on Git and GitHub: the core commands, the commit workflow, branching, and pull requests.",
+		"outline": [],
+		"keyTakeaways": [],
+		"featured": false,
+		"status": "published",
+		"showcaseImage": "",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 100,
-				"slideUrl": "",
-				"videoUrl": "",
 				"id": "lets-git-ready-from-commit-to-career-1",
 				"eventName": "Let's Git Ready: From Commit to Career",
 				"organizerName": "Association of Computer Science Students - PNC",
 				"date": "2025-10-24",
-				"venue": "Online"
+				"venue": "Online",
+				"audienceSize": 100,
+				"slideUrl": "",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:09.785Z",
+		"updatedAt": "2026-11-07T08:31:10.363Z"
 	},
 	{
 		"slug": "supercharge-your-ml-research-with-googles-tpu-research-cloud",
@@ -1025,15 +1063,22 @@
 				"date": "2025-10-17",
 				"venue": "Online",
 				"audienceSize": 120,
-				"slideUrl": "https://docs.google.com/presentation/d/1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4/edit"
+				"slideUrl": "https://docs.google.com/presentation/d/1C6ccqrJz--90Po2eo1G8F4Uko0TOejT6SNwInZswiJ4/edit",
+				"videoUrl": ""
 			}
 		],
 		"createdAt": "2026-06-14T00:00:00.000Z",
-		"updatedAt": "2026-06-14T00:00:00.000Z"
+		"updatedAt": "2026-11-07T08:31:14.075Z"
 	},
 	{
+		"slug": "boost-ml-research-with-tpu-research-cloud",
+		"title": "Boost ML Research with TPU Research Cloud",
 		"tagline": "How TPUs work, how they compare, and how to get free access to them.",
+		"type": "Talk",
+		"category": "Accelerated Computing",
+		"level": "Advanced",
 		"durationMinutes": 0,
+		"tags": ["TPU", "Google Cloud", "TRC", "PyTorch/XLA", "ML Research"],
 		"abstract": "How to get free access to Cloud TPUs through Google's TPU Research Cloud. It covers tensors and matrix multiplication, TPU architecture from systolic arrays to racks, training on MNIST across CPU, GPU, and TPU, where to get TPUs for free, how to apply to the program, and what that access would otherwise cost.",
 		"outline": [
 			"Tensors and matrix multiplication",
@@ -1049,32 +1094,24 @@
 			"TPUs work with the major deep learning frameworks",
 			"Applying to the TPU Research Cloud can save thousands of dollars in compute"
 		],
-		"tags": ["TPU", "Google Cloud", "TRC", "PyTorch/XLA", "ML Research"],
 		"featured": false,
 		"status": "published",
 		"showcaseImage": "/talks/covers/boost-ml-research-with-tpu-research-cloud.jpg",
 		"primarySlideUrl": "https://docs.google.com/presentation/d/1TZMmXumbaCf4PEIHcNVOuhwniLFJyOvLjPoZrnanb78/edit",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
-		"slug": "boost-ml-research-with-tpu-research-cloud",
-		"title": "Boost ML Research with TPU Research Cloud",
-		"type": "Talk",
-		"category": "Accelerated Computing",
-		"level": "Advanced",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 120,
-				"slideUrl": "https://docs.google.com/presentation/d/1TZMmXumbaCf4PEIHcNVOuhwniLFJyOvLjPoZrnanb78/edit",
-				"videoUrl": "",
 				"id": "boost-ml-research-with-tpu-research-cloud-1",
 				"eventName": "DevFest 2025",
 				"organizerName": "GDG Cloud Manila",
 				"date": "2025-10-13",
-				"venue": "LaunchGarage"
+				"venue": "LaunchGarage",
+				"audienceSize": 120,
+				"slideUrl": "https://docs.google.com/presentation/d/1TZMmXumbaCf4PEIHcNVOuhwniLFJyOvLjPoZrnanb78/edit",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:10.729Z",
+		"updatedAt": "2026-11-07T08:31:11.285Z"
 	},
 	{
 		"slug": "foundations-of-multimodal-ai-fusions-architectures-and-beyond",
@@ -1216,8 +1253,14 @@
 		"updatedAt": "2026-06-14T00:00:00.000Z"
 	},
 	{
+		"slug": "git-started-with-github",
+		"title": "Git Started with GitHub: Foundational Dev Workshop",
 		"tagline": "Git and GitHub from setup to advanced use, for PUP students with or without experience.",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
 		"durationMinutes": 120,
+		"tags": ["Git", "GitHub", "Version Control", "Workshop"],
 		"abstract": "A foundational online workshop for PUP CS and IT students and GDG on Campus members, with or without prior experience. It covers Git and GitHub setup, commits, branching, merge vs rebase, pull requests, using GitHub in organization and school projects, and branching strategies.",
 		"outline": [
 			"Git vs GitHub",
@@ -1230,36 +1273,34 @@
 			"Recommendations and certification vouchers"
 		],
 		"keyTakeaways": [],
-		"tags": ["Git", "GitHub", "Version Control", "Workshop"],
 		"featured": false,
 		"status": "published",
 		"showcaseImage": "/talks/covers/git-started-with-github.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
-		"slug": "git-started-with-github",
-		"title": "Git Started with GitHub: Foundational Dev Workshop",
-		"type": "Workshop",
-		"category": "Developer Tools",
-		"level": "Foundational",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 100,
-				"slideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
-				"videoUrl": "",
 				"id": "git-started-with-github-1",
 				"eventName": "Get Ready to Git Started with GitHub",
 				"organizerName": "Polytechnic University of the Philippines",
 				"date": "2025-02-26",
-				"venue": "Online"
+				"venue": "Online",
+				"audienceSize": 100,
+				"slideUrl": "https://www.canva.com/design/DAGgCsmcztc/tl9-PQ-MqNSL42RuamjAqA/view",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:08.943Z",
+		"updatedAt": "2026-11-07T08:31:09.444Z"
 	},
 	{
+		"slug": "get-certified-with-github",
+		"title": "Get Certified with GitHub: Certification Training Workshop",
 		"tagline": "Preparing FEU Tech students for the GitHub Foundations exam.",
+		"type": "Workshop",
+		"category": "Developer Tools",
+		"level": "Foundational",
 		"durationMinutes": 0,
+		"tags": ["Git", "GitHub", "Certification", "Workshop"],
 		"abstract": "A practical workshop for FEU Tech CS and IT students, with or without prior experience, preparing for the GitHub Foundations certification. It works through the exam's seven domains, setting up a GitHub profile, using GitHub in school projects, and industry practices.",
 		"outline": [
 			"GitHub certification exams and why to take one",
@@ -1277,32 +1318,24 @@
 			"The exam is 75 multiple-choice questions in 2 hours, with no penalty for wrong answers",
 			"The certification is valid for 3 years"
 		],
-		"tags": ["Git", "GitHub", "Certification", "Workshop"],
 		"featured": false,
 		"status": "published",
 		"showcaseImage": "/talks/covers/get-certified-with-github.jpg",
 		"primarySlideUrl": "https://www.canva.com/design/DAGSHoSgVYE/o8DVbBqk80T00npdVFSs2g/view",
-		"videoUrl": "",
-		"createdAt": "2026-11-07T00:00:00.000Z",
-		"updatedAt": "2026-11-07T00:00:00.000Z",
-		"slug": "get-certified-with-github",
-		"title": "Get Certified with GitHub: Certification Training Workshop",
-		"type": "Workshop",
-		"category": "Developer Tools",
-		"level": "Foundational",
 		"events": [
 			{
-				"organizerLogo": "",
-				"audienceSize": 30,
-				"slideUrl": "https://www.canva.com/design/DAGSHoSgVYE/o8DVbBqk80T00npdVFSs2g/view",
-				"videoUrl": "",
 				"id": "get-certified-with-github-1",
 				"eventName": "Revival X: Git Grimoire",
 				"organizerName": "FEU Tech ACM Student Chapter",
 				"date": "2025-01-24",
-				"venue": "FEU Institute of Technology"
+				"venue": "FEU Institute of Technology",
+				"audienceSize": 30,
+				"slideUrl": "https://www.canva.com/design/DAGSHoSgVYE/o8DVbBqk80T00npdVFSs2g/view",
+				"videoUrl": ""
 			}
-		]
+		],
+		"createdAt": "2026-11-07T08:31:08.014Z",
+		"updatedAt": "2026-11-07T08:31:08.568Z"
 	},
 	{
 		"slug": "demonstrating-websites-and-internal-data-handling",
