@@ -1,3 +1,4 @@
+import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 
 import { chartRows, parseBar } from "@/components/charts";
@@ -13,7 +14,7 @@ import {
 	talksByYear,
 } from "@/lib/talks/schema";
 import type { Talk } from "@/lib/talks/schema";
-import { firstSentence } from "@/lib/utils";
+import { firstSentence, splitQuote } from "@/lib/utils";
 
 import talksSeed from "../../data/talks.seed.json";
 
@@ -140,6 +141,43 @@ describe("speaking charts", () => {
 			{ category: "A", talks: 1 },
 			{ category: "B", talks: 1 },
 		]);
+	});
+});
+
+describe("splitQuote", () => {
+	const long =
+		"Beyond the code, she was a careful and generous member of the reading group we ran each week, an hour set aside for papers, always bringing questions and sharing notes.";
+
+	it("heads with the first sentence and keeps the rest", () => {
+		expect(splitQuote("Short and sweet. Then more detail.")).toEqual({
+			lead: "Short and sweet.",
+			rest: "Then more detail.",
+		});
+	});
+
+	it("cuts a long single sentence at its last clause break that fits", () => {
+		const { lead, rest } = splitQuote(long);
+		expect(lead).toBe(
+			"Beyond the code, she was a careful and generous member of the reading group we ran each week,",
+		);
+		expect(lead.length).toBeLessThanOrEqual(120);
+		expect(`${lead} ${rest}`).toBe(long);
+	});
+
+	it("keeps a long sentence whole when the only break comes too early", () => {
+		const text = `Briefly, ${"word ".repeat(30).trim()}.`;
+		expect(splitQuote(text)).toEqual({ lead: text, rest: "" });
+	});
+
+	it("never drops or reorders text", () => {
+		fc.assert(
+			fc.property(fc.string(), (text) => {
+				const { lead, rest } = splitQuote(text);
+				const quote = text.trim();
+				expect(quote.startsWith(lead)).toBe(true);
+				expect(quote.slice(lead.length).trim()).toBe(rest);
+			}),
+		);
 	});
 });
 

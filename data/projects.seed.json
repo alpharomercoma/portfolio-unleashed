@@ -225,7 +225,8 @@
 		"demoLabel": "",
 		"image": "",
 		"order": 40,
-		"headline": "Benchmarks for ExecuTorch models on real phones, in progress."
+		"headline": "Benchmarks for ExecuTorch models on real phones, in progress.",
+		"hidden": true
 	},
 	{
 		"id": "penge-passport-ph",
@@ -254,7 +255,8 @@
 		"demoLabel": "Live site",
 		"image": "",
 		"order": 50,
-		"headline": "Can you run that model on that AI ASIC?"
+		"headline": "Can you run that model on that AI ASIC?",
+		"hidden": true
 	},
 	{
 		"id": "compute-visualizer",
@@ -269,7 +271,8 @@
 		"demoLabel": "Live site",
 		"image": "",
 		"order": 60,
-		"headline": "Why is this LLM workload slow?"
+		"headline": "Why is this LLM workload slow?",
+		"hidden": true
 	},
 	{
 		"id": "feu-tech-acmx",
