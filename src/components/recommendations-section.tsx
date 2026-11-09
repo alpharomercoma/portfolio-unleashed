@@ -3,10 +3,10 @@
 import { useId, useState } from "react";
 
 import type { Recommendation } from "@/lib/collections/schema";
-import { cn, firstSentence } from "@/lib/utils";
+import { cn, splitQuote } from "@/lib/utils";
 
-// One voice at a time, large. Its opening sentence is the headline and the rest of
-// the quote follows, never cut. The names sit above it: quotes differ in length, so
+// One voice at a time, large. Its opening sentence is the headline (only its first
+// clause when the sentence runs long) and the rest of the quote follows, never cut. The names sit above it: quotes differ in length, so
 // below it they'd move under the finger, and on a phone the answer would change
 // out of view.
 export function RecommendationsSection({
@@ -20,9 +20,7 @@ export function RecommendationsSection({
 		recommendations.find((r) => r.id === activeId) ?? recommendations[0];
 	if (!active) return null;
 
-	const quote = active.quote.trim();
-	const lead = firstSentence(quote);
-	const rest = quote.slice(lead.length).trim();
+	const { lead, rest } = splitQuote(active.quote);
 
 	return (
 		<section

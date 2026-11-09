@@ -89,3 +89,24 @@ export function firstSentence(text: string): string {
 	const m = /^[\s\S]*?[a-z0-9)]{2}[.!?](?=\s+[A-Z])/.exec(trimmed);
 	return m ? m[0] : trimmed;
 }
+
+/**
+ * A quote split into a headline and the rest, with nothing dropped. The headline
+ * is the first sentence. When that sentence runs past `max` characters, the
+ * headline stops at its last clause break that fits (a comma, semicolon, or
+ * dash), so the rest still reads as body text.
+ */
+export function splitQuote(
+	text: string,
+	max = 120,
+): { lead: string; rest: string } {
+	const quote = text.trim();
+	let lead = firstSentence(quote);
+	if (lead.length > max) {
+		const breaks = [...lead.slice(0, max).matchAll(/[,;:\u2013\u2014](?=\s)/g)];
+		const cut = breaks.at(-1)?.index;
+		// Too early a break leaves a stub for a headline; keep the sentence whole.
+		if (cut !== undefined && cut >= 40) lead = lead.slice(0, cut + 1);
+	}
+	return { lead, rest: quote.slice(lead.length).trim() };
+}

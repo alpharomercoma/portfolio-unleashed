@@ -5,12 +5,14 @@ import { Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Each logo gets a class that evens out its visual mass, because the files have
-// very different aspect ratios.
+// very different aspect ratios. All of them render as one flat grey, so no mark
+// reads darker or more coloured than the rest; the files need a transparent
+// background for that.
 const affiliations = [
 	{ name: "AWS", logo: "/aws.png", size: "h-6 sm:h-7" },
 	{ name: "Google Cloud", logo: "/gcp.png", size: "h-7 sm:h-8" },
 	{ name: "PyTorch", logo: "/pytorch.png", size: "h-5 sm:h-6" },
-	{ name: "GitHub", logo: "/github.jpg", size: "h-7 sm:h-8" },
+	{ name: "GitHub", logo: "/github.png", size: "h-7 sm:h-8" },
 ];
 
 export function HeroSection() {
@@ -85,7 +87,7 @@ export function HeroSection() {
 								alt={company.name}
 								width={120}
 								height={48}
-								className={`w-auto object-contain mix-blend-multiply grayscale ${company.size}`}
+								className={`w-auto object-contain opacity-60 brightness-0 ${company.size}`}
 							/>
 						</li>
 					))}
